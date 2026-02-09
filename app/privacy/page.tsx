@@ -20,7 +20,7 @@ export default function PrivacyPage() {
     <div className={styles.page}>
       <div className={styles.container}>
         <h1 className={styles.title}>Privacy Policy</h1>
-        <p className={styles.updated}>Last Updated: October 30, 2025</p>
+        <p className={styles.updated}>Last Updated: February 9, 2026</p>
 
         <div className={styles.content}>
           <section className={styles.section}>
@@ -89,6 +89,7 @@ export default function PrivacyPage() {
               <li><strong>Supabase:</strong> Database and authentication</li>
               <li><strong>Vercel:</strong> Website hosting</li>
               <li><strong>Resend:</strong> Transactional emails</li>
+              <li><strong>Twilio:</strong> SMS text messaging for booking notifications</li>
               <li><strong>Google/Meta/Microsoft:</strong> Analytics and advertising</li>
             </ul>
 
@@ -108,7 +109,40 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>5. Data Security</h2>
+            <h2>5. SMS/Text Messaging</h2>
+
+            <h3>5.1 What Information We Collect</h3>
+            <p>
+              When you opt in to receive text messages from Sweet Dreams Music LLC, we collect your mobile phone number. We may also associate your phone number with your booking details and account information to personalize messages.
+            </p>
+
+            <h3>5.2 How We Use Your Phone Number</h3>
+            <p>We use your phone number exclusively to send you:</p>
+            <ul>
+              <li>Booking confirmations and session details</li>
+              <li>Session reminders before your scheduled appointment</li>
+              <li>Important updates or changes to your booking</li>
+              <li>Responses to your inquiries</li>
+            </ul>
+
+            <h3>5.3 No Sharing with Third Parties</h3>
+            <p>
+              We will never sell, rent, or share your phone number with third parties for their marketing purposes. Your phone number is shared only with our SMS service provider (Twilio) solely for the purpose of delivering messages to you.
+            </p>
+
+            <h3>5.4 Opting Out</h3>
+            <p>
+              You can opt out of receiving text messages at any time by replying <strong>STOP</strong> to any message. After opting out, you will receive a final confirmation message and no further texts will be sent. You can opt back in at any time by texting <strong>START</strong> to our number or by opting in again during the booking process.
+            </p>
+
+            <h3>5.5 Message Frequency and Rates</h3>
+            <p>
+              Message frequency varies based on your booking activity. Standard message and data rates may apply depending on your mobile carrier plan. Sweet Dreams Music LLC does not charge for text messages, but your carrier may.
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <h2>6. Data Security</h2>
             <p>
               We implement appropriate technical and organizational security measures to protect your personal data, including:
             </p>
@@ -125,7 +159,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>6. Your Privacy Rights</h2>
+            <h2>7. Your Privacy Rights</h2>
             <p>You have the right to:</p>
             <ul>
               <li><strong>Access:</strong> Request a copy of your personal data</li>
@@ -142,7 +176,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>7. Data Retention</h2>
+            <h2>8. Data Retention</h2>
             <p>We retain your personal data for as long as necessary to:</p>
             <ul>
               <li>Provide our services to you</li>
@@ -155,14 +189,14 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>8. Children's Privacy</h2>
+            <h2>9. Children's Privacy</h2>
             <p>
               Our services are not directed to individuals under 18. We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>9. California Privacy Rights (CCPA)</h2>
+            <h2>10. California Privacy Rights (CCPA)</h2>
             <p>California residents have additional rights under the CCPA:</p>
             <ul>
               <li>Right to know what personal information is collected</li>
@@ -178,9 +212,9 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>10. European Privacy Rights (GDPR)</h2>
+            <h2>11. European Privacy Rights (GDPR)</h2>
             <p>
-              If you are located in the European Economic Area (EEA), you have rights under the GDPR including the rights listed in Section 6 above.
+              If you are located in the European Economic Area (EEA), you have rights under the GDPR including the rights listed in Section 7 above.
             </p>
             <p>
               Our legal basis for processing your data is:
@@ -193,7 +227,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>11. Cookies and Tracking</h2>
+            <h2>12. Cookies and Tracking</h2>
             <p>You can control cookies through your browser settings:</p>
             <ul>
               <li>Block all cookies</li>
@@ -210,21 +244,21 @@ export default function PrivacyPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>12. Third-Party Links</h2>
+            <h2>13. Third-Party Links</h2>
             <p>
               Our website may contain links to third-party websites (Instagram, TikTok, etc.). We are not responsible for the privacy practices of these sites. Please review their privacy policies.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>13. Changes to This Policy</h2>
+            <h2>14. Changes to This Policy</h2>
             <p>
               We may update this privacy policy from time to time. We will notify you of any material changes by posting the new policy on this page and updating the "Last Updated" date.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>14. Contact Us</h2>
+            <h2>15. Contact Us</h2>
             <p>If you have questions about this Privacy Policy, contact us:</p>
             <ul>
               <li><strong>Email:</strong> <a href="mailto:jayvalleo@sweetdreamsmusic.com">jayvalleo@sweetdreamsmusic.com</a></li>

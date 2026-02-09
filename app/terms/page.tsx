@@ -20,7 +20,7 @@ export default function TermsPage() {
     <div className={styles.page}>
       <div className={styles.container}>
         <h1 className={styles.title}>Terms of Service</h1>
-        <p className={styles.updated}>Last Updated: October 30, 2025</p>
+        <p className={styles.updated}>Last Updated: February 9, 2026</p>
 
         <div className={styles.content}>
           <section className={styles.section}>
@@ -214,7 +214,56 @@ export default function TermsPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>10. Dispute Resolution</h2>
+            <h2>10. SMS/Text Messaging Terms</h2>
+
+            <h3>10.1 Program Name</h3>
+            <p>
+              Sweet Dreams Booking Notifications
+            </p>
+
+            <h3>10.2 Program Description</h3>
+            <p>
+              By providing your phone number and opting in during the booking process on sweetdreams.us, you consent to receive SMS text messages from Sweet Dreams Music LLC related to your studio bookings. Messages may include booking confirmations, session reminders, scheduling updates, and responses to your inquiries.
+            </p>
+
+            <h3>10.3 Message Frequency</h3>
+            <p>
+              Message frequency varies based on your booking activity. You may receive up to approximately 5 messages per booking (confirmation, reminder, updates). You will not receive more than 10 messages per month.
+            </p>
+
+            <h3>10.4 Message and Data Rates</h3>
+            <p>
+              Message and data rates may apply. Sweet Dreams Music LLC does not charge for text messages, but your mobile carrier&apos;s standard messaging rates may apply. Please check with your carrier for details on your plan.
+            </p>
+
+            <h3>10.5 Opt-In</h3>
+            <p>
+              You opt in to receive text messages by providing your phone number and checking the consent box during the booking process on our website at sweetdreams.us. You may also opt in by texting <strong>START</strong> to our messaging number.
+            </p>
+
+            <h3>10.6 Opt-Out</h3>
+            <p>
+              You can opt out of receiving text messages at any time by texting <strong>STOP</strong> to any message you receive from us. After texting STOP, you will receive a one-time confirmation message, and no further messages will be sent unless you opt back in.
+            </p>
+
+            <h3>10.7 Help</h3>
+            <p>
+              For help or support, text <strong>HELP</strong> to any message you receive from us, or contact us at <a href="mailto:jayvalleo@sweetdreamsmusic.com">jayvalleo@sweetdreamsmusic.com</a> or call <a href="tel:+12604507739">(260) 450-7739</a>.
+            </p>
+
+            <h3>10.8 Supported Carriers</h3>
+            <p>
+              Messages are supported on all major US carriers. Carriers are not liable for delayed or undelivered messages.
+            </p>
+
+            <h3>10.9 Privacy</h3>
+            <p>
+              Your phone number and messaging data will not be shared with third parties for their marketing purposes. For complete details on how we handle your data, see our <Link href="/privacy">Privacy Policy</Link>.
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <h2>11. Dispute Resolution</h2>
 
             <h3>10.1 Informal Resolution</h3>
             <p>
@@ -229,7 +278,7 @@ export default function TermsPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>11. Indemnification</h2>
+            <h2>12. Indemnification</h2>
             <p>
               You agree to indemnify and hold Sweet Dreams Music LLC harmless from any claims, damages, or expenses arising from:
             </p>
@@ -241,35 +290,35 @@ export default function TermsPage() {
           </section>
 
           <section className={styles.section}>
-            <h2>12. Force Majeure</h2>
+            <h2>13. Force Majeure</h2>
             <p>
               We are not liable for failure to perform our obligations due to events beyond our reasonable control, including natural disasters, power outages, pandemics, civil unrest, or government actions.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>13. Modifications to Terms</h2>
+            <h2>14. Modifications to Terms</h2>
             <p>
               We reserve the right to modify these Terms at any time. Changes will be posted on this page with an updated "Last Updated" date. Continued use of our services after changes constitutes acceptance of the new terms.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>14. Severability</h2>
+            <h2>15. Severability</h2>
             <p>
               If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions will remain in full force and effect.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>15. Entire Agreement</h2>
+            <h2>16. Entire Agreement</h2>
             <p>
               These Terms, together with our Privacy Policy, constitute the entire agreement between you and Sweet Dreams Music LLC regarding use of our services.
             </p>
           </section>
 
           <section className={styles.section}>
-            <h2>16. Contact Information</h2>
+            <h2>17. Contact Information</h2>
             <p>For questions about these Terms of Service, contact us:</p>
             <ul>
               <li><strong>Email:</strong> <a href="mailto:jayvalleo@sweetdreamsmusic.com">jayvalleo@sweetdreamsmusic.com</a></li>
