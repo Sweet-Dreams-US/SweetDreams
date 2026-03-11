@@ -206,7 +206,7 @@ export async function POST(request: NextRequest) {
             </div>
 
             <p style="margin: 0; line-height: 1.7; color: #666; font-size: 16px;">
-              In the meantime, feel free to check out some of our recent work at <a href="https://sweetdreamsmusic.com/work" style="color: black; font-weight: 600;">sweetdreamsmusic.com/work</a>
+              In the meantime, feel free to check out some of our recent work at <a href="https://sweetdreams.us/work" style="color: black; font-weight: 600;">sweetdreams.us/work</a>
             </p>
           </div>
 

@@ -149,12 +149,12 @@ export async function POST(request: NextRequest) {
           ` : ''}
 
           <p style="color: #666; font-size: 14px;">
-            In the meantime, feel free to check out our recent work at <a href="https://sweetdreamsmusic.com/work" style="color: #000;">sweetdreamsmusic.com/work</a>
+            In the meantime, feel free to check out our recent work at <a href="https://sweetdreams.us/work" style="color: #000;">sweetdreams.us/work</a>
           </p>
 
           <div style="border-top: 1px solid #e0e0e0; padding-top: 24px; margin-top: 24px;">
             <p style="color: #999; font-size: 12px; margin: 0;">
-              Sweet Dreams Music & Media<br>
+              Sweet Dreams Media<br>
               Fort Wayne, Indiana
             </p>
           </div>

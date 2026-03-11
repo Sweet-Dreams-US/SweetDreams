@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: SEO.openGraph.type,
-    title: 'Sweet Dreams | Fort Wayne Creative Media Agency',
-    description: 'Fort Wayne creative agency offering music production, professional videography, web development, and social media growth. Comprehensive creative services for artists and businesses.',
+    title: 'Sweet Dreams | Fort Wayne Business Media Solutions',
+    description: 'Fort Wayne business media agency offering commercial video production, brand films, web development, and social media growth. Professional media solutions for businesses and brands.',
     url: SITE_URL,
     siteName: SEO.openGraph.siteName,
     locale: SEO.openGraph.locale,
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@jayvalleo',
     creator: '@jayvalleo',
-    title: 'Sweet Dreams | Fort Wayne Creative Media Agency',
-    description: 'Fort Wayne creative agency: music production, videography, web development, social media growth.',
+    title: 'Sweet Dreams | Fort Wayne Business Media Solutions',
+    description: 'Fort Wayne business media agency: commercial video production, brand films, web development, social media growth.',
     images: ['https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png'],
   },
 };

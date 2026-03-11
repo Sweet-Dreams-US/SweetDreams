@@ -15,17 +15,17 @@ export default function NotFound() {
           <Link href="/" className={styles.primaryButton}>
             Go Home
           </Link>
-          <Link href="/music" className={styles.secondaryButton}>
-            Book a Session
+          <Link href="/book" className={styles.secondaryButton}>
+            Book a Call
           </Link>
         </div>
 
         <div className={styles.helpText}>
           <p>Looking for something specific?</p>
           <div className={styles.links}>
-            <Link href="/music">Music Production</Link>
             <Link href="/media">Media Services</Link>
-            <Link href="/solutions">All Services</Link>
+            <Link href="/solutions">Business Solutions</Link>
+            <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener noreferrer">Music Studio</a>
           </div>
         </div>
       </div>

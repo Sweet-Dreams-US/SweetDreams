@@ -7,7 +7,7 @@ const SOLUTIONS = [
   "Post-Production",
   "Social Strategy",
   "Launch & Growth",
-  "Music Studio"
+  "Business Partnerships"
 ];
 
 export default function Solutions() {

@@ -3,14 +3,14 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Web Development & Social Media Growth | Sweet Dreams Fort Wayne",
-  description: "Professional web development and social media marketing services in Fort Wayne. Custom website design, e-commerce development, social media strategy, content creation, and audience growth for businesses and artists.",
-  keywords: "web development Fort Wayne, website design Fort Wayne, social media marketing, social media growth agency, Fort Wayne web designer, custom website development, e-commerce development, social media management Fort Wayne, digital marketing Fort Wayne, brand development, content creation services",
+  description: "Professional web development and social media marketing services in Fort Wayne. Custom website design, e-commerce development, social media strategy, content creation, and audience growth for businesses and brands.",
+  keywords: "web development Fort Wayne, website design Fort Wayne, social media marketing, social media growth agency, Fort Wayne web designer, custom website development, e-commerce development, social media management Fort Wayne, digital marketing Fort Wayne, brand development, content creation services, business solutions Fort Wayne",
   alternates: {
     canonical: `${SITE_URL}/solutions`,
   },
   openGraph: {
     title: "Web Development & Social Media | Sweet Dreams Fort Wayne",
-    description: "Custom websites, e-commerce solutions, and social media growth strategies for Fort Wayne businesses and artists.",
+    description: "Custom websites, e-commerce solutions, and social media growth strategies for Fort Wayne businesses and brands.",
     url: `${SITE_URL}/solutions`,
     type: "website",
     images: [
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Services | Sweet Dreams Studio",
-    description: "Comprehensive music production services in Fort Wayne",
+    title: "Business Solutions | Sweet Dreams",
+    description: "Web development and social media growth services for businesses in Fort Wayne",
   },
   other: {
     'geo.region': 'US-IN',

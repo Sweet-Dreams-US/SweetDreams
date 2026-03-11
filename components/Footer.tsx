@@ -6,21 +6,6 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* Sweet Dreams Music */}
-          <div className={styles.column}>
-            <h3 className={styles.brandTitle}>SWEET DREAMS MUSIC</h3>
-            <div className={styles.links}>
-              <Link href="/music" className={styles.link}>Recording Studio</Link>
-              <Link href="/music" className={styles.link}>Music Production</Link>
-              <Link href="/music" className={styles.link}>Mixing & Mastering</Link>
-            </div>
-            <div className={styles.contact}>
-              <p>3943 Parnell Ave</p>
-              <p>Fort Wayne, IN 46805</p>
-              <p>jayvalleo@sweetdreamsmusic.com</p>
-            </div>
-          </div>
-
           {/* Sweet Dreams Media */}
           <div className={styles.column}>
             <h3 className={styles.brandTitle}>SWEET DREAMS MEDIA</h3>
@@ -30,7 +15,22 @@ export default function Footer() {
               <Link href="/media" className={styles.link}>Commercials</Link>
             </div>
             <div className={styles.contact}>
-              <p>cole@sweetdreamsmusic.com</p>
+              <p>3943 Parnell Ave</p>
+              <p>Fort Wayne, IN 46805</p>
+              <p>jayvalleo@sweetdreams.us</p>
+            </div>
+          </div>
+
+          {/* Business Solutions */}
+          <div className={styles.column}>
+            <h3 className={styles.brandTitle}>BUSINESS SOLUTIONS</h3>
+            <div className={styles.links}>
+              <Link href="/solutions" className={styles.link}>Web Development</Link>
+              <Link href="/solutions" className={styles.link}>Social Media Growth</Link>
+              <Link href="/partnerships" className={styles.link}>Business Partnerships</Link>
+            </div>
+            <div className={styles.contact}>
+              <p>cole@sweetdreams.us</p>
             </div>
           </div>
 
@@ -41,8 +41,9 @@ export default function Footer() {
               <Link href="/#work" className={styles.link}>Our Work</Link>
               <Link href="/solutions" className={styles.link}>Solutions</Link>
               <Link href="/blog" className={styles.link}>Blog</Link>
-              <Link href="/solutions" className={styles.link}>About Us</Link>
-              <Link href="/music#contact" className={styles.link}>Contact</Link>
+              <Link href="/about" className={styles.link}>About Us</Link>
+              <Link href="/book" className={styles.link}>Contact</Link>
+              <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener noreferrer" className={styles.link}>Music Studio</a>
             </div>
           </div>
 
@@ -59,10 +60,10 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <div className={styles.bottomLeft}>
-            <p className={styles.copyright}>© 2025 Sweet Dreams Music LLC. All rights reserved.</p>
+            <p className={styles.copyright}>&copy; 2025 Sweet Dreams Music LLC. All rights reserved.</p>
             <div className={styles.legalLinks}>
               <Link href="/privacy" className={styles.legalLink}>Privacy Policy</Link>
-              <span className={styles.separator}>•</span>
+              <span className={styles.separator}>&bull;</span>
               <Link href="/terms" className={styles.legalLink}>Terms of Service</Link>
             </div>
           </div>
@@ -70,11 +71,6 @@ export default function Footer() {
             <img
               src="https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackWhiteLogo.png"
               alt="Sweet Dreams"
-              className={styles.footerLogo}
-            />
-            <img
-              src="https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreamsMusic3StackWhiteLogo.png"
-              alt="Sweet Dreams Music"
               className={styles.footerLogo}
             />
           </div>

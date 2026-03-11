@@ -1,27 +1,29 @@
 /**
- * Schema.org Structured Data for Sweet Dreams Creative Media Agency
+ * Schema.org Structured Data for Sweet Dreams Business Media Solutions
  * CRITICAL for local SEO and search result rich snippets
  *
  * Supports multi-service business model:
- * - Music Production & Recording
- * - Videography & Media Production
+ * - Commercial Video Production & Brand Films
  * - Web Development
  * - Social Media Growth Services
+ * - Business Partnerships
+ *
+ * Sister site: sweetdreamsmusic.com (music production & recording)
  */
 
 import { SITE_URL, CONTACT, ADDRESS, GEO, SOCIAL, BRAND } from './constants';
 
 // ==================== LOCAL BUSINESS SCHEMA ====================
-// Primary schema - positions Sweet Dreams as a creative media agency
+// Primary schema - positions Sweet Dreams as a business media agency
 
 export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": `${SITE_URL}/#organization`,
   "name": BRAND.name,
-  "alternateName": "Sweet Dreams Studio",
+  "alternateName": "Sweet Dreams Media",
   "legalName": BRAND.legalName,
-  "description": "Fort Wayne's premier creative media agency specializing in music production, professional videography, custom web development, and social media growth. Serving artists, businesses, and brands throughout Northeast Indiana.",
+  "description": "Fort Wayne's premier business media agency specializing in commercial video production, brand films, corporate media, web development, and social media growth. Professional media solutions for businesses and brands throughout Northeast Indiana.",
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
   "image": `${SITE_URL}/studio-photo.jpg`,
@@ -71,7 +73,8 @@ export const localBusinessSchema = {
   // Social Media
   "sameAs": [
     SOCIAL.instagram,
-    SOCIAL.tiktok
+    SOCIAL.tiktok,
+    "https://sweetdreamsmusic.com"
   ],
 
   // Service Area - Fort Wayne and surrounding areas
@@ -91,8 +94,7 @@ export const localBusinessSchema = {
   "additionalType": [
     "https://schema.org/VideoProductionService",
     "https://schema.org/WebDesigner",
-    "https://schema.org/AdvertisingAgency",
-    "https://schema.org/RecordingStudio"
+    "https://schema.org/AdvertisingAgency"
   ]
 };
 
@@ -124,72 +126,9 @@ export const organizationSchema = {
   },
   "sameAs": [
     SOCIAL.instagram,
-    SOCIAL.tiktok
+    SOCIAL.tiktok,
+    "https://sweetdreamsmusic.com"
   ]
-};
-
-// ==================== RECORDING STUDIO SERVICE SCHEMA ====================
-
-export const recordingServiceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "@id": `${SITE_URL}/music#service`,
-  "serviceType": "Music Production & Recording",
-  "name": "Recording Studio Services",
-  "description": "Professional music recording, mixing, mastering, and beat production in Fort Wayne. State-of-the-art equipment, experienced engineers, and a creative environment for artists.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": BRAND.name,
-    "@id": `${SITE_URL}/#organization`
-  },
-  "areaServed": {
-    "@type": "City",
-    "name": "Fort Wayne",
-    "@id": "https://en.wikipedia.org/wiki/Fort_Wayne,_Indiana"
-  },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": "50.00",
-    "priceSpecification": {
-      "@type": "UnitPriceSpecification",
-      "price": "50.00",
-      "priceCurrency": "USD",
-      "unitText": "per hour"
-    },
-    "availability": "https://schema.org/InStock",
-    "url": `${SITE_URL}/music`
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Music Production Services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Recording",
-          "description": "Professional studio recording with state-of-the-art equipment"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Mixing & Mastering",
-          "description": "Professional audio mixing and mastering services"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Beat Production",
-          "description": "Custom beat production and instrumental creation"
-        }
-      }
-    ]
-  }
 };
 
 // ==================== VIDEO PRODUCTION SERVICE SCHEMA ====================
@@ -198,9 +137,9 @@ export const videoProductionServiceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "@id": `${SITE_URL}/media#service`,
-  "serviceType": "Video Production",
-  "name": "Professional Videography & Media Production",
-  "description": "High-quality video production services including music videos, commercial filming, event coverage, and professional video editing for businesses and artists in Fort Wayne.",
+  "serviceType": "Commercial Video Production",
+  "name": "Professional Business Video Production",
+  "description": "High-quality commercial video production services including brand films, corporate videos, promotional content, event coverage, and professional video editing for businesses in Fort Wayne and beyond.",
   "provider": {
     "@type": "LocalBusiness",
     "name": BRAND.name,
@@ -229,14 +168,6 @@ export const videoProductionServiceSchema = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Music Video Production",
-          "description": "Professional music video filming, direction, and editing"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
           "name": "Commercial Video Production",
           "description": "Business commercials, promotional videos, and brand content"
         }
@@ -245,16 +176,24 @@ export const videoProductionServiceSchema = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Event Videography",
-          "description": "Professional event coverage and highlight reels"
+          "name": "Brand Film Production",
+          "description": "Cinematic brand storytelling and corporate documentary content"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Video Editing",
-          "description": "Professional post-production and video editing services"
+          "name": "Event Videography",
+          "description": "Professional business event coverage and highlight reels"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Video Editing & Post-Production",
+          "description": "Professional post-production, color grading, and video editing services"
         }
       }
     ]
@@ -270,7 +209,7 @@ export const webDevelopmentServiceSchema = {
   "@id": `${SITE_URL}/solutions#webdev`,
   "serviceType": "Web Development",
   "name": "Custom Website Development",
-  "description": "Professional website design and development for businesses, artists, and brands. Custom solutions built with modern technologies for optimal performance and user experience.",
+  "description": "Professional website design and development for businesses and brands. Custom solutions built with modern technologies for optimal performance, conversion, and user experience.",
   "provider": {
     "@type": "LocalBusiness",
     "name": BRAND.name,
@@ -306,8 +245,8 @@ export const webDevelopmentServiceSchema = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Artist Portfolio Websites",
-          "description": "Professional portfolio sites for musicians and creatives"
+          "name": "Business Portfolio Websites",
+          "description": "Professional portfolio sites for businesses and brands"
         }
       },
       {
@@ -331,7 +270,7 @@ export const socialMediaServiceSchema = {
   "@id": `${SITE_URL}/solutions#socialmedia`,
   "serviceType": "Social Media Marketing",
   "name": "Social Media Growth & Management",
-  "description": "Strategic social media management, content creation, and audience growth services for businesses and artists. Data-driven strategies to increase engagement and build your brand.",
+  "description": "Strategic social media management, content creation, and audience growth services for businesses. Data-driven strategies to increase engagement, generate leads, and build your brand.",
   "provider": {
     "@type": "LocalBusiness",
     "name": BRAND.name,
@@ -352,7 +291,7 @@ export const socialMediaServiceSchema = {
         "itemOffered": {
           "@type": "Service",
           "name": "Social Media Strategy",
-          "description": "Custom social media strategy and planning"
+          "description": "Custom social media strategy and planning for businesses"
         }
       },
       {
@@ -416,7 +355,6 @@ export const consolidatedSchema = {
   "@graph": [
     localBusinessSchema,
     organizationSchema,
-    recordingServiceSchema,
     videoProductionServiceSchema,
     webDevelopmentServiceSchema,
     socialMediaServiceSchema,

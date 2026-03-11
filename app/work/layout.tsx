@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Our Work | Sweet Dreams Music & Media - Video Production Portfolio",
-  description: "Explore our portfolio of commercials, brand films, music videos, and event coverage. See why Fort Wayne businesses trust Sweet Dreams for professional video production.",
-  keywords: "video production portfolio, commercial production, brand films, music videos, event videography, Fort Wayne video production examples",
+  title: "Our Work | Sweet Dreams - Commercial Video Production Portfolio",
+  description: "Explore our portfolio of commercials, brand films, corporate videos, and event coverage. See why Fort Wayne businesses trust Sweet Dreams for professional video production.",
+  keywords: "video production portfolio, commercial production, brand films, corporate video, event videography, Fort Wayne video production examples, business video portfolio",
   alternates: {
     canonical: `${SITE_URL}/work`,
   },
   openGraph: {
-    title: "Our Work | Sweet Dreams Music & Media Portfolio",
-    description: "Explore our portfolio of commercials, brand films, music videos, and event coverage.",
+    title: "Our Work | Sweet Dreams Video Production Portfolio",
+    description: "Explore our portfolio of commercials, brand films, corporate videos, and event coverage.",
     url: `${SITE_URL}/work`,
     type: "website",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Our Work | Sweet Dreams Portfolio",
-    description: "Explore our portfolio of commercials, brand films, music videos, and event coverage.",
+    description: "Explore our portfolio of commercials, brand films, corporate videos, and event coverage.",
   },
 };
 

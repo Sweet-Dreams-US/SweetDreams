@@ -166,8 +166,8 @@ export default function LeadForm() {
             <div className="space-y-4 text-lg">
               <p className="text-gray-600">
                 <span className="font-bold text-black">Email:</span>{" "}
-                <a href="mailto:media@sweetdreamsmusic.com" className="hover:text-black transition">
-                  media@sweetdreamsmusic.com
+                <a href="mailto:media@sweetdreams.us" className="hover:text-black transition">
+                  media@sweetdreams.us
                 </a>
               </p>
               <p className="text-gray-600">

@@ -1005,12 +1005,12 @@ export default async function BlogPostPage({
       {/* CTA Section */}
       <section className={styles.ctaSection}>
         <div className={styles.ctaContent}>
-          <h2 className={styles.ctaTitle}>READY TO RECORD?</h2>
+          <h2 className={styles.ctaTitle}>READY TO GROW?</h2>
           <p className={styles.ctaText}>
-            Book your session at Fort Wayne's premier recording studio
+            Book a call with Fort Wayne's premier business media agency
           </p>
-          <Link href="/music" className={styles.ctaButton}>
-            BOOK NOW
+          <Link href="/book" className={styles.ctaButton}>
+            BOOK A CALL
           </Link>
         </div>
       </section>

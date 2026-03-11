@@ -84,14 +84,6 @@ export default function MediaPage() {
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TrustedDentalLogo.png",
     },
     {
-      href: "/work/sweet-dreams-recording-studio",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/d912b8bd58831e95431db3c24791e44b/thumbnails/thumbnail.jpg?time=1s&height=600",
-      title: "SWEET DREAMS RECORDING STUDIO SHOWCASE",
-      client: "Sweet Dreams Media",
-      category: "Brand Film · Showcase",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
-    },
-    {
       href: "/work/vegas-dream-travel-content",
       image: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/VegasDream/VegasDreamCover.png",
       title: "VEGAS DREAM - TRAVEL CONTENT",
@@ -163,14 +155,6 @@ export default function MediaPage() {
       category: "Commercial · Automotive",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/nissanredlogo.png",
       comingSoon: false,
-    },
-    {
-      href: "/work/dear-lover-music-video",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/beeb2ee6a9a30c655e79bdc1f4fb6d20/thumbnails/thumbnail.jpg?time=3s&height=600",
-      title: "DEAR LOVER - MUSIC VIDEO",
-      client: "Lyaz",
-      category: "Music Video",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreamsMusic3StackBlackLogo%20(1).png",
     },
   ];
 

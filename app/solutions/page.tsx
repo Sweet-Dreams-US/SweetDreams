@@ -1705,115 +1705,40 @@ export default function SolutionsPage() {
       {/* LAUNCH & GROWTH - Diagonal Cards */}
       <LaunchSection />
 
-      {/* AUDIO SOLUTIONS - Header & Services (White) */}
+      {/* MUSIC STUDIO - Redirect to Sister Site */}
       <section className={styles.studioSectionWhite} data-cursor-hide>
         <div className={styles.studioContainer}>
           {/* Header with Number */}
           <div className={styles.studioHeader}>
             <div className={styles.studioNumber}>06</div>
             <div className={styles.studioTitleWrapper}>
-              <p className={styles.studioMiniTitle}>MUSIC PRODUCTION</p>
-              <h2 className={styles.studioTitle}>AUDIO<br />SOLUTIONS</h2>
+              <p className={styles.studioMiniTitle}>SISTER SITE</p>
+              <h2 className={styles.studioTitle}>MUSIC<br />STUDIO</h2>
             </div>
           </div>
 
-          {/* Promo Banner */}
-          <div className={styles.promoBannerStudio}>
-            <span className={styles.promoTextStudio}>
-              <strong>Happy New Year!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Happy New Year!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Happy New Year!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Happy New Year!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp;
-            </span>
-          </div>
-
-          {/* Bento Grid - All Services */}
+          {/* Bento Grid - Music Studio Promo */}
           <div className={styles.studioBentoGrid}>
-            {/* Large Recording Card */}
+            {/* Large Info Card */}
             <div className={`${styles.studioServiceCard} ${styles.studioCardLarge}`}>
-              <h3>RECORDING</h3>
-              <p>Professional vocal & instrument recording in our fully equipped studio</p>
+              <h3>SWEET DREAMS MUSIC</h3>
+              <p>Professional recording, mixing, mastering, and beat production - now on its own dedicated site</p>
             </div>
 
-            {/* Beat Production */}
-            <div className={styles.studioServiceCard}>
-              <h3>BEAT PRODUCTION</h3>
-              <p>Original beats crafted to match your unique style and vision</p>
-            </div>
-
-            {/* Mixing & Mastering */}
-            <div className={styles.studioServiceCard}>
-              <h3>MIXING & MASTERING</h3>
-              <p>Industry-standard mixing and mastering for radio-ready sound</p>
-            </div>
-
-            {/* Large Video Production Card */}
-            <div className={`${styles.studioServiceCard} ${styles.studioCardLarge}`}>
-              <h3>VIDEO PRODUCTION</h3>
-              <p>Full-service video production from concept to final delivery</p>
-            </div>
-
-            {/* Book a Session Button */}
-            <a href="/music#booking" className={`${styles.studioServiceButton} ${styles.studioButtonTall}`}>
-              BOOK A SESSION
+            {/* Visit Site Button */}
+            <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener noreferrer" className={`${styles.studioServiceButton} ${styles.studioButtonTall}`}>
+              VISIT MUSIC SITE
             </a>
-
-            {/* Learn More Button */}
-            <Link href="/music" className={`${styles.studioServiceButton} ${styles.studioButtonTall}`}>
-              LEARN MORE
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* SWEET DREAMS STUDIO - Dual Project Showcase (Black) */}
+      {/* FEATURED PROJECT SHOWCASE (Black) */}
       <section className={styles.studioSectionBlack}>
         <div className={styles.studioContainer}>
-          {/* Two Projects Side by Side */}
+          {/* Project Showcase */}
           <div className={styles.dualProjectGrid}>
-            {/* Project 1 - Sweet Dreams Recording Studio */}
-            <Link href="/work/sweet-dreams-recording-studio" className={styles.studioShowcaseLink}>
-              <div className={styles.studioShowcaseWrapper}>
-                {/* White border frame */}
-                <div className={styles.studioShowcaseFrame}></div>
-
-                {/* Video container */}
-                <div className={styles.studioShowcase}>
-                  {/* Video Background */}
-                  <iframe
-                    src="https://customer-w6h9o08eg118alny.cloudflarestream.com/d912b8bd58831e95431db3c24791e44b/iframe?muted=true&autoplay=true&loop=true&controls=false"
-                    className={styles.studioShowcaseVideo}
-                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-                    allowFullScreen={true}
-                    style={{ border: 'none' }}
-                  />
-
-                  {/* Dark overlay */}
-                  <div className={styles.studioShowcaseOverlay}></div>
-
-                  {/* Content Overlay */}
-                  <div className={styles.studioShowcaseContent}>
-                    {/* Top Row - Client & Button */}
-                    <div className={styles.studioShowcaseTopRow}>
-                      <div className={styles.studioShowcaseClient}>SWEET DREAMS MEDIA</div>
-                      <div className={styles.studioShowcaseViewButton}>
-                        <span>VIEW PROJECT</span>
-                      </div>
-                    </div>
-
-                    {/* Center Title */}
-                    <div className={styles.studioShowcaseCenterTitle}>
-                      <div className={styles.studioShowcaseTitleText}>SWEET</div>
-                      <div className={styles.studioShowcaseTitleText}>DREAMS</div>
-                    </div>
-
-                    {/* Bottom Subtitle */}
-                    <div className={styles.studioShowcaseBottomRow}>
-                      <div className={styles.studioShowcaseSubtitle}>RECORDING STUDIO SHOWCASE</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            {/* Project 2 - Coleman Prime Story */}
+            {/* Project - Coleman Prime Story */}
             <Link href="/work/the-coleman-prime-story" className={styles.studioShowcaseLink}>
               <div className={styles.studioShowcaseWrapper}>
                 {/* White border frame */}

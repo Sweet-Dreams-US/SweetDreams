@@ -2,14 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Script from "next/script";
-import dynamic from "next/dynamic";
 import styles from "./book.module.css";
-
-// Dynamically import BookingCalendar to avoid SSR issues
-const BookingCalendarWrapper = dynamic(
-  () => import("@/components/music/BookingCalendarWrapper"),
-  { ssr: false, loading: () => <div style={{ textAlign: 'center', padding: '2rem' }}>Loading booking calendar...</div> }
-);
 
 // Turnstile site key
 const TURNSTILE_SITE_KEY = "0x4AAAAAACJodExIWnZ-7sQq";
@@ -275,27 +268,30 @@ export default function BookPage() {
 
             {status === "error" && (
               <p className={styles.errorMessage}>
-                Something went wrong. Please try again or email us directly at jayvalleo@sweetdreamsmusic.com
+                Something went wrong. Please try again or email us directly at jayvalleo@sweetdreams.us
               </p>
             )}
           </form>
         )}
       </div>
 
-      {/* Music Studio Booking Section */}
+      {/* Music Studio Link */}
       <section className={styles.studioSection}>
         <div className={styles.studioContainer}>
-          <p className={styles.miniTitle}>RECORDING STUDIO</p>
-          <h2 className={styles.sectionTitle}>BOOK A STUDIO SESSION</h2>
+          <p className={styles.miniTitle}>LOOKING FOR THE STUDIO?</p>
+          <h2 className={styles.sectionTitle}>BOOK A RECORDING SESSION</h2>
           <p className={styles.sectionSubtitle}>
-            Book your recording session at our Fort Wayne studio. Starting at $50/hour.
+            Visit our dedicated music site to book recording studio sessions.
           </p>
-
-          <BookingCalendarWrapper />
-
-          <p className={styles.note}>
-            Pay a deposit to reserve your time. Remainder due at your session.
-          </p>
+          <a
+            href="https://sweetdreamsmusic.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.submitButton}
+            style={{ display: 'inline-block', textAlign: 'center', textDecoration: 'none', marginTop: '1rem' }}
+          >
+            VISIT SWEET DREAMS MUSIC
+          </a>
         </div>
       </section>
     </div>

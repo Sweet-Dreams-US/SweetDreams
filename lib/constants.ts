@@ -7,15 +7,19 @@
 
 /**
  * Primary domain - sweetdreams.us
- * Legacy domains (sweetdreamsmusic.com, sweetdreamsvideo.com, sweetdreamsprod.com) redirect here
+ * Business solutions site for media, video production, web development
  */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sweetdreams.us';
+
+/**
+ * Sister site - Sweet Dreams Music (separate booking site)
+ */
+export const MUSIC_SITE_URL = 'https://sweetdreamsmusic.com';
 
 /**
  * Legacy domains that redirect to sweetdreams.us
  */
 export const LEGACY_DOMAINS = [
-  'sweetdreamsmusic.com',
   'sweetdreamsvideo.com',
   'sweetdreamsprod.com',
 ] as const;
@@ -25,8 +29,8 @@ export const LEGACY_DOMAINS = [
 export const BRAND = {
   name: 'Sweet Dreams',
   legalName: 'Sweet Dreams Music LLC',
-  tagline: 'Creative Media Agency',
-  description: 'Fort Wayne creative media agency specializing in music production, videography, web development, and social media growth.',
+  tagline: 'Business Media Solutions',
+  description: 'Fort Wayne business media agency specializing in commercial video production, brand films, business partnerships, web development, and social media growth for businesses.',
 } as const;
 
 // ==================== CONTACT INFORMATION ====================
@@ -89,67 +93,71 @@ export const BUSINESS_HOURS = {
 // ==================== SERVICE CONFIGURATION ====================
 
 export const SERVICES = {
-  recording: {
-    name: 'Music Production & Recording',
-    slug: 'music',
-    price: 50,
-    currency: 'USD',
-    unit: 'per hour',
-    description: 'Professional recording studio services, mixing, mastering, and beat production',
-  },
   video: {
-    name: 'Videography & Media Production',
+    name: 'Commercial Video Production',
     slug: 'media',
-    description: 'Music videos, commercial production, event coverage, and video editing',
+    description: 'Commercials, brand films, corporate videos, promotional content, and event coverage for businesses',
   },
   web: {
     name: 'Web Development',
     slug: 'solutions',
-    description: 'Custom website design and development for businesses and artists',
+    description: 'Custom website design and development for businesses and brands',
   },
   social: {
     name: 'Social Media Growth',
     slug: 'solutions',
-    description: 'Social media strategy, content creation, and audience growth management',
+    description: 'Social media strategy, content creation, and audience growth management for businesses',
+  },
+  partnerships: {
+    name: 'Business Partnerships',
+    slug: 'partnerships',
+    description: 'Strategic media partnerships for long-term business growth and brand development',
   },
 } as const;
 
 // ==================== SEO CONFIGURATION ====================
 
 export const SEO = {
-  defaultTitle: 'Sweet Dreams | Fort Wayne Creative Media Agency',
+  defaultTitle: 'Sweet Dreams | Fort Wayne Business Media Solutions',
   titleTemplate: '%s | Sweet Dreams',
-  defaultDescription: 'Fort Wayne creative media agency specializing in music production, videography, web development, and social media growth. Professional services for artists and businesses.',
+  defaultDescription: 'Fort Wayne business media agency specializing in commercial video production, brand films, business partnerships, web development, and social media growth. Professional media solutions for businesses and brands.',
   keywords: [
     // Location-based
     'Fort Wayne media agency',
     'Fort Wayne videographer',
     'Fort Wayne web development',
-    'Fort Wayne recording studio',
+    'Fort Wayne commercial video production',
     'Northeast Indiana media production',
-    'Indiana creative agency',
+    'Indiana business media agency',
+    'Fort Wayne business solutions',
 
     // Service-specific
-    'music video production',
     'commercial videography',
-    'professional recording studio',
+    'brand film production',
+    'business video production',
+    'corporate video Fort Wayne',
     'custom website development',
     'social media marketing',
     'social media growth agency',
     'content creation services',
+    'business media sales',
+    'promotional video production',
 
     // Combined services
-    'full-service creative agency',
+    'full-service business media agency',
     'media production company',
     'digital marketing agency Fort Wayne',
     'video and web development',
+    'business partnerships media',
+    'brand video production',
+    'commercial production company',
   ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: 'Sweet Dreams',
-    imageUrl: `${SITE_URL}/og-image.png`, // You'll need to create this
-    imageAlt: 'Sweet Dreams Creative Media Agency',
+    imageUrl: `${SITE_URL}/og-image.png`,
+    imageAlt: 'Sweet Dreams Business Media Solutions',
     imageWidth: 1200,
     imageHeight: 630,
   },
@@ -167,6 +175,6 @@ export const ANALYTICS = {
 // ==================== STRIPE CONFIGURATION ====================
 
 export const STRIPE = {
-  successUrl: `${SITE_URL}/music/booking-success`,
-  cancelUrl: `${SITE_URL}/music`,
+  successUrl: `${SITE_URL}/book?success=true`,
+  cancelUrl: `${SITE_URL}/book`,
 } as const;

@@ -230,7 +230,7 @@ export default function AboutPage() {
             <div className={styles.cardNumber}>01</div>
             <h3 className={styles.cardTitle}>THE ORIGIN</h3>
             <p className={styles.cardText}>
-              Sweet Dreams started in a recording studio. Artists would make great music, then ask: "How do I get people to actually hear this?"
+              Sweet Dreams started with a simple question: businesses were creating great products, but nobody was seeing them. We set out to change that.
             </p>
           </div>
 
@@ -244,7 +244,7 @@ export default function AboutPage() {
             <div className={styles.cardNumber}>02</div>
             <h3 className={styles.cardTitle}>THE EVOLUTION</h3>
             <p className={styles.cardText}>
-              Videos became content. Content became campaigns. We realized music and local business had the same problem: great work nobody sees.
+              Videos became content. Content became campaigns. We realized every business has the same problem: great work nobody sees.
             </p>
           </div>
 

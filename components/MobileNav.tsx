@@ -118,7 +118,6 @@ export default function MobileNav() {
     { href: '/work', label: 'WORK' },
     { href: '/solutions', label: 'SOLUTIONS' },
     { href: '/book', label: 'BOOK A CALL' },
-    { href: '/music', label: 'MUSIC' },
     { href: '/partnerships', label: 'PARTNERSHIPS' },
     { href: '/about', label: 'ABOUT' },
   ];
@@ -204,7 +203,7 @@ export default function MobileNav() {
               </svg>
             </Link>
           )}
-          <p>Sweet Dreams Music & Media</p>
+          <p>Sweet Dreams Media</p>
           <p>Fort Wayne, Indiana</p>
         </div>
       </div>

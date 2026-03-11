@@ -76,26 +76,6 @@ const PROJECTS = [
     services: 'Cinematography, Editing, Color Grading'
   },
   {
-    id: 8,
-    title: 'SWEET DREAMS RECORDING STUDIO SHOWCASE',
-    slug: 'sweet-dreams-recording-studio',
-    thumbnail: 'https://customer-w6h9o08eg118alny.cloudflarestream.com/d912b8bd58831e95431db3c24791e44b/thumbnails/thumbnail.jpg?time=1s&height=600',
-    client: 'Sweet Dreams Media',
-    category: 'Commercial',
-    year: '2025',
-    services: 'Cinematography, Editing, Color Grading'
-  },
-  {
-    id: 9,
-    title: 'DEAR LOVER - MUSIC VIDEO',
-    slug: 'dear-lover-music-video',
-    thumbnail: 'https://customer-w6h9o08eg118alny.cloudflarestream.com/beeb2ee6a9a30c655e79bdc1f4fb6d20/thumbnails/thumbnail.jpg?time=3s&height=600',
-    client: 'Lyaz',
-    category: 'Music Video',
-    year: '2025',
-    services: 'Scripting, Cinematography, Editing'
-  },
-  {
     id: 10,
     title: 'FORT WAYNE TRAFFIC HYPERLAPSE',
     slug: 'fort-wayne-traffic-hyperlapse',

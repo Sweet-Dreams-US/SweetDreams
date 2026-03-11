@@ -18,8 +18,8 @@ export default function Header() {
               <Link href="/solutions" className={styles.navLink}>
                 SOLUTIONS
               </Link>
-              <Link href="/music" className={styles.navLink}>
-                MUSIC
+              <Link href="/partnerships" className={styles.navLink}>
+                PARTNERSHIPS
               </Link>
               <Link href="/media" className={styles.navLink}>
                 MEDIA

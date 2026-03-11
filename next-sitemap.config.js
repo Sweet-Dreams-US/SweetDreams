@@ -4,7 +4,7 @@ export default {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
 
-  // Exclude auth and profile pages from sitemap
+  // Exclude auth, profile, and music pages from sitemap
   exclude: [
     '/profile',
     '/profile/*',
@@ -12,6 +12,8 @@ export default {
     '/(auth)/*',
     '/(auth)/login',
     '/(auth)/signup',
+    '/music',
+    '/music/*',
   ],
 
   // robots.txt configuration
@@ -20,7 +22,7 @@ export default {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/profile', '/api', '/(auth)'],
+        disallow: ['/profile', '/api', '/(auth)', '/music'],
       },
     ],
     additionalSitemaps: [
@@ -33,9 +35,12 @@ export default {
     // Priority levels based on importance
     const priorities = {
       '/': 1.0,              // Homepage - highest priority
-      '/music': 0.9,         // Music production - very high
       '/media': 0.9,         // Video production - very high (core service)
-      '/solutions': 0.8,     // Web dev & social media - high
+      '/solutions': 0.9,     // Business solutions - very high
+      '/partnerships': 0.8,  // Business partnerships - high
+      '/book': 0.8,          // Booking/contact - high
+      '/about': 0.7,         // About page
+      '/blog': 0.7,          // Blog
     }
 
     const priority = priorities[path] || 0.5
@@ -43,7 +48,7 @@ export default {
     // Change frequency based on page type
     let changefreq = 'weekly'
     if (path === '/') changefreq = 'daily'
-    if (path === '/music') changefreq = 'daily'  // Booking page changes often
+    if (path === '/blog') changefreq = 'daily'
 
     return {
       loc: path,
@@ -58,10 +63,9 @@ export default {
   additionalPaths: async (config) => {
     const result = []
 
-    // Add all work/portfolio project pages
+    // Add all work/portfolio project pages (business-focused)
     const projectSlugs = [
       'knoxville-carnival-coverage',
-      'wake-up-blind-music-video',
       'aegis-dental-trusted-dentistry',
       'fort-wayne-carnival-recap',
       'cumberland-falls-ky-nature-showcase',
@@ -73,9 +77,7 @@ export default {
       'nissan-warsaw-dealership',
       'brookfield-zoo-ferris-wheel',
       'fort-wayne-hyperlapse-showcase',
-      'dear-lover-music-video',
       'heaven-in-fort-wayne',
-      'sweet-dreams-recording-studio',
     ]
 
     projectSlugs.forEach(slug => {

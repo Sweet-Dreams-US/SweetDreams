@@ -19,7 +19,7 @@ export default function CTASection() {
             THAT REALLY<br />
             <span className={styles.standsOut}>STANDS OUT</span>
           </h2>
-          <Link href="/media#contact" className={styles.button}>
+          <Link href="/book" className={styles.button}>
             GET IN TOUCH
           </Link>
         </div>

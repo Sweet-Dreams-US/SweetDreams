@@ -67,28 +67,12 @@ export default function WorkPage() {
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
     },
     {
-      href: "/work/wake-up-blind-music-video",
-      image: "https://videodelivery.net/9db7601df93c3b1634ac41ad715aa9c6/thumbnails/thumbnail.jpg?time=1s&height=600",
-      title: "WAKE UP BLIND MUSIC VIDEO",
-      client: "Jay Val Leo",
-      category: "Music Video",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreamsMusic3StackBlackLogo%20(1).png",
-    },
-    {
       href: "/work/aegis-dental-trusted-dentistry",
       image: "https://videodelivery.net/089a5f4bac2141b90d9583820ee2b6cb/thumbnails/thumbnail.jpg?time=1s&height=600",
       title: "AEGIS DENTAL - TRUSTED DENTISTRY",
       client: "Aegis Dental Group",
       category: "Commercial · Brand Film",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TrustedDentalLogo.png",
-    },
-    {
-      href: "/work/sweet-dreams-recording-studio",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/d912b8bd58831e95431db3c24791e44b/thumbnails/thumbnail.jpg?time=1s&height=600",
-      title: "SWEET DREAMS RECORDING STUDIO SHOWCASE",
-      client: "Sweet Dreams Media",
-      category: "Brand Film · Showcase",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
     },
     {
       href: "/work/vegas-dream-travel-content",
@@ -161,14 +145,6 @@ export default function WorkPage() {
       client: "Nissan Warsaw Dealer",
       category: "Commercial · Automotive",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/nissanredlogo.png",
-    },
-    {
-      href: "/work/dear-lover-music-video",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/beeb2ee6a9a30c655e79bdc1f4fb6d20/thumbnails/thumbnail.jpg?time=3s&height=600",
-      title: "DEAR LOVER - MUSIC VIDEO",
-      client: "Lyaz",
-      category: "Music Video",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreamsMusic3StackBlackLogo%20(1).png",
     },
   ];
 
