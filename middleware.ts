@@ -2,25 +2,23 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * Middleware for handling 301 redirects from old site URLs
- * Preserves SEO value by redirecting old blog posts and pages
+ * Middleware for handling redirects
+ * - Old URLs → current pages (301)
+ * - Auth/profile routes → sweetdreamsmusic.com (301)
+ * - Music booking routes → sweetdreamsmusic.com (301)
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Handle old artist profile pages if they existed
-  // Example: /seeyouinmydreams/ -> /music
-  const oldArtistPages = [
-    '/seeyouinmydreams',
-    '/seeyouinmydreams/',
-  ];
-
-  if (oldArtistPages.includes(pathname)) {
-    return NextResponse.redirect(new URL('/music', request.url), 301);
+  // Redirect old artist profile pages
+  if (pathname === '/seeyouinmydreams' || pathname === '/seeyouinmydreams/') {
+    return NextResponse.redirect(new URL('https://sweetdreamsmusic.com'), 301);
   }
 
-  // Add more specific redirects here as needed
-  // Format: if (pathname === '/old-url') return NextResponse.redirect(new URL('/new-url', request.url), 301);
+  // Redirect music booking success to music site
+  if (pathname.startsWith('/music/booking')) {
+    return NextResponse.redirect(new URL('https://sweetdreamsmusic.com'), 301);
+  }
 
   return NextResponse.next();
 }
@@ -28,7 +26,6 @@ export function middleware(request: NextRequest) {
 // Configure which paths trigger the middleware
 export const config = {
   matcher: [
-    // Match all paths except static files and API routes
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|public/).*)',
   ],
 };

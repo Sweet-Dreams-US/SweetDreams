@@ -51,16 +51,17 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.brandTitle}>FOLLOW US</h3>
             <div className={styles.links}>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className={styles.link}>YouTube</a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.link}>Facebook</a>
+              <a href="https://www.instagram.com/sweetdreamssolutions.us/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
+              <a href="https://www.facebook.com/people/Sweet-Dreams-Solutions/100085672277251/" target="_blank" rel="noopener noreferrer" className={styles.link}>Facebook</a>
+              <a href="https://www.youtube.com/@SweetDreamsUS" target="_blank" rel="noopener noreferrer" className={styles.link}>YouTube</a>
+              <a href="https://www.tiktok.com/@sweetdreamsstudios" target="_blank" rel="noopener noreferrer" className={styles.link}>TikTok</a>
             </div>
           </div>
         </div>
 
         <div className={styles.bottom}>
           <div className={styles.bottomLeft}>
-            <p className={styles.copyright}>&copy; 2025 Sweet Dreams Music LLC. All rights reserved.</p>
+            <p className={styles.copyright}>&copy; {new Date().getFullYear()} Sweet Dreams Music LLC. All rights reserved.</p>
             <div className={styles.legalLinks}>
               <Link href="/privacy" className={styles.legalLink}>Privacy Policy</Link>
               <span className={styles.separator}>&bull;</span>

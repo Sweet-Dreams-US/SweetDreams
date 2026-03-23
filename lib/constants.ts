@@ -70,12 +70,12 @@ export const GEO = {
 // ==================== SOCIAL MEDIA ====================
 
 export const SOCIAL = {
-  instagram: 'https://www.instagram.com/sweetdreamsstudiosss/',
+  instagram: 'https://www.instagram.com/sweetdreamssolutions.us/',
   tiktok: 'https://www.tiktok.com/@sweetdreamsstudios',
+  facebook: 'https://www.facebook.com/people/Sweet-Dreams-Solutions/100085672277251/',
+  youtube: 'https://www.youtube.com/@SweetDreamsUS',
   twitter: '@jayvalleo',
-  facebook: '', // Add if available
-  youtube: '', // Add if available
-  linkedin: '', // Add if available
+  linkedin: '',
 } as const;
 
 // ==================== BUSINESS HOURS ====================

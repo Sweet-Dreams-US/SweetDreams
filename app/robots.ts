@@ -7,17 +7,38 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/profile', '/profile/*', '/api/*', '/admin/*'],
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup', '/auth/*', '/design-system'],
       },
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/profile', '/profile/*', '/api/*', '/admin/*'],
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup', '/auth/*'],
       },
       {
         userAgent: 'Bingbot',
         allow: '/',
-        disallow: ['/profile', '/profile/*', '/api/*', '/admin/*'],
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup', '/auth/*'],
+      },
+      // AI crawlers - allow indexing for AI search (ChatGPT, Perplexity, etc.)
+      {
+        userAgent: 'GPTBot',
+        allow: '/',
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup'],
+      },
+      {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup'],
+      },
+      {
+        userAgent: 'PerplexityBot',
+        allow: '/',
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup'],
+      },
+      {
+        userAgent: 'ClaudeBot',
+        allow: '/',
+        disallow: ['/profile', '/profile/*', '/profiles/*', '/api/*', '/admin/*', '/login', '/signup'],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

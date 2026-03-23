@@ -23,6 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'dear-lover-music-video',
     'heaven-in-fort-wayne',
     'sweet-dreams-recording-studio',
+    'fort-wayne-traffic-hyperlapse',
+    'cinema-drone-ad',
+    'the-coleman-prime-story',
+    'mc-sim-racing',
   ].map((slug) => ({
     url: `${baseUrl}/work/${slug}`,
     lastModified: currentDate,
@@ -38,22 +42,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/music`,
+      url: `${baseUrl}/work`,
       lastModified: currentDate,
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/media`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/solutions`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/book`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/media`,
+      url: `${baseUrl}/partnerships`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9, // Increased priority - media is core service
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/blog`,
@@ -62,24 +84,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/login`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/signup`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.3,
-    },
-    {
       url: `${baseUrl}/privacy`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.2,
     },
-    // Add all project pages
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    },
+    // All portfolio project pages
     ...projectPages,
   ]
 }

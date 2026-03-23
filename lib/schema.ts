@@ -73,6 +73,8 @@ export const localBusinessSchema = {
   // Social Media
   "sameAs": [
     SOCIAL.instagram,
+    SOCIAL.facebook,
+    SOCIAL.youtube,
     SOCIAL.tiktok,
     "https://sweetdreamsmusic.com"
   ],
@@ -126,6 +128,8 @@ export const organizationSchema = {
   },
   "sameAs": [
     SOCIAL.instagram,
+    SOCIAL.facebook,
+    SOCIAL.youtube,
     SOCIAL.tiktok,
     "https://sweetdreamsmusic.com"
   ]
@@ -337,14 +341,7 @@ export const websiteSchema = {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`
   },
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": `${SITE_URL}/search?q={search_term_string}`
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": "en-US"
 };
 
 // ==================== CONSOLIDATED SCHEMA ====================

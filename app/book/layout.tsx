@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Book a Call | Sweet Dreams Music & Media - Free Consultation",
-  description: "Schedule a free 15-minute discovery call with Sweet Dreams Music & Media. Discuss your video production, music, or creative project needs with our Fort Wayne team.",
-  keywords: "book consultation, free discovery call, video production quote, music production consultation, Fort Wayne creative agency contact",
+  title: "Book a Call | Sweet Dreams - Free Business Media Consultation",
+  description: "Schedule a free discovery call with Sweet Dreams. Discuss your commercial video production, web development, or social media growth needs with our Fort Wayne team.",
+  keywords: "book consultation, free discovery call, video production quote, Fort Wayne creative agency contact, business media consultation, web development quote",
   alternates: {
     canonical: `${SITE_URL}/book`,
   },
   openGraph: {
-    title: "Book a Free Discovery Call | Sweet Dreams Music & Media",
-    description: "Schedule a free 15-minute call to discuss your creative project needs.",
+    title: "Book a Free Discovery Call | Sweet Dreams",
+    description: "Schedule a free call to discuss your business media, video production, or web development needs.",
     url: `${SITE_URL}/book`,
     type: "website",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Book a Free Discovery Call | Sweet Dreams",
-    description: "Schedule a free 15-minute call to discuss your creative project needs.",
+    description: "Schedule a free call to discuss your business media, video production, or web development needs.",
   },
 };
 
