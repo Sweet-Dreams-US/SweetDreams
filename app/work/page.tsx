@@ -6,6 +6,7 @@ import styles from "../media/media.module.css";
 import WhyAnimated from "@/components/media/WhyAnimated";
 import MediaHeroAnimated from "@/components/media/MediaHeroAnimated";
 import PortfolioHorizontalScroll from "@/components/media/PortfolioHorizontalScroll";
+import WebsiteShowcase from "@/components/web/WebsiteShowcase";
 import MusicContactForm from "@/components/music/MusicContactForm";
 
 export default function WorkPage() {
@@ -148,6 +149,65 @@ export default function WorkPage() {
     },
   ];
 
+  const websiteProjects = [
+    {
+      href: "/work/web-sweetdreams",
+      url: "sweetdreams.us",
+      videoId: "2e09ff39e945e08cf28ced40197bf836",
+      name: "Sweet Dreams",
+      description: "Our own agency site — built to showcase what we do best in media and web development.",
+    },
+    {
+      href: "/work/web-sweetdreamsmusic",
+      url: "sweetdreamsmusic.com",
+      videoId: "c7a40ce22803114bab73611635add20c",
+      name: "Sweet Dreams Music",
+      description: "24/7 recording studio with online booking and a beat marketplace.",
+    },
+    {
+      href: "/work/web-creatorspace",
+      url: "creatorspacefw.com",
+      videoId: "37a027a19196653d4ef79b6c2f5f5758",
+      name: "Creator Space FW",
+      description: "Free community directory connecting Fort Wayne creative professionals.",
+    },
+    {
+      href: "/work/web-primedealerfund",
+      url: "primedealerfund.com",
+      videoId: "652911e44eafee84d9efa47dad31eac5",
+      name: "Prime Dealer Fund",
+      description: "Private equity investment fund for automotive dealership acquisitions.",
+    },
+    {
+      href: "/work/web-mcracing",
+      url: "mcracingfortwayne.com",
+      videoId: "1ab82de79e003fc0c37afc0a27fedbc4",
+      name: "MC Racing Fort Wayne",
+      description: "Professional sim racing and RC lounge with online session booking.",
+    },
+    {
+      href: "/work/web-crookedlake",
+      url: "crookedlakesandbarmusicfest.com",
+      videoId: "70cc260b4cb860e8d45485baedbf3b7f",
+      name: "Crooked Lake Sandbar Music Fest",
+      description: "Charity music festival on a sandbar with volunteer and sponsor portals.",
+    },
+    {
+      href: "/work/web-mindsquire",
+      url: "mindsquire.com",
+      videoId: "4db4384638b438d0f2c3fb9b60a48606",
+      name: "MindSquire",
+      description: "YouTube content organization with 1.3B+ views and recruitment platform.",
+    },
+    {
+      href: "/work/web-industrialbakery",
+      url: "industrialbakeryequipment.com",
+      videoId: "33850e02411be4ba7cb880ef7af52dce",
+      name: "Industrial Bakery Equipment",
+      description: "Steel fabrication company manufacturing food service equipment since 2008.",
+    },
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
       const title = document.getElementById('scrolling-title');
@@ -181,6 +241,9 @@ export default function WorkPage() {
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
       />
+
+      {/* Website Projects - White */}
+      <WebsiteShowcase projects={websiteProjects} />
 
       {/* Why Choose Us - Black */}
       <WhyAnimated />

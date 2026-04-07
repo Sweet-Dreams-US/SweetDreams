@@ -142,7 +142,7 @@ export default function RootLayout({
             (function(){
               var b=document.getElementsByTagName("head")[0],c=document.createElement("script");
               c.type="text/javascript";c.src="https://tracker.metricool.com/resources/be.js";
-              c.onload=function(){beTracker.t({hash:"e58732b17a6a586cbd3b4f425ca2829b"})};
+              c.onload=function(){try{beTracker.t({hash:"e58732b17a6a586cbd3b4f425ca2829b"})}catch(e){}};
               b.appendChild(c);
             })();
           `}

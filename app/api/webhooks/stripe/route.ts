@@ -4,14 +4,14 @@ import { createServiceRoleClient } from '@/utils/supabase/service-role';
 import { resend, ADMIN_EMAIL, FROM_EMAIL } from '@/lib/emails/resend';
 import { format } from 'date-fns';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
-});
-
 // Disable body parsing for webhooks - Next.js 15 App Router
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2025-08-27.basil',
+  });
+
   console.log('');
   console.log('🔔 ==========================================');
   console.log('🔔 STRIPE WEBHOOK CALLED!');
