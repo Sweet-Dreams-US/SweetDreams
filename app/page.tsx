@@ -15,13 +15,6 @@ import styles from "./home.module.css";
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-black">
-      {/* Promo Banner */}
-      <div className={styles.promoBanner}>
-        <span className={styles.promoText}>
-          <strong>Spring Special!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Spring Special!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Spring Special!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Spring Special!</strong>&nbsp;Get 6 Months FREE Hosting with any website purchase! &nbsp;&nbsp;|&nbsp;&nbsp;
-        </span>
-      </div>
-
       {/* Video Hero - Only on homepage */}
       <VideoHero />
 

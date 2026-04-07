@@ -625,10 +625,6 @@ function BlackPricingSection() {
           </div>
         </div>
 
-        {/* Hosting Note */}
-        <div className={styles.hostingNote}>
-          <p>Includes: 6 months FREE hosting with any website purchase</p>
-        </div>
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import styles from "../media/media.module.css";
 import WhyAnimated from "@/components/media/WhyAnimated";
-import MediaHeroAnimated from "@/components/media/MediaHeroAnimated";
+
 import PortfolioHorizontalScroll from "@/components/media/PortfolioHorizontalScroll";
 import WebsiteShowcase from "@/components/web/WebsiteShowcase";
 import MusicContactForm from "@/components/music/MusicContactForm";
@@ -232,9 +232,6 @@ export default function WorkPage() {
 
   return (
     <div className={styles.page}>
-      {/* Hero Section - White */}
-      <MediaHeroAnimated />
-
       {/* Complete Portfolio - Horizontal Scroll */}
       <PortfolioHorizontalScroll
         items={portfolioItems}
