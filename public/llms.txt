@@ -1,6 +1,6 @@
-# Sweet Dreams Media - Business Media Solutions
+# Sweet Dreams - Business Media Solutions Agency
 
-> Sweet Dreams is a full-service business media agency based in Fort Wayne, Indiana. We specialize in commercial video production, brand films, web development, social media growth, and strategic business partnerships.
+> Sweet Dreams is a full-service business media agency based in Fort Wayne, Indiana. We specialize in commercial video production, brand films, web development, social media growth, and strategic business partnerships. Founded in 2020 by Jay Val Leo.
 
 ## Company Information
 
@@ -11,35 +11,53 @@
 - **Website**: https://sweetdreams.us
 - **Founded**: 2020
 - **Founder**: Jay Val Leo
+- **Service Area**: Fort Wayne, Northeast Indiana, and nationwide for digital services
 
 ## Services
 
 ### Commercial Video Production
-Professional video production services including commercials, brand films, corporate videos, event coverage, and promotional content for businesses throughout Fort Wayne and Northeast Indiana.
+Professional video production services including commercials, brand films, corporate videos, event coverage, drone videography, and promotional content for businesses throughout Fort Wayne and Northeast Indiana. Clients include Nissan, Indianapolis Children's Museum, Brookfield Zoo, Kissel Entertainment, Aegis Dental, and more.
 - URL: https://sweetdreams.us/media
+- Service Page: https://sweetdreams.us/services/video-production-fort-wayne
 
 ### Web Development
-Custom website design and development for businesses and brands, including e-commerce, portfolio sites, and ongoing maintenance.
+Custom website design and development for businesses and brands. We build with Next.js, React, TypeScript, and modern frameworks. Portfolio includes 8+ live websites across industries including entertainment, finance, manufacturing, events, music, and community platforms.
 - URL: https://sweetdreams.us/solutions
+- Service Page: https://sweetdreams.us/services/web-development-fort-wayne
 
-### Social Media Growth
-Strategic social media management, content creation, and audience growth services for businesses.
+### Social Media Growth & Management
+Full-service social media management including strategy, in-house content creation (video, photo, graphics), posting, community management, and audience growth. We manage Instagram, TikTok, Facebook, YouTube, LinkedIn, and X.
 - URL: https://sweetdreams.us/solutions
+- Service Page: https://sweetdreams.us/services/social-media-management-fort-wayne
 
 ### Business Partnerships
 Performance-based growth partnerships with revenue-tied compensation. Unlimited content, brand assets, and social media management.
 - URL: https://sweetdreams.us/partnerships
 
+## Website Portfolio (8 Live Sites)
+
+1. **sweetdreams.us** - Agency website (this site)
+2. **sweetdreamsmusic.com** - 24/7 recording studio with online booking and beat marketplace
+3. **creatorspacefw.com** - Free community directory for Fort Wayne creatives
+4. **primedealerfund.com** - Private equity investment fund for automotive dealerships
+5. **mcracingfortwayne.com** - Professional sim racing and RC lounge
+6. **crookedlakesandbarmusicfest.com** - Charity music festival in Angola, Indiana
+7. **mindsquire.com** - YouTube content organization (1.3B+ views)
+8. **industrialbakeryequipment.com** - Steel fabrication and food service equipment manufacturer
+
+## Video Production Portfolio (17+ Projects)
+
+Notable clients: Nissan Warsaw, Indianapolis Children's Museum, Brookfield Zoo, Kissel Entertainment, Aegis Dental Group, MC Sim Racing, Coleman Prime, and more.
+- Full Portfolio: https://sweetdreams.us/work
+
 ## Key Pages
 
 - Portfolio: https://sweetdreams.us/work
 - About Us: https://sweetdreams.us/about
-- Book a Call: https://sweetdreams.us/book
+- Book a Free Call: https://sweetdreams.us/book
+- Solutions: https://sweetdreams.us/solutions
+- Partnerships: https://sweetdreams.us/partnerships
 - Blog: https://sweetdreams.us/blog
-
-## Service Area
-
-Fort Wayne, Indiana and surrounding Northeast Indiana region. Also serves clients across Indiana and nationwide for digital services.
 
 ## Sister Site
 

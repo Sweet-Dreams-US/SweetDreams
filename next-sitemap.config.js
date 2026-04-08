@@ -78,6 +78,22 @@ export default {
       'brookfield-zoo-ferris-wheel',
       'fort-wayne-hyperlapse-showcase',
       'heaven-in-fort-wayne',
+      'wake-up-blind-music-video',
+      'dear-lover-music-video',
+      'sweet-dreams-recording-studio',
+      'fort-wayne-traffic-hyperlapse',
+      'cinema-drone-ad',
+      'the-coleman-prime-story',
+      'mc-sim-racing',
+      // Website portfolio projects
+      'web-sweetdreams',
+      'web-sweetdreamsmusic',
+      'web-creatorspace',
+      'web-primedealerfund',
+      'web-mcracing',
+      'web-crookedlake',
+      'web-mindsquire',
+      'web-industrialbakery',
     ]
 
     projectSlugs.forEach(slug => {

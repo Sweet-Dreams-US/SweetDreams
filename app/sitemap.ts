@@ -27,6 +27,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'cinema-drone-ad',
     'the-coleman-prime-story',
     'mc-sim-racing',
+    // Website portfolio projects
+    'web-sweetdreams',
+    'web-sweetdreamsmusic',
+    'web-creatorspace',
+    'web-primedealerfund',
+    'web-mcracing',
+    'web-crookedlake',
+    'web-mindsquire',
+    'web-industrialbakery',
   ].map((slug) => ({
     url: `${baseUrl}/work/${slug}`,
     lastModified: currentDate,
@@ -82,6 +91,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.6,
+    },
+    // Service + Location pages (critical for local SEO)
+    {
+      url: `${baseUrl}/services/video-production-fort-wayne`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/web-development-fort-wayne`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/social-media-management-fort-wayne`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/privacy`,

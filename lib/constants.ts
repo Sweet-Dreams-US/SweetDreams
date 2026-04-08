@@ -151,6 +151,14 @@ export const SEO = {
     'business partnerships media',
     'brand video production',
     'commercial production company',
+
+    // High-intent local searches
+    'creative agency Fort Wayne',
+    'media solutions Fort Wayne',
+    'video marketing Fort Wayne',
+    'Fort Wayne web designer',
+    'website company Fort Wayne Indiana',
+    'videographer near me Fort Wayne',
   ],
   openGraph: {
     type: 'website',
