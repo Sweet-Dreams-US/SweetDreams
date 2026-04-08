@@ -30,7 +30,7 @@ export const BRAND = {
   name: 'Sweet Dreams',
   legalName: 'Sweet Dreams Music LLC',
   tagline: 'Business Media Solutions',
-  description: 'Fort Wayne business media agency specializing in commercial video production, brand films, business partnerships, web development, and social media growth for businesses.',
+  description: 'Fort Wayne business media agency specializing in media production, website development, business operations software, marketing strategies, social media management, and social media content production for businesses.',
 } as const;
 
 // ==================== CONTACT INFORMATION ====================
@@ -94,19 +94,24 @@ export const BUSINESS_HOURS = {
 
 export const SERVICES = {
   video: {
-    name: 'Commercial Video Production',
+    name: 'Media Production',
     slug: 'media',
-    description: 'Commercials, brand films, corporate videos, promotional content, and event coverage for businesses',
+    description: 'Commercials, brand films, corporate videos, promotional content, event coverage, and social media video production for businesses',
   },
   web: {
-    name: 'Web Development',
+    name: 'Website Services & Software Development',
     slug: 'solutions',
-    description: 'Custom website design and development for businesses and brands',
+    description: 'Custom website design, web development, e-commerce, and business operations software for businesses and brands',
   },
   social: {
-    name: 'Social Media Growth',
+    name: 'Social Media Management & Production',
     slug: 'solutions',
-    description: 'Social media strategy, content creation, and audience growth management for businesses',
+    description: 'Full-service social media management, content production, strategy, and audience growth for businesses',
+  },
+  marketing: {
+    name: 'Marketing Strategies',
+    slug: 'solutions',
+    description: 'Data-driven marketing strategies, brand development, and digital marketing campaigns for business growth',
   },
   partnerships: {
     name: 'Business Partnerships',
@@ -120,7 +125,7 @@ export const SERVICES = {
 export const SEO = {
   defaultTitle: 'Sweet Dreams | Fort Wayne Business Media Solutions',
   titleTemplate: '%s | Sweet Dreams',
-  defaultDescription: 'Fort Wayne business media agency specializing in commercial video production, brand films, business partnerships, web development, and social media growth. Professional media solutions for businesses and brands.',
+  defaultDescription: 'Fort Wayne business media agency offering media production, website services, business operations software development, marketing strategies, social media management, and social media content production. Professional solutions for businesses and brands.',
   keywords: [
     // Location-based
     'Fort Wayne media agency',
@@ -159,6 +164,16 @@ export const SEO = {
     'Fort Wayne web designer',
     'website company Fort Wayne Indiana',
     'videographer near me Fort Wayne',
+
+    // Expanded service coverage
+    'business operations software Fort Wayne',
+    'marketing strategies Fort Wayne',
+    'social media content production',
+    'media production Fort Wayne Indiana',
+    'social media production Fort Wayne',
+    'software development Fort Wayne',
+    'business software Fort Wayne',
+    'marketing agency Fort Wayne',
   ],
   openGraph: {
     type: 'website',

@@ -23,7 +23,7 @@ export const localBusinessSchema = {
   "name": BRAND.name,
   "alternateName": "Sweet Dreams Media",
   "legalName": BRAND.legalName,
-  "description": "Fort Wayne's premier business media agency specializing in commercial video production, brand films, corporate media, web development, and social media growth. Professional media solutions for businesses and brands throughout Northeast Indiana.",
+  "description": "Fort Wayne's premier business media agency specializing in media production, website services, business operations software development, marketing strategies, social media management, and social media content production. Professional media solutions for businesses and brands throughout Northeast Indiana and nationwide.",
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.png`,
   "image": `${SITE_URL}/studio-photo.jpg`,
@@ -96,7 +96,9 @@ export const localBusinessSchema = {
   "additionalType": [
     "https://schema.org/VideoProductionService",
     "https://schema.org/WebDesigner",
-    "https://schema.org/AdvertisingAgency"
+    "https://schema.org/AdvertisingAgency",
+    "https://schema.org/MarketingAgency",
+    "https://schema.org/SoftwareApplication"
   ]
 };
 
