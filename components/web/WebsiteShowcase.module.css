@@ -56,9 +56,12 @@
   cursor: pointer;
 }
 
-.browserCard:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+/* Hover AND mobile-centered get the same lifted treatment — centered
+   card on mobile mirrors what hover does on desktop */
+.browserCard:hover,
+.browserCard.focused {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
 /* Persistent click badge — top-right corner, subtle pulse
@@ -183,7 +186,8 @@
   backdrop-filter: blur(2px);
 }
 
-.browserCard:hover .visitOverlay {
+.browserCard:hover .visitOverlay,
+.browserCard.focused .visitOverlay {
   opacity: 1;
 }
 
@@ -203,7 +207,8 @@
   transition: transform 0.3s ease;
 }
 
-.browserCard:hover .arrow {
+.browserCard:hover .arrow,
+.browserCard.focused .arrow {
   transform: translateX(6px);
 }
 
@@ -263,7 +268,8 @@
   white-space: nowrap;
 }
 
-.browserCard:hover .viewProjectCTA {
+.browserCard:hover .viewProjectCTA,
+.browserCard.focused .viewProjectCTA {
   border-color: white;
   background: rgba(255, 255, 255, 0.08);
 }
@@ -273,7 +279,8 @@
   transition: transform 0.3s ease;
 }
 
-.browserCard:hover .ctaArrow {
+.browserCard:hover .ctaArrow,
+.browserCard.focused .ctaArrow {
   transform: translateX(4px);
 }
 
@@ -304,39 +311,30 @@
   }
 
   /* Mobile scroll-focus effect:
-     Cards NOT in the center 50% of viewport get blurred and scaled down,
-     creating a spotlight that tracks the user's scroll position.
-     Hover states don't work on mobile — this is the mobile equivalent. */
+     A single card (centered in viewport) gets the SAME lifted hover treatment
+     desktop users get. All other cards are blurred + scaled down + dimmed
+     to spotlight the active one. Mirrors PortfolioHorizontalScroll above. */
   .browserCard.unfocused {
     filter: blur(5px);
     transform: scale(0.92);
-    opacity: 0.45;
+    opacity: 0.5;
     will-change: filter, transform, opacity;
   }
 
+  /* .focused rule is defined at the top alongside :hover — inherits:
+     transform: translateY(-8px) scale(1.02), bigger shadow, overlay visible,
+     arrows sliding. This block just adds mobile-specific overrides. */
   .browserCard.focused {
     filter: blur(0);
-    transform: scale(1);
     opacity: 1;
   }
 
-  /* SAFETY NET — always clear blur when user interacts with a card.
-     Covers: desktop hover (small tablet widths), mobile tap-and-hold,
-     keyboard Tab focus, and any case where the scroll-focus observer
-     doesn't fire exactly when expected (e.g., tall card edge cases). */
-  .browserCard.unfocused:hover,
+  /* Tap safety net — if a user taps an unfocused card instead of scrolling
+     to center it, still clear blur so they see their tap target clearly */
   .browserCard.unfocused:active,
-  .browserCard.unfocused:focus-visible,
-  .browserCard.unfocused:focus-within {
+  .browserCard.unfocused:focus-visible {
     filter: blur(0);
-    transform: scale(1);
     opacity: 1;
-  }
-
-  /* Focused card ignores any conflicting hover transform from base styles */
-  .browserCard.focused:hover,
-  .browserCard.focused:active {
-    transform: scale(1);
   }
 
   /* Make the click badge more prominent on mobile — no hover to reveal intent */

@@ -13,12 +13,19 @@ interface WebsiteProject {
   description: string;
 }
 
-function BrowserCard({ project }: { project: WebsiteProject }) {
+interface BrowserCardProps {
+  project: WebsiteProject;
+  index: number;
+  isMobile: boolean;
+  isCentered: boolean;
+  someCentered: boolean;
+}
+
+function BrowserCard({ project, index, isMobile, isCentered, someCentered }: BrowserCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLAnchorElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
 
   // Lazy load: only init HLS when card enters viewport
   useEffect(() => {
@@ -33,29 +40,6 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
         }
       },
       { rootMargin: '200px' }
-    );
-
-    observer.observe(card);
-    return () => observer.disconnect();
-  }, []);
-
-  // Mobile scroll-focus: only one card "in focus" at a time based on viewport center
-  // Non-focused cards get a blur + scale-down via CSS to create a spotlight effect.
-  // rootMargin -25%/-25% = center 50% of viewport — tall cards have more slack so
-  // the focused state reliably activates as they enter the central scroll band.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const mobileQuery = window.matchMedia('(max-width: 1024px)');
-    if (!mobileQuery.matches) return;
-
-    const card = cardRef.current;
-    if (!card) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsFocused(entry.isIntersecting);
-      },
-      { rootMargin: '-25% 0px -25% 0px', threshold: 0 }
     );
 
     observer.observe(card);
@@ -88,13 +72,18 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
     };
   }, [isVisible, project.videoId]);
 
+  // Only apply focus/dim classes on mobile. On desktop, cards render normally
+  // with no blur — hover states from base CSS handle desktop affordance.
+  // Before any card is centered (initial mount on mobile), no card is dimmed —
+  // prevents the brief "all blurred" flash before the observer fires.
   const cardClassName = [
     styles.browserCard,
-    isFocused ? styles.focused : styles.unfocused,
-  ].join(' ');
+    isMobile && isCentered ? styles.focused : '',
+    isMobile && someCentered && !isCentered ? styles.unfocused : '',
+  ].filter(Boolean).join(' ');
 
   return (
-    <Link ref={cardRef} href={project.href} className={cardClassName} aria-label={`View ${project.name} website project`}>
+    <Link ref={cardRef} href={project.href} className={cardClassName} data-card-index={index} aria-label={`View ${project.name} website project`}>
       {/* Click indicator badge — persistent top-right corner, visible on all devices */}
       <div className={styles.clickBadge} aria-hidden="true">
         <span className={styles.clickBadgeIcon}>&#8599;</span>
@@ -153,6 +142,59 @@ interface WebsiteShowcaseProps {
 }
 
 export default function WebsiteShowcase({ projects }: WebsiteShowcaseProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [centeredIndex, setCenteredIndex] = useState<number | null>(null);
+
+  // Detect mobile and react to viewport resizes so the effect toggles cleanly
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1024px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  // Single observer for ALL cards — picks the one with the highest
+  // intersectionRatio as "centered." Mirrors PortfolioHorizontalScroll's
+  // pattern so the website showcase behaves identically to the media
+  // portfolio above. Only one card can be centered at a time.
+  useEffect(() => {
+    if (!isMobile || !gridRef.current) return;
+
+    const cards = gridRef.current.querySelectorAll('[data-card-index]');
+    if (cards.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let maxRatio = 0;
+        let mostVisibleIndex: number | null = null;
+
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            const idx = parseInt(entry.target.getAttribute('data-card-index') || '-1');
+            if (idx >= 0) mostVisibleIndex = idx;
+          }
+        });
+
+        if (maxRatio > 0.3) {
+          setCenteredIndex(mostVisibleIndex);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [isMobile, projects]);
+
+  const someCentered = centeredIndex !== null;
+
   return (
     <section className={styles.section}>
       <div className={styles.header}>
@@ -160,9 +202,16 @@ export default function WebsiteShowcase({ projects }: WebsiteShowcaseProps) {
         <h2 className={styles.sectionTitle}>WEB DEVELOPMENT</h2>
       </div>
 
-      <div className={styles.grid}>
+      <div ref={gridRef} className={styles.grid}>
         {projects.map((project, index) => (
-          <BrowserCard key={index} project={project} />
+          <BrowserCard
+            key={index}
+            project={project}
+            index={index}
+            isMobile={isMobile}
+            isCentered={centeredIndex === index}
+            someCentered={someCentered}
+          />
         ))}
       </div>
     </section>
