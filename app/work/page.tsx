@@ -235,6 +235,29 @@ export default function WorkPage() {
     };
   }, []);
 
+  // Deferred hash scroll — waits for GSAP ScrollTrigger pinning to settle
+  // before scrolling to #websites (or any other hash target). Without this,
+  // the browser's initial hash scroll fires before ScrollTrigger expands the
+  // horizontal portfolio's scroll distance, landing the user at the top.
+  useEffect(() => {
+    const scrollToHash = () => {
+      const hash = window.location.hash;
+      if (!hash) return;
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    const timer = setTimeout(scrollToHash, 900);
+    window.addEventListener('hashchange', scrollToHash);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('hashchange', scrollToHash);
+    };
+  }, []);
+
   return (
     <div className={styles.page}>
       {/* Complete Portfolio - Horizontal Scroll */}
