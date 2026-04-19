@@ -41,18 +41,62 @@
 
 /* Browser Card */
 .browserCard {
+  position: relative;
   text-decoration: none;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 16px;
   overflow: hidden;
   background: #000;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
 .browserCard:hover {
   transform: translateY(-8px) scale(1.01);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* Persistent click badge — top-right corner, subtle pulse
+   Signals "this is clickable" on all devices (no hover needed) */
+.clickBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  animation: clickBadgePulse 2.4s ease-in-out infinite;
+}
+
+.clickBadgeIcon {
+  font-size: 18px;
+  color: #000;
+  font-weight: bold;
+  line-height: 1;
+  transform: translate(1px, -1px);
+}
+
+@keyframes clickBadgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255, 255, 255, 0);
+  }
 }
 
 /* Browser Chrome */
@@ -167,6 +211,15 @@
 .projectInfo {
   padding: 24px;
   background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.projectInfoText {
+  flex: 1;
+  min-width: 0;
 }
 
 .projectName {
@@ -191,6 +244,39 @@
   overflow: hidden;
 }
 
+/* Persistent CTA — always visible on mobile AND desktop
+   Makes it unambiguous that the card is a link, not just decoration */
+.viewProjectCTA {
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: white;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.browserCard:hover .viewProjectCTA {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ctaArrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.browserCard:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .grid {
@@ -210,10 +296,48 @@
   .grid {
     grid-template-columns: 1fr;
     max-width: 700px;
+    gap: 40px;
   }
 
   .sectionTitle {
     font-size: 40px;
+  }
+
+  /* Mobile scroll-focus effect:
+     Cards NOT in the center 20% of viewport get blurred and scaled down,
+     creating a spotlight that tracks the user's scroll position.
+     Hover states don't work on mobile — this is the mobile equivalent. */
+  .browserCard.unfocused {
+    filter: blur(5px);
+    transform: scale(0.92);
+    opacity: 0.45;
+  }
+
+  .browserCard.focused {
+    filter: blur(0);
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* Prevent the hover transform from fighting with mobile focus transform */
+  .browserCard:hover {
+    transform: none;
+  }
+
+  .browserCard.focused:hover {
+    transform: scale(1);
+  }
+
+  /* Make the click badge more prominent on mobile — no hover to reveal intent */
+  .clickBadge {
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .clickBadgeIcon {
+    font-size: 20px;
   }
 }
 
@@ -248,8 +372,12 @@
     font-size: 11px;
   }
 
+  /* Stack name/description above the CTA button on small screens */
   .projectInfo {
     padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
   }
 
   .projectName {
@@ -262,5 +390,24 @@
 
   .visitText {
     font-size: 22px;
+  }
+
+  .viewProjectCTA {
+    justify-content: center;
+    font-size: 12px;
+    padding: 12px 16px;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Respect users who prefer reduced motion — kill the pulse */
+@media (prefers-reduced-motion: reduce) {
+  .clickBadge {
+    animation: none;
+  }
+
+  .browserCard.unfocused,
+  .browserCard.focused {
+    transition: none;
   }
 }
