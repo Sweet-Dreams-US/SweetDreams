@@ -27,6 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'cinema-drone-ad',
     'the-coleman-prime-story',
     'mc-sim-racing',
+    'fort-wayne-state-of-the-city',
+    'mom-nonprofit-brand-film',
     // Website portfolio projects
     'web-sweetdreams',
     'web-sweetdreamsmusic',

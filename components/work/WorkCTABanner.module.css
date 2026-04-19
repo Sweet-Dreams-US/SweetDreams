@@ -1,0 +1,277 @@
+/* ==================== ACCENT COLORS (shared) ==================== */
+
+.accentRed {
+  --accent: #e63636;
+}
+
+.accentYellow {
+  --accent: #F4C430;
+}
+
+.accentBlue {
+  --accent: #4A90E2;
+}
+
+.accentWhite {
+  --accent: #ffffff;
+}
+
+/* ==================== COMPACT VARIANT ==================== */
+/* Thin horizontal bar — good for placing between sections */
+
+.compact {
+  background: #0a0a0a;
+  padding: 32px 60px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.compact::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent);
+}
+
+.compactInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.compactText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.compactHeading {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.compactSubtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+}
+
+.compactButton {
+  background: var(--accent);
+  color: #000;
+  border: 2px solid var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.compactButton:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.accentWhite .compactButton {
+  color: #000;
+}
+
+.accentWhite .compactButton:hover {
+  color: #fff;
+}
+
+/* ==================== FEATURE VARIANT ==================== */
+/* Larger hero-style block — good for mid-page emphasis */
+
+.feature {
+  background: #000;
+  padding: 100px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.feature.accentRed {
+  background: linear-gradient(135deg, #000 0%, #1a0808 100%);
+}
+
+.feature.accentYellow {
+  background: linear-gradient(135deg, #000 0%, #1a1708 100%);
+}
+
+.feature.accentBlue {
+  background: linear-gradient(135deg, #000 0%, #081220 100%);
+}
+
+.featureInner {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.featureHeading {
+  font-family: 'Anton', sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 16px 0;
+  line-height: 1;
+}
+
+.featureSubtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 40px 0;
+  line-height: 1.6;
+}
+
+.featureButton {
+  background: var(--accent);
+  color: #000;
+  border: 2px solid var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 18px 48px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.featureButton:hover {
+  background: transparent;
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.accentWhite .featureButton {
+  color: #000;
+}
+
+.accentWhite .featureButton:hover {
+  color: #fff;
+}
+
+/* ==================== MINIMAL VARIANT ==================== */
+/* Just a button with small supporting text — for lighter touchpoints */
+
+.minimal {
+  text-align: center;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.minimalSubtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.55);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.minimalButton {
+  background: transparent;
+  color: currentColor;
+  border: 2px solid var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.minimalButton:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.minimalButton.accentWhite:hover {
+  color: #000;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .compact {
+    padding: 24px 20px;
+  }
+
+  .compactInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .compactHeading {
+    font-size: 22px;
+  }
+
+  .compactButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .feature {
+    padding: 60px 20px;
+  }
+
+  .featureHeading {
+    font-size: 40px;
+  }
+
+  .featureSubtext {
+    font-size: 14px;
+  }
+
+  .featureButton {
+    padding: 16px 36px;
+    font-size: 12px;
+  }
+}

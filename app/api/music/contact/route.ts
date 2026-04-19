@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { resend, ADMIN_EMAIL, FROM_EMAIL } from '@/lib/emails/resend';
+import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
 
 // Turnstile secret key from environment variables (required)
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
@@ -71,6 +72,17 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid verification' },
         { status: 400 }
       );
+    }
+
+    // Rate limit + spam check
+    if (clientIp && !checkRateLimit(clientIp)) {
+      return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+    }
+
+    const spamCheck = checkForSpam({ name, email, phone, message, ip: clientIp });
+    if (spamCheck.isSpam) {
+      console.warn(`SPAM BLOCKED (music contact): ${spamCheck.reason}`, { name, email, phone });
+      return NextResponse.json({ success: true });
     }
 
     // Get human-readable source label

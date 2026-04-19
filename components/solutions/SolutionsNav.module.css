@@ -1,0 +1,106 @@
+/* ==================== ANCHOR POINT ==================== */
+
+.anchor {
+  height: 0;
+  width: 100%;
+}
+
+/* ==================== NAV BAR ==================== */
+
+.nav {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  z-index: 50;
+  transition: box-shadow 0.2s ease;
+}
+
+.navSticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.navSpacer {
+  height: 56px;
+}
+
+.navInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.navInner::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==================== NAV ITEMS ==================== */
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.navItem:hover {
+  color: #333;
+}
+
+.navItemActive {
+  color: #111;
+  border-bottom-color: #111;
+  font-weight: 600;
+}
+
+.navNumber {
+  font-size: 0.65rem;
+  color: #ccc;
+  font-weight: 600;
+}
+
+.navItemActive .navNumber {
+  color: #111;
+}
+
+.navLabel {
+  /* inherits from navItem */
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .navItem {
+    padding: 0.85rem 1rem;
+    font-size: 0.72rem;
+  }
+
+  .navNumber {
+    display: none;
+  }
+
+  .navSpacer {
+    height: 48px;
+  }
+}

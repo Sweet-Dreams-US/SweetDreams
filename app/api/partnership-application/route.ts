@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { resend, FROM_EMAIL } from '@/lib/emails/resend';
+import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
 
 // Team members who receive partnership applications
-const PARTNERSHIP_EMAILS = ['jayvalleo@sweetdreamsmusic.com', 'cole@sweetdreamsmusic.com'];
+const PARTNERSHIP_EMAILS = ['cole@sweetdreams.us', 'jayvalleo@sweetdreams.us'];
 
 // Turnstile secret key from environment variables
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
@@ -89,6 +90,18 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid verification' },
         { status: 400 }
       );
+    }
+
+    // Rate limit + spam check
+    if (clientIp && !checkRateLimit(clientIp)) {
+      console.warn('Rate limited (partnership)', { businessName, email, ip: clientIp });
+      return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+    }
+
+    const spamCheck = checkForSpam({ name: yourName, email, phone, ip: clientIp });
+    if (spamCheck.isSpam) {
+      console.warn(`SPAM BLOCKED (partnership): ${spamCheck.reason}`, { yourName, email, phone });
+      return NextResponse.json({ success: true });
     }
 
     // Get human-readable revenue label

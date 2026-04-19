@@ -20,6 +20,6 @@ export const resend = {
   }
 };
 
-// Email addresses
-export const ADMIN_EMAIL = 'jayvalleo@sweetdreamsmusic.com';
-export const FROM_EMAIL = 'Sweet Dreams Music <noreply@sweetdreamsmusic.com>';
+// Email addresses — all forms send to both
+export const ADMIN_EMAIL = ['cole@sweetdreams.us', 'jayvalleo@sweetdreams.us'];
+export const FROM_EMAIL = 'Sweet Dreams Solutions <noreply@sweetdreamsmusic.com>';

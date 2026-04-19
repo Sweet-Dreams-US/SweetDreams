@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: SEO.openGraph.type,
-    title: 'Sweet Dreams | Fort Wayne Business Media Solutions',
-    description: 'Fort Wayne business media agency offering commercial video production, brand films, web development, and social media growth. Professional media solutions for businesses and brands.',
+    title: 'Sweet Dreams Solutions | Media, Marketing, Consulting & Software',
+    description: 'Fort Wayne full-service business agency delivering media production, marketing strategy, business consulting, and custom software development — all under one roof.',
     url: SITE_URL,
     siteName: SEO.openGraph.siteName,
     locale: SEO.openGraph.locale,
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@jayvalleo',
     creator: '@jayvalleo',
-    title: 'Sweet Dreams | Fort Wayne Business Media Solutions',
-    description: 'Fort Wayne business media agency: commercial video production, brand films, web development, social media growth.',
+    title: 'Sweet Dreams Solutions | Media, Marketing, Consulting & Software',
+    description: 'Fort Wayne full-service business agency: media production, marketing, business consulting, and custom software development.',
     images: ['https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png'],
   },
 };
@@ -108,6 +108,20 @@ export default function RootLayout({
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '3631251467167744');
             fbq('track', 'PageView');
+          `}
+        </Script>
+
+        {/* Google Ads Conversion Tracking */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18077252453"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18077252453');
           `}
         </Script>
 

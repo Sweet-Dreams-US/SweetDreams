@@ -17,6 +17,7 @@ export default function Footer() {
             <div className={styles.contact}>
               <p>3943 Parnell Ave</p>
               <p>Fort Wayne, IN 46805</p>
+              <a href="tel:+12606157467" className={styles.link}>(260) 615-7467</a>
               <p>jayvalleo@sweetdreams.us</p>
             </div>
           </div>
@@ -61,7 +62,7 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <div className={styles.bottomLeft}>
-            <p className={styles.copyright}>&copy; {new Date().getFullYear()} Sweet Dreams Music LLC. All rights reserved.</p>
+            <p className={styles.copyright}>&copy; {new Date().getFullYear()} Sweet Dreams US LLC. All rights reserved.</p>
             <div className={styles.legalLinks}>
               <Link href="/privacy" className={styles.legalLink}>Privacy Policy</Link>
               <span className={styles.separator}>&bull;</span>

@@ -1,0 +1,418 @@
+/* ==================== MODAL OVERLAY ==================== */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: #fff;
+  color: #111;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.closeButton:hover {
+  background: #f3f3f3;
+  color: #111;
+}
+
+.modalHeader {
+  padding: 40px 40px 24px 40px;
+  border-bottom: 1px solid #eee;
+}
+
+.modalTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #111;
+  margin: 0 0 8px 0;
+  line-height: 1;
+}
+
+.modalSubtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.modalBody {
+  padding: 24px 40px 40px 40px;
+}
+
+/* Modal form needs light theme */
+.modalBody .input,
+.modalBody .textarea {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  color: #111;
+}
+
+.modalBody .input::placeholder,
+.modalBody .textarea::placeholder {
+  color: #aaa;
+}
+
+.modalBody .input:focus,
+.modalBody .textarea:focus {
+  border-color: #111;
+  background: #fff;
+}
+
+.modalBody .label {
+  color: #666;
+}
+
+.modalBody .error {
+  color: #e63636;
+}
+
+.modalBody .turnstile {
+  min-height: 65px;
+}
+
+.modalBody .interestTag {
+  background: #f5f5f5;
+  border-color: #e0e0e0;
+  color: #666;
+}
+
+.modalBody .interestTag:hover {
+  border-color: #999;
+  color: #222;
+}
+
+.modalBody .submit {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.modalBody .submit:hover {
+  background: #fff;
+  color: #111;
+}
+
+/* ==================== INLINE SECTION ==================== */
+
+.inlineSection {
+  background: #111;
+  padding: 100px 60px;
+  color: #fff;
+}
+
+.inlineContainer {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.inlineTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 12px 0;
+  text-align: center;
+  line-height: 1;
+}
+
+.inlineSubtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  margin: 0 0 48px 0;
+}
+
+/* ==================== FORM (shared between modes) ==================== */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 14px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  border-radius: 0;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.input:focus {
+  border-color: #fff;
+}
+
+.textarea {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 14px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+  min-height: 80px;
+  border-radius: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.textarea:focus {
+  border-color: #fff;
+}
+
+/* ==================== INTEREST TAGS ==================== */
+
+.interestTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.interestTag {
+  padding: 8px 16px;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.interestTag:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.interestTagActive {
+  font-weight: 700;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.checkmark {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ==================== TURNSTILE ==================== */
+
+.turnstile {
+  margin-top: 4px;
+  min-height: 65px;
+}
+
+/* ==================== SUBMIT ==================== */
+
+.submit {
+  background: #fff;
+  color: #111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+
+.submit:hover:not(:disabled) {
+  background: transparent;
+  color: #fff;
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==================== STATUS MESSAGES ==================== */
+
+.error {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #e63636;
+  margin: 0;
+}
+
+.success {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.successTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: inherit;
+  margin: 0 0 8px 0;
+}
+
+.successText {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.modalBody .successText {
+  color: #666;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal {
+    max-height: 95vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modalHeader {
+    padding: 32px 24px 20px 24px;
+  }
+
+  .modalBody {
+    padding: 20px 24px 32px 24px;
+  }
+
+  .modalTitle {
+    font-size: 32px;
+  }
+
+  .inlineSection {
+    padding: 60px 20px;
+  }
+
+  .inlineTitle {
+    font-size: 40px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .interestTag {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+}

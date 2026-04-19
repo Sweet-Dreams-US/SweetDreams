@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { resend, FROM_EMAIL } from '@/lib/emails/resend';
+import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
 
 // Both team members receive booking requests
-const BOOKING_EMAILS = ['jayvalleo@sweetdreamsmusic.com', 'cole@sweetdreamsmusic.com'];
+const BOOKING_EMAILS = ['cole@sweetdreams.us', 'jayvalleo@sweetdreams.us'];
 
 // Google Sheets Web App URL
 const GOOGLE_SHEETS_URL = 'https://script.google.com/a/macros/sweetdreamsmusic.com/s/AKfycbyMxEPnirW3FVVTafQ8l3P_1udp-qYD1Zs5c8-KPat63AIJI0yv-N9iAXbtzlgMOV-reQ/exec';
@@ -70,6 +71,23 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid verification' },
         { status: 400 }
       );
+    }
+
+    // Rate limit check (3 per hour per IP)
+    if (clientIp && !checkRateLimit(clientIp)) {
+      console.warn('Rate limited (book-call)', { name, email, ip: clientIp });
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
+    // Spam filter — blocks international numbers, suspicious emails, bot patterns
+    const spamCheck = checkForSpam({ name, email, phone, message, ip: clientIp });
+    if (spamCheck.isSpam) {
+      console.warn(`SPAM BLOCKED (book-call): ${spamCheck.reason}`, { name, email, phone });
+      // Return success to the spammer so they don't retry — but don't send email
+      return NextResponse.json({ success: true, message: 'Booking request sent successfully' });
     }
 
     // Format the date nicely if provided

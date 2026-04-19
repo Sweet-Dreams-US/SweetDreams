@@ -1,0 +1,241 @@
+/* ==================== DESKTOP TOC SIDEBAR ==================== */
+
+.tocSidebar {
+  width: 240px;
+  min-width: 240px;
+  flex-shrink: 0;
+  order: 2;
+  /* This element must NOT have overflow hidden or a fixed height.
+     It stretches to match the content column height via flex,
+     allowing the inner sticky div to scroll with the page. */
+  align-self: stretch;
+}
+
+.tocSticky {
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
+
+.tocInner {
+  display: flex;
+  gap: 0;
+}
+
+/* Vertical progress bar */
+.progressBarContainer {
+  width: 3px;
+  min-width: 3px;
+  background: #ebebeb;
+  border-radius: 2px;
+  position: relative;
+  margin-right: 0.85rem;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.progressBar {
+  width: 100%;
+  border-radius: 2px;
+  transition: height 0.15s ease-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.tocLabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 0.75rem;
+}
+
+.tocNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+}
+
+.tocItemH2,
+.tocItemH3 {
+  background: none;
+  border: none;
+  font-family: 'IBM Plex Mono', monospace;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-left: 2px solid transparent;
+  line-height: 1.45;
+}
+
+.tocItemH2 {
+  font-size: 0.76rem;
+  color: #888;
+  padding: 0.35rem 0.5rem 0.35rem 0.65rem;
+  font-weight: 500;
+}
+
+.tocItemH3 {
+  font-size: 0.7rem;
+  color: #bbb;
+  padding: 0.25rem 0.5rem 0.25rem 1.35rem;
+  font-weight: 400;
+}
+
+.tocItemH2:hover {
+  color: #333;
+}
+
+.tocItemH3:hover {
+  color: #666;
+}
+
+.tocItemActive {
+  font-weight: 600;
+  border-left-width: 2px;
+  border-left-style: solid;
+}
+
+/* ==================== MOBILE BOTTOM BAR ==================== */
+
+.mobileBar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.mobileProgress {
+  height: 2px;
+  background: #eee;
+  width: 100%;
+}
+
+.mobileProgressFill {
+  height: 100%;
+  transition: width 0.15s ease-out;
+}
+
+.mobileBarContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.mobileBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.mobileBarSection {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.mobileBarTitle {
+  font-size: 0.75rem;
+  color: #444;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobileBarChevron {
+  font-size: 0.6rem;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+.mobileBarChevronUp {
+  /* handled by content swap */
+}
+
+/* Expanded panel */
+.mobilePanel {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 0.5rem 1rem 1.25rem;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+
+.mobilePanelNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.mobilePanelH2,
+.mobilePanelH3 {
+  background: none;
+  border: none;
+  font-family: 'IBM Plex Mono', monospace;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.45rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.mobilePanelH2 {
+  font-size: 0.82rem;
+  color: #444;
+  font-weight: 500;
+}
+
+.mobilePanelH3 {
+  font-size: 0.76rem;
+  color: #888;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+}
+
+.mobilePanelIndent {
+  width: 1rem;
+  flex-shrink: 0;
+}
+
+.mobilePanelH2:hover,
+.mobilePanelH3:hover {
+  background: #f0f0f0;
+}
+
+.mobilePanelActive {
+  font-weight: 600;
+  background: #f0f0f0;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+  .tocSidebar {
+    display: none;
+  }
+
+  .mobileBar {
+    display: block;
+  }
+}

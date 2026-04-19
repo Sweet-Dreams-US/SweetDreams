@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { resend, ADMIN_EMAIL, FROM_EMAIL } from '@/lib/emails/resend';
 import { ContactFormNotification } from '@/lib/emails/contact-form-notification';
 import { ContactFormConfirmation } from '@/lib/emails/contact-form-confirmation';
+import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
 import * as React from 'react';
 
 export const dynamic = 'force-dynamic';
@@ -60,6 +61,22 @@ export async function POST(request: NextRequest) {
         { error: 'Message must be less than 5000 characters' },
         { status: 400 }
       );
+    }
+
+    // Rate limit + spam check
+    const clientIp = request.headers.get('cf-connecting-ip') ||
+                     request.headers.get('x-forwarded-for')?.split(',')[0] ||
+                     undefined;
+
+    if (clientIp && !checkRateLimit(clientIp)) {
+      console.warn('Rate limited (contact form)', { name, email, ip: clientIp });
+      return NextResponse.json({ error: 'Too many requests.' }, { status: 429 });
+    }
+
+    const spamCheck = checkForSpam({ name, email, phone, message, ip: clientIp });
+    if (spamCheck.isSpam) {
+      console.warn(`SPAM BLOCKED (contact): ${spamCheck.reason}`, { name, email, phone });
+      return NextResponse.json({ success: true });
     }
 
     console.log('📧 Preparing to send contact form emails...');

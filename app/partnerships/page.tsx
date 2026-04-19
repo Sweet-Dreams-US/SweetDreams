@@ -913,6 +913,12 @@ export default function PartnershipsPage() {
 
       if (response.ok) {
         setSubmitStatus('success');
+
+        // Fire Google Ads conversion
+        if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'ads_conversion_Book_appointment_1', {});
+        }
+
         setFormData({
           businessName: '',
           industry: '',

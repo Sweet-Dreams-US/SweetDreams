@@ -89,9 +89,9 @@ export default function MobileNav() {
     { href: '/', label: 'HOME' },
     { href: '/work', label: 'WORK' },
     { href: '/solutions', label: 'SOLUTIONS' },
-    { href: '/media', label: 'MEDIA' },
     { href: '/book', label: 'BOOK A CALL' },
     { href: '/partnerships', label: 'PARTNERSHIPS' },
+    { href: '/blog', label: 'BLOG' },
     { href: '/about', label: 'ABOUT' },
   ];
 
@@ -148,7 +148,7 @@ export default function MobileNav() {
         </nav>
 
         <div className={styles.mobileMenuFooter}>
-          <p>Sweet Dreams Media</p>
+          <p>Sweet Dreams Solutions</p>
           <p>Fort Wayne, Indiana</p>
         </div>
       </div>

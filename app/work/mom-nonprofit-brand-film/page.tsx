@@ -1,0 +1,88 @@
+import Link from "next/link";
+import styles from "./project.module.css";
+import VideoPlayer from "./VideoPlayer";
+
+export const metadata = {
+  title: "M.O.M. Nonprofit Brand Film | Sweet Dreams Solutions",
+  description: "Brand film for M.O.M. (Mothers Offering More), a Fort Wayne nonprofit supporting families in need. Founded by India Richardson. Produced by Sweet Dreams Solutions.",
+};
+
+export default function MOMNonprofitPage() {
+  const project = {
+    title: 'M.O.M.',
+    client_name: 'M.O.M. Nonprofit',
+    client_logos: [
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png',
+    ],
+    description: 'A brand film for M.O.M., a nonprofit supporting families in need.',
+    category: 'Brand Film · Nonprofit',
+    location: 'Fort Wayne, Indiana',
+    year: 2026,
+    services: ['Brand Film Production', 'Cinematography', 'Storytelling', 'Post-Production'],
+    full_description: 'M.O.M. (Mothers Offering More) is a nonprofit founded and directed by India Richardson, dedicated to supporting families in need throughout Fort Wayne. From clothing for growing kids to donated essentials, M.O.M. bridges the gap for families who need it most. Sweet Dreams Solutions produced this brand film to capture the heart of the organization and the impact it has on the community — real stories, real people, real change.',
+    mainVideo: 'a03f0e00cd2fda4a43464adec197c0b6',
+    additionalVideos: [] as { id: string; title: string }[],
+  };
+
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+          <h1 className={styles.title}>{project.title}</h1>
+          <p className={styles.description}>{project.description}</p>
+        </div>
+        <div className={styles.clientInfo}>
+          <div className={styles.clientLogos}>
+            {project.client_logos.map((logo, index) => (
+              <img key={index} src={logo} alt={project.client_name} className={styles.clientLogo} />
+            ))}
+          </div>
+          <span className={styles.clientName}>{project.client_name}</span>
+        </div>
+      </header>
+
+      <section className={styles.videoSection}>
+        <VideoPlayer videoId={project.mainVideo} className={styles.videoWrapper} playTextSize="large" />
+      </section>
+
+      <section className={styles.metadata}>
+        <div className={styles.metadataGrid}>
+          <div className={styles.metadataItem}>
+            <span className={styles.metadataLabel}>CATEGORY</span>
+            <span className={styles.metadataValue}>{project.category}</span>
+          </div>
+          <div className={styles.metadataItem}>
+            <span className={styles.metadataLabel}>LOCATION</span>
+            <span className={styles.metadataValue}>{project.location}</span>
+          </div>
+          <div className={styles.metadataItem}>
+            <span className={styles.metadataLabel}>YEAR</span>
+            <span className={styles.metadataValue}>{project.year}</span>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.overview}>
+        <h2 className={styles.sectionTitle}>PROJECT OVERVIEW</h2>
+        <p className={styles.overviewText}>{project.full_description}</p>
+        <div className={styles.servicesSection}>
+          <h3 className={styles.servicesTitle}>SERVICES PROVIDED</h3>
+          <div className={styles.servicesList}>
+            {project.services.map((service, index) => (
+              <span key={index} className={styles.serviceTag}>{service}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.cta}>
+        <h2 className={styles.ctaTitle}>READY TO CREATE SOMETHING AMAZING?</h2>
+        <p className={styles.ctaDescription}>Let&apos;s discuss your next project.</p>
+        <div className={styles.ctaButtons}>
+          <Link href="/book" className={styles.ctaPrimary}>BOOK A CALL</Link>
+          <Link href="/work" className={styles.ctaSecondary}>VIEW ALL WORK</Link>
+        </div>
+      </section>
+    </div>
+  );
+}

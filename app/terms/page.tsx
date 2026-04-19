@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Sweet Dreams",
-  description: "Terms of Service for Sweet Dreams Music LLC. Read our booking policies, cancellation terms, and studio guidelines.",
+  description: "Terms of Service for Sweet Dreams US LLC. Read our booking policies, cancellation terms, and studio guidelines.",
   alternates: {
     canonical: `${SITE_URL}/terms`,
   },
@@ -26,7 +26,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>1. Acceptance of Terms</h2>
             <p>
-              Welcome to Sweet Dreams Music LLC ("Sweet Dreams," "we," "us," or "our"). By accessing our website at sweetdreams.us or booking our services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our services.
+              Welcome to Sweet Dreams US LLC ("Sweet Dreams," "we," "us," or "our"). By accessing our website at sweetdreams.us or booking our services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our services.
             </p>
           </section>
 
@@ -223,7 +223,7 @@ export default function TermsPage() {
 
             <h3>10.2 Program Description</h3>
             <p>
-              By providing your phone number and opting in during the booking process on sweetdreams.us, you consent to receive SMS text messages from Sweet Dreams Music LLC related to your studio bookings. Messages may include booking confirmations, session reminders, scheduling updates, and responses to your inquiries.
+              By providing your phone number and opting in during the booking process on sweetdreams.us, you consent to receive SMS text messages from Sweet Dreams US LLC related to your studio bookings. Messages may include booking confirmations, session reminders, scheduling updates, and responses to your inquiries.
             </p>
 
             <h3>10.3 Message Frequency</h3>
@@ -233,7 +233,7 @@ export default function TermsPage() {
 
             <h3>10.4 Message and Data Rates</h3>
             <p>
-              Message and data rates may apply. Sweet Dreams Music LLC does not charge for text messages, but your mobile carrier&apos;s standard messaging rates may apply. Please check with your carrier for details on your plan.
+              Message and data rates may apply. Sweet Dreams US LLC does not charge for text messages, but your mobile carrier&apos;s standard messaging rates may apply. Please check with your carrier for details on your plan.
             </p>
 
             <h3>10.5 Opt-In</h3>
@@ -280,7 +280,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>12. Indemnification</h2>
             <p>
-              You agree to indemnify and hold Sweet Dreams Music LLC harmless from any claims, damages, or expenses arising from:
+              You agree to indemnify and hold Sweet Dreams US LLC harmless from any claims, damages, or expenses arising from:
             </p>
             <ul>
               <li>Your violation of these Terms</li>
@@ -313,7 +313,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>16. Entire Agreement</h2>
             <p>
-              These Terms, together with our Privacy Policy, constitute the entire agreement between you and Sweet Dreams Music LLC regarding use of our services.
+              These Terms, together with our Privacy Policy, constitute the entire agreement between you and Sweet Dreams US LLC regarding use of our services.
             </p>
           </section>
 

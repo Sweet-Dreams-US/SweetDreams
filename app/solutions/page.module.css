@@ -5,291 +5,84 @@
   width: 100%;
 }
 
-/* 1. PRODUCTION HERO - Combined Hero & Showcase */
-.productionHero {
-  height: 85vh;
-  background: white;
-  padding: 40px 60px 10px 60px;
+/* ==================== TAB NAV ==================== */
+
+.tabNav {
+  background: #000;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.tabNavInner {
+  max-width: 1400px;
+  margin: 0 auto;
   display: flex;
   align-items: stretch;
-  width: 100%;
-  box-sizing: border-box;
+  justify-content: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.productionHeroInner {
-  width: 100%;
-  background: black;
-  border-radius: 48px;
-  padding: 80px 80px;
-  display: flex;
-  align-items: center;
+.tabNavInner::-webkit-scrollbar {
+  display: none;
 }
 
-.productionHeroContainer {
-  max-width: 1800px;
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 100px;
-  align-items: center;
-}
-
-/* Left Side - Number & Title */
-.productionHeroLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.productionTitleGroup {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-.productionNumber {
-  font-family: 'Anton', sans-serif;
-  font-size: 140px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.08);
-  line-height: 0.8;
-  margin: 0;
-  flex-shrink: 0;
-  -webkit-text-stroke: 2px white;
-  text-stroke: 2px white;
-  paint-order: stroke fill;
-}
-
-.productionTitleWrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.productionMiniTitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.productionHeroTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 90px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.9;
-  color: white;
-  margin: 0;
-  letter-spacing: -0.02em;
-  text-align: left;
-}
-
-.productionHeroDescription {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 32px 0;
-  max-width: 400px;
-}
-
-.productionButton {
-  display: inline-block;
-  background: white;
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 24px 60px;
-  border-radius: 999px;
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  border: 2px solid white;
-}
-
-.productionButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-  background: black;
-  border-radius: 50%;
-  transition: width 1.2s ease, height 1.2s ease;
-  z-index: -1;
-}
-
-.productionButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
-  color: white;
-}
-
-.productionButton:hover::before {
-  width: 800px;
-  height: 800px;
-}
-
-/* Right Side - Video Showcase with White Border */
-.productionShowcaseLink {
-  text-decoration: none;
-  cursor: pointer;
-  display: block;
-}
-
-.productionShowcaseWrapper {
-  position: relative;
-  width: 100%;
-}
-
-.productionShowcaseFrame {
-  position: absolute;
-  top: -24px;
-  left: -24px;
-  right: -24px;
-  bottom: -24px;
-  border: 16px solid white;
-  border-radius: 48px;
-  z-index: 0;
-  transition: all 0.4s ease;
-}
-
-.productionShowcaseWrapper:hover .productionShowcaseFrame {
-  top: -28px;
-  left: -28px;
-  right: -28px;
-  bottom: -28px;
-  border-width: 18px;
-}
-
-.productionShowcase {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 32px;
-  overflow: hidden;
-  background: black;
-  transition: transform 0.4s ease;
-  z-index: 1;
-}
-
-.productionShowcaseWrapper:hover .productionShowcase {
-  transform: translateY(-4px);
-}
-
-.productionShowcaseVideo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.tabButton {
+  padding: 12px 24px;
+  background: none;
   border: none;
-  pointer-events: none;
-  object-fit: cover;
-}
-
-.productionShowcaseOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.35);
-}
-
-.productionShowcaseContent {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 48px;
-}
-
-.showcaseTopRow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.showcaseClient {
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-  color: white;
-  opacity: 0.9;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.showcaseViewButton {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  padding: 10px 32px;
-  border-radius: 999px;
-  transition: background 0.3s ease;
-}
-
-.showcaseViewButton:hover {
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.showcaseViewButton span {
+  border-bottom: 3px solid transparent;
   font-family: 'IBM Plex Mono', monospace;
-  color: black;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.showcaseCenterTitle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  text-align: center;
+.tabButton:hover {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.showcaseTitleText {
-  font-family: 'Anton', sans-serif;
-  font-size: 120px;
-  color: white;
-  text-transform: uppercase;
-  line-height: 0.85;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+.tabButtonActive {
+  color: #fff;
 }
 
-.showcaseBottomRow {
-  display: flex;
-  justify-content: flex-start;
+/* Color variants for active tabs */
+.tabColorRed {
+  border-bottom-color: #e63636;
 }
 
-.showcaseSubtitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 32px;
-  color: white;
-  text-transform: uppercase;
-  line-height: 1;
-  opacity: 0.9;
+.tabColorYellow {
+  border-bottom-color: #F4C430;
 }
 
-/* VIDEO PRODUCTION - Pricing Section */
+.tabColorBlue {
+  border-bottom-color: #4A90E2;
+}
+
+/* ==================== TAB CONTENT ==================== */
+
+.tabContent {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==================== VIDEO PRODUCTION / WHITE SECTIONS ==================== */
+
 .videoProductionSection {
   background: white;
-  padding: 120px 60px 60px 60px;
+  padding: 20px 60px 40px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -299,63 +92,148 @@
   margin: 0 auto;
 }
 
-.videoProductionHeader {
-  margin-bottom: 60px;
+/* ==================== WHITE ACCORDION ==================== */
+
+.accordionHeaderWhite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 0;
+  cursor: pointer;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.videoProductionTitle {
+.accordionHeaderWhite:hover {
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+
+.accordionTitleWhite {
   font-family: 'Anton', sans-serif;
-  font-size: 72px;
+  font-size: 40px;
   font-weight: 400;
   text-transform: uppercase;
   line-height: 1;
   color: black;
   margin: 0;
-  text-align: center;
+  transition: all 0.3s ease;
 }
 
-/* Pricing Grid */
+.accordionCaretWhite {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.4);
+  transition: transform 0.4s ease;
+}
+
+.accordionOpenWhite .accordionCaretWhite {
+  transform: rotate(180deg);
+}
+
+.accordionOpenWhite .accordionTitleWhite {
+  color: #e63636;
+}
+
+/* Explicit open-state overrides for CSS module compatibility */
+.caretOpen {
+  transform: rotate(180deg);
+}
+
+.titleOpenWhite {
+  color: #e63636;
+}
+
+.titleOpenBlack {
+  color: #F4C430;
+}
+
+.accordionContentWhite {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
+  padding: 0 0;
+}
+
+.accordionContentOpenWhite {
+  max-height: 600px;
+  padding: 30px 0;
+}
+
+/* ==================== WHITE PRICING CARDS ==================== */
+
 .pricingGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-bottom: 40px;
+  gap: 24px;
+  margin-bottom: 20px;
 }
 
 .pricingCard {
   background: transparent;
   border: none;
   border-radius: 0;
-  padding: 48px 40px;
+  padding: 32px 28px;
   text-align: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  position: relative;
 }
 
 .pricingCard:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
+}
+
+/* Corner Frames */
+.pricingCard::before,
+.pricingCard::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+}
+
+.pricingCard::before {
+  top: 0;
+  left: 0;
+  background: currentColor;
+  clip-path: path('M 0 0 L 50 0 L 50 5 L 12 5 Q 5 5, 5 12 L 5 50 L 0 50 Z');
+}
+
+.pricingCard::after {
+  bottom: 0;
+  right: 0;
+  background: currentColor;
+  clip-path: path('M 50 50 L 0 50 L 0 45 L 38 45 Q 45 45, 45 38 L 45 0 L 50 0 Z');
+}
+
+.pricingGrid .pricingCard:nth-child(1)::before,
+.pricingGrid .pricingCard:nth-child(1)::after {
+  color: #e63636;
+}
+
+.pricingGrid .pricingCard:nth-child(2)::before,
+.pricingGrid .pricingCard:nth-child(2)::after {
+  color: #F4C430;
+}
+
+.pricingGrid .pricingCard:nth-child(3)::before,
+.pricingGrid .pricingCard:nth-child(3)::after {
+  color: #4A90E2;
 }
 
 .pricingCardTitle {
   font-family: 'Anton', sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 400;
   text-transform: uppercase;
   color: black;
   margin: 0;
   line-height: 1.2;
-}
-
-.pricingCardSubtitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
-  color: #666;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
 .pricingCardFeatures {
@@ -371,14 +249,6 @@
   color: #555;
   margin: 0;
   line-height: 1.5;
-}
-
-.pricingCardPrice {
-  font-family: 'Anton', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-  color: black;
-  margin: 16px 0;
 }
 
 .pricingCardButton {
@@ -424,130 +294,23 @@
   height: 400px;
 }
 
-/* White Accordion Styles */
-.accordionHeaderWhite {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 40px 0;
-  cursor: pointer;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-}
+/* ==================== BLACK PRICING SECTION ==================== */
 
-.accordionHeaderWhite:hover {
-  border-bottom-color: rgba(0, 0, 0, 0.3);
-}
-
-.accordionTitleWhite {
-  font-family: 'Anton', sans-serif;
-  font-size: 56px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1;
-  color: black;
-  margin: 0;
-  transition: all 0.3s ease;
-}
-
-.accordionCaretWhite {
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.4);
-  transition: transform 0.4s ease;
-}
-
-.accordionOpenWhite .accordionCaretWhite {
-  transform: rotate(180deg);
-}
-
-.accordionOpenWhite .accordionTitleWhite {
-  color: #e63636;
-}
-
-.accordionContentWhite {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.5s ease;
-  padding: 0 0;
-}
-
-.accordionContentOpenWhite {
-  max-height: 800px;
-  padding: 60px 0;
-}
-
-.pricingDivider {
-  width: 100%;
-  height: 2px;
-  background: rgba(0, 0, 0, 0.1);
-  margin: 80px 0;
-}
-
-/* Corner Frame Cards - Red, Yellow, Blue */
-.pricingCard {
-  position: relative;
-}
-
-.pricingCard::before,
-.pricingCard::after {
-  content: '';
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  pointer-events: none;
-}
-
-/* Top-left corner - L shape with rounded inside */
-.pricingCard::before {
-  top: 0;
-  left: 0;
-  background: currentColor;
-  clip-path: path('M 0 0 L 50 0 L 50 5 L 12 5 Q 5 5, 5 12 L 5 50 L 0 50 Z');
-}
-
-/* Bottom-right corner - L shape with rounded inside */
-.pricingCard::after {
-  bottom: 0;
-  right: 0;
-  background: currentColor;
-  clip-path: path('M 50 50 L 0 50 L 0 45 L 38 45 Q 45 45, 45 38 L 45 0 L 50 0 Z');
-}
-
-/* First card - Red */
-.pricingGrid .pricingCard:nth-child(1)::before,
-.pricingGrid .pricingCard:nth-child(1)::after {
-  color: #e63636;
-}
-
-/* Second card - Yellow */
-.pricingGrid .pricingCard:nth-child(2)::before,
-.pricingGrid .pricingCard:nth-child(2)::after {
-  color: #F4C430;
-}
-
-/* Third card - Blue */
-.pricingGrid .pricingCard:nth-child(3)::before,
-.pricingGrid .pricingCard:nth-child(3)::after {
-  color: #4A90E2;
-}
-
-/* BLACK PRICING SECTION */
 .blackPricingSection {
   background: black;
-  padding: 60px 60px 120px 60px;
+  padding: 20px 60px 40px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Accordion Styles */
+/* ==================== BLACK ACCORDION ==================== */
+
 .accordionHeader {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 40px 0;
+  gap: 16px;
+  padding: 24px 0;
   cursor: pointer;
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
@@ -560,7 +323,7 @@
 
 .accordionTitle {
   font-family: 'Anton', sans-serif;
-  font-size: 56px;
+  font-size: 40px;
   font-weight: 400;
   text-transform: uppercase;
   line-height: 1;
@@ -573,11 +336,7 @@
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 4px 0 0 0;
 }
 
 .accordionCaret {
@@ -602,48 +361,11 @@
 }
 
 .accordionContentOpen {
-  max-height: 800px;
-  padding: 60px 0;
+  max-height: 600px;
+  padding: 30px 0;
 }
 
-/* Recommended Badge */
-.recommendedBadge {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #F4C430;
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  padding: 6px 16px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.blackPricingHeader {
-  margin-bottom: 60px;
-  text-align: center;
-}
-
-.blackPricingTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 72px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1;
-  color: white;
-  margin: 0;
-}
-
-.blackPricingSubheader {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 16px 0 0 0;
-}
+/* ==================== BLACK PRICING CARDS ==================== */
 
 .pricingGridBlack {
   display: grid;
@@ -657,13 +379,13 @@
   background: #2a2a2a;
   border: none;
   border-radius: 0;
-  padding: 48px 40px;
+  padding: 32px 28px;
   text-align: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   position: relative;
 }
 
@@ -672,7 +394,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-/* Corner Frame for Black Cards */
+/* Corner Frames for Black Cards */
 .pricingCardBlack::before,
 .pricingCardBlack::after {
   content: '';
@@ -682,7 +404,6 @@
   pointer-events: none;
 }
 
-/* Top-left corner - L shape with rounded inside */
 .pricingCardBlack::before {
   top: 0;
   left: 0;
@@ -690,7 +411,6 @@
   clip-path: path('M 0 0 L 50 0 L 50 5 L 12 5 Q 5 5, 5 12 L 5 50 L 0 50 Z');
 }
 
-/* Bottom-right corner - L shape with rounded inside */
 .pricingCardBlack::after {
   bottom: 0;
   right: 0;
@@ -698,7 +418,6 @@
   clip-path: path('M 50 50 L 0 50 L 0 45 L 38 45 Q 45 45, 45 38 L 45 0 L 50 0 Z');
 }
 
-/* Black section card colors */
 .pricingGridBlack .pricingCardBlack:nth-child(1)::before,
 .pricingGridBlack .pricingCardBlack:nth-child(1)::after {
   color: #e63636;
@@ -716,21 +435,12 @@
 
 .pricingCardTitleBlack {
   font-family: 'Anton', sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 400;
   text-transform: uppercase;
   color: white;
   margin: 0;
   line-height: 1.2;
-}
-
-.pricingCardSubtitleBlack {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
 .pricingCardFeaturesBlack {
@@ -746,14 +456,6 @@
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
   line-height: 1.5;
-}
-
-.pricingCardPriceBlack {
-  font-family: 'Anton', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-  color: white;
-  margin: 16px 0;
 }
 
 .pricingCardButtonBlack {
@@ -799,172 +501,95 @@
   height: 400px;
 }
 
-.pricingDividerBlack {
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 80px auto;
+/* ==================== MUSIC STUDIO MINI CARD ==================== */
+
+.musicCard {
+  padding: 20px 60px;
+  background: #f5f5f5;
+  border-top: 1px solid #eee;
+}
+
+.musicCardInner {
   max-width: 1400px;
-}
-
-.hostingNote {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.hostingNote p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
-  color: #F4C430;
-  margin: 0;
-  font-weight: 600;
-}
-
-/* Strategy Cards Header - Inside Black Section */
-.strategyCardsHeader {
-  text-align: center;
-  padding-top: 80px;
-  margin-bottom: 40px;
-}
-
-.strategyCardsIntro {
-  font-family: 'Anton', sans-serif;
-  font-size: 32px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: white;
-  margin: 0;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 8px;
-}
-
-/* Design Cards - Black Section Version */
-.designCardsWrapperBlack {
-  padding-top: 20px;
-  padding-bottom: 40px;
-}
-
-.designContainerBlack {
-  max-width: 1800px;
   margin: 0 auto;
-}
-
-.designContentBlack {
   display: flex;
-  flex-direction: column;
-  gap: 60px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.designGridBlack {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+.musicCardText {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: #888;
+  margin: 0;
 }
 
-.designCardBlack {
-  padding: 48px;
-  background: #2a2a2a;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  cursor: pointer;
-  position: relative;
+.musicCardLink {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
-.designCardBlack:hover {
-  background: #333;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-}
-
-.designCardIconBlack {
-  color: white;
-}
-
-.designCardIconBlack svg {
-  display: block;
-}
-
-/* Individual icon colors for black cards */
-.designCardBlack:nth-child(1) .designCardIconBlack {
-  color: #4A90E2;
-}
-
-.designCardBlack:nth-child(2) .designCardIconBlack {
-  color: #F4C430;
-}
-
-.designCardBlack:nth-child(3) .designCardIconBlack {
+.musicCardLink:hover {
   color: #e63636;
 }
 
-.designCardBlack:nth-child(4) .designCardIconBlack {
-  color: #50C878;
+/* ==================== BOTTOM CTA ==================== */
+
+.bottomCta {
+  padding: 100px 60px;
+  background: #000;
+  color: #fff;
+  text-align: center;
 }
 
-.designCardTitleBlack {
+.bottomCtaContent {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.bottomCtaTitle {
   font-family: 'Anton', sans-serif;
-  font-size: 20px;
+  font-size: 64px;
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: white;
-  margin: 0;
-  line-height: 1.2;
+  margin: 0 0 20px 0;
+  line-height: 1;
 }
 
-.designCardDescriptionBlack {
+.bottomCtaText {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
+  margin: 0 0 40px 0;
 }
 
-/* Bottom Statement - Black Version */
-.designStatementBlack {
-  text-align: center;
-  padding: 60px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-}
-
-.designStatementBlack p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
-  margin: 0;
-}
-
-/* Solution Button - Black Background Version */
-.solutionButtonBlack {
+.bottomCtaButton {
   display: inline-block;
-  background: white;
-  color: black;
+  background: #fff;
+  color: #000;
+  padding: 18px 48px;
   font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 20px 48px;
-  border-radius: 999px;
   font-size: 14px;
+  font-weight: 700;
   letter-spacing: 0.15em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #fff;
+  border-radius: 999px;
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
-  border: 2px solid white;
 }
 
-.solutionButtonBlack::before {
+.bottomCtaButton::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -978,2768 +603,341 @@
   z-index: -1;
 }
 
-.solutionButtonBlack:hover {
-  transform: scale(1.05);
+.bottomCtaButton:hover {
   color: white;
 }
 
-.solutionButtonBlack:hover::before {
+.bottomCtaButton:hover::before {
   width: 400px;
   height: 400px;
 }
 
-/* COMBINED SOCIAL SECTION - Gray Background */
-.combinedSocialSection {
-  background: linear-gradient(180deg, #f5f5f5 0%, #ebebeb 100%);
-  padding: 100px 40px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.combinedSocialContainer {
-  max-width: 1800px;
-  margin: 0 auto;
-}
-
-.combinedIntro {
-  text-align: center;
-  margin: 60px 0 30px 0;
-}
-
-.combinedIntroText {
-  font-family: 'Anton', sans-serif;
-  font-size: 48px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1.2;
-  color: black;
-  margin: 0;
-  text-decoration: underline;
-  text-underline-offset: 8px;
-  text-decoration-thickness: 3px;
-}
-
-/* Design Cards Wrapper - Inside Combined Section */
-.designCardsWrapper {
-  padding-top: 20px;
-}
-
-/* POST SECTION SIMPLE - No Header */
-.postSectionSimple {
-  background: black;
-  padding: 80px 60px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.postSectionSimple .postGrid {
-  max-width: 1800px;
-  margin: 0 auto;
-}
-
-/* Design Section - Platform Strategy Cards */
-.designSection {
-  background: white;
-  padding: 120px 60px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.designIntroWrapper {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.designContainer {
-  max-width: 1800px;
-  margin: 0 auto;
-}
-
-/* Header Grid - Two Columns */
-.designHeaderGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  margin-bottom: 80px;
-  align-items: center;
-}
-
-.designHeaderLeft {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.designHeaderRight {
-  display: flex;
-  justify-content: flex-start;
-}
-
-/* Header with Number */
-.designHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-.designNumber {
-  font-family: 'Anton', sans-serif;
-  font-size: 140px;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.08);
-  line-height: 0.8;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.designTitleWrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.designMiniTitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: #999;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.designTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 90px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.85;
-  color: black;
-  margin: 0;
-  text-align: left;
-}
-
-.designLargeText {
-  font-family: 'Anton', sans-serif;
-  font-size: 48px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1.2;
-  color: black;
-  margin: 0 0 48px 0;
-  text-align: left;
-}
-
-/* Content */
-.designContent {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-/* Strategy Cards Grid */
-.designGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-}
-
-.designCard {
-  padding: 48px;
-  background: rgba(0, 0, 0, 0.02);
-  border: 2px solid rgba(0, 0, 0, 0.08);
-  border-radius: 24px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  cursor: pointer;
-  position: relative;
-}
-
-.designCard:hover {
-  background: rgba(0, 0, 0, 0.04);
-  border: 2px solid black;
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.designCardIcon {
-  color: black;
-}
-
-.designCardIcon svg {
-  display: block;
-}
-
-/* Individual icon colors */
-.designCard:nth-child(1) .designCardIcon {
-  color: #4A90E2;
-}
-
-.designCard:nth-child(2) .designCardIcon {
-  color: #F4C430;
-}
-
-.designCard:nth-child(3) .designCardIcon {
-  color: #e63636;
-}
-
-.designCard:nth-child(4) .designCardIcon {
-  color: #50C878;
-}
-
-.designCardTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: black;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.designCardDescription {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #555;
-  margin: 0;
-}
-
-/* Bottom Statement */
-.designStatement {
-  text-align: center;
-  padding: 60px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-}
-
-.designStatement p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  line-height: 1.6;
-  color: #666;
-  margin: 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-/* Design Section Modals */
-.designBlurOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  z-index: 999;
-  cursor: pointer;
-}
-
-.designCardExpanded {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: black;
-  border: 4px solid white;
-  border-radius: 40px;
-  padding: 80px;
-  max-width: 1400px;
-  width: 92%;
-  max-height: 90vh;
-  overflow-y: auto;
-  z-index: 1000;
-  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.9);
-  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -45%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.designCardExpanded h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 64px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: white;
-  margin: 0 0 20px 0;
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-}
-
-.designCardExpanded h4 {
-  font-family: 'Anton', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-  color: #999;
-  margin: 0 0 40px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  line-height: 1.3;
-}
-
-.designCardExpanded p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
-  line-height: 1.9;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 0 0 28px 0;
-}
-
-.designCardExpanded ul {
-  margin: 0 0 32px 0;
-  padding-left: 32px;
-}
-
-.designCardExpanded li {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
-  line-height: 2;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 16px;
-}
-
-.designCardEmphasis {
-  font-family: 'Anton', sans-serif !important;
-  font-weight: 400 !important;
-  color: white !important;
-  font-size: 24px !important;
-  margin-top: 20px !important;
-  line-height: 1.4 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.03em !important;
-}
-
-.designCardClose {
-  position: absolute;
-  top: 32px;
-  right: 32px;
-  background: white;
-  color: black;
-  border: none;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  font-size: 28px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  font-weight: 300;
-}
-
-.designCardClose:hover {
-  background: #e5e5e5;
-  transform: rotate(90deg) scale(1.1);
-}
-
-.designCardButton {
-  display: inline-block;
-  background: white;
-  color: black;
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 24px 56px;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  font-size: 18px;
-  margin-top: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.designCardButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-  background: black;
-  border-radius: 50%;
-  transition: width 0.6s ease, height 0.6s ease;
-  z-index: -1;
-}
-
-.designCardButton:hover::before {
-  width: 500px;
-  height: 500px;
-}
-
-.designCardButton:hover {
-  color: white;
-  transform: scale(1.08);
-  box-shadow: 0 12px 32px rgba(255, 255, 255, 0.4);
-}
-
-/* Solution Button */
-.solutionButton {
-  display: inline-block;
-  background: black;
-  color: white;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 24px 60px;
-  border-radius: 999px;
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  border: 2px solid black;
-}
-
-.solutionButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-  background: white;
-  border-radius: 50%;
-  transition: width 1.2s ease, height 1.2s ease;
-  z-index: -1;
-}
-
-.solutionButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  color: black;
-}
-
-.solutionButton:hover::before {
-  width: 800px;
-  height: 800px;
-}
-
-/* POST-PRODUCTION - Triple Video Grid */
-.postSection {
-  background: black;
-  padding: 120px 60px 80px 60px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.postContainer {
-  max-width: 1800px;
-  margin: 0 auto 80px auto;
-}
-
-.postCta {
-  text-align: center;
-  margin-top: 60px;
-}
-
-.postCta .solutionButton {
-  background: white;
-  color: black;
-  border-color: white;
-}
-
-.postCta .solutionButton::before {
-  background: black;
-}
-
-.postCta .solutionButton:hover {
-  color: white;
-}
-
-.postHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.postNumber {
-  font-family: 'Anton', sans-serif;
-  font-size: 140px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.08);
-  line-height: 0.8;
-  margin: 0;
-  flex-shrink: 0;
-  -webkit-text-stroke: 2px white;
-  text-stroke: 2px white;
-  paint-order: stroke fill;
-}
-
-.postTitleWrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.postMiniTitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.postTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 90px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.85;
-  color: white;
-  margin: 0;
-  text-align: left;
-}
-
-.postSubtitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-  text-align: left;
-}
-
-.postGrid {
-  max-width: 1800px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.postVideoItem {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #000;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.postVideoItem:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(255, 255, 255, 0.2);
-}
-
-.postVideoIframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  transition: transform 0.4s ease;
-}
-
-.postVideoItem:hover .postVideoIframe {
-  transform: scale(1.05);
-}
-
-.postLabel {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  font-family: 'Anton', sans-serif;
-  font-size: 26px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: white;
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
-  padding: 14px 28px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-}
-
-.postVideoItem:hover .postLabel {
-  background: rgba(255, 255, 255, 0.95);
-  color: black;
-  border-color: white;
-}
-
-/* SOCIAL STRATEGY - Two Column Layout (inside combined section) */
-.socialSection {
-  background: transparent;
-  padding: 0;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.socialContent {
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Two Column Grid */
-.socialGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-  width: 100%;
-}
-
-/* Left Column - Header at top, tagline/button at bottom */
-.socialLeftColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 60px;
-}
-
-/* Middle Column - Contains Lines */
-.socialMiddleColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-/* Right Column - Now contains header */
-.socialRightColumn {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.socialHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-}
-
-.socialNumber {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(60px, 8vw, 120px);
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.08);
-  line-height: 0.8;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.socialTitleWrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.socialMiniTitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: #999;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.socialMainTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(28px, 4.5vw, 70px);
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.85;
-  color: black;
-  margin: 0;
-  text-align: left;
-}
-
-/* Services Lines */
-.socialLines {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: flex-start;
-  max-width: 100%;
-}
-
-.socialLine {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(18px, 2.8vw, 50px);
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1.1;
-  color: black;
-  margin: 0;
-  letter-spacing: -0.02em;
-  position: relative;
-  display: block;
-  white-space: nowrap;
-  max-width: 100%;
-}
-
-/* NO stair-step - keep all aligned left */
-.socialLine:nth-child(1),
-.socialLine:nth-child(2),
-.socialLine:nth-child(3),
-.socialLine:nth-child(4) {
-  margin-left: 0;
-}
-
-/* Colored words */
-.socialColoredWord {
-  font-size: inherit;
-  color: white;
-  -webkit-text-stroke: 2px black;
-  text-stroke: 2px black;
-  paint-order: stroke fill;
-}
-
-.socialLine::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 4px;
-  background: black;
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.socialLine:hover::after {
-  width: 100%;
-}
-
-/* Bottom Left - Tagline & Button */
-.socialBottomLeft {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 32px;
-  width: 100%;
-}
-
-.socialTagline {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: clamp(16px, 1.5vw, 22px);
-  line-height: 1.6;
-  color: #555;
-  margin: 0;
-  font-weight: 500;
-  max-width: 400px;
-}
-
-.socialCta {
-  margin: 0;
-  width: 100%;
-}
-
-.socialCta .solutionButton {
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-}
-
-/* LAUNCH & GROWTH - Diagonal Cards */
-.launchSection {
-  background: black;
-  padding: 120px 60px 100px 60px;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.launchContainer {
-  max-width: 1800px;
-  margin: 0 auto 80px auto;
-}
-
-.launchCta {
-  text-align: center;
-  margin-top: 80px;
-}
-
-.launchCta .solutionButton {
-  background: white;
-  color: black;
-  border-color: white;
-}
-
-.launchCta .solutionButton::before {
-  background: black;
-}
-
-.launchCta .solutionButton:hover {
-  color: white;
-}
-
-.launchHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-/* Centered Launch Header - No Number */
-.launchHeaderCentered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.launchTitleWrapperCentered {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.launchMiniTitleCentered {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.launchTitleCentered {
-  font-family: 'Anton', sans-serif;
-  font-size: 90px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.85;
-  color: white;
-  margin: 0;
-  text-align: center;
-}
-
-.launchNumber {
-  font-family: 'Anton', sans-serif;
-  font-size: 140px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.08);
-  line-height: 0.8;
-  margin: 0;
-  flex-shrink: 0;
-  -webkit-text-stroke: 2px white;
-  text-stroke: 2px white;
-  paint-order: stroke fill;
-}
-
-.launchTitleWrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.launchMiniTitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.launchTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 90px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.85;
-  color: white;
-  margin: 0;
-  text-align: left;
-}
-
-/* Radial Expanding Container - Unique Design */
-.launchRadialContainer {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.launchRadialGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 280px);
-  grid-template-rows: 280px;
-  gap: 30px;
-  perspective: 1000px;
-}
-
-/* Responsive - 2x2 grid for smaller screens */
-@media (max-width: 1400px) {
-  .launchRadialGrid {
-    grid-template-columns: repeat(2, 320px);
-    grid-template-rows: repeat(2, 320px);
-  }
-}
-
-/* Radial Cards - Circular/Round Design */
-.launchRadialCard {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 6px solid white;
-  cursor: pointer;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px;
-  transform-style: preserve-3d;
-  z-index: 1;
-}
-
-.launchRadialCard:hover {
-  transform: scale(1.15);
-  border-color: black;
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.5),
-    0 0 40px rgba(255, 255, 255, 0.3),
-    0 20px 60px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
-
-/* Blur other cards when hovering one */
-.launchRadialGrid:has(.launchRadialCard:hover) .launchRadialCard:not(:hover) {
-  filter: blur(4px);
-  opacity: 0.6;
-}
-
-.launchRadialActive {
-  transform: scale(1.3) !important;
-  z-index: 10 !important;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6) !important;
-}
-
-.launchCard h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 32px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: white;
-  margin: 0 0 16px 0;
-  line-height: 1.2;
-}
-
-.launchCard p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 24px 0;
-}
-
-.launchCardButton {
-  background: white;
-  color: black;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 14px 32px;
-  border-radius: 999px;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  border: 2px solid white;
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1;
-}
-
-.launchCardButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-  background: black;
-  border-radius: 50%;
-  transition: width 1.2s ease, height 1.2s ease;
-  z-index: -1;
-}
-
-.launchCardButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
-  color: white;
-}
-
-.launchCardButton:hover::before {
-  width: 800px;
-  height: 800px;
-}
-
-/* Individual Radial Card Colors & Styles */
-.launchRadial1 {
-  background: linear-gradient(135deg, #e63636 0%, #b82828 100%);
-}
-
-.launchRadial2 {
-  background: linear-gradient(135deg, #4A90E2 0%, #2c5aa0 100%);
-}
-
-.launchRadial3 {
-  background: linear-gradient(135deg, #F4C430 0%, #d4a520 100%);
-}
-
-.launchRadial4 {
-  background: linear-gradient(135deg, #50C878 0%, #3da860 100%);
-}
-
-/* Radial Card Labels (Numbers) */
-.launchRadialLabel {
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.2em;
-  z-index: 2;
-}
-
-/* Radial Card Titles */
-.launchRadialCard h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 42px;
-  color: white;
-  margin: 0;
-  text-transform: uppercase;
-  line-height: 1.1;
-  z-index: 2;
-  position: relative;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Cards with Video Background */
-.launchCardWithVideo .launchVideoWrapper,
-.launchCardWeb .launchVideoWrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.launchCardWithVideo .launchRadialLabel,
-.launchCardWithVideo h3,
-.launchCardWeb .launchRadialLabel,
-.launchCardWeb h3 {
-  z-index: 3;
-  color: white;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-}
-
-/* Cursor Following "click me" */
-.clickMeCursor {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  font-family: 'Anton', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  color: white;
-  background: black;
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 2px solid white;
-  pointer-events: none;
-  z-index: 20;
-  text-shadow: none;
-  animation: fadeInCursor 0.3s ease, pulseCursor 1.5s ease-in-out infinite;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-@keyframes fadeInCursor {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes pulseCursor {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-}
-
-.launchVideoWrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  transition: all 0.6s ease;
-}
-
-.launchCardWeb:hover .launchVideoWrapper {
-  filter: brightness(1.1);
-}
-
-.launchVideoIframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(2);
-  width: 100%;
-  height: 100%;
-  border: none;
-  pointer-events: none;
-}
-
-/* Teaser State - Closed */
-.launchCardTeaser {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 40px;
-  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
-  z-index: 2;
-}
-
-.launchCardTeaser h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 52px;
-  margin: 0 0 16px 0;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.3),
-    0 4px 12px rgba(0, 0, 0, 0.2);
-  line-height: 1;
-}
-
-.launchCardHint {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-  animation: pulseHint 2s ease-in-out infinite;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  font-weight: 500;
-}
-
-@keyframes pulseHint {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-/* Expanded State - Open */
-.launchCardExpanded {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 800px;
-  max-height: 85vh;
-  background: rgba(0, 0, 0, 0.98);
-  border: 3px solid white;
-  border-radius: 24px;
-  padding: 60px;
-  z-index: 1000;
-  overflow-y: auto;
-  animation: expandIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-}
-
-@keyframes expandIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-.launchCardClose {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: white;
-  color: black;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.launchCardClose:hover {
-  transform: rotate(90deg);
-  background: black;
-  color: white;
-}
-
-.launchCardExpanded h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 56px;
-  color: white;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-}
-
-.launchCardExpanded h4 {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  color: #F4C430;
-  margin: 0 0 24px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-
-.launchCardExpanded p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0 0 24px 0;
-}
-
-.launchCardExpanded ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 32px 0;
-}
-
-.launchCardExpanded ul li {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 12px 0 12px 32px;
-  position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.launchCardExpanded ul li:before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: #F4C430;
-  font-weight: bold;
-}
-
-.launchCardEmphasis {
-  font-weight: bold !important;
-  color: white !important;
-  font-size: 17px !important;
-  background: linear-gradient(90deg, rgba(244, 196, 48, 0.1), transparent);
-  padding: 16px 20px;
-  border-left: 3px solid #F4C430;
-  margin-bottom: 32px !important;
-}
-
-.launchCardExpanded .launchCardButton {
-  background: white;
-  color: black;
-  border: 2px solid white;
-}
-
-.launchCardExpanded .launchCardButton::before {
-  background: black;
-}
-
-.launchCardExpanded .launchCardButton:hover {
-  color: white;
-}
-
-/* Blur Overlay */
-.launchBlurOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  z-index: 999;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* SWEET DREAMS STUDIO - White Section */
-.studioSectionWhite {
-  background: white;
-  padding: 60px 60px 80px 60px;
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* SWEET DREAMS STUDIO - Black Section */
-.studioSectionBlack {
-  background: black;
-  padding: 80px 60px 120px 60px;
-  position: relative;
-  z-index: 4;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.studioContainer {
-  max-width: 1800px;
-  margin: 0 auto;
-}
-
-/* Header with Number */
-.studioHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-/* Promo Banner for Studio Section */
-.promoBannerStudio {
-  background: black;
-  padding: 8px 0;
-  margin-top: 0;
-  margin-bottom: 24px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-}
-
-.promoTextStudio {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
-  color: white;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  display: flex;
-  animation: scroll-left-studio 30s linear infinite;
-  will-change: transform;
-}
-
-@keyframes scroll-left-studio {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-25%);
-  }
-}
-
-.studioNumber {
-  font-family: 'Anton', sans-serif;
-  font-size: 140px;
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.08);
-  line-height: 0.8;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.studioTitleWrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.studioMiniTitle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: #999;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-  text-align: left;
-}
-
-.studioTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 90px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.85;
-  color: black;
-  margin: 0;
-  text-align: left;
-}
-
-/* Bento Grid - Asymmetric Layout */
-.studioBentoGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, auto);
-  gap: 24px;
-}
-
-/* Service Cards */
-.studioServiceCard {
-  background: rgba(0, 0, 0, 0.02);
-  border: 2px solid rgba(0, 0, 0, 0.08);
-  border-radius: 24px;
-  padding: 40px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.studioServiceCard:hover {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: rgba(0, 0, 0, 0.15);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-.studioServiceCard h3 {
-  font-family: 'Anton', sans-serif;
-  font-size: 26px;
-  font-weight: 400;
-  text-transform: uppercase;
-  color: black;
-  margin: 0 0 16px 0;
-  letter-spacing: 0.05em;
-}
-
-.studioServiceCard p {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #555;
-  margin: 0;
-}
-
-/* Large Cards - Span 2 Rows */
-.studioCardLarge {
-  grid-row: span 2;
-  padding: 60px 40px;
-}
-
-.studioCardLarge h3 {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-.studioCardLarge p {
-  font-size: 15px;
-}
-
-/* Grid Layout */
-/* Row 1 */
-.studioBentoGrid > :nth-child(1) { /* Recording - Large */
-  grid-column: 1;
-  grid-row: 1 / 3;
-}
-
-.studioBentoGrid > :nth-child(2) { /* Beat Production */
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.studioBentoGrid > :nth-child(3) { /* Mixing & Mastering */
-  grid-column: 3;
-  grid-row: 1;
-}
-
-/* Row 2 */
-.studioBentoGrid > :nth-child(4) { /* Video Production - Large */
-  grid-column: 2 / 4;
-  grid-row: 2;
-}
-
-/* Row 3 - Buttons */
-.studioBentoGrid > :nth-child(5) { /* Book a Session */
-  grid-column: 1 / 3;
-  grid-row: 3;
-}
-
-.studioBentoGrid > :nth-child(6) { /* Learn More */
-  grid-column: 3;
-  grid-row: 3;
-}
-
-/* Service Buttons */
-.studioServiceButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: black;
-  color: white;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 32px 48px;
-  border-radius: 16px;
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  border: 2px solid black;
-  white-space: nowrap;
-}
-
-.studioServiceButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-  background: white;
-  border-radius: 50%;
-  transition: width 1.2s ease, height 1.2s ease;
-  z-index: -1;
-}
-
-.studioServiceButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  color: black;
-}
-
-.studioServiceButton:hover::before {
-  width: 800px;
-  height: 800px;
-}
-
-/* Showcase with White Border Frame */
-.studioShowcaseLink {
-  text-decoration: none;
-  cursor: pointer;
-  display: block;
-}
-
-.studioShowcaseWrapper {
-  position: relative;
-  width: 100%;
-}
-
-.studioShowcaseFrame {
-  position: absolute;
-  top: -24px;
-  left: -24px;
-  right: -24px;
-  bottom: -24px;
-  border: 16px solid white;
-  border-radius: 48px;
-  z-index: 0;
-  transition: all 0.4s ease;
-}
-
-.studioShowcaseWrapper:hover .studioShowcaseFrame {
-  top: -28px;
-  left: -28px;
-  right: -28px;
-  bottom: -28px;
-  border-width: 18px;
-}
-
-.studioShowcase {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 32px;
-  overflow: hidden;
-  background: black;
-  transition: transform 0.4s ease;
-  z-index: 1;
-}
-
-.studioShowcaseWrapper:hover .studioShowcase {
-  transform: translateY(-4px);
-}
-
-.studioShowcaseVideo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  pointer-events: none;
-  object-fit: cover;
-}
-
-.studioShowcaseOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.studioShowcaseContent {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 48px;
-}
-
-.studioShowcaseTopRow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.studioShowcaseClient {
-  font-family: 'Anton', sans-serif;
-  font-weight: 400;
-  color: white;
-  opacity: 0.9;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-.studioShowcaseViewButton {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  padding: 10px 32px;
-  border-radius: 999px;
-  transition: background 0.3s ease;
-}
-
-.studioShowcaseViewButton:hover {
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.studioShowcaseViewButton span {
-  font-family: 'IBM Plex Mono', monospace;
-  color: black;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.studioShowcaseCenterTitle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  text-align: center;
-}
-
-.studioShowcaseTitleText {
-  font-family: 'Anton', sans-serif;
-  font-size: 120px;
-  color: white;
-  text-transform: uppercase;
-  line-height: 0.85;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.studioShowcaseBottomRow {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.studioShowcaseSubtitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 32px;
-  color: white;
-  text-transform: uppercase;
-  line-height: 1;
-  opacity: 0.9;
-}
-
-/* Dual Project Grid - Two showcases side by side */
-.dualProjectGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-}
-
-/* CTA */
-.cta {
-  padding: 180px 60px;
-  text-align: center;
-  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
-  position: relative;
-  overflow: hidden;
-  z-index: 5;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.cta::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%);
-  z-index: 0;
-}
-
-.ctaTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: 140px;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1;
-  color: black;
-  margin: 0 0 60px 0;
-  position: relative;
-  z-index: 1;
-  letter-spacing: -0.01em;
-}
-
-.ctaButton {
-  display: inline-block;
-  background: black;
-  color: white;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 32px 100px;
-  border-radius: 999px;
-  font-size: 18px;
-  letter-spacing: 0.2em;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  border: 2px solid black;
-}
-
-.ctaButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-  background: white;
-  border-radius: 50%;
-  transition: width 1.2s ease, height 1.2s ease;
-  z-index: -1;
-}
-
-.ctaButton:hover {
-  transform: scale(1.08);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-}
-
-.ctaButton:hover::before {
-  width: 400px;
-  height: 400px;
-}
-
-.ctaButton:hover {
-  color: black;
-}
-
-/* Responsive */
-@media (max-width: 1400px) {
-  .productionNumber {
-    font-size: 110px;
-  }
-
-  .productionHeroTitle {
-    font-size: 70px;
-  }
-
-  .productionShowcaseFrame {
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -20px;
-    border-width: 12px;
-  }
-
-  .showcaseTitleText {
-    font-size: 100px;
-  }
-
-  .designNumber {
-    font-size: 110px;
-  }
-
-  .designTitle {
-    font-size: 70px;
-  }
-
-  .designLargeText {
-    font-size: 38px;
-  }
-
-  .socialNumber {
-    font-size: clamp(60px, 8vw, 110px);
-  }
-
-  .studioTitle {
-    font-size: 100px;
-  }
-
-  .ctaTitle {
-    font-size: 100px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .socialSection {
-    padding: 80px 30px;
-  }
-
-  .socialGrid {
-    gap: 30px;
-  }
-}
+/* ==================== RESPONSIVE ==================== */
 
 @media (max-width: 1024px) {
-  .dualProjectGrid {
-    grid-template-columns: 1fr;
-    gap: 80px;
-  }
-
-  .launchTitleCentered {
-    font-size: 70px;
-  }
-
-  .videoProductionSection {
-    padding: 80px 40px 40px 40px;
-  }
-
-  .videoProductionTitle {
-    font-size: 56px;
-  }
-
-  .pricingGrid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .pricingCard {
-    padding: 40px 32px;
-  }
-
-  .pricingDivider {
-    margin: 60px 0;
-  }
-
-  .blackPricingSection {
-    padding: 40px 40px 80px 40px;
-  }
-
-  .blackPricingTitle {
-    font-size: 56px;
-  }
-
-  .accordionTitle {
-    font-size: 42px;
-  }
-
-  .accordionTitleWhite {
-    font-size: 42px;
-  }
-
-  .accordionContentOpen {
-    max-height: 1200px;
-  }
-
+  .pricingGrid,
   .pricingGridBlack {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-
-  .pricingCardBlack {
-    padding: 40px 32px;
-  }
-
-  .pricingDividerBlack {
-    margin: 60px 0;
-  }
-
-  .combinedSocialSection {
-    padding: 80px 40px;
-  }
-
-  .combinedIntroText {
-    font-size: 36px;
-  }
-
-  .postSectionSimple {
-    padding: 60px 40px;
-  }
-
-  .productionHero {
-    height: auto;
-    min-height: auto;
-    padding: 30px 40px 10px 40px;
-  }
-
-  .productionHeroInner {
-    padding: 60px;
-  }
-
-  .productionHeroContainer {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-
-  .productionNumber {
-    font-size: 80px;
-  }
-
-  .productionTitleGroup {
-    align-items: flex-start;
-  }
-
-  .productionMiniTitle {
-    text-align: right;
-  }
-
-  .productionHeroTitle {
-    font-size: 60px;
-  }
-
-  .productionShowcaseFrame {
-    top: -16px;
-    left: -16px;
-    right: -16px;
-    bottom: -16px;
-    border-width: 10px;
-    border-radius: 40px;
-  }
-
-  .showcaseTitleText {
-    font-size: 80px;
-  }
-
-  .showcaseSubtitle {
-    font-size: 24px;
-  }
-
-  .designSection {
-    padding: 80px 40px;
-  }
-
-  .designHeader {
-    gap: 30px;
-    margin-bottom: 60px;
-  }
-
-  .designNumber {
-    font-size: 80px;
-  }
-
-  .designTitle {
-    font-size: 60px;
-  }
-
-  .designLargeText {
-    font-size: 32px;
-  }
-
-  .designGrid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .designCard {
-    padding: 40px;
-  }
-
-  .designGridBlack {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .designCardBlack {
-    padding: 40px;
-  }
-
-  .strategyCardsIntro {
-    font-size: 24px;
-  }
-
-  .postSection {
-    padding: 80px 40px;
-  }
-
-  .postGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .socialSection {
-    padding: 80px 40px;
-    margin: 0;
-  }
-
-  .socialGrid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    min-height: auto;
-  }
-
-  .socialLeftColumn {
-    display: contents;
-  }
-
-  .socialMiddleColumn {
-    order: 2;
-  }
-
-  .socialRightColumn {
-    align-items: flex-start;
-    order: 1;
-    padding-left: 0;
-  }
-
-  .socialBottomLeft {
-    order: 3;
-  }
-
-  .socialHeader {
-    gap: 30px;
-  }
-
-  .socialNumber {
-    font-size: clamp(50px, 6vw, 80px);
-  }
-
-  .socialLine {
-    font-size: clamp(32px, 8vw, 60px);
-    text-align: center;
-  }
-
-  .socialLine:nth-child(1),
-  .socialLine:nth-child(2),
-  .socialLine:nth-child(3),
-  .socialLine:nth-child(4) {
-    margin-right: 0;
-  }
-
-  .socialLines {
-    align-items: center;
-    width: 100%;
-  }
-
-  .launchSection {
-    padding: 80px 40px;
-  }
-
-  .launchGrid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .launchRadialGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 40px;
-  }
-
-  .launchRadialCard {
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  .studioTitle {
-    font-size: 70px;
-  }
-
-  .studioServices {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .studioBentoGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .studioBentoGrid > :nth-child(1),
-  .studioBentoGrid > :nth-child(2),
-  .studioBentoGrid > :nth-child(3),
-  .studioBentoGrid > :nth-child(4),
-  .studioBentoGrid > :nth-child(5),
-  .studioBentoGrid > :nth-child(6) {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .studioServiceCard {
-    padding: 32px 24px;
-  }
-
-  .studioServiceCard h3 {
-    font-size: 22px;
-  }
-
-  .studioServiceCard p {
-    font-size: 13px;
-  }
-
-  .studioCardLarge {
-    padding: 32px 24px;
-  }
-
-  .studioCardLarge h3 {
-    font-size: 26px;
-  }
-
-  .studioCardLarge p {
-    font-size: 14px;
-  }
-
-  .studioShowcaseTitleText {
-    font-size: 60px;
-  }
-
-  .studioShowcaseViewButton {
-    padding: 8px 20px;
-  }
-
-  .studioShowcaseViewButton span {
-    font-size: 10px;
-  }
-
-  .studioShowcaseSubtitle {
-    font-size: 20px;
-  }
-
-  .cta {
-    padding: 100px 40px;
-  }
-
-  .ctaTitle {
-    font-size: 70px;
-  }
 }
 
 @media (max-width: 768px) {
+  .tabButton {
+    padding: 10px 14px;
+    font-size: 10px;
+  }
+
   .videoProductionSection {
-    padding: 60px 20px 30px 20px;
-  }
-
-  .videoProductionTitle {
-    font-size: 36px;
-  }
-
-  .pricingCardTitle {
-    font-size: 24px;
+    padding: 12px 16px 24px;
   }
 
   .blackPricingSection {
-    padding: 30px 20px 60px 20px;
-  }
-
-  .pricingCardPrice {
-    font-size: 22px;
-  }
-
-  .pricingCardButton {
-    padding: 14px 28px;
-    font-size: 11px;
-  }
-
-  .pricingDivider {
-    margin: 48px 0;
-  }
-
-  .blackPricingTitle {
-    font-size: 36px;
+    padding: 12px 16px 24px;
   }
 
   .accordionTitle {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .accordionTitleWhite {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .accordionHeader {
-    padding: 32px 0 28px 0;
+    padding: 18px 0;
   }
 
   .accordionHeaderWhite {
-    padding: 32px 0 28px 0;
+    padding: 18px 0;
+  }
+
+  .accordionContentOpenWhite {
+    max-height: 1200px;
+    padding: 16px 0;
+  }
+
+  .accordionContentOpen {
+    max-height: 1200px;
+    padding: 16px 0;
   }
 
   .accordionCaret {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .accordionCaretWhite {
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  .accordionSubtitle {
-    font-size: 9px;
-    bottom: 6px;
+  .pricingCard {
+    padding: 24px 20px;
+  }
+
+  .pricingCardBlack {
+    padding: 24px 20px;
+  }
+
+  .pricingCardTitle {
+    font-size: 20px;
   }
 
   .pricingCardTitleBlack {
-    font-size: 24px;
+    font-size: 20px;
   }
 
-  .pricingCardPriceBlack {
-    font-size: 22px;
+  .pricingCardButton {
+    padding: 12px 24px;
+    font-size: 10px;
   }
 
   .pricingCardButtonBlack {
-    padding: 14px 28px;
-    font-size: 11px;
-  }
-
-  .pricingDividerBlack {
-    margin: 48px 0;
-  }
-
-  .combinedSocialSection {
-    padding: 60px 20px;
-  }
-
-  .combinedIntroText {
-    font-size: 24px;
-    line-height: 1.3;
-  }
-
-  .designCardsWrapper {
-    padding-top: 60px;
-  }
-
-  .postSectionSimple {
-    padding: 40px 20px;
-  }
-
-  .promoBannerStudio {
-    padding: 6px 0;
-    margin-bottom: 16px;
-  }
-
-  .promoTextStudio {
+    padding: 12px 24px;
     font-size: 10px;
-    letter-spacing: 0.02em;
-    animation: scroll-left-studio 20s linear infinite;
   }
 
-  .productionHero {
-    padding: 20px 20px 10px 20px;
-    height: auto;
-    min-height: auto;
+  .musicCard {
+    padding: 20px;
   }
 
-  .productionHeroInner {
-    padding: 60px 40px;
-    border-radius: 32px;
-  }
-
-  .productionHeroContainer {
-    gap: 40px;
-  }
-
-  .productionTitleGroup {
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-  }
-
-  .productionNumber {
-    font-size: 50px;
-  }
-
-  .productionMiniTitle {
-    text-align: center;
-  }
-
-  .productionHeroTitle {
-    font-size: 32px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
-
-  .productionHeroDescription {
-    font-size: 14px;
-  }
-
-  .productionShowcase {
-    border-radius: 24px;
-  }
-
-  .productionShowcaseContent {
-    padding: 24px;
-  }
-
-  .showcaseTopRow {
-    flex-wrap: nowrap;
-    gap: 12px;
-  }
-
-  .showcaseClient {
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    white-space: nowrap;
-  }
-
-  .showcaseTitleText {
-    font-size: 28px;
-  }
-
-  .showcaseSubtitle {
-    font-size: 14px;
-  }
-
-  .showcaseViewButton {
-    padding: 6px 16px;
-    flex-shrink: 0;
-  }
-
-  .showcaseViewButton span {
-    font-size: 9px;
-    letter-spacing: 0.08em;
-  }
-
-  .designSection {
-    padding: 60px 20px;
-  }
-
-  .designHeaderGrid {
-    display: flex;
+  .musicCardInner {
     flex-direction: column;
-    gap: 24px;
-  }
-
-  .designHeaderLeft,
-  .designHeaderRight {
-    display: block;
-    width: 100%;
-  }
-
-  .designHeader {
-    gap: 20px;
-    margin-bottom: 24px;
-    justify-content: center;
-  }
-
-  .designNumber {
-    font-size: 50px;
-  }
-
-  .designMiniTitle {
     text-align: center;
+    gap: 8px;
   }
 
-  .designTitle {
-    font-size: 32px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
-
-  .designLargeText {
-    font-size: 20px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto 48px auto;
-    line-height: 1.3;
-  }
-
-  .designContent {
-    gap: 40px;
-  }
-
-  .designCard {
-    padding: 32px;
-  }
-
-  .designCardTitle {
-    font-size: 18px;
-  }
-
-  .designCardDescription {
-    font-size: 13px;
-  }
-
-  .designStatement {
-    padding: 40px 0;
-  }
-
-  .designStatement p {
-    font-size: 14px;
-  }
-
-  .designCardBlack {
-    padding: 32px;
-  }
-
-  .designCardTitleBlack {
-    font-size: 18px;
-  }
-
-  .designCardDescriptionBlack {
-    font-size: 13px;
-  }
-
-  .designStatementBlack {
-    padding: 40px 0;
-  }
-
-  .designStatementBlack p {
-    font-size: 14px;
-  }
-
-  .strategyCardsIntro {
-    font-size: 20px;
-  }
-
-  .strategyCardsHeader {
-    padding-top: 60px;
-    margin-bottom: 24px;
-  }
-
-  .postSection {
+  .formSection {
     padding: 60px 20px;
   }
 
-  .postHeader {
-    justify-content: center;
+  .formTitle {
+    font-size: 36px;
   }
 
-  .postNumber {
-    font-size: 50px;
-  }
-
-  .postMiniTitle {
-    text-align: center;
-  }
-
-  .postTitle {
-    font-size: 32px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
-
-  .postSubtitle {
-    font-size: 15px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
-
-  .socialSection {
-    padding: 60px 20px;
-    margin: 0;
-  }
-
-  .socialGrid {
+  .formRow {
     grid-template-columns: 1fr;
-    gap: 32px;
-    min-height: auto;
   }
 
-  .socialLeftColumn {
-    display: contents;
+  .solutionTags {
+    gap: 6px;
   }
 
-  .socialMiddleColumn {
-    order: 2;
+  .solutionTag {
+    font-size: 10px;
+    padding: 6px 12px;
   }
+}
 
-  .socialRightColumn {
-    align-items: flex-start;
-    padding-left: 0;
-    order: 1;
-  }
+/* ==================== CONTACT FORM ==================== */
 
-  .socialBottomLeft {
-    order: 3;
-  }
+.formSection {
+  background: #111;
+  padding: 80px 60px;
+}
 
-  .socialHeader {
-    gap: 20px;
-    margin-bottom: 8px;
-    justify-content: center;
-  }
+.formContainer {
+  max-width: 700px;
+  margin: 0 auto;
+}
 
-  .socialMiniTitle {
-    text-align: center;
-  }
+.formTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 56px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: white;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
 
-  .socialNumber {
-    font-size: 50px;
-  }
+.formSubtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  margin: 0 0 40px 0;
+}
 
-  .socialMainTitle {
-    font-size: 32px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  .socialLine {
-    font-size: clamp(36px, 9vw, 70px);
-    text-align: center;
-  }
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
 
-  .socialLine:nth-child(1),
-  .socialLine:nth-child(2),
-  .socialLine:nth-child(3),
-  .socialLine:nth-child(4) {
-    margin-right: 0;
-  }
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-  .socialLines {
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-  }
+.formLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
 
-  .socialTagline {
-    font-size: 14px;
-  }
+.formInput {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: white;
+  padding: 14px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  border-radius: 0;
+}
 
-  .socialCta .solutionButton {
-    max-width: 100%;
-    font-size: 12px;
-    padding: 18px 40px;
-  }
+.formInput::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
 
-  .launchSection {
-    padding: 60px 20px;
-  }
+.formInput:focus {
+  border-color: #fff;
+}
 
-  .launchHeader {
-    justify-content: center;
-  }
+.formTextarea {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: white;
+  padding: 14px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+  min-height: 80px;
+  border-radius: 0;
+}
 
-  .launchNumber {
-    font-size: 50px;
-  }
+.formTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
 
-  .launchMiniTitle {
-    text-align: center;
-  }
+.formTextarea:focus {
+  border-color: #fff;
+}
 
-  .launchRadialGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 40px;
-  }
+/* Solution tag selector */
+.solutionTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-  .launchRadialCard {
-    max-width: 280px;
-    margin: 0 auto;
-  }
+.solutionTag {
+  padding: 8px 16px;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-  .launchTitle {
-    font-size: 32px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
+.solutionTag:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+}
 
-  .launchTitleCentered {
-    font-size: 48px;
-  }
+.solutionTagActive {
+  font-weight: 700;
+}
 
-  .launchCard h3 {
-    font-size: 24px;
-  }
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
 
-  .launchCard p {
-    font-size: 14px;
-  }
+.checkmark {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
 
-  .studioHeader {
-    justify-content: center;
-  }
+/* Turnstile */
+.turnstile {
+  margin-top: 4px;
+}
 
-  .studioNumber {
-    font-size: 50px;
-  }
+/* Submit button */
+.formSubmit {
+  background: white;
+  color: black;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  border: 2px solid white;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 8px;
+}
 
-  .studioMiniTitle {
-    text-align: center;
-  }
+.formSubmit:hover {
+  background: transparent;
+  color: white;
+}
 
-  .studioTitle {
-    font-size: 32px;
-    text-align: center;
-    max-width: 90%;
-    margin: 0 auto;
-  }
+.formSubmit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .studioServices {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-bottom: 40px;
-  }
+/* Error / Success */
+.formError {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #e63636;
+  margin: 0;
+}
 
-  .studioBentoGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+.formSuccess {
+  text-align: center;
+  padding: 60px 0;
+}
 
-  .studioBentoGrid > :nth-child(1),
-  .studioBentoGrid > :nth-child(2),
-  .studioBentoGrid > :nth-child(3),
-  .studioBentoGrid > :nth-child(4),
-  .studioBentoGrid > :nth-child(5),
-  .studioBentoGrid > :nth-child(6) {
-    grid-column: 1;
-    grid-row: auto;
-  }
+.formSuccess h3 {
+  font-family: 'Anton', sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: white;
+  margin: 0 0 8px 0;
+}
 
-  .studioServiceCard {
-    padding: 24px 20px;
-  }
-
-  .studioServiceCard h3 {
-    font-size: 20px;
-    word-wrap: break-word;
-  }
-
-  .studioServiceCard p {
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .studioCardLarge {
-    padding: 24px 20px;
-  }
-
-  .studioCardLarge h3 {
-    font-size: 24px;
-    word-wrap: break-word;
-  }
-
-  .studioCardLarge p {
-    font-size: 13px;
-  }
-
-  .studioServiceItem h3 {
-    font-size: 18px;
-  }
-
-  .studioServiceItem p {
-    font-size: 13px;
-  }
-
-  .studioShowcaseContent {
-    padding: 24px;
-  }
-
-  .studioShowcaseTopRow {
-    flex-wrap: nowrap;
-    gap: 12px;
-  }
-
-  .studioShowcaseClient {
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    white-space: nowrap;
-  }
-
-  .studioShowcaseTitleText {
-    font-size: 28px;
-  }
-
-  .studioShowcaseViewButton {
-    padding: 6px 16px;
-    flex-shrink: 0;
-  }
-
-  .studioShowcaseViewButton span {
-    font-size: 9px;
-    letter-spacing: 0.08em;
-  }
-
-  .studioShowcaseSubtitle {
-    font-size: 14px;
-  }
-
-  .studioButton,
-  .ctaButton {
-    padding: 20px 60px;
-    font-size: 14px;
-  }
-
-  .cta {
-    padding: 80px 20px;
-  }
-
-  .ctaTitle {
-    font-size: 48px;
-  }
+.formSuccess p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
 }

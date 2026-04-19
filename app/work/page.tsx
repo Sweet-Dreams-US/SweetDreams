@@ -1,16 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "../media/media.module.css";
 import WhyAnimated from "@/components/media/WhyAnimated";
 
 import PortfolioHorizontalScroll from "@/components/media/PortfolioHorizontalScroll";
 import WebsiteShowcase from "@/components/web/WebsiteShowcase";
-import MusicContactForm from "@/components/music/MusicContactForm";
+import WorkContactForm from "@/components/work/WorkContactForm";
+import WorkCTABanner from "@/components/work/WorkCTABanner";
 
 export default function WorkPage() {
+  // Modal state — when any CTA is clicked, we store a pre-selected interest
+  // so the form opens with a relevant checkbox already ticked
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalInterest, setModalInterest] = useState<string | undefined>(undefined);
+  const [modalHeading, setModalHeading] = useState<string | undefined>(undefined);
+
+  const openModal = (interest?: string, heading?: string) => {
+    setModalInterest(interest);
+    setModalHeading(heading);
+    setModalOpen(true);
+  };
+
   const portfolioItems = [
+    {
+      href: "/work/fort-wayne-state-of-the-city",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/d8719a81b378ac68b2c64e1cd2819a3e/thumbnails/thumbnail.jpg?time=5s&height=600",
+      title: "FORT WAYNE STATE OF THE CITY",
+      client: "City of Fort Wayne",
+      category: "Event Coverage",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
+    },
+    {
+      href: "/work/mom-nonprofit-brand-film",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/a03f0e00cd2fda4a43464adec197c0b6/thumbnails/thumbnail.jpg?time=5s&height=600",
+      title: "M.O.M.",
+      client: "M.O.M. Nonprofit",
+      category: "Brand Film · Nonprofit",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png",
+    },
     {
       href: "/work/mc-sim-racing",
       image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/a279eed7ef4ceef1b3b257b0fb4dfc67/thumbnails/thumbnail.jpg?time=1s&height=600",
@@ -52,14 +81,6 @@ export default function WorkPage() {
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png",
     },
     {
-      href: "/work/fort-wayne-hyperlapse-showcase",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/a507a5b8a369b70b7332c0567cbbcc4c/thumbnails/thumbnail.jpg?time=5s&height=600",
-      title: "FORT WAYNE HYPERLAPSE CITY SHOWCASE",
-      client: "Sweet Dreams Media",
-      category: "Hyperlapse · Showcase",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
-    },
-    {
       href: "/work/heaven-in-fort-wayne",
       image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/d8c34ebf7e9bb7a150feaa29cd60a9a6/thumbnails/thumbnail.jpg?time=3s&height=600",
       title: "HEAVEN IN FORT WAYNE",
@@ -82,22 +103,6 @@ export default function WorkPage() {
       client: "Sweet Dreams Media",
       category: "Travel · Content Creation",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
-    },
-    {
-      href: "/work/cumberland-falls-ky-nature-showcase",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/62314c34c826a3b298815ee506ad875f/thumbnails/thumbnail.jpg?time=3s&height=600",
-      title: "CUMBERLAND FALLS, KY NATURE SHOWCASE",
-      client: "Personal Project",
-      category: "Nature · Showcase",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
-    },
-    {
-      href: "/work/snobiz-snowcone-truck-commercial",
-      image: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/SnoBizSnoCone/_DSC4925.jpg",
-      title: "SNOB'IZ SNOWCONE TRUCK COMMERCIAL",
-      client: "SnoB'iz",
-      category: "Commercial",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logo-snobiz-footer-ret.png",
     },
     {
       href: "/work/sliced-by-sonny-commercial",
@@ -239,11 +244,43 @@ export default function WorkPage() {
         onMouseLeave={() => {}}
       />
 
+      {/* First CTA touchpoint — after they've seen the video portfolio */}
+      <WorkCTABanner
+        variant="compact"
+        accentColor="red"
+        heading="Like What You See?"
+        subtext="Tell us about your project — no pressure, just a conversation."
+        buttonText="Start a Project"
+        onClick={() => openModal(undefined, "LOVE WHAT YOU SAW?")}
+      />
+
       {/* Website Projects - White */}
-      <WebsiteShowcase projects={websiteProjects} />
+      <div id="websites" style={{ scrollMarginTop: '80px' }}>
+        <WebsiteShowcase projects={websiteProjects} />
+      </div>
+
+      {/* Second CTA — after the website portfolio, targeted to web interest */}
+      <WorkCTABanner
+        variant="compact"
+        accentColor="blue"
+        heading="Need a Website Like These?"
+        subtext="Custom-coded, performance-optimized, and built to convert."
+        buttonText="Get a Web Quote"
+        onClick={() => openModal("Web Development", "BUILD YOUR NEXT WEBSITE")}
+      />
 
       {/* Why Choose Us - Black */}
       <WhyAnimated />
+
+      {/* Third CTA — feature-style mid-page emphasis */}
+      <WorkCTABanner
+        variant="feature"
+        accentColor="yellow"
+        heading="Ready to Create Something Memorable?"
+        subtext="We handle everything from concept to final delivery. In-house team, Fort Wayne based, trusted by the City of Fort Wayne, Nissan, Brookfield Zoo, and more."
+        buttonText="Book a Discovery Call"
+        onClick={() => openModal(undefined, "LET'S BUILD SOMETHING GREAT")}
+      />
 
       {/* Value Proposition - White */}
       <section className={styles.value} id="value-section" data-cursor-hide>
@@ -257,20 +294,34 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* Contact Form */}
+      {/* Final form — inline at the bottom for those who scrolled all the way */}
       <div id="contact">
-        <MusicContactForm source="work" />
+        <WorkContactForm
+          mode="inline"
+          heading="LET'S TALK"
+          subtext="Tell us about your project. We respond within 24 hours."
+        />
       </div>
 
       {/* Footer Info - Black */}
       <section className={styles.info}>
         <div className={styles.container}>
           <p className={styles.infoText}>
-            Sweet Dreams Media is a full-service video production company based in Fort Wayne, Indiana.
-            We specialize in creating compelling visual content that helps brands stand out and connect with their audience.
+            Sweet Dreams Solutions is a full-service agency based in Fort Wayne, Indiana.
+            We specialize in media production, marketing, web development, and business consulting —
+            helping brands stand out and connect with their audience.
           </p>
         </div>
       </section>
+
+      {/* Popup modal — triggered by CTA buttons throughout the page */}
+      <WorkContactForm
+        mode="modal"
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        prefilledInterest={modalInterest}
+        heading={modalHeading}
+      />
     </div>
   );
 }

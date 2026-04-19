@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Sweet Dreams",
-  description: "Privacy Policy for Sweet Dreams Music LLC. Learn how we collect, use, and protect your personal information.",
+  description: "Privacy Policy for Sweet Dreams US LLC. Learn how we collect, use, and protect your personal information.",
   alternates: {
     canonical: `${SITE_URL}/privacy`,
   },
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2>1. Introduction</h2>
             <p>
-              Welcome to Sweet Dreams Music LLC ("we," "our," or "us"). We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, disclose, and safeguard your information when you visit our website sweetdreams.us and use our services.
+              Welcome to Sweet Dreams US LLC ("we," "our," or "us"). We respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, disclose, and safeguard your information when you visit our website sweetdreams.us and use our services.
             </p>
           </section>
 
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
 
             <h3>5.1 What Information We Collect</h3>
             <p>
-              When you opt in to receive text messages from Sweet Dreams Music LLC, we collect your mobile phone number. We may also associate your phone number with your booking details and account information to personalize messages.
+              When you opt in to receive text messages from Sweet Dreams US LLC, we collect your mobile phone number. We may also associate your phone number with your booking details and account information to personalize messages.
             </p>
 
             <h3>5.2 How We Use Your Phone Number</h3>
@@ -137,7 +137,7 @@ export default function PrivacyPage() {
 
             <h3>5.5 Message Frequency and Rates</h3>
             <p>
-              Message frequency varies based on your booking activity. Standard message and data rates may apply depending on your mobile carrier plan. Sweet Dreams Music LLC does not charge for text messages, but your carrier may.
+              Message frequency varies based on your booking activity. Standard message and data rates may apply depending on your mobile carrier plan. Sweet Dreams US LLC does not charge for text messages, but your carrier may.
             </p>
           </section>
 

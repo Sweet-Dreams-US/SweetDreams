@@ -89,6 +89,12 @@ export default function BookPage() {
 
       if (response.ok) {
         setStatus("success");
+
+        // Fire Google Ads conversion
+        if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'ads_conversion_Book_appointment_1', {});
+        }
+
         setFormData({
           name: "",
           email: "",

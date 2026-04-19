@@ -1,43 +1,33 @@
 /**
- * Centralized Constants for Sweet Dreams
+ * Centralized Constants for Sweet Dreams Solutions
  * Single source of truth for domain, branding, and configuration
+ *
+ * Business: Sweet Dreams Solutions (Sweet Dreams US LLC)
+ * Domain: sweetdreams.us
+ * Services: Media Production, Marketing, Business Consulting, Software Development
  */
 
 // ==================== DOMAIN CONFIGURATION ====================
 
-/**
- * Primary domain - sweetdreams.us
- * Business solutions site for media, video production, web development
- */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sweetdreams.us';
-
-/**
- * Sister site - Sweet Dreams Music (separate booking site)
- */
 export const MUSIC_SITE_URL = 'https://sweetdreamsmusic.com';
-
-/**
- * Legacy domains that redirect to sweetdreams.us
- */
-export const LEGACY_DOMAINS = [
-  'sweetdreamsvideo.com',
-  'sweetdreamsprod.com',
-] as const;
+export const LEGACY_DOMAINS = ['sweetdreamsvideo.com', 'sweetdreamsprod.com'] as const;
 
 // ==================== BRAND IDENTITY ====================
 
 export const BRAND = {
-  name: 'Sweet Dreams',
-  legalName: 'Sweet Dreams Music LLC',
-  tagline: 'Business Media Solutions',
-  description: 'Fort Wayne business media agency specializing in media production, website development, business operations software, marketing strategies, social media management, and social media content production for businesses.',
+  name: 'Sweet Dreams Solutions',
+  shortName: 'Sweet Dreams',
+  legalName: 'Sweet Dreams US LLC',
+  tagline: 'Media Production, Marketing, Business Consulting & Software Development',
+  description: 'Sweet Dreams Solutions is a full-service business agency in Fort Wayne, Indiana delivering media production, marketing strategy, business consulting, and custom software development. We help businesses scale with commercial video, brand films, social media growth, custom-coded websites, business operations software, and strategic consulting — all under one roof.',
 } as const;
 
 // ==================== CONTACT INFORMATION ====================
 
 export const CONTACT = {
-  phone: '+1-260-450-7739',
-  phoneDisplay: '(260) 450-7739',
+  phone: '+1-260-615-7467',
+  phoneDisplay: '(260) 615-7467',
   email: 'jayvalleo@sweetdreams.us',
   emailSupport: 'support@sweetdreams.us',
   emailNoreply: 'noreply@sweetdreams.us',
@@ -93,94 +83,86 @@ export const BUSINESS_HOURS = {
 // ==================== SERVICE CONFIGURATION ====================
 
 export const SERVICES = {
-  video: {
+  media: {
     name: 'Media Production',
     slug: 'media',
-    description: 'Commercials, brand films, corporate videos, promotional content, event coverage, and social media video production for businesses',
-  },
-  web: {
-    name: 'Website Services & Software Development',
-    slug: 'solutions',
-    description: 'Custom website design, web development, e-commerce, and business operations software for businesses and brands',
-  },
-  social: {
-    name: 'Social Media Management & Production',
-    slug: 'solutions',
-    description: 'Full-service social media management, content production, strategy, and audience growth for businesses',
+    description: 'Commercial video production, brand films, documentary-style storytelling, photography, event coverage, drone/cinema drone, and short-form social video content for businesses.',
   },
   marketing: {
-    name: 'Marketing Strategies',
+    name: 'Marketing',
     slug: 'solutions',
-    description: 'Data-driven marketing strategies, brand development, and digital marketing campaigns for business growth',
+    description: 'Full-funnel marketing strategy, local SEO, email marketing automation, paid advertising, social media growth and management, content strategy, and conversion optimization.',
+  },
+  consulting: {
+    name: 'Business Consulting',
+    slug: 'solutions',
+    description: 'Growth strategy, operations design, offer strategy, pricing, delegation systems, and scaling frameworks for business owners.',
+  },
+  software: {
+    name: 'Software Development',
+    slug: 'solutions',
+    description: 'Custom-coded websites (Next.js, React, TypeScript), business operations software, custom CRMs, automation tools, AI implementation, and API integrations.',
   },
   partnerships: {
-    name: 'Business Partnerships',
+    name: 'Strategic Partnerships',
     slug: 'partnerships',
-    description: 'Strategic media partnerships for long-term business growth and brand development',
+    description: 'Performance-based growth partnerships with revenue-tied compensation. Unlimited content production, brand asset creation, and social media management.',
   },
 } as const;
 
 // ==================== SEO CONFIGURATION ====================
 
 export const SEO = {
-  defaultTitle: 'Sweet Dreams | Fort Wayne Business Media Solutions',
-  titleTemplate: '%s | Sweet Dreams',
-  defaultDescription: 'Fort Wayne business media agency offering media production, website services, business operations software development, marketing strategies, social media management, and social media content production. Professional solutions for businesses and brands.',
+  defaultTitle: 'Sweet Dreams Solutions | Media, Marketing, Consulting & Software',
+  titleTemplate: '%s | Sweet Dreams Solutions',
+  defaultDescription: 'Sweet Dreams Solutions is a Fort Wayne, Indiana business agency offering media production, marketing strategy, business consulting, and custom software development. Commercial video, brand films, custom-coded websites, business operations software, growth frameworks, and more — all under one roof.',
   keywords: [
-    // Location-based
-    'Fort Wayne media agency',
-    'Fort Wayne videographer',
-    'Fort Wayne web development',
-    'Fort Wayne commercial video production',
-    'Northeast Indiana media production',
-    'Indiana business media agency',
-    'Fort Wayne business solutions',
-
-    // Service-specific
-    'commercial videography',
+    'Sweet Dreams Solutions',
+    'Sweet Dreams Solutions Fort Wayne',
+    'Sweet Dreams US LLC',
+    'sweetdreams.us',
+    'media production agency',
+    'marketing agency Fort Wayne',
+    'business consulting agency',
+    'custom software development agency',
+    'commercial video production',
     'brand film production',
     'business video production',
+    'documentary style brand video',
     'corporate video Fort Wayne',
-    'custom website development',
-    'social media marketing',
+    'Fort Wayne videographer',
+    'Northeast Indiana media production',
+    'full funnel marketing',
+    'local SEO Fort Wayne',
+    'email marketing automation',
+    'social media management',
     'social media growth agency',
-    'content creation services',
-    'business media sales',
-    'promotional video production',
-
-    // Combined services
-    'full-service business media agency',
-    'media production company',
-    'digital marketing agency Fort Wayne',
-    'video and web development',
-    'business partnerships media',
-    'brand video production',
-    'commercial production company',
-
-    // High-intent local searches
-    'creative agency Fort Wayne',
-    'media solutions Fort Wayne',
-    'video marketing Fort Wayne',
-    'Fort Wayne web designer',
-    'website company Fort Wayne Indiana',
-    'videographer near me Fort Wayne',
-
-    // Expanded service coverage
-    'business operations software Fort Wayne',
-    'marketing strategies Fort Wayne',
-    'social media content production',
-    'media production Fort Wayne Indiana',
-    'social media production Fort Wayne',
-    'software development Fort Wayne',
-    'business software Fort Wayne',
-    'marketing agency Fort Wayne',
+    'content marketing strategy',
+    'conversion rate optimization',
+    'digital marketing Fort Wayne',
+    'business consulting Fort Wayne',
+    'small business growth consultant',
+    'business operations consultant',
+    'pricing strategy consultant',
+    'custom website development',
+    'custom coded websites',
+    'business operations software',
+    'custom CRM development',
+    'business automation software',
+    'Fort Wayne business agency',
+    'Northeast Indiana marketing agency',
+    'Fort Wayne creative agency',
+    'Fort Wayne web development',
+    'full service business agency',
+    'cinema drone Fort Wayne',
+    'drone videography Fort Wayne',
   ],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Sweet Dreams',
+    siteName: 'Sweet Dreams Solutions',
     imageUrl: `${SITE_URL}/og-image.png`,
-    imageAlt: 'Sweet Dreams Business Media Solutions',
+    imageAlt: 'Sweet Dreams Solutions — Media Production, Marketing, Business Consulting & Software Development',
     imageWidth: 1200,
     imageHeight: 630,
   },
