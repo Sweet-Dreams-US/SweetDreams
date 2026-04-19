@@ -18,6 +18,7 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   // Lazy load: only init HLS when card enters viewport
   useEffect(() => {
@@ -32,6 +33,27 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
         }
       },
       { rootMargin: '200px' }
+    );
+
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
+
+  // Mobile scroll-focus: only one card "in focus" at a time based on viewport center
+  // Non-focused cards get a blur + scale-down via CSS to create a spotlight effect
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+    if (!isMobile) return;
+
+    const card = cardRef.current;
+    if (!card) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFocused(entry.isIntersecting);
+      },
+      { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
     );
 
     observer.observe(card);
@@ -64,8 +86,18 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
     };
   }, [isVisible, project.videoId]);
 
+  const cardClassName = [
+    styles.browserCard,
+    isFocused ? styles.focused : styles.unfocused,
+  ].join(' ');
+
   return (
-    <Link ref={cardRef} href={project.href} className={styles.browserCard} aria-label={`View ${project.name} website project`}>
+    <Link ref={cardRef} href={project.href} className={cardClassName} aria-label={`View ${project.name} website project`}>
+      {/* Click indicator badge — persistent top-right corner, visible on all devices */}
+      <div className={styles.clickBadge} aria-hidden="true">
+        <span className={styles.clickBadgeIcon}>&#8599;</span>
+      </div>
+
       {/* Browser Chrome */}
       <div className={styles.browserChrome}>
         <div className={styles.browserDots} aria-hidden="true">
@@ -101,8 +133,14 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
 
       {/* Project Info */}
       <div className={styles.projectInfo}>
-        <h3 className={styles.projectName}>{project.name}</h3>
-        <p className={styles.projectDescription}>{project.description}</p>
+        <div className={styles.projectInfoText}>
+          <h3 className={styles.projectName}>{project.name}</h3>
+          <p className={styles.projectDescription}>{project.description}</p>
+        </div>
+        {/* Persistent CTA — always visible on mobile and desktop */}
+        <span className={styles.viewProjectCTA}>
+          VIEW PROJECT <span className={styles.ctaArrow}>&rarr;</span>
+        </span>
       </div>
     </Link>
   );
