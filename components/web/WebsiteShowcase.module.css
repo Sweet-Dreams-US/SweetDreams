@@ -304,13 +304,14 @@
   }
 
   /* Mobile scroll-focus effect:
-     Cards NOT in the center 20% of viewport get blurred and scaled down,
+     Cards NOT in the center 50% of viewport get blurred and scaled down,
      creating a spotlight that tracks the user's scroll position.
      Hover states don't work on mobile — this is the mobile equivalent. */
   .browserCard.unfocused {
     filter: blur(5px);
     transform: scale(0.92);
     opacity: 0.45;
+    will-change: filter, transform, opacity;
   }
 
   .browserCard.focused {
@@ -319,12 +320,22 @@
     opacity: 1;
   }
 
-  /* Prevent the hover transform from fighting with mobile focus transform */
-  .browserCard:hover {
-    transform: none;
+  /* SAFETY NET — always clear blur when user interacts with a card.
+     Covers: desktop hover (small tablet widths), mobile tap-and-hold,
+     keyboard Tab focus, and any case where the scroll-focus observer
+     doesn't fire exactly when expected (e.g., tall card edge cases). */
+  .browserCard.unfocused:hover,
+  .browserCard.unfocused:active,
+  .browserCard.unfocused:focus-visible,
+  .browserCard.unfocused:focus-within {
+    filter: blur(0);
+    transform: scale(1);
+    opacity: 1;
   }
 
-  .browserCard.focused:hover {
+  /* Focused card ignores any conflicting hover transform from base styles */
+  .browserCard.focused:hover,
+  .browserCard.focused:active {
     transform: scale(1);
   }
 

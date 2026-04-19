@@ -40,11 +40,13 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
   }, []);
 
   // Mobile scroll-focus: only one card "in focus" at a time based on viewport center
-  // Non-focused cards get a blur + scale-down via CSS to create a spotlight effect
+  // Non-focused cards get a blur + scale-down via CSS to create a spotlight effect.
+  // rootMargin -25%/-25% = center 50% of viewport — tall cards have more slack so
+  // the focused state reliably activates as they enter the central scroll band.
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const isMobile = window.matchMedia('(max-width: 1024px)').matches;
-    if (!isMobile) return;
+    const mobileQuery = window.matchMedia('(max-width: 1024px)');
+    if (!mobileQuery.matches) return;
 
     const card = cardRef.current;
     if (!card) return;
@@ -53,7 +55,7 @@ function BrowserCard({ project }: { project: WebsiteProject }) {
       ([entry]) => {
         setIsFocused(entry.isIntersecting);
       },
-      { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+      { rootMargin: '-25% 0px -25% 0px', threshold: 0 }
     );
 
     observer.observe(card);
