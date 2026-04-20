@@ -19,7 +19,18 @@ interface PortfolioItem {
   category?: string;
   year?: string;
   comingSoon?: boolean;
+  tags?: string[];
 }
+
+type FilterKey = 'all' | 'business' | 'aerial' | 'recap' | 'social';
+
+const FILTERS: { key: FilterKey; label: string }[] = [
+  { key: 'all', label: 'All Work' },
+  { key: 'business', label: 'Business' },
+  { key: 'aerial', label: 'Aerial' },
+  { key: 'recap', label: 'Event Recap' },
+  { key: 'social', label: 'Social Media' },
+];
 
 interface PortfolioHorizontalScrollProps {
   items: PortfolioItem[];
@@ -40,6 +51,24 @@ export default function PortfolioHorizontalScroll({
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [centeredCardIndex, setCenteredCardIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
+
+  // Filter items by tag. "All" returns everything in original order.
+  // Each item can belong to multiple tags so the same project may appear
+  // under Business AND Aerial (e.g., Nissan Warsaw, Coleman Prime).
+  const filteredItems =
+    activeFilter === 'all'
+      ? items
+      : items.filter((item) => item.tags?.includes(activeFilter));
+
+  // Count per filter for the small number badge next to each label
+  const filterCounts = FILTERS.reduce<Record<FilterKey, number>>((acc, f) => {
+    acc[f.key] =
+      f.key === 'all'
+        ? items.length
+        : items.filter((item) => item.tags?.includes(f.key)).length;
+    return acc;
+  }, { all: 0, business: 0, aerial: 0, recap: 0, social: 0 });
 
   // Detect mobile on mount
   useEffect(() => {
@@ -53,9 +82,15 @@ export default function PortfolioHorizontalScroll({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Intersection Observer for mobile centered card detection
+  // Intersection Observer for mobile centered card detection.
+  // Re-runs when the filter changes so the observer attaches to the new
+  // set of rendered cards and centeredCardIndex stays in sync.
   useEffect(() => {
     if (!isMobile || !containerRef.current) return;
+
+    // Reset centered index when filter changes — stale index could point to
+    // a card that's no longer rendered, causing orphaned centered state
+    setCenteredCardIndex(null);
 
     const cards = containerRef.current.querySelectorAll('[data-card-index]');
 
@@ -85,7 +120,7 @@ export default function PortfolioHorizontalScroll({
     cards.forEach(card => observer.observe(card as Element));
 
     return () => observer.disconnect();
-  }, [isMobile, items]);
+  }, [isMobile, filteredItems]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -134,10 +169,31 @@ export default function PortfolioHorizontalScroll({
           <h2 className={styles.sectionTitle}>COMPLETE PORTFOLIO</h2>
         </div>
 
+        {/* Filter pills — lets users see just aerial, just business,
+            just recaps, or just social across the whole portfolio */}
+        <div className={styles.filterBar} role="tablist" aria-label="Portfolio filter">
+          {FILTERS.map((filter) => {
+            const isActive = activeFilter === filter.key;
+            return (
+              <button
+                key={filter.key}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                className={`${styles.filterPill} ${isActive ? styles.filterPillActive : ''}`}
+                onClick={() => setActiveFilter(filter.key)}
+              >
+                <span className={styles.filterLabel}>{filter.label}</span>
+                <span className={styles.filterCount}>{filterCounts[filter.key]}</span>
+              </button>
+            );
+          })}
+        </div>
+
         <div className={styles.grid}>
-          {items.map((item, itemIndex) => (
+          {filteredItems.map((item, itemIndex) => (
             <Link
-              key={itemIndex}
+              key={`${activeFilter}-${item.href}`}
               href={item.href}
               className={`${styles.portfolioCard} ${item.comingSoon ? styles.comingSoonCard : ''} ${isMobile && centeredCardIndex === itemIndex ? styles.centered : ''}`}
               data-card-index={itemIndex}
@@ -163,6 +219,12 @@ export default function PortfolioHorizontalScroll({
             </Link>
           ))}
         </div>
+
+        {filteredItems.length === 0 && (
+          <div className={styles.emptyState}>
+            <p>No projects in this category yet.</p>
+          </div>
+        )}
       </div>
     </div>
   );

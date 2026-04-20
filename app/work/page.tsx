@@ -31,6 +31,7 @@ export default function WorkPage() {
       client: "City of Fort Wayne",
       category: "Event Coverage",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
+      tags: ["recap", "aerial"],
     },
     {
       href: "/work/mom-nonprofit-brand-film",
@@ -39,6 +40,7 @@ export default function WorkPage() {
       client: "M.O.M. Nonprofit",
       category: "Brand Film · Nonprofit",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png",
+      tags: ["business"],
     },
     {
       href: "/work/mc-sim-racing",
@@ -47,6 +49,7 @@ export default function WorkPage() {
       client: "MC Sim Racing",
       category: "Brand Video",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logoMCSimRacing.png",
+      tags: ["business"],
     },
     {
       href: "/work/the-coleman-prime-story",
@@ -55,6 +58,7 @@ export default function WorkPage() {
       client: "Coleman Prime",
       category: "Brand Trailer",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/Primedealerequityfundlogoblack.png",
+      tags: ["business", "aerial"],
     },
     {
       href: "/work/knoxville-carnival-coverage",
@@ -63,6 +67,7 @@ export default function WorkPage() {
       client: "Kissel Entertainment",
       category: "Commercial · Event Coverage",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/KisselLogo.png",
+      tags: ["business"],
     },
     {
       href: "/work/indianapolis-childrens-museum-ferris-wheel",
@@ -71,6 +76,7 @@ export default function WorkPage() {
       client: "Indianapolis Children's Museum",
       category: "Brand Film · Event",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/IndyChildrensMuseumLogo.png",
+      tags: ["business", "aerial"],
     },
     {
       href: "/work/brookfield-zoo-ferris-wheel",
@@ -79,6 +85,7 @@ export default function WorkPage() {
       client: "RideWorx & Brookfield Zoo",
       category: "Brand Film · Event",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png",
+      tags: ["business"],
     },
     {
       href: "/work/heaven-in-fort-wayne",
@@ -87,6 +94,7 @@ export default function WorkPage() {
       client: "Sweet Dreams Media",
       category: "Showcase · Travel",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
+      tags: ["aerial"],
     },
     {
       href: "/work/aegis-dental-trusted-dentistry",
@@ -95,6 +103,7 @@ export default function WorkPage() {
       client: "Aegis Dental Group",
       category: "Commercial · Brand Film",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TrustedDentalLogo.png",
+      tags: ["business"],
     },
     {
       href: "/work/vegas-dream-travel-content",
@@ -103,6 +112,7 @@ export default function WorkPage() {
       client: "Sweet Dreams Media",
       category: "Travel · Content Creation",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
+      tags: ["social"],
     },
     {
       href: "/work/sliced-by-sonny-commercial",
@@ -111,6 +121,7 @@ export default function WorkPage() {
       client: "Sliced By Sonny",
       category: "Commercial",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/slicedBySonny.png",
+      tags: ["business"],
     },
     {
       href: "/work/vintage-fest-fort-wayne",
@@ -119,6 +130,7 @@ export default function WorkPage() {
       client: "Vintage Fest",
       category: "Event Coverage",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SummitCityVintageLogo.png",
+      tags: ["recap"],
     },
     {
       href: "/work/fort-wayne-traffic-hyperlapse",
@@ -127,6 +139,7 @@ export default function WorkPage() {
       client: "Sweet Dreams Media",
       category: "Hyperlapse",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
+      tags: ["social", "aerial"],
     },
     {
       href: "/work/cinema-drone-ad",
@@ -135,6 +148,7 @@ export default function WorkPage() {
       client: "Sweet Dreams Media",
       category: "Equipment Showcase",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
+      tags: ["aerial"],
     },
     {
       href: "/work/fort-wayne-carnival-recap",
@@ -143,6 +157,7 @@ export default function WorkPage() {
       client: "Kissel Entertainment",
       category: "Event Coverage · Recap",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/KisselLogo.png",
+      tags: ["recap"],
     },
     {
       href: "/work/nissan-warsaw-dealership",
@@ -151,6 +166,7 @@ export default function WorkPage() {
       client: "Nissan Warsaw Dealer",
       category: "Commercial · Automotive",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/nissanredlogo.png",
+      tags: ["business", "aerial"],
     },
   ];
 

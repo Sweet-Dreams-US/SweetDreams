@@ -68,6 +68,87 @@
   margin: 5px 0 0 0;
 }
 
+/* Filter Bar — pills that let users narrow the portfolio by category */
+.filterBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: -30px auto 48px;
+  padding: 0 20px;
+  max-width: 900px;
+}
+
+.filterPill {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filterPill:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.filterPillActive {
+  background: white;
+  border-color: white;
+  color: #0a0a0a;
+}
+
+.filterPillActive:hover {
+  color: #0a0a0a;
+  background: white;
+}
+
+.filterLabel {
+  display: inline-block;
+}
+
+.filterCount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0;
+  opacity: 0.65;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 7px;
+  border-radius: 999px;
+  min-width: 22px;
+  text-align: center;
+}
+
+.filterPillActive .filterCount {
+  background: rgba(0, 0, 0, 0.1);
+  color: #0a0a0a;
+  opacity: 0.8;
+}
+
+/* Empty state when no projects match a filter */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+}
+
 /* Portfolio Cards */
 .portfolioCard {
   position: relative;
@@ -335,5 +416,24 @@
 
   .sectionTitle {
     font-size: 32px;
+  }
+
+  /* Mobile filter bar: tighter spacing, slightly smaller pills */
+  .filterBar {
+    gap: 8px;
+    margin: -20px auto 32px;
+    padding: 0 8px;
+  }
+
+  .filterPill {
+    font-size: 12px;
+    padding: 8px 14px;
+    letter-spacing: 0.08em;
+  }
+
+  .filterCount {
+    font-size: 10px;
+    padding: 2px 6px;
+    min-width: 20px;
   }
 }
