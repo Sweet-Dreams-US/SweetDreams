@@ -24,12 +24,19 @@ interface PortfolioItem {
 
 type FilterKey = 'all' | 'business' | 'aerial' | 'recap' | 'social';
 
-const FILTERS: { key: FilterKey; label: string }[] = [
-  { key: 'all', label: 'All Work' },
-  { key: 'business', label: 'Business' },
-  { key: 'aerial', label: 'Aerial' },
-  { key: 'recap', label: 'Event Recap' },
-  { key: 'social', label: 'Social Media' },
+interface FilterConfig {
+  key: FilterKey;
+  label: string;
+  accent: string; // pill color when active + dot color when inactive
+  textOnAccent: string; // text color when pill is filled (contrast)
+}
+
+const FILTERS: FilterConfig[] = [
+  { key: 'all', label: 'All Work', accent: '#ffffff', textOnAccent: '#0a0a0a' },
+  { key: 'business', label: 'Business', accent: '#e63636', textOnAccent: '#ffffff' },
+  { key: 'aerial', label: 'Aerial', accent: '#4A90E2', textOnAccent: '#ffffff' },
+  { key: 'recap', label: 'Event Recap', accent: '#F4C430', textOnAccent: '#0a0a0a' },
+  { key: 'social', label: 'Social Media', accent: '#28c840', textOnAccent: '#0a0a0a' },
 ];
 
 interface PortfolioHorizontalScrollProps {
@@ -170,7 +177,8 @@ export default function PortfolioHorizontalScroll({
         </div>
 
         {/* Filter pills — lets users see just aerial, just business,
-            just recaps, or just social across the whole portfolio */}
+            just recaps, or just social across the whole portfolio.
+            Per-pill color comes from --pill-accent / --pill-text CSS vars. */}
         <div className={styles.filterBar} role="tablist" aria-label="Portfolio filter">
           {FILTERS.map((filter) => {
             const isActive = activeFilter === filter.key;
@@ -181,8 +189,13 @@ export default function PortfolioHorizontalScroll({
                 role="tab"
                 aria-selected={isActive}
                 className={`${styles.filterPill} ${isActive ? styles.filterPillActive : ''}`}
+                style={{
+                  ['--pill-accent' as string]: filter.accent,
+                  ['--pill-text' as string]: filter.textOnAccent,
+                } as React.CSSProperties}
                 onClick={() => setActiveFilter(filter.key)}
               >
+                <span className={styles.filterDot} aria-hidden="true" />
                 <span className={styles.filterLabel}>{filter.label}</span>
                 <span className={styles.filterCount}>{filterCounts[filter.key]}</span>
               </button>
