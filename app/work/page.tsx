@@ -151,6 +151,15 @@ export default function WorkPage() {
       tags: ["aerial"],
     },
     {
+      href: "/work/fort-wayne-courthouse-4k",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/f7fc42a2caa35a3fd1eeb83e4fd5de06/thumbnails/thumbnail.jpg?time=80s&height=600",
+      title: "FORT WAYNE COURTHOUSE IN 4K",
+      client: "Sweet Dreams Media",
+      category: "Aerial Cinematography",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
+      tags: ["aerial"],
+    },
+    {
       href: "/work/fort-wayne-carnival-recap",
       image: "https://videodelivery.net/1a0f730d316664839064b8a88543d63a/thumbnails/thumbnail.jpg?time=1s&height=600",
       title: "FORT WAYNE CARNIVAL RECAP",
