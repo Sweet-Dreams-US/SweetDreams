@@ -20,6 +20,7 @@ interface PortfolioItem {
   year?: string;
   comingSoon?: boolean;
   tags?: string[];
+  date?: string; // ISO date (YYYY-MM-DD) — used for newest-first sort
 }
 
 type FilterKey = 'all' | 'business' | 'aerial' | 'recap' | 'social';
@@ -60,13 +61,23 @@ export default function PortfolioHorizontalScroll({
   const [isMobile, setIsMobile] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
 
-  // Filter items by tag. "All" returns everything in original order.
-  // Each item can belong to multiple tags so the same project may appear
-  // under Business AND Aerial (e.g., Nissan Warsaw, Coleman Prime).
-  const filteredItems =
+  // Filter items by tag. Each item can belong to multiple tags so the same
+  // project may appear under Business AND Aerial (e.g., Nissan Warsaw,
+  // Coleman Prime). Then sort by date descending so newest projects show
+  // first regardless of which filter is active. Undated items fall to the
+  // bottom so missing-data doesn't silently promote old work.
+  const filteredItems = (
     activeFilter === 'all'
       ? items
-      : items.filter((item) => item.tags?.includes(activeFilter));
+      : items.filter((item) => item.tags?.includes(activeFilter))
+  )
+    .slice()
+    .sort((a, b) => {
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      return b.date.localeCompare(a.date);
+    });
 
   // Count per filter for the small number badge next to each label
   const filterCounts = FILTERS.reduce<Record<FilterKey, number>>((acc, f) => {

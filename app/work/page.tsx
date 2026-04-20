@@ -23,6 +23,10 @@ export default function WorkPage() {
     setModalOpen(true);
   };
 
+  // Dates are actual Cloudflare Stream upload timestamps where the video
+  // is hosted there. For the 3 projects hosted on Supabase (Vegas Dream,
+  // Sliced by Sonny, Vintage Fest), dates come from file metadata where
+  // available or best estimate. Used to sort newest-first across filters.
   const portfolioItems = [
     {
       href: "/work/fort-wayne-state-of-the-city",
@@ -32,6 +36,7 @@ export default function WorkPage() {
       category: "Event Coverage",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
       tags: ["recap", "aerial"],
+      date: "2026-04-07",
     },
     {
       href: "/work/mom-nonprofit-brand-film",
@@ -41,6 +46,7 @@ export default function WorkPage() {
       category: "Brand Film · Nonprofit",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png",
       tags: ["business"],
+      date: "2026-04-07T16:23:57Z",
     },
     {
       href: "/work/mc-sim-racing",
@@ -50,6 +56,7 @@ export default function WorkPage() {
       category: "Brand Video",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logoMCSimRacing.png",
       tags: ["business"],
+      date: "2026-01-25",
     },
     {
       href: "/work/the-coleman-prime-story",
@@ -59,6 +66,7 @@ export default function WorkPage() {
       category: "Brand Trailer",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/Primedealerequityfundlogoblack.png",
       tags: ["business", "aerial"],
+      date: "2026-01-15T19:20:39Z",
     },
     {
       href: "/work/knoxville-carnival-coverage",
@@ -68,6 +76,7 @@ export default function WorkPage() {
       category: "Commercial · Event Coverage",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/KisselLogo.png",
       tags: ["business"],
+      date: "2025-09-25",
     },
     {
       href: "/work/indianapolis-childrens-museum-ferris-wheel",
@@ -77,6 +86,7 @@ export default function WorkPage() {
       category: "Brand Film · Event",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/IndyChildrensMuseumLogo.png",
       tags: ["business", "aerial"],
+      date: "2025-09-07T16:14:19Z",
     },
     {
       href: "/work/brookfield-zoo-ferris-wheel",
@@ -86,6 +96,7 @@ export default function WorkPage() {
       category: "Brand Film · Event",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png",
       tags: ["business"],
+      date: "2025-09-07T14:31:12Z",
     },
     {
       href: "/work/heaven-in-fort-wayne",
@@ -95,6 +106,7 @@ export default function WorkPage() {
       category: "Showcase · Travel",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
       tags: ["aerial"],
+      date: "2025-10-18",
     },
     {
       href: "/work/aegis-dental-trusted-dentistry",
@@ -104,6 +116,7 @@ export default function WorkPage() {
       category: "Commercial · Brand Film",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TrustedDentalLogo.png",
       tags: ["business"],
+      date: "2025-09-07T14:33:08Z",
     },
     {
       href: "/work/vegas-dream-travel-content",
@@ -113,6 +126,7 @@ export default function WorkPage() {
       category: "Travel · Content Creation",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["social"],
+      date: "2024-04-15",
     },
     {
       href: "/work/sliced-by-sonny-commercial",
@@ -122,6 +136,7 @@ export default function WorkPage() {
       category: "Commercial",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/slicedBySonny.png",
       tags: ["business"],
+      date: "2024-06-15",
     },
     {
       href: "/work/vintage-fest-fort-wayne",
@@ -131,6 +146,7 @@ export default function WorkPage() {
       category: "Event Coverage",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SummitCityVintageLogo.png",
       tags: ["recap"],
+      date: "2025-08-17",
     },
     {
       href: "/work/fort-wayne-traffic-hyperlapse",
@@ -140,6 +156,7 @@ export default function WorkPage() {
       category: "Hyperlapse",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["social", "aerial"],
+      date: "2026-01-15T22:38:30Z",
     },
     {
       href: "/work/cinema-drone-ad",
@@ -149,6 +166,7 @@ export default function WorkPage() {
       category: "Equipment Showcase",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["aerial"],
+      date: "2026-01-15T20:04:19Z",
     },
     {
       href: "/work/fort-wayne-courthouse-4k",
@@ -158,6 +176,7 @@ export default function WorkPage() {
       category: "Aerial Cinematography",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["aerial"],
+      date: "2026-04-20",
     },
     {
       href: "/work/fort-wayne-carnival-recap",
@@ -167,6 +186,7 @@ export default function WorkPage() {
       category: "Event Coverage · Recap",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/KisselLogo.png",
       tags: ["recap"],
+      date: "2025-09-07T19:07:12Z",
     },
     {
       href: "/work/nissan-warsaw-dealership",
@@ -176,6 +196,7 @@ export default function WorkPage() {
       category: "Commercial · Automotive",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/nissanredlogo.png",
       tags: ["business", "aerial"],
+      date: "2025-10-27",
     },
   ];
 
