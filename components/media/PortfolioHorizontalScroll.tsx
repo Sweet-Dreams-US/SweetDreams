@@ -5,13 +5,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import styles from './PortfolioHorizontalScroll.module.css';
+import HyperlapseRow from './HyperlapseRow';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 interface PortfolioItem {
-  href: string;
+  href?: string; // optional — hyperlapse smart-videos don't link to a project page
   image: string;
   title: string;
   client: string;
@@ -21,9 +22,17 @@ interface PortfolioItem {
   comingSoon?: boolean;
   tags?: string[];
   date?: string; // ISO date (YYYY-MM-DD) — used for newest-first sort
+  // Smart-video fields — when isSmartVideo is true the item renders as an
+  // autoplay muted looping video in a dedicated hyperlapse row instead of
+  // a thumbnail card in the main grid.
+  isSmartVideo?: boolean;
+  videoId?: string; // Cloudflare Stream UID
+  orientation?: 'vertical' | 'horizontal';
 }
 
-type FilterKey = 'all' | 'business' | 'aerial' | 'recap' | 'social';
+type FilterKey = 'all' | 'business' | 'aerial' | 'recap' | 'social' | 'hyperlapse';
+
+const FILTER_KEYS: FilterKey[] = ['all', 'business', 'aerial', 'recap', 'social', 'hyperlapse'];
 
 interface FilterConfig {
   key: FilterKey;
@@ -38,6 +47,7 @@ const FILTERS: FilterConfig[] = [
   { key: 'aerial', label: 'Aerial', accent: '#4A90E2', textOnAccent: '#ffffff' },
   { key: 'recap', label: 'Event Recap', accent: '#F4C430', textOnAccent: '#0a0a0a' },
   { key: 'social', label: 'Social Media', accent: '#28c840', textOnAccent: '#0a0a0a' },
+  { key: 'hyperlapse', label: 'Hyperlapse', accent: '#a855f7', textOnAccent: '#ffffff' },
 ];
 
 interface PortfolioHorizontalScrollProps {
@@ -61,11 +71,35 @@ export default function PortfolioHorizontalScroll({
   const [isMobile, setIsMobile] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
 
+  // Read ?filter=X from URL on mount so share links open the right view.
+  // Using window.location directly (not useSearchParams) avoids needing
+  // a Suspense boundary for the static build.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const urlFilter = params.get('filter') as FilterKey | null;
+    if (urlFilter && FILTER_KEYS.includes(urlFilter)) {
+      setActiveFilter(urlFilter);
+    }
+  }, []);
+
+  // Keep URL in sync so clicking a filter produces a shareable link
+  // without triggering a Next.js navigation (no scroll reset, no refetch).
+  const handleFilterChange = (key: FilterKey) => {
+    setActiveFilter(key);
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    if (key === 'all') {
+      url.searchParams.delete('filter');
+    } else {
+      url.searchParams.set('filter', key);
+    }
+    window.history.replaceState({}, '', url);
+  };
+
   // Filter items by tag. Each item can belong to multiple tags so the same
-  // project may appear under Business AND Aerial (e.g., Nissan Warsaw,
-  // Coleman Prime). Then sort by date descending so newest projects show
-  // first regardless of which filter is active. Undated items fall to the
-  // bottom so missing-data doesn't silently promote old work.
+  // project may appear under Business AND Aerial. Sort by date descending
+  // so newest projects show first regardless of which filter is active.
   const filteredItems = (
     activeFilter === 'all'
       ? items
@@ -79,6 +113,17 @@ export default function PortfolioHorizontalScroll({
       return b.date.localeCompare(a.date);
     });
 
+  // Split filtered items into the main thumbnail grid vs the smart-video
+  // hyperlapse rows. Smart videos get their own rows regardless of filter
+  // so vertical/wide layout stays clean.
+  const mainGridItems = filteredItems.filter((item) => !item.isSmartVideo);
+  const verticalHyperlapses = filteredItems.filter(
+    (item) => item.isSmartVideo && item.orientation === 'vertical' && item.videoId
+  );
+  const horizontalHyperlapses = filteredItems.filter(
+    (item) => item.isSmartVideo && item.orientation === 'horizontal' && item.videoId
+  );
+
   // Count per filter for the small number badge next to each label
   const filterCounts = FILTERS.reduce<Record<FilterKey, number>>((acc, f) => {
     acc[f.key] =
@@ -86,7 +131,7 @@ export default function PortfolioHorizontalScroll({
         ? items.length
         : items.filter((item) => item.tags?.includes(f.key)).length;
     return acc;
-  }, { all: 0, business: 0, aerial: 0, recap: 0, social: 0 });
+  }, { all: 0, business: 0, aerial: 0, recap: 0, social: 0, hyperlapse: 0 });
 
   // Detect mobile on mount
   useEffect(() => {
@@ -138,7 +183,7 @@ export default function PortfolioHorizontalScroll({
     cards.forEach(card => observer.observe(card as Element));
 
     return () => observer.disconnect();
-  }, [isMobile, filteredItems]);
+  }, [isMobile, mainGridItems]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -204,7 +249,7 @@ export default function PortfolioHorizontalScroll({
                   ['--pill-accent' as string]: filter.accent,
                   ['--pill-text' as string]: filter.textOnAccent,
                 } as React.CSSProperties}
-                onClick={() => setActiveFilter(filter.key)}
+                onClick={() => handleFilterChange(filter.key)}
               >
                 <span className={styles.filterDot} aria-hidden="true" />
                 <span className={styles.filterLabel}>{filter.label}</span>
@@ -214,35 +259,61 @@ export default function PortfolioHorizontalScroll({
           })}
         </div>
 
-        <div className={styles.grid}>
-          {filteredItems.map((item, itemIndex) => (
-            <Link
-              key={`${activeFilter}-${item.href}`}
-              href={item.href}
-              className={`${styles.portfolioCard} ${item.comingSoon ? styles.comingSoonCard : ''} ${isMobile && centeredCardIndex === itemIndex ? styles.centered : ''}`}
-              data-card-index={itemIndex}
-              onMouseEnter={() => handleMouseEnterCard(item.logo)}
-              onMouseLeave={handleMouseLeaveCard}
-            >
-              <div className={styles.portfolioImage}>
-                {item.comingSoon ? (
-                  <div className={styles.comingSoon}>
-                    <div className={styles.comingSoonText}>COMING SOON</div>
-                  </div>
-                ) : (
-                  <img src={item.image} alt={item.title} />
-                )}
-              </div>
-              <div className={styles.portfolioInfo}>
-                <p className={styles.portfolioClient}>{item.client}</p>
-                <h3 className={styles.portfolioTitle}>{item.title}</h3>
-                {item.category && (
-                  <p className={styles.portfolioCategory}>{item.category}</p>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+        {mainGridItems.length > 0 && (
+          <div className={styles.grid}>
+            {mainGridItems.map((item, itemIndex) => (
+              <Link
+                key={`${activeFilter}-${item.href ?? item.title}`}
+                href={item.href ?? '#'}
+                className={`${styles.portfolioCard} ${item.comingSoon ? styles.comingSoonCard : ''} ${isMobile && centeredCardIndex === itemIndex ? styles.centered : ''}`}
+                data-card-index={itemIndex}
+                onMouseEnter={() => handleMouseEnterCard(item.logo)}
+                onMouseLeave={handleMouseLeaveCard}
+              >
+                <div className={styles.portfolioImage}>
+                  {item.comingSoon ? (
+                    <div className={styles.comingSoon}>
+                      <div className={styles.comingSoonText}>COMING SOON</div>
+                    </div>
+                  ) : (
+                    <img src={item.image} alt={item.title} />
+                  )}
+                </div>
+                <div className={styles.portfolioInfo}>
+                  <p className={styles.portfolioClient}>{item.client}</p>
+                  <h3 className={styles.portfolioTitle}>{item.title}</h3>
+                  {item.category && (
+                    <p className={styles.portfolioCategory}>{item.category}</p>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {/* Hyperlapse rows — vertical orientation first, then wide. Only
+            appear when the active filter has smart-video items matching.
+            For "All", both rows appear between main grid and websites. */}
+        <HyperlapseRow
+          items={verticalHyperlapses.map((i) => ({
+            title: i.title,
+            client: i.client,
+            videoId: i.videoId!,
+            date: i.date,
+          }))}
+          orientation="vertical"
+          label="Vertical Hyperlapses"
+        />
+        <HyperlapseRow
+          items={horizontalHyperlapses.map((i) => ({
+            title: i.title,
+            client: i.client,
+            videoId: i.videoId!,
+            date: i.date,
+          }))}
+          orientation="horizontal"
+          label="Wide Hyperlapses"
+        />
 
         {filteredItems.length === 0 && (
           <div className={styles.emptyState}>
