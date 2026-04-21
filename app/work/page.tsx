@@ -204,7 +204,7 @@ export default function WorkPage() {
     {
       image: "",
       title: "BROWNIE'S LEMONADE NIGHT",
-      client: "Brownie's Lemonade",
+      client: "Brownies & Lemonade",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["hyperlapse"],
       date: "2026-04-21",
@@ -237,7 +237,7 @@ export default function WorkPage() {
     {
       image: "",
       title: "RC COLA HYPERLAPSE",
-      client: "RC Cola",
+      client: "Mana Common",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["hyperlapse"],
       date: "2026-04-21",
@@ -259,8 +259,8 @@ export default function WorkPage() {
     {
       image: "",
       title: "ST. PATTY'S GREEN RIVER",
-      client: "Sweet Dreams Media",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
+      client: "City of Fort Wayne",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
       tags: ["hyperlapse", "aerial"],
       date: "2026-04-21",
       isSmartVideo: true,
@@ -272,7 +272,7 @@ export default function WorkPage() {
     {
       image: "",
       title: "COLOR WALL",
-      client: "Wynwood Marketplace",
+      client: "Mana Wynwood",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["hyperlapse"],
       date: "2026-04-21",
@@ -283,7 +283,7 @@ export default function WorkPage() {
     {
       image: "",
       title: "KISS WALL",
-      client: "Wynwood Marketplace",
+      client: "Mana Wynwood",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["hyperlapse"],
       date: "2026-04-21",
@@ -327,7 +327,7 @@ export default function WorkPage() {
     {
       image: "",
       title: "TIGER SLIDE",
-      client: "Wynwood Marketplace",
+      client: "Mana Wynwood",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["hyperlapse"],
       date: "2026-04-21",
@@ -338,7 +338,7 @@ export default function WorkPage() {
     {
       image: "",
       title: "BROWNIE'S LEMONADE — MANA",
-      client: "Brownie's Lemonade",
+      client: "Mana Wynwood × Brownies & Lemonade",
       logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
       tags: ["hyperlapse"],
       date: "2026-04-21",
