@@ -459,6 +459,7 @@ export default function WorkPage() {
         items={portfolioItems}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        websiteCount={websiteProjects.length}
       />
 
       {/* First CTA touchpoint — after they've seen the video portfolio */}
