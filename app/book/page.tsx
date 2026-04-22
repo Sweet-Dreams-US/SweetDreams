@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Script from "next/script";
 import styles from "./book.module.css";
+import CallNow from "@/components/CallNow";
 
 // Turnstile site key
 const TURNSTILE_SITE_KEY = "0x4AAAAAACJodExIWnZ-7sQq";
@@ -280,6 +281,9 @@ export default function BookPage() {
           </form>
         )}
       </div>
+
+      {/* Why Wait? Call Now — for leads who prefer phone over form */}
+      <CallNow />
 
       {/* Music Studio Link */}
       <section className={styles.studioSection}>
