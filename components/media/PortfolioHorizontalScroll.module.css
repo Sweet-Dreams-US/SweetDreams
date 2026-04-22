@@ -71,11 +71,18 @@
 /* Filter Bar wrapper — handles horizontal scroll on narrow viewports.
    The inner .filterBar has width: fit-content + margin: auto so pills
    center when they fit in the viewport, and flow left-to-right (no
-   clipped edges) when they overflow. */
+   clipped edges) when they overflow.
+
+   Vertical padding is CRITICAL: when overflow-x is set to auto, the
+   CSS spec forces overflow-y to also clip (it cannot stay visible).
+   Without top/bottom breathing room, pill hover glows + box-shadows
+   get chopped at the wrapper edges. 20px top/bottom covers the 20px
+   box-shadow blur on pills. Negative top margin compensates so the
+   filter bar's visual position stays where it was. */
 .filterBarWrapper {
   width: 100%;
-  margin: -30px auto 48px;
-  padding: 0 20px 6px;
+  margin: -50px auto 32px;
+  padding: 20px;
   overflow-x: auto;
   scrollbar-width: none; /* Firefox */
 }
