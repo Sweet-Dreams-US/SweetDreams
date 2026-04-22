@@ -159,6 +159,16 @@ export default function WorkPage() {
       date: "2026-01-15T22:38:30Z",
     },
     {
+      href: "/work/fort-wayne-hyperlapse-showcase",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/a507a5b8a369b70b7332c0567cbbcc4c/thumbnails/thumbnail.jpg?time=2s&height=600",
+      title: "FORT WAYNE HYPERLAPSE CITY SHOWCASE",
+      client: "City of Fort Wayne",
+      category: "Aerial Hyperlapse",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
+      tags: ["aerial"],
+      date: "2025-09-08",
+    },
+    {
       href: "/work/cinema-drone-ad",
       image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/7d5f758e9ad94d17703b2f7842ca309b/thumbnails/thumbnail.jpg?time=1s&height=600",
       title: "CINEMA DRONE AD",

@@ -484,3 +484,81 @@
     font-size: 16px;
   }
 }
+
+/* ===== Per-project color accents =====
+   Each project picks a color from the Work-page filter palette.
+   Unexpanded: subtle hover coloring only.
+   Expanded: colored left border + title + arrow + thumbnail tint. */
+
+.projectItem {
+  --project-color: #0a0a0a;
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.colorRed    { --project-color: #e63636; }
+.colorYellow { --project-color: #F4C430; }
+.colorBlue   { --project-color: #4A90E2; }
+.colorGreen  { --project-color: #28c840; }
+.colorOrange { --project-color: #f97316; }
+.colorPurple { --project-color: #a855f7; }
+
+/* Subtle hint on hover — tinted background + colored arrow so users
+   know which palette each project lives in before they even click. */
+.projectItem .projectHeader:hover {
+  background: color-mix(in srgb, var(--project-color) 6%, transparent);
+}
+
+.projectItem .projectHeader:hover .toggleButton {
+  color: var(--project-color);
+}
+
+/* When expanded, the project goes full-color:
+   - left 4px accent stripe
+   - title + arrow in the accent color
+   - subtle tinted background
+   - view-project button fills with the accent instead of solid black
+*/
+.projectItemExpanded {
+  background: color-mix(in srgb, var(--project-color) 4%, transparent);
+  border-left: 4px solid var(--project-color);
+  padding-left: 24px;
+  margin-left: -28px;
+  border-radius: 0 12px 12px 0;
+}
+
+.projectItemExpanded .projectHeader:hover {
+  background: transparent;
+}
+
+.projectItemExpanded .projectTitle {
+  color: var(--project-color);
+}
+
+.projectItemExpanded .toggleButton {
+  color: var(--project-color);
+}
+
+.projectItemExpanded .thumbnail {
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--project-color) 25%, transparent);
+}
+
+.projectItemExpanded .detailLabel {
+  color: var(--project-color);
+}
+
+.projectItemExpanded .viewButton {
+  background: var(--project-color);
+  color: #ffffff;
+}
+
+/* Yellow/orange/green need dark text when the pill fills light bgs */
+.colorYellow.projectItemExpanded .viewButton {
+  color: #0a0a0a;
+}
+
+@media (max-width: 768px) {
+  .projectItemExpanded {
+    padding-left: 16px;
+    margin-left: -20px;
+  }
+}

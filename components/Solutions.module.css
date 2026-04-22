@@ -188,6 +188,72 @@
   margin-bottom: 0;
 }
 
+/* 4-up grid for the updated READY TO START section that showcases
+   all four Solutions tabs. Desktop: 2 wide × 2 tall. Wraps down on
+   narrower viewports. Cards use the same .column styling as the
+   2-column layout so the visual language stays consistent. */
+.fourGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 64px 120px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .fourGrid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+}
+
+/* Per-card accent colors. Each card uses its color on:
+   - Stroke of the big outlined title
+   - The divider bar
+   - The highlight line
+   - The button fill on hover */
+.column.colorRed    { --sol-color: #e63636; }
+.column.colorYellow { --sol-color: #F4C430; }
+.column.colorBlue   { --sol-color: #4A90E2; }
+.column.colorGreen  { --sol-color: #28c840; }
+
+.column.colorRed .columnTitle,
+.column.colorYellow .columnTitle,
+.column.colorBlue .columnTitle,
+.column.colorGreen .columnTitle {
+  -webkit-text-stroke-color: var(--sol-color);
+}
+
+.column.colorRed .columnDivider,
+.column.colorYellow .columnDivider,
+.column.colorBlue .columnDivider,
+.column.colorGreen .columnDivider {
+  background: var(--sol-color);
+}
+
+.column.colorRed .columnTextHighlight,
+.column.colorYellow .columnTextHighlight,
+.column.colorBlue .columnTextHighlight,
+.column.colorGreen .columnTextHighlight {
+  color: var(--sol-color);
+}
+
+.column.colorRed .columnButton:hover,
+.column.colorBlue .columnButton:hover,
+.column.colorYellow .columnButton:hover,
+.column.colorGreen .columnButton:hover {
+  background: var(--sol-color);
+  border-color: var(--sol-color);
+  color: #ffffff;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--sol-color) 35%, transparent);
+}
+
+/* Yellow/green are light — black text reads better on these fills */
+.column.colorYellow .columnButton:hover,
+.column.colorGreen .columnButton:hover {
+  color: #0a0a0a;
+}
+
 .column {
   flex: 1;
   max-width: 500px;
