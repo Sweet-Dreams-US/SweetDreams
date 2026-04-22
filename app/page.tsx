@@ -9,7 +9,7 @@ import CTASection from "@/components/CTASection";
 import ContentStrategyAnimated from "@/components/ContentStrategyAnimated";
 import TransitionSection from "@/components/TransitionSection";
 import TransitionSection2 from "@/components/TransitionSection2";
-import WhoAreWeAnimated from "@/components/WhoAreWeAnimated";
+import WhatWeDo from "@/components/WhatWeDo";
 import styles from "./home.module.css";
 
 export default function HomePage() {
@@ -18,8 +18,8 @@ export default function HomePage() {
       {/* Video Hero - Only on homepage */}
       <VideoHero />
 
-      {/* Who Are We Section with Animation */}
-      <WhoAreWeAnimated />
+      {/* What We Do - Four Pillars */}
+      <WhatWeDo />
 
       {/* Transition Section with Scroll Effect */}
       <TransitionSection />

@@ -1,0 +1,217 @@
+.section {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 140px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== Header ===== */
+.header {
+  text-align: center;
+  margin-bottom: 96px;
+}
+
+.title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(56px, 10vw, 140px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 18px 0;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: #aaa;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ===== Card Grid ===== */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ===== Card ===== */
+.card {
+  --accent: #fff;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 48px 56px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 6px solid var(--accent);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  transition:
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  border-left-color: var(--accent);
+  transform: translateX(6px);
+  box-shadow: 0 18px 50px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* ===== Card Number ===== */
+.cardNumber {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(88px, 9vw, 140px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--accent);
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  transition: -webkit-text-stroke-color 0.4s ease, color 0.4s ease;
+}
+
+.card:hover .cardNumber {
+  color: var(--accent);
+}
+
+/* ===== Card Body ===== */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 3.5vw, 48px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.cardDescription {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #bbb;
+  margin: 0;
+  max-width: 720px;
+}
+
+/* ===== Button ===== */
+.cardButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-top: 12px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardButton:hover {
+  background: var(--accent);
+  color: #000;
+  transform: translateX(4px);
+}
+
+.cardButtonArrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.cardButton:hover .cardButtonArrow {
+  transform: translateX(4px);
+}
+
+/* Yellow + green need dark text when filled (light bg, light text = unreadable) */
+.colorYellow .cardButton:hover,
+.colorGreen .cardButton:hover {
+  color: #0a0a0a;
+}
+
+/* ===== Per-pillar Accent Color ===== */
+.colorRed    { --accent: #e63636; }
+.colorYellow { --accent: #F4C430; }
+.colorBlue   { --accent: #4A90E2; }
+.colorGreen  { --accent: #28c840; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .section {
+    padding: 100px 32px;
+  }
+
+  .header {
+    margin-bottom: 64px;
+  }
+
+  .card {
+    padding: 36px 40px;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 20px;
+  }
+
+  .cards {
+    gap: 20px;
+  }
+
+  .card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 28px 24px;
+    border-left-width: 4px;
+  }
+
+  .card:hover {
+    transform: none; /* disable horizontal shift on touch devices */
+  }
+
+  .cardBody {
+    gap: 12px;
+  }
+
+  .cardDescription {
+    font-size: 14px;
+  }
+
+  .cardButton {
+    font-size: 12px;
+    padding: 10px 18px;
+  }
+}
