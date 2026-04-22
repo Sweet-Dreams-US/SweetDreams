@@ -1,0 +1,117 @@
+/* High-contrast yellow band — stands out between softer dark sections
+   as a pattern-interrupt CTA. Yellow matches the Marketing tab color
+   which ties phone-call leads back to the "attention you can measure"
+   part of the funnel. */
+.section {
+  width: 100%;
+  background: #F4C430;
+  color: #0a0a0a;
+  padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid #0a0a0a;
+  border-bottom: 4px solid #0a0a0a;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  margin: 0;
+  font-weight: 700;
+}
+
+.headline {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  margin: 0;
+  font-weight: 400;
+}
+
+.phoneLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 40px;
+  margin-top: 10px;
+  background: #0a0a0a;
+  color: #F4C430;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 3px solid #0a0a0a;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.phoneLink:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+
+.phoneIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.phoneNumber {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(24px, 3vw, 40px);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.subtext {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.75);
+  margin: 8px 0 0 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .section {
+    padding: 56px 20px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+  }
+
+  .container {
+    gap: 16px;
+  }
+
+  .phoneLink {
+    padding: 14px 28px;
+    gap: 12px;
+  }
+
+  .phoneIcon {
+    font-size: 22px;
+  }
+
+  .subtext {
+    font-size: 12px;
+  }
+}

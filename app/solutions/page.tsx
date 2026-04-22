@@ -212,8 +212,22 @@ function WebSoftwareTab() {
 
   return (
     <div className={styles.tabContent}>
+      {/* ===== HALF 1: Frontend — Brand Perception ===== */}
       <div className={styles.blackPricingSection}>
         <div className={styles.videoProductionContainer}>
+          <div className={styles.narrativeIntro}>
+            <p className={styles.narrativeKicker}>01 — HOW PEOPLE SEE YOU</p>
+            <h3 className={styles.narrativeHeadline}>
+              Your brand&apos;s feel to others is the most important perspective.
+            </h3>
+            <p className={styles.narrativeBody}>
+              Your website is the first handshake. Care about your look. Build trust in seconds.
+              Seem professional to the skeptic. Be memorable to anyone who sees your page.
+              Every site we build is hand-coded from scratch — no templates, no page-builder
+              bloat, no subscription traps.
+            </p>
+          </div>
+
           <Accordion title="WEBSITES" subtitle="Every site hand-coded from scratch." isOpen={open === 'websites'} onToggle={() => t('websites')} theme="black">
             <div className={styles.pricingGridBlack}>
               <Card theme="black" title="Starter" features={['Clean & professional', '3-5 pages', 'Mobile responsive']} buttonText="DISCUSS PROJECT" />
@@ -229,11 +243,32 @@ function WebSoftwareTab() {
               <Card theme="black" title="Ongoing Maintenance" features={['Updates & security', 'Performance monitoring', 'Content updates']} buttonText="BOOK A CALL" />
             </div>
           </Accordion>
+
+          <div className={styles.narrativeProofRow}>
+            <Link href="/work#websites" className={styles.narrativeProofLink}>
+              SEE OUR WEBSITES →
+            </Link>
+          </div>
         </div>
       </div>
 
+      {/* ===== HALF 2: Backend — One Platform, Every Department ===== */}
       <div className={styles.videoProductionSection}>
         <div className={styles.videoProductionContainer}>
+          <div className={`${styles.narrativeIntro} ${styles.narrativeIntroWhite}`}>
+            <p className={styles.narrativeKicker}>02 — HOW YOUR BUSINESS RUNS</p>
+            <h3 className={styles.narrativeHeadline}>
+              One platform. Every department. No more subscription chaos.
+            </h3>
+            <p className={styles.narrativeBody}>
+              Most businesses run on a dozen subscriptions that don&apos;t talk to each other.
+              Employees in one tool, bookings in another, accounting somewhere else, taxes in
+              spreadsheets, marketing on a fourth login. We build custom backend software that
+              puts it all in one place — your employees, your bookings, your accounting, your
+              taxes, your marketing — connected, automated, and owned by you.
+            </p>
+          </div>
+
           <Accordion title="CUSTOM SOFTWARE" isOpen={open === 'custom'} onToggle={() => t('custom')} theme="white">
             <div className={styles.pricingGrid}>
               <Card theme="white" title="Custom CRM" features={['Client management', 'Pipeline tracking', 'Communication tools']} buttonText="DISCUSS PROJECT" />
@@ -503,6 +538,27 @@ function SolutionsContactForm() {
 
 export default function SolutionsPage() {
   const [activeTab, setActiveTab] = useState<TabId>('media');
+
+  // Support deep-linking to a specific tab via URL hash:
+  //   /solutions#marketing, /solutions#web, /solutions#consulting
+  // Lets the homepage's WhatWeDo CTAs land users directly on the
+  // right tab. Also listens for hashchange (in-page nav).
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const TAB_IDS: readonly TabId[] = ['media', 'marketing', 'web', 'consulting'];
+
+    const syncTabFromHash = () => {
+      const hash = window.location.hash.replace('#', '') as TabId;
+      if (TAB_IDS.includes(hash)) {
+        setActiveTab(hash);
+      }
+    };
+
+    syncTabFromHash();
+    window.addEventListener('hashchange', syncTabFromHash);
+    return () => window.removeEventListener('hashchange', syncTabFromHash);
+  }, []);
 
   return (
     <div className={styles.page}>

@@ -122,6 +122,94 @@
   margin: 0 auto;
 }
 
+/* ========== NARRATIVE INTRO BLOCKS ==========
+   Story-first framing above each accordion group. Lives inside both
+   .blackPricingSection (dark variant) and .videoProductionSection
+   (white variant via .narrativeIntroWhite modifier). */
+.narrativeIntro {
+  max-width: 820px;
+  margin: 0 auto 40px auto;
+  text-align: center;
+  padding: 40px 0 12px;
+}
+
+.narrativeKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 18px 0;
+}
+
+.narrativeIntroWhite .narrativeKicker {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.narrativeHeadline {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  margin: 0 0 22px 0;
+  font-weight: 400;
+}
+
+.narrativeIntroWhite .narrativeHeadline {
+  color: #0a0a0a;
+}
+
+.narrativeBody {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.narrativeIntroWhite .narrativeBody {
+  color: rgba(0, 0, 0, 0.72);
+}
+
+/* Deep-link to portfolio at the end of the frontend half */
+.narrativeProofRow {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 8px;
+}
+
+.narrativeProofLink {
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 28px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.narrativeProofLink:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .narrativeIntro {
+    padding: 24px 16px 8px;
+    margin-bottom: 28px;
+  }
+
+  .narrativeBody {
+    font-size: 13px;
+  }
+}
+
 /* ==================== WHITE ACCORDION ==================== */
 
 .accordionHeaderWhite {
