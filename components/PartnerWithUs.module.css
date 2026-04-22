@@ -1,0 +1,201 @@
+.section {
+  width: 100%;
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 120px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== Header ===== */
+.header {
+  text-align: center;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  margin: 0;
+  font-weight: 400;
+}
+
+.subheader {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.5;
+  color: #0a0a0a;
+  margin: 0;
+  max-width: 780px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.intro {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  margin: 0;
+  max-width: 780px;
+}
+
+/* ===== Four-step grid =====
+   Each step is a simple numbered card. On desktop they sit in a 4-col
+   row (compact); on tablet a 2×2; on mobile single column. */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin-bottom: 80px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 36px 28px;
+  border-top: 3px solid #0a0a0a;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step:hover {
+  transform: translateY(-4px);
+}
+
+.stepNumber {
+  font-family: 'Anton', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+  font-weight: 400;
+}
+
+.stepTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.stepDescription {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+/* ===== CTA ===== */
+.cta {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.ctaNote {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 20px 48px;
+  border-radius: 999px;
+  background: #0a0a0a;
+  color: #ffffff;
+  border: 2px solid #0a0a0a;
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ctaButton:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .section {
+    padding: 96px 32px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 72px 20px;
+  }
+
+  .header {
+    margin-bottom: 56px;
+    gap: 16px;
+  }
+
+  .intro {
+    font-size: 14px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .step {
+    padding: 28px 20px;
+  }
+
+  .stepNumber {
+    font-size: 40px;
+  }
+
+  .stepTitle {
+    font-size: 18px;
+  }
+
+  .ctaButton {
+    padding: 16px 36px;
+    font-size: 14px;
+  }
+}
