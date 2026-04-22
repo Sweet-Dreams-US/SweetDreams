@@ -249,8 +249,12 @@ export default function PortfolioHorizontalScroll({
 
         {/* Filter pills — lets users see just aerial, just business,
             just recaps, or just social across the whole portfolio.
-            Per-pill color comes from --pill-accent / --pill-text CSS vars. */}
-        <div className={styles.filterBar} role="tablist" aria-label="Portfolio filter">
+            Per-pill color comes from --pill-accent / --pill-text CSS vars.
+            Wrapper handles horizontal scroll; inner bar uses
+            width: fit-content + margin: auto so pills center when they
+            fit and flow left-to-right (no clipped edges) when they don't. */}
+        <div className={styles.filterBarWrapper}>
+          <div className={styles.filterBar} role="tablist" aria-label="Portfolio filter">
           {FILTERS.map((filter) => {
             // Only filter-type pills can be "active"; scroll-to pills
             // (like Software) are always inactive — they're navigation
@@ -290,6 +294,7 @@ export default function PortfolioHorizontalScroll({
               </button>
             );
           })}
+          </div>
         </div>
 
         {mainGridItems.length > 0 && (
