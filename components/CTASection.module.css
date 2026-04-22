@@ -64,9 +64,11 @@
 
 .verticalImage {
   width: auto;
-  height: calc(280px * 4 * 0.85 * 0.9 + 48px);
+  height: calc((280px * 4 * 0.85 * 0.9 + 48px) * 1.05);
   object-fit: contain;
   border-radius: 24px;
+  border: 3px solid #0a0a0a;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
 .contentSection {
@@ -191,7 +193,7 @@
 
   .verticalImage {
     width: auto;
-    height: 600px;
+    height: 630px; /* +5% from 600 */
     max-width: 100%;
   }
 }
@@ -212,7 +214,7 @@
   }
 
   .verticalImage {
-    height: 500px;
+    height: 525px; /* +5% from 500 */
   }
 }
 
@@ -232,7 +234,7 @@
   }
 
   .verticalImage {
-    height: 400px;
+    height: 420px; /* +5% from 400 */
   }
 }
 
@@ -242,6 +244,6 @@
   }
 
   .verticalImage {
-    height: 360px;
+    height: 378px; /* +5% from 360 */
   }
 }
