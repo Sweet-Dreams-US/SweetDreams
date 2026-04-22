@@ -19,7 +19,7 @@ const TABS = [
   { id: 'media', label: 'Media Production', color: 'tabColorRed' },
   { id: 'marketing', label: 'Marketing', color: 'tabColorYellow' },
   { id: 'web', label: 'Web & Software', color: 'tabColorBlue' },
-  { id: 'consulting', label: 'Consulting', color: 'tabColorRed' },
+  { id: 'consulting', label: 'Consulting', color: 'tabColorGreen' },
 ] as const;
 
 type TabId = typeof TABS[number]['id'];
@@ -513,7 +513,7 @@ export default function SolutionsPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`${styles.tabButton} ${activeTab === tab.id ? `${styles.tabButtonActive} ${styles[tab.color]}` : ''}`}
+              className={`${styles.tabButton} ${styles[tab.color]} ${activeTab === tab.id ? styles.tabButtonActive : ''}`}
             >
               {tab.label}
             </button>

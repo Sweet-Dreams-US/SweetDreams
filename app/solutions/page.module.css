@@ -8,63 +8,93 @@
 /* ==================== TAB NAV ==================== */
 
 .tabNav {
-  background: #000;
+  background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 50;
+  padding: 20px 16px;
+  border-bottom: 1px solid #eee;
 }
 
 .tabNavInner {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
-.tabNavInner::-webkit-scrollbar {
-  display: none;
-}
-
+/* Pill button — pattern:
+   - White inside, black 2px border (crisp primary outline)
+   - Colored trace ring outside the black border (box-shadow spread)
+   - Pill shape so it reads as a button, not a tab */
 .tabButton {
+  --tab-color: #000000;
+  --tab-text-on-fill: #ffffff;
+
   padding: 12px 24px;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  background: #ffffff;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+  border-radius: 999px;
+  font-family: 'Anton', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
   cursor: pointer;
-  transition: all 0.3s ease;
   white-space: nowrap;
   flex-shrink: 0;
+
+  /* The colored trace — sits just outside the black border */
+  box-shadow: 0 0 0 3px var(--tab-color);
+
+  transition:
+    background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tabButton:hover {
-  color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px var(--tab-color), 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Active: pill fills with the tab color, text contrasts, trace becomes
+   a thicker accent ring so the selected state is unmistakable. */
 .tabButtonActive {
-  color: #fff;
+  background: var(--tab-color);
+  color: var(--tab-text-on-fill);
+  box-shadow: 0 0 0 4px var(--tab-color), 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* Color variants for active tabs */
+.tabButtonActive:hover {
+  transform: translateY(-1px);
+}
+
+/* Per-tab accent color + contrast text color when filled.
+   Yellow and green are light colors — use black text on fill for legibility. */
 .tabColorRed {
-  border-bottom-color: #e63636;
+  --tab-color: #e63636;
+  --tab-text-on-fill: #ffffff;
 }
 
 .tabColorYellow {
-  border-bottom-color: #F4C430;
+  --tab-color: #F4C430;
+  --tab-text-on-fill: #0a0a0a;
 }
 
 .tabColorBlue {
-  border-bottom-color: #4A90E2;
+  --tab-color: #4A90E2;
+  --tab-text-on-fill: #ffffff;
+}
+
+.tabColorGreen {
+  --tab-color: #28c840;
+  --tab-text-on-fill: #0a0a0a;
 }
 
 /* ==================== TAB CONTENT ==================== */
@@ -623,9 +653,27 @@
 }
 
 @media (max-width: 768px) {
+  .tabNav {
+    padding: 14px 12px;
+  }
+
+  .tabNavInner {
+    gap: 10px;
+  }
+
   .tabButton {
-    padding: 10px 14px;
-    font-size: 10px;
+    padding: 10px 16px;
+    font-size: 12px;
+    border-width: 2px;
+    box-shadow: 0 0 0 2px var(--tab-color);
+  }
+
+  .tabButton:hover {
+    box-shadow: 0 0 0 3px var(--tab-color), 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .tabButtonActive {
+    box-shadow: 0 0 0 3px var(--tab-color), 0 6px 18px rgba(0, 0, 0, 0.16);
   }
 
   .videoProductionSection {
