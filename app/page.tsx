@@ -10,6 +10,7 @@ import TransitionSection from "@/components/TransitionSection";
 import TransitionSection2 from "@/components/TransitionSection2";
 import WhatWeDo from "@/components/WhatWeDo";
 import PartnerWithUs from "@/components/PartnerWithUs";
+import CallNow from "@/components/CallNow";
 
 export default function HomePage() {
   return (
@@ -37,6 +38,9 @@ export default function HomePage() {
 
       {/* 8. Why Us — generational positioning (More Touchpoints. More Trust. More Sales.) */}
       <TransitionSection2 />
+
+      {/* 8.5 Call Now — high-contrast pattern-interrupt for phone-preferring leads */}
+      <CallNow />
 
       {/* 9a. Our Friends — trusted brands */}
       <FriendsAnimated />

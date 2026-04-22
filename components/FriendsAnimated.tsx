@@ -4,67 +4,92 @@ import { useEffect, useRef } from 'react';
 import styles from "./Friends.module.css";
 import { gsap } from 'gsap';
 
-const CLIENT_LOGOS = [
+// Each client optionally links out to their own site. Confirmed URLs
+// come from the websiteProjects list in app/work/page.tsx (sites we
+// built ourselves) and from public org sites. Any `href: undefined`
+// renders as a non-clickable logo — update when the real URL is known.
+interface ClientLogo {
+  name: string;
+  url: string;       // logo image
+  href?: string;     // external site to backlink to
+}
+
+const CLIENT_LOGOS: ClientLogo[] = [
   {
     name: "MC Sim Racing",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logoMCSimRacing.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logoMCSimRacing.png",
+    href: "https://mcracingfortwayne.com",
   },
   {
     name: "Coleman Automotive Group",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/colemanautomotivegrouplogoblack.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/colemanautomotivegrouplogoblack.png",
+    href: "https://colemanautomotivegroup.com",
   },
   {
     name: "Prime Dealer Equity Fund",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/Primedealerequityfundlogoblack.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/Primedealerequityfundlogoblack.png",
+    href: "https://primedealerfund.com",
   },
   {
     name: "Brookfield Zoo",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png",
+    href: "https://www.brookfieldzoo.org",
   },
   {
     name: "Crooked Lake Music Festival",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CrookedLakeLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CrookedLakeLogo.png",
+    href: "https://crookedlakesandbarmusicfest.com",
   },
   {
     name: "Indianapolis Children's Museum",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/IndyChildrensMuseumLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/IndyChildrensMuseumLogo.png",
+    href: "https://www.childrensmuseum.org",
   },
   {
     name: "Kissel Entertainment",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/KisselLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/KisselLogo.png",
+    href: "https://www.kisselentertainment.com",
   },
   {
     name: "Nissan",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/nissanredlogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/nissanredlogo.png",
+    href: "https://www.nissanusa.com",
   },
   {
     name: "RideWorx",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/RideWorxLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/RideWorxLogo.png",
+    href: "https://rideworx.com",
   },
   {
     name: "Summit City Vintage",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SummitCityVintageLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SummitCityVintageLogo.png",
+    href: "https://www.summitcityvintage.com",
   },
   {
     name: "Trusted Dental",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TrustedDentalLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TrustedDentalLogo.png",
+    href: "https://www.aegisdentalgroup.com",
   },
   {
     name: "Sno Biz",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logo-snobiz-footer-ret.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/logo-snobiz-footer-ret.png",
+    href: "https://snobiz.com",
   },
   {
     name: "Sliced by Sonny",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/slicedBySonny.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/slicedBySonny.png",
+    href: "https://www.slicedbysonny.com",
   },
   {
     name: "The Landing",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TheLandingLogo.png"
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/TheLandingLogo.png",
+    href: "https://thelandingfw.com",
   },
   {
     name: "City of Fort Wayne",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png"
-  }
+    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CityofFortWayneLogo.png",
+    href: "https://www.cityoffortwayne.org",
+  },
 ];
 
 export default function FriendsAnimated() {
@@ -166,16 +191,37 @@ export default function FriendsAnimated() {
         </div>
 
         <div className={styles.logosGrid}>
-          {CLIENT_LOGOS.map((client, index) => (
-            <div key={index} className={styles.logoItem}>
+          {CLIENT_LOGOS.map((client, index) => {
+            const logoInner = (
               <img
                 src={client.url}
                 alt={client.name}
                 className={styles.logo}
                 style={{ willChange: 'transform' }}
               />
-            </div>
-          ))}
+            );
+
+            // Wrap logo in an anchor when we have a verified URL so
+            // each logo becomes a backlink to the client's own site
+            // (good for SEO + useful for visitors). Falls back to a
+            // plain div for clients without a known href.
+            return client.href ? (
+              <a
+                key={index}
+                href={client.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.logoItem}
+                aria-label={`Visit ${client.name}'s website`}
+              >
+                {logoInner}
+              </a>
+            ) : (
+              <div key={index} className={styles.logoItem}>
+                {logoInner}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

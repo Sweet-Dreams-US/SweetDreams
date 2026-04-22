@@ -12,6 +12,14 @@ if (typeof window !== 'undefined') {
 
 // Four pillars. Color tokens match the Solutions tabs + Work filters
 // so the whole site reads as one visual system.
+// Funnel routing per pillar:
+// - Media: portfolio is the proof. Send to /work?filter=business —
+//   from there users enter project pages which have their own CTAs.
+// - Marketing: the pitch lives on /solutions (Marketing tab). That
+//   page carries the strategy story and its own funnel.
+// - Software: /solutions#web — perception + backend automation pitch,
+//   which then funnels through project showcases.
+// - Consulting: the partnership page IS the consulting funnel.
 const PILLARS = [
   {
     num: '01',
@@ -28,7 +36,7 @@ const PILLARS = [
     description:
       'Full funnel strategy, Google Ads, Meta Ads, local SEO, and email. Campaigns built to measure, not just run.',
     ctaLabel: 'Get a Plan',
-    ctaHref: '/book',
+    ctaHref: '/solutions#marketing',
     colorClass: 'colorYellow',
   },
   {
@@ -37,7 +45,7 @@ const PILLARS = [
     description:
       'Custom websites and web apps, every one hand coded from scratch. Fast, secure, and built to grow with you.',
     ctaLabel: 'Start a Build',
-    ctaHref: '/work#websites',
+    ctaHref: '/solutions#web',
     colorClass: 'colorBlue',
   },
   {
@@ -46,7 +54,7 @@ const PILLARS = [
     description:
       'Brand positioning, offer refinement, and content systems. Frameworks that compound instead of expire.',
     ctaLabel: 'Book a Call',
-    ctaHref: '/book',
+    ctaHref: '/partnerships',
     colorClass: 'colorGreen',
   },
 ] as const;

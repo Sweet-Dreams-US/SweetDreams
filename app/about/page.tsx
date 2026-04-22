@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./about.module.css";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import CallNow from "@/components/CallNow";
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -299,12 +300,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Phone-first CTA — urgent, high-contrast, same block as homepage */}
+      <CallNow />
+
+      {/* Secondary CTA — book a call form for folks who prefer scheduling */}
       <section className={styles.cta} data-cursor-hide>
-        <h2 className={styles.ctaTitle}>LET'S CREATE SOMETHING</h2>
+        <h2 className={styles.ctaTitle}>OR BOOK A CALL</h2>
+        <p className={styles.ctaSubtext}>
+          Prefer to schedule? Pick a time that works and we&apos;ll be ready.
+        </p>
         <Link href="/book" className={styles.ctaButton}>
           BOOK A CALL
         </Link>
+        <p className={styles.ctaEmail}>
+          Or email us directly:{' '}
+          <a href="mailto:cole@sweetdreams.us" className={styles.ctaEmailLink}>
+            cole@sweetdreams.us
+          </a>
+        </p>
       </section>
     </div>
   );

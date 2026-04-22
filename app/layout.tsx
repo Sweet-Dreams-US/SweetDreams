@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: SEO.openGraph.type,
-    title: 'Sweet Dreams Solutions | Media, Marketing, Consulting & Software',
-    description: 'Fort Wayne full-service business agency delivering media production, marketing strategy, business consulting, and custom software development — all under one roof.',
+    title: "Sweet Dreams Solutions | Fort Wayne's Leading Full-Service Agency",
+    description: "Fort Wayne's leading full-service agency. Media production, marketing, custom software, and business consulting — all under one roof. Trusted by the City of Fort Wayne, Nissan, Indianapolis Children's Museum, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the Midwest.",
     url: SITE_URL,
     siteName: SEO.openGraph.siteName,
     locale: SEO.openGraph.locale,
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@jayvalleo',
     creator: '@jayvalleo',
-    title: 'Sweet Dreams Solutions | Media, Marketing, Consulting & Software',
-    description: 'Fort Wayne full-service business agency: media production, marketing, business consulting, and custom software development.',
+    title: "Sweet Dreams Solutions | Fort Wayne's Leading Full-Service Agency",
+    description: "Media production, marketing, custom software, and business consulting — all under one roof. Trusted by the City of Fort Wayne, Nissan, and Brookfield Zoo. Fort Wayne, Northeast Indiana & the Midwest.",
     images: ['https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png'],
   },
 };
