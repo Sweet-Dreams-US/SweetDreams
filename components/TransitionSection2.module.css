@@ -108,14 +108,22 @@
 }
 
 .subText {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 20px;
-  line-height: 1.8;
+  font-size: 18px;
+  line-height: 1.7;
   color: #aaa;
   margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   text-align: left;
+  text-transform: none;
+  max-width: 640px;
+}
+
+.subText p {
+  margin: 0;
 }
 
 .teamPhotoWrapper {
