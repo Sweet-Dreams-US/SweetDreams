@@ -48,7 +48,7 @@ export default function ContentStrategySection() {
         <p className={styles.mainText}>
           LET'S BUILD YOUR CONTENT STRATEGY
         </p>
-        <Link href="/contact" className={styles.button}>
+        <Link href="/book" className={styles.button}>
           GET STARTED
         </Link>
       </div>

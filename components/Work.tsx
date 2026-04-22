@@ -116,7 +116,7 @@ export default function Work() {
         {/* Subheader */}
         <div className={styles.subheader}>
           <span className={styles.subheaderLeft}>PROJECTS</span>
-          <Link href="/media#portfolio" className={styles.exploreLink}>EXPLORE</Link>
+          <Link href="/work" className={styles.exploreLink}>EXPLORE</Link>
         </div>
 
         {/* Projects List */}
