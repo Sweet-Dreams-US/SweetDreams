@@ -7,7 +7,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.grid}>
           {/* Portfolio */}
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.columnPortfolio}`}>
             <h3 className={styles.brandTitle}>PORTFOLIO</h3>
             <div className={styles.links}>
               <Link href="/work" className={styles.link}>All Work</Link>
@@ -20,12 +20,13 @@ export default function Footer() {
               <p>3943 Parnell Ave</p>
               <p>Fort Wayne, IN 46805</p>
               <a href="tel:+12606157467" className={styles.link}>(260) 615-7467</a>
+              <p>cole@sweetdreams.us</p>
               <p>jayvalleo@sweetdreams.us</p>
             </div>
           </div>
 
           {/* Business Solutions */}
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.columnSolutions}`}>
             <h3 className={styles.brandTitle}>SOLUTIONS</h3>
             <div className={styles.links}>
               <Link href="/solutions" className={styles.link}>Media Production</Link>
@@ -34,13 +35,10 @@ export default function Footer() {
               <Link href="/solutions" className={styles.link}>Consulting</Link>
               <Link href="/partnerships" className={styles.link}>Partnerships</Link>
             </div>
-            <div className={styles.contact}>
-              <p>cole@sweetdreams.us</p>
-            </div>
           </div>
 
           {/* Quick Links */}
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.columnQuick}`}>
             <h3 className={styles.brandTitle}>QUICK LINKS</h3>
             <div className={styles.links}>
               <Link href="/work" className={styles.link}>Our Work</Link>
@@ -52,7 +50,7 @@ export default function Footer() {
           </div>
 
           {/* Sweet Dreams Music */}
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.columnMusic}`}>
             <h3 className={styles.brandTitle}>SWEET DREAMS MUSIC</h3>
             <div className={styles.links}>
               <a href="https://sweetdreamsmusic.com/" target="_blank" rel="noopener noreferrer" className={styles.link}>Studio Home</a>
@@ -63,7 +61,7 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.columnSocial}`}>
             <h3 className={styles.brandTitle}>FOLLOW US</h3>
             <div className={styles.links}>
               <a href="https://www.instagram.com/sweetdreamssolutions.us/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
@@ -83,12 +81,10 @@ export default function Footer() {
               <Link href="/terms" className={styles.legalLink}>Terms of Service</Link>
             </div>
           </div>
-          <div className={styles.footerLogos}>
-            <img
-              src="https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackWhiteLogo.png"
-              alt="Sweet Dreams"
-              className={styles.footerLogo}
-            />
+          <div className={styles.footerLogos} aria-label="A Sweet Dreams Company">
+            <span className={styles.brandPrefix}>A</span>
+            <span className={styles.brandName}>SWEET DREAMS</span>
+            <span className={styles.brandSuffix}>COMPANY</span>
           </div>
         </div>
       </div>

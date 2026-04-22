@@ -51,6 +51,35 @@
   color: white;
 }
 
+/* Per-column hover colors — each footer section uses the brand color
+   associated with its content. Maps to the Work page filter palette. */
+.columnPortfolio .link:hover {
+  color: #a855f7; /* purple — matches Hyperlapse filter */
+}
+
+.columnSolutions .link:hover {
+  color: #e63636; /* red — matches Media Production tab */
+}
+
+.columnQuick .link:hover {
+  color: #28c840; /* green — matches Consulting tab */
+}
+
+.columnMusic .link:hover {
+  color: #F4C430; /* yellow — matches Marketing / Event Recap */
+}
+
+.columnSocial .link:hover {
+  color: #4A90E2; /* blue — matches Aerial / Web & Software */
+}
+
+/* Phone/email in Portfolio column should still hover white since those
+   aren't in the "branded nav" set — unless it's a tel: link which
+   inherits the .link style. Use a subtle override: */
+.columnPortfolio .contact .link:hover {
+  color: #a855f7;
+}
+
 .contact {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
@@ -109,22 +138,33 @@
   color: #666;
 }
 
+/* "A SWEET DREAMS COMPANY" text logo.
+   "A" and "COMPANY" stay small/white; "SWEET DREAMS" is large with a
+   white stroke outline (fill is black → invisible on black bg, only
+   the outline shows, giving a hollow/engraved-type look). */
 .footerLogos {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  align-items: baseline;
+  gap: 10px;
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-.footerLogo {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+.brandPrefix,
+.brandSuffix {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.18em;
+  font-weight: 400;
 }
 
-.footerLogo:hover {
-  opacity: 1;
+.brandName {
+  font-size: 48px;
+  color: #000000;
+  -webkit-text-stroke: 1.5px #ffffff;
+  letter-spacing: 0.04em;
+  font-weight: 400;
 }
 
 @media (max-width: 1400px) {
@@ -150,7 +190,17 @@
     text-align: center;
   }
 
-  .footerLogo {
-    height: 32px;
+  .brandPrefix,
+  .brandSuffix {
+    font-size: 14px;
+  }
+
+  .brandName {
+    font-size: 32px;
+    -webkit-text-stroke: 1px #ffffff;
+  }
+
+  .footerLogos {
+    justify-content: center;
   }
 }

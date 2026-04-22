@@ -34,13 +34,14 @@ export default {
   transform: async (config, path) => {
     // Priority levels based on importance
     const priorities = {
-      '/': 1.0,              // Homepage - highest priority
-      '/media': 0.9,         // Video production - very high (core service)
+      '/': 1.0,              // Homepage - highest
+      '/work': 0.95,         // Portfolio - primary conversion page
       '/solutions': 0.9,     // Business solutions - very high
-      '/partnerships': 0.8,  // Business partnerships - high
-      '/book': 0.8,          // Booking/contact - high
-      '/about': 0.7,         // About page
+      '/book': 0.9,          // Booking - conversion endpoint
+      '/partnerships': 0.8,  // Partnerships - high
+      '/about': 0.7,         // About
       '/blog': 0.7,          // Blog
+      '/media': 0.3,         // Deprecated — will be fully replaced by /work
     }
 
     const priority = priorities[path] || 0.5
@@ -49,6 +50,7 @@ export default {
     let changefreq = 'weekly'
     if (path === '/') changefreq = 'daily'
     if (path === '/blog') changefreq = 'daily'
+    if (path === '/work') changefreq = 'daily' // frequent portfolio updates
 
     return {
       loc: path,
@@ -65,6 +67,9 @@ export default {
 
     // Add all work/portfolio project pages (business-focused)
     const projectSlugs = [
+      'fort-wayne-courthouse-4k',
+      'fort-wayne-state-of-the-city',
+      'mom-nonprofit-brand-film',
       'knoxville-carnival-coverage',
       'aegis-dental-trusted-dentistry',
       'fort-wayne-carnival-recap',
