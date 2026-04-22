@@ -68,16 +68,24 @@
   margin: 5px 0 0 0;
 }
 
-/* Filter Bar — pills that let users narrow the portfolio by category */
+/* Filter Bar — pills that let users narrow the portfolio by category.
+   Stays on one line always; horizontal scroll kicks in on narrow
+   viewports (tiny phones) if pills exceed available width. */
 .filterBar {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: -30px auto 48px;
-  padding: 0 20px;
-  max-width: 900px;
+  padding: 0 20px 6px;
+  max-width: 1100px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.filterBar::-webkit-scrollbar {
+  display: none; /* Safari/Chrome: hide scrollbar, keep scrollability */
 }
 
 /* Per-pill accent color is injected via inline style as --pill-accent.
@@ -100,6 +108,8 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
   transition:
     background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
