@@ -51,33 +51,42 @@
   color: white;
 }
 
-/* Per-column hover colors — each footer section uses the brand color
-   associated with its content. Maps to the Work page filter palette. */
-.columnPortfolio .link:hover {
+/* Per-column accent colors — the column title stays permanently in its
+   brand color, and the links fade to that color on hover. Maps to the
+   Work page filter palette so the site feels visually unified. */
+.columnPortfolio .brandTitle {
   color: #a855f7; /* purple — matches Hyperlapse filter */
 }
+.columnPortfolio .link:hover {
+  color: #a855f7;
+}
 
-.columnSolutions .link:hover {
+.columnSolutions .brandTitle {
   color: #e63636; /* red — matches Media Production tab */
 }
+.columnSolutions .link:hover {
+  color: #e63636;
+}
 
-.columnQuick .link:hover {
+.columnQuick .brandTitle {
   color: #28c840; /* green — matches Consulting tab */
 }
+.columnQuick .link:hover {
+  color: #28c840;
+}
 
-.columnMusic .link:hover {
+.columnMusic .brandTitle {
   color: #F4C430; /* yellow — matches Marketing / Event Recap */
 }
-
-.columnSocial .link:hover {
-  color: #4A90E2; /* blue — matches Aerial / Web & Software */
+.columnMusic .link:hover {
+  color: #F4C430;
 }
 
-/* Phone/email in Portfolio column should still hover white since those
-   aren't in the "branded nav" set — unless it's a tel: link which
-   inherits the .link style. Use a subtle override: */
-.columnPortfolio .contact .link:hover {
-  color: #a855f7;
+.columnSocial .brandTitle {
+  color: #4A90E2; /* blue — matches Aerial / Web & Software */
+}
+.columnSocial .link:hover {
+  color: #4A90E2;
 }
 
 .contact {
@@ -139,22 +148,24 @@
 }
 
 /* "A SWEET DREAMS COMPANY" text logo.
-   "A" and "COMPANY" stay small/white; "SWEET DREAMS" is large with a
-   white stroke outline (fill is black → invisible on black bg, only
-   the outline shows, giving a hollow/engraved-type look). */
+   "A" and "COMPANY" are solid white at a readable size.
+   "SWEET DREAMS" is large with a white stroke outline (fill is black
+   → invisible on black bg, only the outline shows). Hovering the
+   whole logo fills the outline white, giving a satisfying pop. */
 .footerLogos {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 12px;
   font-family: 'Anton', sans-serif;
   text-transform: uppercase;
   line-height: 1;
+  cursor: default;
 }
 
 .brandPrefix,
 .brandSuffix {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.9);
   letter-spacing: 0.18em;
   font-weight: 400;
 }
@@ -165,6 +176,14 @@
   -webkit-text-stroke: 1.5px #ffffff;
   letter-spacing: 0.04em;
   font-weight: 400;
+  transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover the entire logo group → the outlined "SWEET DREAMS" fills
+   with white (color goes from black to white, stroke color matches,
+   so the whole glyph becomes solid white). */
+.footerLogos:hover .brandName {
+  color: #ffffff;
 }
 
 @media (max-width: 1400px) {
@@ -192,12 +211,12 @@
 
   .brandPrefix,
   .brandSuffix {
-    font-size: 14px;
+    font-size: 17px;
   }
 
   .brandName {
-    font-size: 32px;
-    -webkit-text-stroke: 1px #ffffff;
+    font-size: 34px;
+    -webkit-text-stroke: 1.25px #ffffff;
   }
 
   .footerLogos {
