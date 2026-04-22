@@ -125,7 +125,7 @@ export default function RecentWork() {
       <div className={styles.headerContainer}>
         <h2 className={styles.title}>RECENT WORK</h2>
         <h3 className={styles.mainText}>THE LATEST</h3>
-        <Link href="/media#portfolio" className={styles.viewAllButton}>
+        <Link href="/work" className={styles.viewAllButton}>
           VIEW ALL PROJECTS
         </Link>
       </div>

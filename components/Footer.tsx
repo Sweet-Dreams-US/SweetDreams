@@ -6,13 +6,15 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          {/* Sweet Dreams Media */}
+          {/* Portfolio */}
           <div className={styles.column}>
-            <h3 className={styles.brandTitle}>SWEET DREAMS MEDIA</h3>
+            <h3 className={styles.brandTitle}>PORTFOLIO</h3>
             <div className={styles.links}>
-              <Link href="/media" className={styles.link}>Video Production</Link>
-              <Link href="/media" className={styles.link}>Brand Films</Link>
-              <Link href="/media" className={styles.link}>Commercials</Link>
+              <Link href="/work" className={styles.link}>All Work</Link>
+              <Link href="/work?filter=business" className={styles.link}>Business Work</Link>
+              <Link href="/work?filter=aerial" className={styles.link}>Aerial / Drone</Link>
+              <Link href="/work?filter=hyperlapse" className={styles.link}>Hyperlapses</Link>
+              <Link href="/work#websites" className={styles.link}>Websites</Link>
             </div>
             <div className={styles.contact}>
               <p>3943 Parnell Ave</p>
@@ -24,11 +26,13 @@ export default function Footer() {
 
           {/* Business Solutions */}
           <div className={styles.column}>
-            <h3 className={styles.brandTitle}>BUSINESS SOLUTIONS</h3>
+            <h3 className={styles.brandTitle}>SOLUTIONS</h3>
             <div className={styles.links}>
-              <Link href="/solutions" className={styles.link}>Web Development</Link>
-              <Link href="/solutions" className={styles.link}>Social Media Growth</Link>
-              <Link href="/partnerships" className={styles.link}>Business Partnerships</Link>
+              <Link href="/solutions" className={styles.link}>Media Production</Link>
+              <Link href="/solutions" className={styles.link}>Marketing</Link>
+              <Link href="/solutions" className={styles.link}>Web & Software</Link>
+              <Link href="/solutions" className={styles.link}>Consulting</Link>
+              <Link href="/partnerships" className={styles.link}>Partnerships</Link>
             </div>
             <div className={styles.contact}>
               <p>cole@sweetdreams.us</p>
@@ -39,12 +43,22 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.brandTitle}>QUICK LINKS</h3>
             <div className={styles.links}>
-              <Link href="/#work" className={styles.link}>Our Work</Link>
+              <Link href="/work" className={styles.link}>Our Work</Link>
               <Link href="/solutions" className={styles.link}>Solutions</Link>
               <Link href="/blog" className={styles.link}>Blog</Link>
               <Link href="/about" className={styles.link}>About Us</Link>
-              <Link href="/book" className={styles.link}>Contact</Link>
-              <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener noreferrer" className={styles.link}>Music Studio</a>
+              <Link href="/book" className={styles.link}>Book a Call</Link>
+            </div>
+          </div>
+
+          {/* Sweet Dreams Music */}
+          <div className={styles.column}>
+            <h3 className={styles.brandTitle}>SWEET DREAMS MUSIC</h3>
+            <div className={styles.links}>
+              <a href="https://sweetdreamsmusic.com/" target="_blank" rel="noopener noreferrer" className={styles.link}>Studio Home</a>
+              <a href="https://sweetdreamsmusic.com/book" target="_blank" rel="noopener noreferrer" className={styles.link}>Book a Session</a>
+              <a href="https://sweetdreamsmusic.com/beats" target="_blank" rel="noopener noreferrer" className={styles.link}>Beat Marketplace</a>
+              <a href="https://sweetdreamsmusic.com/media" target="_blank" rel="noopener noreferrer" className={styles.link}>Music Portfolio</a>
             </div>
           </div>
 

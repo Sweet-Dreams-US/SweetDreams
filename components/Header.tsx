@@ -21,8 +21,8 @@ export default function Header() {
               <Link href="/partnerships" className={styles.navLink}>
                 PARTNERSHIPS
               </Link>
-              <Link href="/media" className={styles.navLink}>
-                MEDIA
+              <Link href="/work" className={styles.navLink}>
+                WORK
               </Link>
             </div>
 

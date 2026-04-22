@@ -149,7 +149,7 @@ export default function MCSimRacingPage() {
       {/* CTA Section */}
       <section className={styles.cta}>
         <h2 className={styles.ctaTitle}>READY TO CREATE SOMETHING AMAZING?</h2>
-        <Link href="/media#contact" className={styles.ctaButton}>
+        <Link href="/book" className={styles.ctaButton}>
           GET IN TOUCH
         </Link>
       </section>

@@ -12,8 +12,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 64px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 48px;
   margin-bottom: 64px;
 }
 
@@ -125,6 +125,13 @@
 
 .footerLogo:hover {
   opacity: 1;
+}
+
+@media (max-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
 }
 
 @media (max-width: 1024px) {

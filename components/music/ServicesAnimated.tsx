@@ -191,7 +191,7 @@ export default function ServicesAnimated() {
                 Your music is fire. Let's make a video that matches the energy.
               </p>
               <Link
-                href="/media#contact"
+                href="/book"
                 className={styles.serviceCardButton}
                 onClick={() => setOpenCard(null)}
               >
@@ -228,7 +228,7 @@ export default function ServicesAnimated() {
                 Great music starts with a great recording. Book your session today.
               </p>
               <Link
-                href="/music#booking"
+                href="https://sweetdreamsmusic.com/book"
                 className={styles.serviceCardButton}
                 onClick={() => setOpenCard(null)}
               >
@@ -265,7 +265,7 @@ export default function ServicesAnimated() {
                 Your music deserves to sound as good as the pros. Let's make it happen.
               </p>
               <Link
-                href="/music#contact"
+                href="https://sweetdreamsmusic.com/book"
                 className={styles.serviceCardButton}
                 onClick={() => setOpenCard(null)}
               >

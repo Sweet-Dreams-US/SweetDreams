@@ -23,8 +23,9 @@ export default function NotFound() {
         <div className={styles.helpText}>
           <p>Looking for something specific?</p>
           <div className={styles.links}>
-            <Link href="/media">Media Services</Link>
-            <Link href="/solutions">Business Solutions</Link>
+            <Link href="/work">Our Work</Link>
+            <Link href="/solutions">Solutions</Link>
+            <Link href="/book">Book a Call</Link>
             <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener noreferrer">Music Studio</a>
           </div>
         </div>
