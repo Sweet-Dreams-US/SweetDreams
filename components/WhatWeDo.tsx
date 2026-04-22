@@ -101,7 +101,9 @@ export default function WhatWeDo() {
               key={pillar.num}
               className={`${styles.card} ${styles[pillar.colorClass]}`}
             >
-              <div className={styles.cardNumber}>{pillar.num}</div>
+              <span className={styles.cardNumber} aria-hidden="true">
+                {pillar.num}
+              </span>
               <div className={styles.cardBody}>
                 <h3 className={styles.cardTitle}>{pillar.title}</h3>
                 <p className={styles.cardDescription}>{pillar.description}</p>

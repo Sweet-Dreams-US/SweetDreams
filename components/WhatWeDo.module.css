@@ -2,7 +2,7 @@
   width: 100%;
   background: #000;
   color: #fff;
-  padding: 140px 48px;
+  padding: 96px 48px;
   position: relative;
   overflow: hidden;
 }
@@ -15,17 +15,17 @@
 /* ===== Header ===== */
 .header {
   text-align: center;
-  margin-bottom: 96px;
+  margin-bottom: 56px;
 }
 
 .title {
   font-family: 'Anton', sans-serif;
-  font-size: clamp(56px, 10vw, 140px);
+  font-size: clamp(48px, 7vw, 96px);
   line-height: 0.95;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 18px 0;
+  margin: 0 0 14px 0;
   font-weight: 400;
 }
 
@@ -38,26 +38,27 @@
   text-transform: uppercase;
 }
 
-/* ===== Card Grid ===== */
+/* ===== Card Grid — 2×2 on desktop, 1 column on mobile ===== */
 .cards {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
 
 /* ===== Card ===== */
 .card {
   --accent: #fff;
 
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 48px;
-  align-items: center;
-  padding: 48px 56px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 32px 36px 32px 40px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 6px solid var(--accent);
-  border-radius: 16px;
+  border-left: 5px solid var(--accent);
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
   transition:
     background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -69,19 +70,23 @@
   background: color-mix(in srgb, var(--accent) 6%, transparent);
   border-color: color-mix(in srgb, var(--accent) 30%, transparent);
   border-left-color: var(--accent);
-  transform: translateX(6px);
+  transform: translateY(-4px);
   box-shadow: 0 18px 50px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
-/* ===== Card Number ===== */
+/* ===== Card Number — sits top-right as an anchor, more compact ===== */
 .cardNumber {
+  position: absolute;
+  top: 18px;
+  right: 28px;
   font-family: 'Anton', sans-serif;
-  font-size: clamp(88px, 9vw, 140px);
+  font-size: clamp(64px, 6vw, 92px);
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 2px var(--accent);
   letter-spacing: -0.02em;
   font-weight: 400;
+  pointer-events: none;
   transition: -webkit-text-stroke-color 0.4s ease, color 0.4s ease;
 }
 
@@ -93,12 +98,15 @@
 .cardBody {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  padding-right: 100px; /* room for the absolute-positioned number */
 }
 
 .cardTitle {
   font-family: 'Anton', sans-serif;
-  font-size: clamp(32px, 3.5vw, 48px);
+  font-size: clamp(28px, 2.6vw, 36px);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #fff;
@@ -109,28 +117,27 @@
 
 .cardDescription {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.6;
   color: #bbb;
   margin: 0;
-  max-width: 720px;
 }
 
 /* ===== Button ===== */
 .cardButton {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   align-self: flex-start;
-  margin-top: 12px;
-  padding: 12px 22px;
+  margin-top: 6px;
+  padding: 10px 18px;
   border-radius: 999px;
   background: transparent;
   border: 2px solid var(--accent);
   color: var(--accent);
   font-family: 'Anton', sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.2em;
+  font-size: 12px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
   transition:
@@ -169,49 +176,56 @@
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .section {
-    padding: 100px 32px;
+    padding: 80px 32px;
   }
 
   .header {
-    margin-bottom: 64px;
+    margin-bottom: 48px;
   }
 
   .card {
-    padding: 36px 40px;
-    gap: 32px;
+    padding: 28px 28px 28px 32px;
+  }
+
+  .cardBody {
+    padding-right: 80px;
+  }
+
+  .cardNumber {
+    right: 20px;
   }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 80px 20px;
+    padding: 64px 20px;
   }
 
   .cards {
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .card {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 28px 24px;
+    padding: 24px 24px 24px 28px;
     border-left-width: 4px;
   }
 
   .card:hover {
-    transform: none; /* disable horizontal shift on touch devices */
+    transform: translateY(-2px); /* gentler lift on touch devices */
   }
 
   .cardBody {
-    gap: 12px;
+    gap: 10px;
+    padding-right: 80px;
   }
 
   .cardDescription {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .cardButton {
-    font-size: 12px;
-    padding: 10px 18px;
+    font-size: 11px;
+    padding: 9px 16px;
   }
 }
