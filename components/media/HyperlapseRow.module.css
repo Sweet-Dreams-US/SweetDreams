@@ -42,21 +42,36 @@
   border-radius: 999px;
 }
 
-/* Centered wrap layout — cards flow left-to-right and wrap to a new
-   centered row when they fill the width. No horizontal scrolling. */
+/* CSS Grid layout — explicit column counts chosen per breakpoint so
+   6 verticals and 7 horizontals NEVER leave a single card orphaned
+   on its own row. Cards stretch fluidly to fill their grid cell and
+   maintain aspect ratio via aspect-ratio CSS. */
 .scrollRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
   gap: 16px;
   padding: 4px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* 6 verticals: 6 per row ≥1400px (1 row) → 3 per row ≥700px (2 rows)
+   → 2 per row <700px (3 rows). All splits even, no orphans. */
+.scrollRowVertical {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* 7 horizontals: 4 per row ≥1200px (4+3, no orphan) → 1 per row
+   below that. 7 is prime so 4+3 is the only balanced split that
+   keeps cards viewable-sized. */
+.scrollRowHorizontal {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 1400px;
 }
 
 /* ===== CARD ===== */
 
 .card {
   position: relative;
-  flex-shrink: 0;
   border-radius: 12px;
   overflow: hidden;
   background: #0a0a0a;
@@ -65,13 +80,13 @@
 }
 
 .card.vertical {
-  width: 308px;
-  height: 548px; /* 9:16 aspect at 308 wide (+40% from 220) */
+  width: 100%;
+  aspect-ratio: 9 / 16;
 }
 
 .card.horizontal {
-  width: 504px;
-  height: 284px; /* 16:9 aspect at 504 wide (+20% from 420) */
+  width: 100%;
+  aspect-ratio: 16 / 9;
 }
 
 .card:hover {
@@ -145,19 +160,33 @@
 
 /* ===== RESPONSIVE ===== */
 
+/* Verticals: drop from 6-per-row to 3-per-row below 1400px.
+   6 items @ 3 cols = 2 even rows. */
+@media (max-width: 1400px) {
+  .scrollRowVertical {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Horizontals: drop from 4-per-row to 1-per-row below 1200px.
+   7 items across 1 col = stacked (all rows have 1, not orphaned). */
+@media (max-width: 1200px) {
+  .scrollRowHorizontal {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    max-width: 900px;
+  }
+}
+
 @media (max-width: 1024px) {
-  .card.vertical {
-    width: 252px;
-    height: 448px; /* +40% */
-  }
-
-  .card.horizontal {
-    width: 408px;
-    height: 230px; /* +20% */
-  }
-
   .title {
     font-size: 18px;
+  }
+}
+
+/* Verticals: drop to 2-per-row on small screens (6 items = 3 rows of 2) */
+@media (max-width: 700px) {
+  .scrollRowVertical {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -165,17 +194,6 @@
   .section {
     margin: 32px auto;
     padding: 0 12px;
-  }
-
-  .card.vertical {
-    width: 210px;
-    height: 374px; /* +40% */
-  }
-
-  .card.horizontal {
-    width: 336px;
-    height: 189px; /* +20% */
-    max-width: 100%;
   }
 
   .title {
