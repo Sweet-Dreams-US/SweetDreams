@@ -11,6 +11,7 @@
 .labelRow {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 18px;
   padding-left: 4px;
@@ -41,35 +42,14 @@
   border-radius: 999px;
 }
 
-/* Horizontal-scrolling row. Uses overflow-x so it scrolls independently
-   of the page — users can swipe through hyperlapses without leaving
-   their scroll position on the main portfolio. */
+/* Centered wrap layout — cards flow left-to-right and wrap to a new
+   centered row when they fill the width. No horizontal scrolling. */
 .scrollRow {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 4px 4px 20px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(168, 85, 247, 0.4) transparent;
-}
-
-.scrollRow::-webkit-scrollbar {
-  height: 6px;
-}
-
-.scrollRow::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollRow::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.3);
-  border-radius: 3px;
-}
-
-.scrollRow::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.6);
+  padding: 4px;
 }
 
 /* ===== CARD ===== */
@@ -79,20 +59,19 @@
   flex-shrink: 0;
   border-radius: 12px;
   overflow: hidden;
-  scroll-snap-align: start;
   background: #0a0a0a;
   cursor: default;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card.vertical {
-  width: 220px;
-  height: 391px; /* 9:16 aspect at 220 wide */
+  width: 308px;
+  height: 548px; /* 9:16 aspect at 308 wide (+40% from 220) */
 }
 
 .card.horizontal {
-  width: 420px;
-  height: 236px; /* 16:9 aspect at 420 wide */
+  width: 504px;
+  height: 284px; /* 16:9 aspect at 504 wide (+20% from 420) */
 }
 
 .card:hover {
@@ -168,13 +147,13 @@
 
 @media (max-width: 1024px) {
   .card.vertical {
-    width: 180px;
-    height: 320px;
+    width: 252px;
+    height: 448px; /* +40% */
   }
 
   .card.horizontal {
-    width: 340px;
-    height: 191px;
+    width: 408px;
+    height: 230px; /* +20% */
   }
 
   .title {
@@ -189,13 +168,14 @@
   }
 
   .card.vertical {
-    width: 150px;
-    height: 267px;
+    width: 210px;
+    height: 374px; /* +40% */
   }
 
   .card.horizontal {
-    width: 280px;
-    height: 158px;
+    width: 336px;
+    height: 189px; /* +20% */
+    max-width: 100%;
   }
 
   .title {
