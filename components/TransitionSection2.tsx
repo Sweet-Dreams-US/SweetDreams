@@ -14,7 +14,7 @@ export default function TransitionSection2() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const mainTextRef = useRef<HTMLHeadingElement>(null);
-  const subTextRef = useRef<HTMLParagraphElement>(null);
+  const subTextRef = useRef<HTMLDivElement>(null);
   const photoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,10 +68,15 @@ export default function TransitionSection2() {
             MORE SALES.
           </h2>
 
-          <p className={styles.subText} ref={subTextRef}>
-            Raised on social media. Trained in trends.<br />
-            We know what works because we live it every day.
-          </p>
+          <div className={styles.subText} ref={subTextRef}>
+            <p>
+              Raised on social media. Trained in trends. We know what works because we live it every day.
+            </p>
+            <p>
+              We don&apos;t study this from the outside. We&apos;re the generation building it from the
+              inside, and your brand gets the benefit of every hour we&apos;ve already spent paying attention.
+            </p>
+          </div>
         </div>
 
         <div className={styles.teamPhotoWrapper} ref={photoRef}>

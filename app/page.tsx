@@ -5,10 +5,11 @@ import FriendsAnimated from "@/components/FriendsAnimated";
 import FeaturedProject from "@/components/FeaturedProject";
 import Work from "@/components/Work";
 import CTASection from "@/components/CTASection";
+import ContentStrategyAnimated from "@/components/ContentStrategyAnimated";
 import TransitionSection from "@/components/TransitionSection";
+import TransitionSection2 from "@/components/TransitionSection2";
 import WhatWeDo from "@/components/WhatWeDo";
 import PartnerWithUs from "@/components/PartnerWithUs";
-import WhyUs from "@/components/WhyUs";
 
 export default function HomePage() {
   return (
@@ -19,8 +20,11 @@ export default function HomePage() {
       {/* 2. What We Do — four service pillars */}
       <WhatWeDo />
 
-      {/* 3. We Were Raised In This Age — our process + positioning */}
+      {/* 3. We Were Raised In This Age — process + positioning */}
       <TransitionSection />
+
+      {/* 4. Content That Keeps Them Watching / Listening / Buying / Trusting */}
+      <ContentStrategyAnimated />
 
       {/* 5. Latest Work — featured projects carousel */}
       <RecentWork />
@@ -31,8 +35,8 @@ export default function HomePage() {
       {/* 7. Partner With Us — Sweet Spot Partnerships */}
       <PartnerWithUs />
 
-      {/* 8. Why Us — generational positioning */}
-      <WhyUs />
+      {/* 8. Why Us — generational positioning (More Touchpoints. More Trust. More Sales.) */}
+      <TransitionSection2 />
 
       {/* 9a. Our Friends — trusted brands */}
       <FriendsAnimated />
