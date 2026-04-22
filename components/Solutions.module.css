@@ -188,70 +188,188 @@
   margin-bottom: 0;
 }
 
-/* 4-up grid for the updated READY TO START section that showcases
-   all four Solutions tabs. Desktop: 2 wide × 2 tall. Wraps down on
-   narrower viewports. Cards use the same .column styling as the
-   2-column layout so the visual language stays consistent. */
-.fourGrid {
+/* ========== READY TO START — Creative Staggered Stack ==========
+   4 tiles centered, arranged as a "fan" where each tile tilts
+   slightly and offsets vertically. Hovering one tile brings it
+   forward and dims its siblings. Mobile collapses to a clean
+   centered column. */
+
+.readySubtitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #888;
+  margin: -40px 0 72px 0;
+}
+
+.fanStack {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 64px 120px;
-  max-width: 1300px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 60px 0;
 }
 
-@media (max-width: 900px) {
-  .fourGrid {
-    grid-template-columns: 1fr;
-    gap: 56px;
-  }
+.fanTile {
+  --sol-color: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 36px 28px;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 5px solid var(--sol-color);
+  border-radius: 18px;
+  min-height: 380px;
+  cursor: default;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Per-card accent colors. Each card uses its color on:
-   - Stroke of the big outlined title
-   - The divider bar
-   - The highlight line
-   - The button fill on hover */
-.column.colorRed    { --sol-color: #e63636; }
-.column.colorYellow { --sol-color: #F4C430; }
-.column.colorBlue   { --sol-color: #4A90E2; }
-.column.colorGreen  { --sol-color: #28c840; }
+/* Staggered vertical offsets per tile position — creates the "fan" */
+.fanTilePos1 { transform: translateY(-28px) rotate(-1.5deg); }
+.fanTilePos2 { transform: translateY(14px) rotate(1deg); }
+.fanTilePos3 { transform: translateY(-14px) rotate(-1deg); }
+.fanTilePos4 { transform: translateY(28px) rotate(1.5deg); }
 
-.column.colorRed .columnTitle,
-.column.colorYellow .columnTitle,
-.column.colorBlue .columnTitle,
-.column.colorGreen .columnTitle {
-  -webkit-text-stroke-color: var(--sol-color);
+/* Hovered tile rises out of the fan, squares up, brightens */
+.fanTileActive {
+  transform: translateY(-48px) rotate(0deg) scale(1.04);
+  z-index: 2;
+  background: color-mix(in srgb, var(--sol-color) 10%, #0a0a0a);
+  border-color: var(--sol-color);
+  box-shadow: 0 30px 80px color-mix(in srgb, var(--sol-color) 35%, transparent);
 }
 
-.column.colorRed .columnDivider,
-.column.colorYellow .columnDivider,
-.column.colorBlue .columnDivider,
-.column.colorGreen .columnDivider {
-  background: var(--sol-color);
+.fanTileDimmed {
+  opacity: 0.45;
 }
 
-.column.colorRed .columnTextHighlight,
-.column.colorYellow .columnTextHighlight,
-.column.colorBlue .columnTextHighlight,
-.column.colorGreen .columnTextHighlight {
+/* Per-pillar color variables */
+.fanTile.colorRed    { --sol-color: #e63636; }
+.fanTile.colorYellow { --sol-color: #F4C430; }
+.fanTile.colorBlue   { --sol-color: #4A90E2; }
+.fanTile.colorGreen  { --sol-color: #28c840; }
+
+.fanTileTop {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fanTileIndex {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--sol-color);
+  text-transform: uppercase;
+}
+
+.fanTileTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--sol-color);
+  margin: 0;
+  font-weight: 400;
+  line-height: 1;
+  transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fanTileActive .fanTileTitle {
   color: var(--sol-color);
 }
 
-.column.colorRed .columnButton:hover,
-.column.colorBlue .columnButton:hover,
-.column.colorYellow .columnButton:hover,
-.column.colorGreen .columnButton:hover {
-  background: var(--sol-color);
-  border-color: var(--sol-color);
-  color: #ffffff;
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--sol-color) 35%, transparent);
+.fanTileShort {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #bbb;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-/* Yellow/green are light — black text reads better on these fills */
-.column.colorYellow .columnButton:hover,
-.column.colorGreen .columnButton:hover {
+.fanTileHighlight {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.45;
+  color: white;
+  margin: auto 0 16px 0; /* push to bottom above button */
+  font-weight: 600;
+}
+
+.fanTileButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 2px solid var(--sol-color);
+  color: var(--sol-color);
+  font-family: 'Anton', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fanTileActive .fanTileButton {
+  background: var(--sol-color);
   color: #0a0a0a;
+}
+
+.fanTile.colorRed.fanTileActive .fanTileButton,
+.fanTile.colorBlue.fanTileActive .fanTileButton {
+  color: #ffffff;
+}
+
+/* Mobile: flatten the fan into a clean centered column */
+@media (max-width: 900px) {
+  .readySubtitle {
+    margin: -24px 0 48px 0;
+  }
+
+  .fanStack {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 0 40px;
+    max-width: 500px;
+  }
+
+  .fanTilePos1,
+  .fanTilePos2,
+  .fanTilePos3,
+  .fanTilePos4 {
+    transform: none;
+  }
+
+  .fanTile {
+    min-height: auto;
+    padding: 28px 24px;
+  }
+
+  .fanTileActive {
+    transform: translateY(-4px);
+  }
+
+  .fanTileDimmed {
+    opacity: 1; /* don't dim on touch — hover isn't reliable */
+  }
 }
 
 .column {

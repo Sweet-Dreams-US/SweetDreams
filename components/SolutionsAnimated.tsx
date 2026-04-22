@@ -1,17 +1,17 @@
 'use client';
 
-import Link from "next/link";
-import styles from "./Solutions.module.css";
+import { useState } from 'react';
+import Link from 'next/link';
+import styles from './Solutions.module.css';
 
-// Four Solutions cards — each matches a tab on the /solutions page.
-// Color accents follow the same palette used on the Solutions page tabs
-// and the Work page filters, so the brand reads as one system.
+// Each pillar becomes a large "tile" that sits in a staggered stack.
+// Hovering/focusing a tile shifts it forward and dims the others —
+// more cinematic than a flat 2x2 grid, and keeps the page centered.
 const SOLUTIONS = [
   {
     key: 'media',
-    title: 'MEDIA PRODUCTION',
-    tagline: 'Commercial. Brand film. Event.',
-    copy: 'Stories that move your brand forward.',
+    title: 'MEDIA',
+    short: 'Brand films. Commercials. Aerials.',
     highlight: "Let's roll cameras.",
     cta: 'EXPLORE MEDIA',
     colorClass: 'colorRed',
@@ -19,8 +19,7 @@ const SOLUTIONS = [
   {
     key: 'marketing',
     title: 'MARKETING',
-    tagline: 'Social. Paid ads. SEO.',
-    copy: 'Turn attention into revenue.',
+    short: 'Full funnel. Paid ads. SEO.',
     highlight: 'Attention you can measure.',
     cta: 'EXPLORE MARKETING',
     colorClass: 'colorYellow',
@@ -28,8 +27,7 @@ const SOLUTIONS = [
   {
     key: 'web',
     title: 'WEB & SOFTWARE',
-    tagline: 'Custom-coded. Fast. Scalable.',
-    copy: 'Websites and tools built to convert.',
+    short: 'Custom-coded. Fast. Scalable.',
     highlight: "Own your stack — don't rent it.",
     cta: 'EXPLORE WEB',
     colorClass: 'colorBlue',
@@ -37,37 +35,63 @@ const SOLUTIONS = [
   {
     key: 'consulting',
     title: 'CONSULTING',
-    tagline: 'Strategy. Systems. Ops.',
-    copy: 'We diagnose the bottleneck, then fix it.',
-    highlight: "Clarity beats guesswork.",
+    short: 'Strategy. Systems. Ops.',
+    highlight: 'Clarity beats guesswork.',
     cta: 'EXPLORE CONSULTING',
     colorClass: 'colorGreen',
   },
 ];
 
 export default function SolutionsAnimated() {
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
         <h2 className={styles.mainText}>READY TO START?</h2>
+        <p className={styles.readySubtitle}>
+          Pick your pillar. We&apos;ll run the rest.
+        </p>
 
-        <div className={styles.fourGrid}>
-          {SOLUTIONS.map((s) => (
-            <div
-              key={s.key}
-              className={`${styles.column} ${styles[s.colorClass] || ''}`}
-            >
-              <h3 className={styles.columnTitle}>{s.title}</h3>
-              <div className={styles.columnDivider}></div>
-              <p className={styles.columnText}>{s.tagline}</p>
-              <p className={styles.columnText}>{s.copy}</p>
-              <p className={styles.columnTextMuted}>&nbsp;</p>
-              <p className={styles.columnTextHighlight}>{s.highlight}</p>
-              <Link href="/solutions" className={styles.columnButton}>
-                {s.cta}
-              </Link>
-            </div>
-          ))}
+        {/* Creative staggered stack — tiles alternate offsets so the
+            arrangement reads as a wave rather than a rigid grid. */}
+        <div className={styles.fanStack}>
+          {SOLUTIONS.map((s, idx) => {
+            const isHovered = hoveredKey === s.key;
+            const isDimmed = hoveredKey !== null && !isHovered;
+            const tileClass = [
+              styles.fanTile,
+              styles[s.colorClass] || '',
+              styles[`fanTilePos${idx + 1}`] || '',
+              isHovered ? styles.fanTileActive : '',
+              isDimmed ? styles.fanTileDimmed : '',
+            ]
+              .filter(Boolean)
+              .join(' ');
+
+            return (
+              <div
+                key={s.key}
+                className={tileClass}
+                onMouseEnter={() => setHoveredKey(s.key)}
+                onMouseLeave={() => setHoveredKey(null)}
+                onFocus={() => setHoveredKey(s.key)}
+                onBlur={() => setHoveredKey(null)}
+              >
+                <div className={styles.fanTileTop}>
+                  <span className={styles.fanTileIndex}>
+                    0{idx + 1}
+                  </span>
+                  <h3 className={styles.fanTileTitle}>{s.title}</h3>
+                </div>
+                <p className={styles.fanTileShort}>{s.short}</p>
+                <p className={styles.fanTileHighlight}>{s.highlight}</p>
+                <Link href="/solutions" className={styles.fanTileButton}>
+                  {s.cta}
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

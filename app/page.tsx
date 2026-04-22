@@ -1,4 +1,3 @@
-import Link from "next/link";
 import RecentWork from "@/components/RecentWork";
 import VideoHero from "@/components/VideoHero";
 import SolutionsAnimated from "@/components/SolutionsAnimated";
@@ -6,46 +5,45 @@ import FriendsAnimated from "@/components/FriendsAnimated";
 import FeaturedProject from "@/components/FeaturedProject";
 import Work from "@/components/Work";
 import CTASection from "@/components/CTASection";
-import ContentStrategyAnimated from "@/components/ContentStrategyAnimated";
 import TransitionSection from "@/components/TransitionSection";
-import TransitionSection2 from "@/components/TransitionSection2";
 import WhatWeDo from "@/components/WhatWeDo";
-import styles from "./home.module.css";
+import PartnerWithUs from "@/components/PartnerWithUs";
+import WhyUs from "@/components/WhyUs";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-black">
-      {/* Video Hero - Only on homepage */}
+      {/* 1. Video Hero */}
       <VideoHero />
 
-      {/* What We Do - Four Pillars */}
+      {/* 2. What We Do — four service pillars */}
       <WhatWeDo />
 
-      {/* Transition Section with Scroll Effect */}
+      {/* 3. We Were Raised In This Age — our process + positioning */}
       <TransitionSection />
 
-      {/* Content Strategy Section with Animated Text */}
-      <ContentStrategyAnimated />
-
-      {/* Recent Work Carousel */}
+      {/* 5. Latest Work — featured projects carousel */}
       <RecentWork />
 
-      {/* Solutions Section */}
+      {/* 6. Ready To Start? — pick your pillar */}
       <SolutionsAnimated />
 
-      {/* Transition Section 2 with Scroll Effect */}
-      <TransitionSection2 />
+      {/* 7. Partner With Us — Sweet Spot Partnerships */}
+      <PartnerWithUs />
 
-      {/* Friends Section with GSAP Animation */}
+      {/* 8. Why Us — generational positioning */}
+      <WhyUs />
+
+      {/* 9a. Our Friends — trusted brands */}
       <FriendsAnimated />
 
-      {/* Featured Project Highlight */}
+      {/* 9b. Featured Project — Nissan spotlight */}
       <FeaturedProject />
 
-      {/* Work Section */}
+      {/* 10. We Care About Your "Why?" — work grid */}
       <Work />
 
-      {/* CTA Section */}
+      {/* 11. Let's Create Something — final CTA with vertical video */}
       <CTASection />
     </div>
   );
