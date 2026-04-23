@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'mc-sim-racing',
     'fort-wayne-state-of-the-city',
     'mom-nonprofit-brand-film',
+    'fort-wayne-courthouse-4k',
     // Website portfolio projects
     'web-sweetdreams',
     'web-sweetdreamsmusic',

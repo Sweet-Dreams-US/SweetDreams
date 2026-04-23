@@ -18,11 +18,18 @@ import { SITE_URL, CONTACT, ADDRESS, GEO, SOCIAL, BRAND } from './constants';
 
 export const localBusinessSchema = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@type": ["LocalBusiness", "ProfessionalService", "Organization"],
   "@id": `${SITE_URL}/#organization`,
   "name": BRAND.name,
   "alternateName": ["Sweet Dreams", "Sweet Dreams Agency", "Sweet Dreams US"],
   "legalName": BRAND.legalName,
+  "foundingDate": "2020",
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Jay Val Leo"
+    }
+  ],
   "description": BRAND.description,
   "knowsAbout": ["Commercial Video Production", "Brand Films", "Documentary Storytelling", "Cinema Drone", "Marketing Strategy", "Local SEO", "Email Marketing", "Social Media Management", "Business Consulting", "Custom Web Development", "Next.js", "React", "Custom CRM Development", "Business Automation", "AI Implementation"],
   "url": SITE_URL,
@@ -32,6 +39,14 @@ export const localBusinessSchema = {
   // Contact Information
   "telephone": CONTACT.phone,
   "email": CONTACT.email,
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": CONTACT.phone,
+    "contactType": "customer service",
+    "email": CONTACT.email,
+    "areaServed": "US",
+    "availableLanguage": "English"
+  },
 
   // Physical Address
   "address": {
@@ -127,40 +142,9 @@ export const localBusinessSchema = {
   ]
 };
 
-// ==================== ORGANIZATION SCHEMA ====================
-// Company-level information
-
-export const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${SITE_URL}/#organization`,
-  "name": BRAND.legalName,
-  "legalName": BRAND.legalName,
-  "url": SITE_URL,
-  "logo": `${SITE_URL}/logo.png`,
-  "foundingDate": "2020",
-  "founders": [
-    {
-      "@type": "Person",
-      "name": "Jay Val Leo"
-    }
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": CONTACT.phone,
-    "contactType": "customer service",
-    "email": CONTACT.email,
-    "areaServed": "US",
-    "availableLanguage": "English"
-  },
-  "sameAs": [
-    SOCIAL.instagram,
-    SOCIAL.facebook,
-    SOCIAL.youtube,
-    SOCIAL.tiktok,
-    "https://sweetdreamsmusic.com"
-  ]
-};
+// Organization information is now merged into localBusinessSchema above
+// (same @id previously caused a "duplicate name" warning in Google's
+// Rich Results test — one entity is stronger than two conflicting ones).
 
 // ==================== VIDEO PRODUCTION SERVICE SCHEMA ====================
 
@@ -456,7 +440,6 @@ export const consolidatedSchema = {
   "@context": "https://schema.org",
   "@graph": [
     localBusinessSchema,
-    organizationSchema,
     videoProductionServiceSchema,
     webDevelopmentServiceSchema,
     socialMediaServiceSchema,
