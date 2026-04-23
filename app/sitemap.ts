@@ -48,7 +48,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: baseUrl,
+      // Trailing slash on root for canonical consistency with Search Console
+      url: `${baseUrl}/`,
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 1.0,
