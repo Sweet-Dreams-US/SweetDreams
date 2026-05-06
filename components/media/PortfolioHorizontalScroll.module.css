@@ -479,11 +479,25 @@
     font-size: 32px;
   }
 
-  /* Mobile filter bar: tighter spacing, slightly smaller pills */
+  /* Mobile filter bar: tighter spacing + gentler vertical position.
+     The wrapper handles vertical placement (see .filterBarWrapper override
+     below) — the inner bar only needs to center horizontally. The previous
+     `margin: -20px auto 32px` here was stacking with the wrapper's -50px,
+     yanking the bar up ~70px into the section title and making pills
+     hard to thumb-tap on phones. */
   .filterBar {
     gap: 8px;
-    margin: -20px auto 32px;
+    margin: 0 auto;
     padding: 0 8px;
+  }
+
+  /* Reduce the wrapper's negative top margin on mobile so the bar sits
+     just below the section header instead of overlapping it. -50px works
+     on desktop where the surrounding type is taller; on mobile we want
+     the touch targets clearly within the user's natural thumb arc. */
+  .filterBarWrapper {
+    margin: -8px auto 24px;
+    padding: 16px 12px;
   }
 
   .filterPill {
