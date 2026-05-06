@@ -210,7 +210,19 @@ export default function WorkPage() {
     },
 
     // ===== Hyperlapses (smart videos — autoplay/loop/muted, no project pages) =====
-    // Vertical (1080x1920)
+    // Vertical (1080x1920 / 2160x3840)
+    {
+      image: "",
+      title: "CLYDE THEATRE",
+      client: "The Clyde Theatre",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SWEETDREAMSLOGO_1.jpg",
+      // Drone-shot hyperlapse — appears under both Hyperlapse and Aerial filters
+      tags: ["hyperlapse", "aerial"],
+      date: "2026-05-06T15:18:44Z",
+      isSmartVideo: true,
+      videoId: "7bc8c9e60fb325b89b559407306ac9f8",
+      orientation: "vertical" as const,
+    },
     {
       image: "",
       title: "BROWNIE'S LEMONADE NIGHT",
