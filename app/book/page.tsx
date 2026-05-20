@@ -282,6 +282,62 @@ export default function BookPage() {
         )}
       </div>
 
+      {/* What we can help with — concise services recap so scrollers
+          confirm their need is covered and see the call as a strategy
+          session, not a sales pitch. Each card pairs WHAT we do with
+          WHY it matters. */}
+      <section className={styles.servicesSection}>
+        <div className={styles.servicesContainer}>
+          <p className={styles.miniTitle}>WHAT WE CAN HELP WITH</p>
+          <h2 className={styles.servicesHeading}>FOUR WAYS WE GROW YOUR BUSINESS</h2>
+          <p className={styles.servicesIntro}>
+            Whatever you book the call for, here&apos;s what we bring to the table.
+          </p>
+
+          <div className={styles.servicesGrid}>
+            <div className={`${styles.serviceCard} ${styles.serviceRed}`}>
+              <h3 className={styles.serviceName}>Media Production</h3>
+              <p className={styles.serviceWhat}>
+                Brand films, commercials, social video, aerial drone, and event coverage — cinema cameras, full post-production.
+              </p>
+              <p className={styles.serviceWhy}>
+                People remember what they see. Great video makes your brand impossible to ignore — and impossible to forget.
+              </p>
+            </div>
+
+            <div className={`${styles.serviceCard} ${styles.serviceYellow}`}>
+              <h3 className={styles.serviceName}>Marketing</h3>
+              <p className={styles.serviceWhat}>
+                Google Ads, Meta Ads, local SEO, email automation, and social media management — built to measure, not just run.
+              </p>
+              <p className={styles.serviceWhy}>
+                The best product doesn&apos;t win — the best-marketed one does. We put you in front of the people ready to buy.
+              </p>
+            </div>
+
+            <div className={`${styles.serviceCard} ${styles.serviceBlue}`}>
+              <h3 className={styles.serviceName}>Web &amp; Software</h3>
+              <p className={styles.serviceWhat}>
+                Hand-coded websites, custom CRMs, dashboards, and automation — your whole business connected in one platform.
+              </p>
+              <p className={styles.serviceWhy}>
+                Your website is your first handshake; your software is your back office. Both should work as hard as you do.
+              </p>
+            </div>
+
+            <div className={`${styles.serviceCard} ${styles.serviceGreen}`}>
+              <h3 className={styles.serviceName}>Consulting</h3>
+              <p className={styles.serviceWhat}>
+                Growth strategy, offer design, pricing, operations, and scaling systems — frameworks that compound over time.
+              </p>
+              <p className={styles.serviceWhy}>
+                Strategy turns effort into momentum. We find the bottleneck holding you back, then build the system that breaks it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Wait? Call Now — for leads who prefer phone over form */}
       <CallNow />
 

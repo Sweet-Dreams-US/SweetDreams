@@ -237,6 +237,126 @@
   }
 }
 
+/* What We Can Help With — services recap section */
+.servicesSection {
+  padding: 80px 48px;
+  background: #0a0a0a;
+  margin-top: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.servicesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.servicesHeading {
+  font-family: 'Anton', sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.05;
+  margin: 8px 0 16px 0;
+}
+
+.servicesIntro {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #999;
+  margin: 0 auto 48px auto;
+  max-width: 560px;
+}
+
+/* 4-up on desktop, 2-up tablet, 1-up phone */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  text-align: left;
+}
+
+/* Each card: dark surface, colored top "trace" border, white interior text */
+.serviceCard {
+  --accent: #ffffff;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.serviceRed { --accent: #e63636; }
+.serviceYellow { --accent: #F4C430; }
+.serviceBlue { --accent: #4A90E2; }
+.serviceGreen { --accent: #28c840; }
+
+.serviceName {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.serviceWhat {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cccccc;
+  margin: 0;
+}
+
+/* The "why it matters" line — italic-weighted so it reads as the
+   persuasive takeaway, separated from the factual WHAT line above. */
+.serviceWhy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: auto 0 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1024px) {
+  .servicesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .servicesSection {
+    padding: 64px 24px;
+  }
+
+  .servicesHeading {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 560px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Studio Booking Section - matches music page */
 .studioSection {
   padding: 80px 48px 120px 48px;
