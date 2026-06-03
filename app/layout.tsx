@@ -139,6 +139,17 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* Leadpipe — visitor identification pixel.
+            Pixel ID cb92e2bc-5759-4c6b-be4f-bed4c19d1677 (sweetdreams.us).
+            Manage at app.leadpipe.com. Excluded paths configured on the
+            pixel itself (server-side), so /api, /profile, /login, /signup,
+            /auth, /admin requests do not fire tracking. */}
+        <Script
+          id="leadpipe-pixel"
+          src="https://leadpipe.aws53.cloud/p/cb92e2bc-5759-4c6b-be4f-bed4c19d1677.js"
+          strategy="afterInteractive"
+        />
+
         {/* Microsoft Clarity */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
