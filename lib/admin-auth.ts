@@ -4,8 +4,12 @@
  */
 
 export const ADMIN_EMAILS = [
+  // Music studio domain (legacy)
   'cole@sweetdreamsmusic.com',
   'jayvalleo@sweetdreamsmusic.com',
+  // Solutions / business agency domain
+  'cole@sweetdreams.us',
+  'jayvalleo@sweetdreams.us',
 ];
 
 /**

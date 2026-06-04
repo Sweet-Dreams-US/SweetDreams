@@ -1,0 +1,375 @@
+.page {
+  min-height: 100vh;
+  background: #f6f6f6;
+  color: #0a0a0a;
+  padding: 32px clamp(16px, 4vw, 48px) 64px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #0a0a0a;
+}
+
+.kicker {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0 0 6px 0;
+}
+
+.title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(32px, 4vw, 56px);
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+  max-width: 680px;
+}
+
+/* ===== Stat tiles ===== */
+.stats {
+  display: flex;
+  gap: 12px;
+}
+
+.stat {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 110px;
+}
+
+.statNum {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  color: #0a0a0a;
+}
+
+.statLabel {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+/* ===== Filter bar ===== */
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.filterLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #888;
+  margin-right: 4px;
+}
+
+.filterDivider {
+  width: 1px;
+  height: 20px;
+  background: #ddd;
+  margin: 0 6px;
+}
+
+.chip {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #d0d0d0;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:hover {
+  background: #0a0a0a;
+  color: #ffffff;
+  border-color: #0a0a0a;
+}
+
+.chipActive {
+  background: #0a0a0a;
+  color: #ffffff;
+  border-color: #0a0a0a;
+}
+
+/* ===== States ===== */
+.errorBanner {
+  background: #fff3f3;
+  border: 1px solid #e63636;
+  color: #8b1414;
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.empty {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.empty h2 {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: 28px;
+  margin: 0 0 12px 0;
+}
+
+.empty p {
+  font-size: 13px;
+  color: #555;
+  margin: 0 auto 8px auto;
+  max-width: 540px;
+  line-height: 1.6;
+}
+
+.emptyHint {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #eee;
+  text-align: left;
+  font-size: 12px;
+  color: #777;
+}
+
+.emptyHint code {
+  background: #f3f3f3;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* ===== Table ===== */
+.tableWrap {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  background: #fafafa;
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666;
+  border-bottom: 2px solid #0a0a0a;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: #fafafa;
+}
+
+.cellMuted {
+  font-size: 11px;
+  color: #888;
+}
+
+.cellCenter {
+  text-align: center;
+  font-weight: 600;
+}
+
+.contactName {
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.contactEmail {
+  font-size: 11px;
+  color: #4a90e2;
+  margin-top: 2px;
+}
+
+.companyName {
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+.domainBadge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #f3f3f3;
+  border-radius: 4px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  color: #555;
+}
+
+.intentChip {
+  display: inline-block;
+  min-width: 36px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* Status pills */
+.statusPill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: #eee;
+  color: #555;
+}
+
+.status_new {
+  background: #fff8e1;
+  color: #a37800;
+}
+.status_contacted {
+  background: #e8f0ff;
+  color: #1d4ea2;
+}
+.status_replied {
+  background: #e8fff0;
+  color: #167038;
+}
+.status_qualified {
+  background: #e8ffe8;
+  color: #105c10;
+}
+.status_dead {
+  background: #f3f3f3;
+  color: #888;
+}
+
+/* CTA buttons in rightmost column */
+.mailtoBtn,
+.linkedinBtn {
+  display: inline-block;
+  padding: 6px 10px;
+  margin-right: 6px;
+  font-size: 11px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mailtoBtn {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+.mailtoBtn:hover {
+  background: #333;
+}
+
+.linkedinBtn {
+  background: #0a66c2;
+  color: #ffffff;
+}
+.linkedinBtn:hover {
+  background: #0855a3;
+}
+
+/* ===== Footer ===== */
+.footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+  font-size: 11px;
+  color: #888;
+  line-height: 1.6;
+}
+
+.footer code {
+  background: #f3f3f3;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #444;
+}
+
+.footer a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stats {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 8px;
+  }
+}
