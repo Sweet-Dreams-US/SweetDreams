@@ -16,9 +16,9 @@
  */
 
 import { redirect } from 'next/navigation';
-import { createClient as createServerSupabase } from '@/utils/supabase/server';
+import { cookies } from 'next/headers';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
-import { isAdmin } from '@/lib/admin-auth';
+import { ADMIN_COOKIE_NAME, verifySession } from '@/lib/admin-session';
 import styles from './leads.module.css';
 
 // Don't cache — leads come in continuously.
@@ -80,14 +80,13 @@ export default async function LeadsPage({
 }: {
   searchParams: Promise<{ domain?: string; status?: string }>;
 }) {
-  // 1. Auth gate
-  const userSupabase = await createServerSupabase();
-  const {
-    data: { user },
-  } = await userSupabase.auth.getUser();
-
-  if (!user || !isAdmin(user.email)) {
-    redirect('/login?return=/admin/leads');
+  // 1. Auth gate — checks the standalone admin session cookie set by
+  //    /api/admin/login. NOT the Supabase user session (that's gated to
+  //    sweetdreamsmusic.com per middleware).
+  const cookieStore = await cookies();
+  const sessionToken = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+  if (!verifySession(sessionToken)) {
+    redirect('/admin/login?return=/admin/leads');
   }
 
   // 2. Query Leadpipe leads (service role bypasses RLS on this table)
@@ -310,6 +309,9 @@ export default async function LeadsPage({
         <p>
           Long-term home: nightmaresturntodreams.com admin (see{' '}
           <code>.claude/LEADPIPE-NIGHTMARES-INTEGRATION-BRIEF.md</code>).
+        </p>
+        <p>
+          <a href="/api/admin/logout">Sign out</a>
         </p>
       </footer>
     </div>
