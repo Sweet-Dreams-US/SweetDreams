@@ -41,7 +41,7 @@ async function verifyTurnstileToken(token: string, remoteip?: string): Promise<b
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, company, message, preferredDate, preferredTime, turnstileToken } = body;
+    const { name, email, phone, company, message, turnstileToken } = body;
 
     // Validate required fields
     if (!name || !email) {
@@ -90,16 +90,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, message: 'Booking request sent successfully' });
     }
 
-    // Format the date nicely if provided
-    const formattedDate = preferredDate
-      ? new Date(preferredDate).toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })
-      : 'Not specified';
-
     // Send email to both team members
     const emailData = {
       from: FROM_EMAIL,
@@ -118,12 +108,6 @@ export async function POST(request: NextRequest) {
             ${company ? `<p style="margin: 8px 0;"><strong>Company:</strong> ${company}</p>` : ''}
           </div>
 
-          <div style="background: #000; color: #fff; padding: 24px; margin-bottom: 24px;">
-            <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin: 0 0 16px 0;">Preferred Time</h2>
-            <p style="margin: 8px 0; font-size: 18px;"><strong>${formattedDate}</strong></p>
-            <p style="margin: 8px 0; font-size: 18px;">${preferredTime || 'Time not specified'}</p>
-          </div>
-
           ${message ? `
           <div style="background: #f9f9f9; padding: 24px; margin-bottom: 24px;">
             <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin: 0 0 16px 0;">Project Details</h2>
@@ -140,7 +124,19 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    await resend.emails.send(emailData);
+    // Send admin notification and inspect the response —
+    // resend.emails.send() does NOT throw on Resend API errors;
+    // it returns { data, error }. Silently ignoring this is how
+    // bookings disappear without a trace, so we log + bubble it up.
+    const adminSend = await resend.emails.send(emailData);
+    if (adminSend.error) {
+      console.error('Resend admin email failed:', adminSend.error, { name, email });
+      return NextResponse.json(
+        { error: 'Failed to send booking request. Please try again later.' },
+        { status: 500 }
+      );
+    }
+    console.log(`Admin email sent for ${name} (${email}) — id=${adminSend.data?.id}`);
 
     // Also send a confirmation email to the person who submitted
     const confirmationEmail = {
@@ -158,14 +154,6 @@ export async function POST(request: NextRequest) {
             </p>
           </div>
 
-          ${preferredDate || preferredTime ? `
-          <div style="background: #000; color: #fff; padding: 24px; margin-bottom: 24px;">
-            <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; margin: 0 0 16px 0;">Your Preferred Time</h2>
-            <p style="margin: 8px 0;">${formattedDate}</p>
-            <p style="margin: 8px 0;">${preferredTime || ''}</p>
-          </div>
-          ` : ''}
-
           <p style="color: #666; font-size: 14px;">
             In the meantime, feel free to check out our recent work at <a href="https://sweetdreams.us/work" style="color: #000;">sweetdreams.us/work</a>
           </p>
@@ -180,7 +168,12 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    await resend.emails.send(confirmationEmail);
+    // Confirmation email failure should NOT block the admin notification —
+    // we just log it. The admin already has the lead at this point.
+    const confirmSend = await resend.emails.send(confirmationEmail);
+    if (confirmSend.error) {
+      console.error('Resend confirmation email failed (non-fatal):', confirmSend.error, { email });
+    }
 
     // Send to Google Sheets
     try {
@@ -194,8 +187,6 @@ export async function POST(request: NextRequest) {
           email,
           phone: phone || '',
           company: company || '',
-          preferredDate: preferredDate || '',
-          preferredTime: preferredTime || '',
           message: message || '',
         }),
       });

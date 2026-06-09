@@ -15,8 +15,6 @@ export default function BookPage() {
     phone: "",
     company: "",
     message: "",
-    preferredDate: "",
-    preferredTime: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -102,8 +100,6 @@ export default function BookPage() {
           phone: "",
           company: "",
           message: "",
-          preferredDate: "",
-          preferredTime: "",
         });
         setTurnstileToken(null);
         if (widgetIdRef.current && window.turnstile) {
@@ -208,40 +204,6 @@ export default function BookPage() {
                 />
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="preferredDate" className={styles.label}>Preferred Date</label>
-                <input
-                  type="date"
-                  id="preferredDate"
-                  name="preferredDate"
-                  value={formData.preferredDate}
-                  onChange={handleChange}
-                  className={styles.input}
-                  min={new Date().toISOString().split('T')[0]}
-                />
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="preferredTime" className={styles.label}>Preferred Time</label>
-                <select
-                  id="preferredTime"
-                  name="preferredTime"
-                  value={formData.preferredTime}
-                  onChange={handleChange}
-                  className={styles.input}
-                >
-                  <option value="">Select a time</option>
-                  <option value="9:00 AM">9:00 AM</option>
-                  <option value="10:00 AM">10:00 AM</option>
-                  <option value="11:00 AM">11:00 AM</option>
-                  <option value="12:00 PM">12:00 PM</option>
-                  <option value="1:00 PM">1:00 PM</option>
-                  <option value="2:00 PM">2:00 PM</option>
-                  <option value="3:00 PM">3:00 PM</option>
-                  <option value="4:00 PM">4:00 PM</option>
-                  <option value="5:00 PM">5:00 PM</option>
-                </select>
-              </div>
             </div>
 
             <div className={styles.formGroup}>
