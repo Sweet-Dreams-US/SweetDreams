@@ -26,6 +26,10 @@ export default function WebCrookedLakePage() {
     ],
     full_description:
       "crookedlakesandbarmusicfest.com is the event website for the Crooked Lake Sandbar Music Fest — a charity music festival held on a sandbar at Crooked Lake in Angola, Indiana. Attendees boat directly to the sandbar venue for a unique on-the-water music experience. The site features a countdown timer to the next event, recap videos from previous years, a detailed venue map, and integrated portals for volunteer sign-ups, sponsorship opportunities, and artist submissions. All proceeds from the festival go to charity, with prominent sponsor visibility throughout the site.",
+    client_name: 'Crooked Lake Sandbar Music Fest',
+    client_logos: [
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CrookedLakeLogo.png',
+    ],
   };
 
   return (
@@ -37,6 +41,14 @@ export default function WebCrookedLakePage() {
           <a href={`https://${project.url}`} target="_blank" rel="noopener noreferrer" className={styles.liveSiteLink}>
             Visit Live Site &rarr;
           </a>
+        </div>
+        <div className={styles.clientInfo}>
+          <div className={styles.clientLogos}>
+            {project.client_logos.map((logo, index) => (
+              <img key={index} src={logo} alt={project.client_name} className={styles.clientLogo} />
+            ))}
+          </div>
+          <span className={styles.clientName}>{project.client_name}</span>
         </div>
       </header>
 
