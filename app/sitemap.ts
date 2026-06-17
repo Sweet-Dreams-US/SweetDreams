@@ -30,6 +30,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'fort-wayne-state-of-the-city',
     'mom-nonprofit-brand-film',
     'fort-wayne-courthouse-4k',
+    'breastie-box-brand-film',
+    'nissan-elgin-acquisition-recap',
+    'coleman-back-to-the-future-commercial',
     // Website portfolio projects
     'web-sweetdreams',
     'web-sweetdreamsmusic',

@@ -29,6 +29,36 @@ export default function WorkPage() {
   // available or best estimate. Used to sort newest-first across filters.
   const portfolioItems = [
     {
+      href: "/work/nissan-elgin-acquisition-recap",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/66f28edb4b5c20354896a437b7be5220/thumbnails/thumbnail.jpg?time=5s&height=600",
+      title: "NISSAN OF ELGIN ACQUISITION",
+      client: "Coleman Automotive × Prime Dealer Equity Fund",
+      category: "Event Recap · Acquisition",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/Primedealerequityfundlogoblack.png",
+      tags: ["business", "recap"],
+      date: "2026-06-17T20:00:00Z",
+    },
+    {
+      href: "/work/breastie-box-brand-film",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/cd386f606ba61022ba3e608f684b3c80/thumbnails/thumbnail.jpg?time=15s&height=600",
+      title: "BREASTIE BOX",
+      client: "Breastie Box",
+      category: "Brand Film · Nonprofit",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/Boob%20Logo%20.png",
+      tags: ["business", "recap"],
+      date: "2026-06-17T19:52:00Z",
+    },
+    {
+      href: "/work/coleman-back-to-the-future-commercial",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/7943215ed685238e8ca63bc3617f807d/thumbnails/thumbnail.jpg?time=8s&height=600",
+      title: "BACK TO THE FUTURE — COLEMAN",
+      client: "Coleman Automotive",
+      category: "Commercial · Automotive",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/colemanautomotivegrouplogoblack.png",
+      tags: ["business", "social"],
+      date: "2026-06-17T19:44:00Z",
+    },
+    {
       href: "/work/fort-wayne-state-of-the-city",
       image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/d8719a81b378ac68b2c64e1cd2819a3e/thumbnails/thumbnail.jpg?time=5s&height=600",
       title: "FORT WAYNE STATE OF THE CITY",
