@@ -30,7 +30,7 @@ export default function WorkPage() {
   const portfolioItems = [
     {
       href: "/work/coleman-onboarding-series",
-      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/313f0b9be3d81f11e7d239fd08a34d38/thumbnails/thumbnail.jpg?time=3s&height=600",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/313f0b9be3d81f11e7d239fd08a34d38/thumbnails/thumbnail.jpg?time=15s&height=600",
       title: "ONBOARDING SERIES",
       client: "Coleman Automotive",
       category: "Onboarding Series · Productized",
