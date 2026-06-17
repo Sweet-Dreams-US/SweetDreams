@@ -76,6 +76,28 @@ export default function NissanElginAcquisitionRecapPage() {
         </div>
       </section>
 
+      {/* Press release callout — proves the deliverable extended beyond the
+          camera work. Links to the live release on the site we built and manage. */}
+      <section className={styles.pressRelease}>
+        <p className={styles.pressReleaseKicker}>PRESS RELEASE DEVELOPMENT</p>
+        <h2 className={styles.pressReleaseHeading}>WE WROTE & PUBLISHED THE ANNOUNCEMENT</h2>
+        <p className={styles.pressReleaseText}>
+          Beyond the takeover video, Sweet Dreams Solutions developed the full
+          acquisition press release — interviewing leadership, drafting the
+          announcement copy, and publishing it to the Prime Dealer Fund
+          insights hub on the site we designed, built, and continue to manage.
+          One agency, one cohesive story across video and written word.
+        </p>
+        <a
+          href="https://www.primedealerfund.com/insights/nissan-of-elgin-acquisition-press-release"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.pressReleaseButton}
+        >
+          READ THE PRESS RELEASE →
+        </a>
+      </section>
+
       <section className={styles.cta}>
         <h2 className={styles.ctaTitle}>READY TO CREATE SOMETHING AMAZING?</h2>
         <Link href="/book" className={styles.ctaButton}>BOOK A CALL</Link>

@@ -29,6 +29,16 @@ export default function WorkPage() {
   // available or best estimate. Used to sort newest-first across filters.
   const portfolioItems = [
     {
+      href: "/work/coleman-onboarding-series",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/313f0b9be3d81f11e7d239fd08a34d38/thumbnails/thumbnail.jpg?time=3s&height=600",
+      title: "ONBOARDING SERIES",
+      client: "Coleman Automotive",
+      category: "Onboarding Series · Productized",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/colemanautomotivegrouplogoblack.png",
+      tags: ["business"],
+      date: "2026-06-17T20:30:00Z",
+    },
+    {
       href: "/work/nissan-elgin-acquisition-recap",
       image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/66f28edb4b5c20354896a437b7be5220/thumbnails/thumbnail.jpg?time=5s&height=600",
       title: "NISSAN OF ELGIN ACQUISITION",

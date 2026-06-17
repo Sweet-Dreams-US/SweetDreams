@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'breastie-box-brand-film',
     'nissan-elgin-acquisition-recap',
     'coleman-back-to-the-future-commercial',
+    'coleman-onboarding-series',
     // Website portfolio projects
     'web-sweetdreams',
     'web-sweetdreamsmusic',
