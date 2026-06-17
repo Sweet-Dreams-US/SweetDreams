@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'nissan-elgin-acquisition-recap',
     'coleman-back-to-the-future-commercial',
     'coleman-onboarding-series',
+    'humane-shelter-charity-film',
     // Website portfolio projects
     'web-sweetdreams',
     'web-sweetdreamsmusic',

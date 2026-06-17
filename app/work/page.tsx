@@ -29,6 +29,16 @@ export default function WorkPage() {
   // available or best estimate. Used to sort newest-first across filters.
   const portfolioItems = [
     {
+      href: "/work/humane-shelter-charity-film",
+      image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/a5be567ba670d8e102cf9b507a4ad936/thumbnails/thumbnail.jpg?time=12s&height=600",
+      title: "HUMANE SHELTER",
+      client: "Humane Shelter × Crooked Lake Music Fest",
+      category: "Charity Film · Nonprofit",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/HumaneShelterLogoWhitebackground.png",
+      tags: ["business", "recap"],
+      date: "2026-06-17T20:45:00Z",
+    },
+    {
       href: "/work/coleman-onboarding-series",
       image: "https://customer-w6h9o08eg118alny.cloudflarestream.com/313f0b9be3d81f11e7d239fd08a34d38/thumbnails/thumbnail.jpg?time=15s&height=600",
       title: "ONBOARDING SERIES",
