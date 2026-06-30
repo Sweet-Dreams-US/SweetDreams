@@ -25,7 +25,7 @@ const steps: FunnelStep[] = [
       { name: 'businessName', placeholder: 'Business name', required: true },
       {
         name: 'currentTools',
-        placeholder: 'Which apps/subscriptions are you paying for now?',
+        placeholder: 'Apps you pay for now?',
         type: 'textarea',
         required: true,
       },
@@ -41,132 +41,68 @@ const steps: FunnelStep[] = [
   },
 ];
 
-// The scattered stack they pay for now vs. the one system they'd own.
-const stackNow = [
-  ['Scheduling app', '$/mo'],
-  ['Accounting / books', '$/mo'],
-  ['CRM', '$/mo'],
-  ['POS / payments tool', '$/mo'],
-  ['Calendar / forms tool', '$/mo'],
-];
-
 export default function FreeSoftwarePage() {
   return (
     <div className={`${styles.page} ${styles.accentGreen}`}>
       <div className={styles.qualifierBar}>
         <p className={styles.qualifierText}>
           <span className={styles.qualifierDot} />
-          Built for owners running their business on five different subscriptions
+          For owners running their business on five different subscriptions
         </p>
       </div>
 
-      <section className={styles.hero}>
-        <p className={styles.kicker}>Business Owners</p>
-        <h1 className={styles.headline}>
-          One System Runs Your Whole Business.{' '}
-          <span className={styles.hl}>You Own It.</span>
-        </h1>
-        <p className={styles.subhead}>
-          Staff. Scheduling. Accounting. Customers. All connected, all branded to
-          you. We&apos;ll build a live demo on your business — see it running
-          before you pay a dime.
-        </p>
-      </section>
+      <div className={styles.splitHero}>
+        <div className={styles.heroLeft}>
+          <p className={styles.kicker}>Business Owners</p>
+          <h1 className={styles.headline}>
+            One System Runs It All. <span className={styles.hl}>You Own It.</span>
+          </h1>
+          <p className={styles.subhead}>
+            Staff, scheduling, accounting, customers — connected and branded to
+            you. We build a live demo on your business. See it before you pay.
+          </p>
 
-      {/* Demo visual — SWAP THIS PLACEHOLDER for the real dashboard mockup/video.
-          Drop a Cloudflare <video> or an <img src="..."> into .frameWide. */}
-      <section className={styles.media}>
-        <div className={styles.frameWide}>
-          <div className={styles.framePlaceholder}>
-            <span className={styles.framePlaceholderTitle}>Your dashboard, your brand</span>
-            <span className={styles.framePlaceholderSub}>
-              Demo mockup goes here — swap this placeholder for the dashboard
-              walkthrough.
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section id="form" className={styles.formZone}>
-        <FunnelForm
-          funnel="free-software"
-          steps={steps}
-          successTitle="Demo incoming."
-          successBody="We'll reach out to learn how your business runs, then build a live demo dashboard branded to you. You'll get a link to click around in before any conversation about price."
-        />
-      </section>
-
-      <div className={styles.trust}>
-        <div className={styles.trustItem}>
-          <span className={styles.trustStar}>✦</span> Your logo, your domain, your data
-        </div>
-        <div className={styles.trustItem}>
-          <span className={styles.trustStar}>✦</span> Built to replace the whole monthly pile
-        </div>
-      </div>
-
-      <div className={styles.consent}>
-        <p className={styles.consentText}>
-          By providing your information you agree to be contacted by Sweet Dreams
-          Solutions by phone, text, or email about your project. We do not sell
-          your personal information. See our{' '}
-          <a href="/privacy">Privacy Policy</a> and{' '}
-          <a href="/terms">Terms of Service</a>.
-        </p>
-      </div>
-
-      {/* The centerpiece: scattered stack vs one owned system */}
-      <section className={`${styles.section} ${styles.sectionTint}`}>
-        <div className={styles.sectionInner}>
-          <p className={styles.eyebrow}>Stop renting five tools that don&apos;t talk</p>
-          <h2 className={styles.sectionTitle}>The Pile vs. One System</h2>
-          <div className={styles.compare}>
-            <div className={`${styles.compareCol} ${styles.compareBad}`}>
-              <h3 className={styles.compareHead}>What you pay now</h3>
-              <ul className={styles.compareList}>
-                {stackNow.map(([name, fee]) => (
-                  <li key={name} className={styles.compareLine}>
-                    <span>{name}</span>
-                    <span className={styles.compareFee}>{fee}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className={styles.compareTotalBad}>
-                A stack of monthly fees — none of it yours
+          {/* Compact stack → one system */}
+          <div className={styles.miniCompare}>
+            <div className={styles.miniCol}>
+              <p className={styles.miniColHead}>You pay now</p>
+              <p className={styles.miniColLine}>
+                Scheduling · Books · CRM · POS · Calendar — 5 bills, none yours
               </p>
             </div>
-
-            <div className={styles.compareVs}>vs</div>
-
-            <div className={`${styles.compareCol} ${styles.compareGood}`}>
-              <h3 className={styles.compareHead}>What we build you</h3>
-              <ul className={styles.compareList}>
-                <li className={`${styles.compareLine} ${styles.compareGoodLine}`}>
-                  Staff &amp; scheduling
-                </li>
-                <li className={`${styles.compareLine} ${styles.compareGoodLine}`}>
-                  Accounting &amp; invoicing
-                </li>
-                <li className={`${styles.compareLine} ${styles.compareGoodLine}`}>
-                  Customer management (CRM)
-                </li>
-                <li className={`${styles.compareLine} ${styles.compareGoodLine}`}>
-                  Payments &amp; bookings
-                </li>
-                <li className={`${styles.compareLine} ${styles.compareGoodLine}`}>
-                  All connected · your branding
-                </li>
-              </ul>
-              <p className={styles.compareTotalGood}>One system. You own it.</p>
+            <div className={styles.miniArrow}>→</div>
+            <div className={`${styles.miniCol} ${styles.miniColGood}`}>
+              <p className={styles.miniColHead}>You own</p>
+              <p className={styles.miniColLine}>
+                One system · your branding · everything connected
+              </p>
             </div>
           </div>
-          <div className={styles.ctaCenter}>
-            <a href="#form" className={styles.ctaJump}>
-              See my demo
-            </a>
+
+          <div className={styles.trustRow}>
+            <span className={styles.trustItem}>
+              <span className={styles.trustStar}>✦</span> Your logo, your domain, your data
+            </span>
+          </div>
+
+          <div className={styles.consent}>
+            <p className={styles.consentText}>
+              By submitting you agree to be contacted by Sweet Dreams Solutions
+              about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
+              <a href="/terms">Terms</a>.
+            </p>
           </div>
         </div>
-      </section>
+
+        <div className={styles.heroRight}>
+          <FunnelForm
+            funnel="free-software"
+            steps={steps}
+            successTitle="Demo incoming."
+            successBody="We'll learn how your business runs, build a live demo dashboard branded to you, and send a link to click around in — before any talk of price."
+          />
+        </div>
+      </div>
 
       <footer className={styles.miniFooter}>
         <div className={styles.miniFooterLinks}>
@@ -177,7 +113,7 @@ export default function FreeSoftwarePage() {
         </div>
         <p className={styles.miniFooterFine}>
           © {new Date().getFullYear()} Sweet Dreams US LLC · Fort Wayne, Indiana.
-          Demo builds are offered at our discretion. Results vary by business.
+          Demo builds offered at our discretion.
         </p>
       </footer>
     </div>

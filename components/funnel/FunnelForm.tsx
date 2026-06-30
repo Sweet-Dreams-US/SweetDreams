@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
 import styles from './funnel.module.css';
 
 export interface FunnelField {
@@ -25,9 +26,17 @@ interface FunnelFormProps {
   successBody: string;
 }
 
+const TURNSTILE_SITE_KEY = '0x4AAAAAACJodExIWnZ-7sQq';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Render a question, accent-coloring any {wrapped} segment.
+interface TurnstileApi {
+  render: (el: HTMLElement, opts: Record<string, unknown>) => string;
+  reset: (id?: string) => void;
+  remove: (id?: string) => void;
+}
+const getTurnstile = (): TurnstileApi | undefined =>
+  (window as unknown as { turnstile?: TurnstileApi }).turnstile;
+
 function renderQuestion(q: string) {
   const parts = q.split(/(\{[^}]+\})/g);
   return parts.map((part, i) =>
@@ -55,13 +64,49 @@ export default function FunnelForm({
     'idle'
   );
 
+  // Turnstile (only on the final step)
+  const [scriptReady, setScriptReady] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
   const step = steps[stepIndex];
   const isLast = stepIndex === steps.length - 1;
 
   const setField = (name: string, value: string) =>
     setValues((v) => ({ ...v, [name]: value }));
 
-  // Validate the fields on the current step only.
+  const renderTurnstile = useCallback(() => {
+    const ts = getTurnstile();
+    if (ts && turnstileRef.current && !widgetIdRef.current) {
+      try {
+        widgetIdRef.current = ts.render(turnstileRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: (t: string) => {
+            setToken(t);
+            setError(null);
+          },
+          'expired-callback': () => setToken(null),
+          'error-callback': () => setToken(null),
+          theme: 'light',
+          size: 'flexible',
+        });
+      } catch {
+        /* render is retried when scriptReady / step changes */
+      }
+    }
+  }, []);
+
+  // If the script already loaded (client nav), mark ready on mount.
+  useEffect(() => {
+    if (getTurnstile()) setScriptReady(true);
+  }, []);
+
+  // Mount the widget once we're on the last step and the script is ready.
+  useEffect(() => {
+    if (isLast && scriptReady) renderTurnstile();
+  }, [isLast, scriptReady, renderTurnstile]);
+
   const validateStep = (): string | null => {
     for (const f of step.fields) {
       const val = (values[f.name] ?? '').trim();
@@ -82,7 +127,7 @@ export default function FunnelForm({
         w.gtag('event', 'generate_lead', { funnel });
       if (typeof w.fbq === 'function') w.fbq('track', 'Lead', { funnel });
     } catch {
-      /* analytics is best-effort */
+      /* analytics best-effort */
     }
   };
 
@@ -100,13 +145,18 @@ export default function FunnelForm({
       return;
     }
 
-    // Final step → submit everything.
+    // Final step → require the human check, then submit.
+    if (!token) {
+      setError('Please complete the verification.');
+      return;
+    }
+
     setStatus('submitting');
     try {
       const res = await fetch('/api/funnel-capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ funnel, ...values, honeypot }),
+        body: JSON.stringify({ funnel, ...values, honeypot, turnstileToken: token }),
       });
       if (res.ok) {
         fireConversion();
@@ -114,6 +164,9 @@ export default function FunnelForm({
       } else {
         setStatus('error');
         setError('Something went wrong. Please try again.');
+        setToken(null);
+        const ts = getTurnstile();
+        if (ts && widgetIdRef.current) ts.reset(widgetIdRef.current);
       }
     } catch {
       setStatus('error');
@@ -134,7 +187,13 @@ export default function FunnelForm({
 
   return (
     <div className={styles.formCard}>
-      {/* progress dots */}
+      {/* Turnstile script — loads once, used on the final step */}
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        strategy="lazyOnload"
+        onLoad={() => setScriptReady(true)}
+      />
+
       <div className={styles.progress} aria-hidden="true">
         {steps.map((_, i) => (
           <span
@@ -153,7 +212,6 @@ export default function FunnelForm({
       <h2 className={styles.formQuestion}>{renderQuestion(step.question)}</h2>
 
       <form onSubmit={handleSubmit} noValidate>
-        {/* honeypot — bots fill it, humans never see it */}
         <input
           type="text"
           name="company_website"
@@ -166,7 +224,6 @@ export default function FunnelForm({
         />
 
         {(() => {
-          // Group consecutive half fields into rows; full fields stand alone.
           const rows: FunnelField[][] = [];
           for (const f of step.fields) {
             const last = rows[rows.length - 1];
@@ -216,12 +273,15 @@ export default function FunnelForm({
           ));
         })()}
 
+        {/* Turnstile renders here only on the final step */}
+        {isLast && <div ref={turnstileRef} className={styles.turnstileWrap} />}
+
         {error && <p className={styles.fieldError}>{error}</p>}
 
         <button
           type="submit"
           className={styles.submit}
-          disabled={status === 'submitting'}
+          disabled={status === 'submitting' || (isLast && !token)}
         >
           {status === 'submitting' ? 'SENDING…' : step.cta}
         </button>
