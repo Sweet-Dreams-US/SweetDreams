@@ -84,6 +84,26 @@ function pick<T = unknown>(obj: unknown, path: string[]): T | null {
   return (cur ?? null) as T | null;
 }
 
+// Coerce anything to a valid Postgres integer or null. NEVER throws, never
+// yields a value the `integer` columns (intent_score, page_views) would
+// reject. Leadpipe's intent scale is 1-100 (per its own audience filters),
+// so plain rounding is correct — no rescaling. The untouched original is
+// always preserved in raw_payload.
+function toInt(x: unknown): number | null {
+  const n =
+    typeof x === 'number' ? x : typeof x === 'string' ? Number(x.trim()) : NaN;
+  return Number.isFinite(n) ? Math.round(n) : null;
+}
+
+// Coerce a timestamp to a valid ISO string or null. Guards against
+// `new Date('garbage').toISOString()` throwing RangeError — the exact kind
+// of uncaught error that would 500 the route and trip auto-deactivation.
+function toIso(x: unknown): string | null {
+  if (typeof x !== 'string' && typeof x !== 'number') return null;
+  const d = new Date(x);
+  return Number.isNaN(d.getTime()) ? null : d.toISOString();
+}
+
 export async function POST(req: NextRequest) {
   // 1. Pull the raw body once — needed for signature verification AND parsing.
   const rawBody = await req.text();
@@ -112,33 +132,42 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Parse the JSON body.
+  // FAILURE POLICY (learned the hard way — a single malformed identification
+  // once deactivated this webhook):
+  //   Leadpipe auto-disables a webhook after a streak of failed deliveries.
+  //   So once the signature proves the request is genuinely from Leadpipe,
+  //   we must NOT return a retryable error for a merely-unprocessable
+  //   payload — that turns one bad event into total pipeline loss. Instead:
+  //     • parse / data-shape problems → log loudly, persist raw, return 200
+  //     • genuine transient DB outage → return 500 so Leadpipe retries
+  //   Net effect: a weird payload can never again take the webhook down;
+  //   the worst case is one row we can inspect via raw_payload.
+
+  // 3. Parse the JSON body. A signed-but-unparseable body is near-impossible,
+  //    but if it happens we can't store jsonb — acknowledge (200) so it
+  //    doesn't trigger a retry storm; retrying would never fix it.
   let payload: Record<string, unknown>;
   try {
     payload = JSON.parse(rawBody);
   } catch {
-    return NextResponse.json({ ok: false, error: 'Invalid JSON' }, { status: 400 });
+    console.error(
+      '[leadpipe webhook] Unparseable JSON body — acknowledging to avoid retry-storm. First 500 chars:',
+      rawBody.slice(0, 500)
+    );
+    return NextResponse.json({ ok: true, warning: 'unparseable body ignored' });
   }
 
-  // 4. Extract the flattened columns. Every field is optional except
-  //    the source/event identifiers — Leadpipe sends partial payloads.
+  // 4. Extract source identifiers. Default to '' (NOT NULL columns) rather
+  //    than rejecting — raw_payload still holds whatever Leadpipe sent.
   const sourcePixel = pick<string>(payload, ['pixelId']) ?? '';
   const sourceDomain = pick<string>(payload, ['domain']) ?? '';
   const eventType = pick<string>(payload, ['event']) ?? 'unknown';
+  const eventAt = toIso(pick(payload, ['timestamp']));
 
-  if (!sourcePixel || !sourceDomain) {
-    return NextResponse.json(
-      { ok: false, error: 'Missing pixelId or domain' },
-      { status: 400 }
-    );
-  }
-
-  const eventAtRaw = pick<string>(payload, ['timestamp']);
-  const eventAt = eventAtRaw ? new Date(eventAtRaw).toISOString() : null;
-
-  // 5. Persist via service role (bypasses RLS — this table is sensitive
-  //    and not exposed to anon clients).
   const supabase = createServiceRoleClient();
+
+  // 5. Try the full flattened insert (numeric fields coerced defensively so
+  //    a string/float score or pageViews can't blow up the integer columns).
   const { error } = await supabase.from('leadpipe_leads').insert({
     source_pixel: sourcePixel,
     source_domain: sourceDomain,
@@ -146,7 +175,7 @@ export async function POST(req: NextRequest) {
     event_at: eventAt,
 
     visitor_id: pick(payload, ['visitor', 'id']),
-    page_views: pick(payload, ['visitor', 'pageViews']),
+    page_views: toInt(pick(payload, ['visitor', 'pageViews'])),
     pages_visited: pick(payload, ['visitor', 'pages']),
 
     contact_name: pick(payload, ['contact', 'name']),
@@ -162,22 +191,44 @@ export async function POST(req: NextRequest) {
     company_city: pick(payload, ['company', 'city']),
     company_state: pick(payload, ['company', 'state']),
 
-    intent_score: pick(payload, ['intent', 'score']),
+    intent_score: toInt(pick(payload, ['intent', 'score'])),
     intent_topics: pick(payload, ['intent', 'topics']),
 
     raw_payload: payload,
   });
 
-  if (error) {
-    console.error('[leadpipe webhook] DB insert failed', error);
-    // Return 500 so Leadpipe retries — better to double-process than lose data.
-    return NextResponse.json(
-      { ok: false, error: 'DB insert failed' },
-      { status: 500 }
+  if (!error) return NextResponse.json({ ok: true });
+
+  // 6. Full insert failed — almost always a bad column value (type/shape).
+  //    Fall back to a raw-only insert so the lead is NEVER lost: raw_payload
+  //    is jsonb and accepts anything. This is the safety net that keeps one
+  //    weird payload from deactivating the webhook.
+  console.error(
+    '[leadpipe webhook] Full insert failed, attempting raw-only fallback:',
+    error
+  );
+  const { error: rawError } = await supabase.from('leadpipe_leads').insert({
+    source_pixel: sourcePixel,
+    source_domain: sourceDomain,
+    event_type: eventType,
+    event_at: eventAt,
+    raw_payload: payload,
+  });
+
+  if (!rawError) {
+    console.warn(
+      '[leadpipe webhook] Stored raw-only row (flattened columns skipped for this payload).'
     );
+    return NextResponse.json({ ok: true, warning: 'stored raw payload only' });
   }
 
-  return NextResponse.json({ ok: true });
+  // 7. Even the raw insert failed → genuine DB problem. NOW a 500 is correct:
+  //    the failure is transient and a Leadpipe retry may succeed.
+  console.error(
+    '[leadpipe webhook] Raw-only fallback ALSO failed (DB likely down):',
+    rawError
+  );
+  return NextResponse.json({ ok: false, error: 'DB insert failed' }, { status: 500 });
 }
 
 // Optional GET endpoint for liveness checks / verifying the URL is up

@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import LeadpipePixel from "@/components/LeadpipePixel";
 import CookieConsent from "@/components/CookieConsent";
 import GradientCursor from "@/components/GradientCursor";
 import { consolidatedSchema } from "@/lib/schema";
@@ -142,13 +143,10 @@ export default function RootLayout({
         {/* Leadpipe — visitor identification pixel.
             Pixel ID cb92e2bc-5759-4c6b-be4f-bed4c19d1677 (sweetdreams.us).
             Manage at app.leadpipe.com. Excluded paths configured on the
-            pixel itself (server-side), so /api, /profile, /login, /signup,
-            /auth, /admin requests do not fire tracking. */}
-        <Script
-          id="leadpipe-pixel"
-          src="https://leadpipe.aws53.cloud/p/cb92e2bc-5759-4c6b-be4f-bed4c19d1677.js"
-          strategy="afterInteractive"
-        />
+            pixel itself (server-side). Wrapped in a client gate so the
+            Sweet Dreams team can suppress their own traffic with ?notrack=1
+            (self-traffic was getting misidentified — see LeadpipePixel.tsx). */}
+        <LeadpipePixel />
 
         {/* Microsoft Clarity */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
