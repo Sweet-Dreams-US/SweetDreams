@@ -18,6 +18,30 @@ import { NextRequest, NextResponse } from 'next/server';
 import { resend, ADMIN_EMAIL, FROM_EMAIL } from '@/lib/emails/resend';
 import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
 
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
+
+async function verifyTurnstile(token: string, remoteip?: string): Promise<boolean> {
+  if (!TURNSTILE_SECRET_KEY) {
+    console.error('[funnel-capture] TURNSTILE_SECRET_KEY not configured');
+    return false;
+  }
+  try {
+    const form = new FormData();
+    form.append('secret', TURNSTILE_SECRET_KEY);
+    form.append('response', token);
+    if (remoteip) form.append('remoteip', remoteip);
+    const res = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      { method: 'POST', body: form }
+    );
+    const result = await res.json();
+    return result.success === true;
+  } catch (err) {
+    console.error('[funnel-capture] Turnstile verify error:', err);
+    return false;
+  }
+}
+
 // Human-readable context per funnel for the email subject + body.
 const FUNNELS: Record<string, { label: string; offer: string }> = {
   'free-website': {
@@ -51,6 +75,7 @@ export async function POST(request: NextRequest) {
     const {
       funnel,
       honeypot,
+      turnstileToken,
       firstName = '',
       lastName = '',
       email = '',
@@ -65,6 +90,20 @@ export async function POST(request: NextRequest) {
         funnel,
       });
       return NextResponse.json({ success: true });
+    }
+
+    // 1b. Cloudflare Turnstile — verify the human check before anything else.
+    const clientIp =
+      request.headers.get('cf-connecting-ip') ||
+      request.headers.get('x-forwarded-for')?.split(',')[0] ||
+      undefined;
+
+    if (!turnstileToken) {
+      return NextResponse.json({ error: 'Verification required' }, { status: 400 });
+    }
+    if (!(await verifyTurnstile(turnstileToken as string, clientIp))) {
+      console.warn('[funnel-capture] Invalid Turnstile token', { funnel, email });
+      return NextResponse.json({ error: 'Invalid verification' }, { status: 400 });
     }
 
     // 2. Resolve funnel context (unknown funnel still accepted, labeled raw).
@@ -84,11 +123,6 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. Rate limit + spam filter (shared with the other forms).
-    const clientIp =
-      request.headers.get('cf-connecting-ip') ||
-      request.headers.get('x-forwarded-for')?.split(',')[0] ||
-      undefined;
-
     if (clientIp && !checkRateLimit(clientIp)) {
       console.warn('[funnel-capture] Rate limited', { funnel, email, ip: clientIp });
       return NextResponse.json(
