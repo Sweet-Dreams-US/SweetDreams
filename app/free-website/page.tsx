@@ -55,63 +55,59 @@ export default function FreeWebsitePage() {
         </p>
       </div>
 
-      <div className={styles.splitHero}>
-        <div className={styles.heroLeft}>
-          <p className={styles.kicker}>Local Businesses</p>
-          <h1 className={styles.headline}>
-            See Your New Website <span className={styles.hl}>Before You Pay</span>
-          </h1>
-          <p className={styles.subhead}>
-            We hand-build a real, clickable site personalized to your business —
-            free. Love it and it&apos;s yours. Don&apos;t, and you owe nothing.
-          </p>
+      <div className={styles.stack}>
+        <p className={styles.kicker}>Local Businesses</p>
+        <h1 className={styles.headline}>
+          See Your New Website <span className={styles.hl}>Before You Pay</span>
+        </h1>
+        <p className={styles.subhead}>
+          We hand-build a real, clickable site personalized to your business —
+          free. Love it and it&apos;s yours. Don&apos;t, and you owe nothing.
+        </p>
 
-          <div className={styles.exampleRow}>
-            {examples.map((ex) => (
-              <a
-                key={ex.url}
-                href={ex.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.exampleCardSm}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={poster(ex.videoId)}
-                  alt={`${ex.name} website`}
-                  className={styles.exampleThumbSm}
-                  loading="lazy"
-                />
-                <span className={styles.exampleNameSm}>{ex.name} →</span>
-              </a>
-            ))}
-          </div>
-
-          <div className={styles.trustRow}>
-            <span className={styles.trustItem}>
-              <span className={styles.trustStar}>✦</span> Hand-coded, not a template
-            </span>
-            <span className={styles.trustItem}>
-              <span className={styles.trustStar}>✦</span> Yours to keep · live in days
-            </span>
-          </div>
-
-          <div className={styles.consent}>
-            <p className={styles.consentText}>
-              By submitting you agree to be contacted by Sweet Dreams Solutions
-              about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
-              <a href="/terms">Terms</a>.
-            </p>
-          </div>
+        <div className={styles.exampleRow}>
+          {examples.map((ex) => (
+            <a
+              key={ex.url}
+              href={ex.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.exampleCardSm}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={poster(ex.videoId)}
+                alt={`${ex.name} website`}
+                className={styles.exampleThumbSm}
+                loading="lazy"
+              />
+              <span className={styles.exampleNameSm}>{ex.name} →</span>
+            </a>
+          ))}
         </div>
 
-        <div className={styles.heroRight}>
-          <FunnelForm
-            funnel="free-website"
-            steps={steps}
-            successTitle="You're in."
-            successBody="We'll reach out shortly, build your site, and send the live link to click through — no payment, no commitment."
-          />
+        <FunnelForm
+          funnel="free-website"
+          steps={steps}
+          successTitle="You're in."
+          successBody="We'll reach out shortly, build your site, and send the live link to click through — no payment, no commitment."
+        />
+
+        <div className={styles.trustRow}>
+          <span className={styles.trustItem}>
+            <span className={styles.trustStar}>✦</span> Hand-coded, not a template
+          </span>
+          <span className={styles.trustItem}>
+            <span className={styles.trustStar}>✦</span> Yours to keep · live in days
+          </span>
+        </div>
+
+        <div className={styles.consent}>
+          <p className={styles.consentText}>
+            By submitting you agree to be contacted by Sweet Dreams Solutions
+            about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
+            <a href="/terms">Terms</a>.
+          </p>
         </div>
       </div>
 

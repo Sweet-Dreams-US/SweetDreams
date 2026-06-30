@@ -51,56 +51,51 @@ export default function FreeSoftwarePage() {
         </p>
       </div>
 
-      <div className={styles.splitHero}>
-        <div className={styles.heroLeft}>
-          <p className={styles.kicker}>Business Owners</p>
-          <h1 className={styles.headline}>
-            One System Runs It All. <span className={styles.hl}>You Own It.</span>
-          </h1>
-          <p className={styles.subhead}>
-            Staff, scheduling, accounting, customers — connected and branded to
-            you. We build a live demo on your business. See it before you pay.
-          </p>
+      <div className={styles.stack}>
+        <p className={styles.kicker}>Business Owners</p>
+        <h1 className={styles.headline}>
+          One System Runs It All. <span className={styles.hl}>You Own It.</span>
+        </h1>
+        <p className={styles.subhead}>
+          Staff, scheduling, accounting, customers — connected and branded to
+          you. We build a live demo on your business. See it before you pay.
+        </p>
 
-          {/* Compact stack → one system */}
-          <div className={styles.miniCompare}>
-            <div className={styles.miniCol}>
-              <p className={styles.miniColHead}>You pay now</p>
-              <p className={styles.miniColLine}>
-                Scheduling · Books · CRM · POS · Calendar — 5 bills, none yours
-              </p>
-            </div>
-            <div className={styles.miniArrow}>→</div>
-            <div className={`${styles.miniCol} ${styles.miniColGood}`}>
-              <p className={styles.miniColHead}>You own</p>
-              <p className={styles.miniColLine}>
-                One system · your branding · everything connected
-              </p>
-            </div>
+        <div className={styles.miniCompare}>
+          <div className={styles.miniCol}>
+            <p className={styles.miniColHead}>You pay now</p>
+            <p className={styles.miniColLine}>
+              Scheduling · Books · CRM · POS · Calendar — 5 bills, none yours
+            </p>
           </div>
-
-          <div className={styles.trustRow}>
-            <span className={styles.trustItem}>
-              <span className={styles.trustStar}>✦</span> Your logo, your domain, your data
-            </span>
-          </div>
-
-          <div className={styles.consent}>
-            <p className={styles.consentText}>
-              By submitting you agree to be contacted by Sweet Dreams Solutions
-              about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
-              <a href="/terms">Terms</a>.
+          <div className={styles.miniArrow}>→</div>
+          <div className={`${styles.miniCol} ${styles.miniColGood}`}>
+            <p className={styles.miniColHead}>You own</p>
+            <p className={styles.miniColLine}>
+              One system · your branding · everything connected
             </p>
           </div>
         </div>
 
-        <div className={styles.heroRight}>
-          <FunnelForm
-            funnel="free-software"
-            steps={steps}
-            successTitle="Demo incoming."
-            successBody="We'll learn how your business runs, build a live demo dashboard branded to you, and send a link to click around in — before any talk of price."
-          />
+        <FunnelForm
+          funnel="free-software"
+          steps={steps}
+          successTitle="Demo incoming."
+          successBody="We'll learn how your business runs, build a live demo dashboard branded to you, and send a link to click around in — before any talk of price."
+        />
+
+        <div className={styles.trustRow}>
+          <span className={styles.trustItem}>
+            <span className={styles.trustStar}>✦</span> Your logo, your domain, your data
+          </span>
+        </div>
+
+        <div className={styles.consent}>
+          <p className={styles.consentText}>
+            By submitting you agree to be contacted by Sweet Dreams Solutions
+            about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
+            <a href="/terms">Terms</a>.
+          </p>
         </div>
       </div>
 

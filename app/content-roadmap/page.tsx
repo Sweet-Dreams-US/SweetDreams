@@ -49,56 +49,51 @@ export default function ContentRoadmapPage() {
         </p>
       </div>
 
-      <div className={styles.splitHero}>
-        <div className={styles.heroLeft}>
-          <p className={styles.kicker}>
-            Every other company asks you to send footage.{' '}
-            <strong>We bring the cameras.</strong>
-          </p>
-          <h1 className={styles.headline}>
-            3 Months of Content. <span className={styles.hl}>You Do Nothing.</span>
-          </h1>
+      <div className={styles.stack}>
+        <p className={styles.kicker}>
+          Every other company asks you to send footage.{' '}
+          <strong>We bring the cameras.</strong>
+        </p>
+        <h1 className={styles.headline}>
+          3 Months of Content. <span className={styles.hl}>You Do Nothing.</span>
+        </h1>
 
-          <div className={styles.reelRow}>
-            {REELS.map((id) => (
-              <div key={id} className={styles.reelItem}>
-                <FunnelReel videoId={id} />
-              </div>
-            ))}
-          </div>
-
-          {/* Compact offer + price + guarantee */}
-          <div className={styles.offerCard}>
-            <p className={styles.offerLineItem}>
-              <span className={styles.offerCheck}>✓</span> Filmed at your business · edited
-              in your style · posted &amp; managed everywhere
-            </p>
-            <p className={styles.offerLineItem}>
-              <span className={styles.offerCheck}>✓</span> One shoot · a full 3 months of
-              content · you do nothing
-            </p>
-            <p className={styles.guaranteeChip}>
-              <strong>Guarantee:</strong> a full 3 months of content delivered — or
-              we keep filming free until it is.
-            </p>
-          </div>
-
-          <div className={styles.consent}>
-            <p className={styles.consentText}>
-              By submitting you agree to be contacted by Sweet Dreams Solutions
-              about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
-              <a href="/terms">Terms</a>.
-            </p>
-          </div>
+        <div className={styles.reelRow}>
+          {REELS.map((id) => (
+            <div key={id} className={styles.reelItem}>
+              <FunnelReel videoId={id} />
+            </div>
+          ))}
         </div>
 
-        <div className={styles.heroRight}>
-          <FunnelForm
-            funnel="content-roadmap"
-            steps={steps}
-            successTitle="Your plan is on the way."
-            successBody="We'll map the exact 90 days of content we'd film and post for you, and send it over. No filming, editing, or posting on your end — that's the point."
-          />
+        <div className={styles.offerCard}>
+          <p className={styles.offerLineItem}>
+            <span className={styles.offerCheck}>✓</span> Filmed at your business · edited
+            in your style · posted &amp; managed everywhere
+          </p>
+          <p className={styles.offerLineItem}>
+            <span className={styles.offerCheck}>✓</span> One shoot · a full 3 months of
+            content · you do nothing
+          </p>
+          <p className={styles.guaranteeChip}>
+            <strong>Guarantee:</strong> a full 3 months of content delivered — or
+            we keep filming free until it is.
+          </p>
+        </div>
+
+        <FunnelForm
+          funnel="content-roadmap"
+          steps={steps}
+          successTitle="Your plan is on the way."
+          successBody="We'll map the exact 90 days of content we'd film and post for you, and send it over. No filming, editing, or posting on your end — that's the point."
+        />
+
+        <div className={styles.consent}>
+          <p className={styles.consentText}>
+            By submitting you agree to be contacted by Sweet Dreams Solutions
+            about your project. See our <a href="/privacy">Privacy Policy</a> &amp;{' '}
+            <a href="/terms">Terms</a>.
+          </p>
         </div>
       </div>
 

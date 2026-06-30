@@ -56,28 +56,17 @@
 }
 
 /* ---------- Split hero (the whole page, basically) ---------- */
-.splitHero {
+/* One centered column — everything stacked top to bottom, evenly aligned */
+.stack {
   flex: 1;
   width: 100%;
-  max-width: 1140px;
+  max-width: 680px;
   margin: 0 auto;
-  padding: 40px 24px;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
-  /* columns share a top line (form sits beside the headline), and the
-     whole block centers vertically as one unit — no floating form, no
-     lopsided whitespace */
-  align-items: start;
-  align-content: center;
-}
-
-.heroLeft {
-  min-width: 0;
-}
-
-.heroRight {
-  min-width: 0;
+  padding: clamp(28px, 5vh, 56px) 24px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .kicker {
@@ -85,7 +74,8 @@
   font-style: italic;
   font-size: 14px;
   color: var(--muted);
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
+  max-width: 52ch;
 }
 
 .headline {
@@ -94,9 +84,10 @@
   text-transform: uppercase;
   line-height: 0.98;
   letter-spacing: -0.01em;
-  font-size: clamp(30px, 4.4vw, 52px);
+  font-size: clamp(32px, 5vw, 54px);
   margin: 0 0 14px 0;
   color: var(--ink);
+  max-width: 18ch;
 }
 
 .headline .hl {
@@ -108,8 +99,8 @@
   font-size: clamp(13px, 1.3vw, 15px);
   line-height: 1.55;
   color: var(--muted);
-  margin: 0 0 18px 0;
-  max-width: 48ch;
+  margin: 0 0 20px 0;
+  max-width: 52ch;
 }
 
 /* ---------- Website: 3 small clickable examples ---------- */
@@ -117,7 +108,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 560px;
 }
 
 .exampleCardSm {
@@ -159,8 +152,9 @@
 /* ---------- Social: two vertical reels, compact ---------- */
 .reelRow {
   display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .reelItem {
@@ -229,7 +223,10 @@
   display: flex;
   align-items: stretch;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 560px;
+  text-align: left;
 }
 
 .miniCol {
@@ -276,7 +273,10 @@
   border-radius: 14px;
   padding: 16px 18px;
   background: #fff;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 560px;
+  text-align: left;
 }
 
 .offerLineItem {
@@ -338,6 +338,9 @@
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.07);
   padding: 26px 26px;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 .progress {
@@ -479,6 +482,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 20px;
+  justify-content: center;
+  margin-top: 18px;
 }
 
 .trustItem {
@@ -494,7 +499,8 @@
 .trustStar { color: var(--accent); font-size: 14px; line-height: 1; }
 
 .consent {
-  margin-top: 14px;
+  margin-top: 16px;
+  max-width: 560px;
 }
 
 .consentText {
@@ -543,26 +549,16 @@
   margin: 0 auto;
 }
 
-/* ---------- Desktop: lock the hero to one screen ---------- */
-@media (min-width: 981px) {
-  .splitHero {
-    min-height: calc(100vh - 38px);
-  }
-}
-
-/* ---------- Mobile: stack to ~2 screens ---------- */
+/* ---------- Mobile ---------- */
 @media (max-width: 980px) {
-  .splitHero {
-    grid-template-columns: 1fr;
-    gap: 22px;
-    padding: 22px 20px;
-  }
-  .headline { font-size: clamp(28px, 8vw, 40px); }
-  .reelItem { max-width: 130px; }
+  .stack { padding: 24px 20px 40px; }
+  .headline { font-size: clamp(28px, 8vw, 42px); }
+  .reelItem { max-width: 132px; }
   .formCard { padding: 22px 18px; }
 }
 
 @media (max-width: 380px) {
   .exampleRow { gap: 7px; }
-  .reelRow { gap: 7px; }
+  .reelRow { gap: 8px; }
+  .reelItem { max-width: 120px; }
 }
