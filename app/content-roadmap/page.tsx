@@ -73,12 +73,10 @@ export default function ContentRoadmapPage() {
               <span className={styles.offerCheck}>✓</span> Filmed at your business · edited
               in your style · posted &amp; managed everywhere
             </p>
-            <div className={styles.offerPriceRow}>
-              <span className={styles.offerPrice}>$2,850</span>
-              <span className={styles.offerPriceNote}>
-                one shoot · 3 months of content · then $500/mo to run it
-              </span>
-            </div>
+            <p className={styles.offerLineItem}>
+              <span className={styles.offerCheck}>✓</span> One shoot · a full 3 months of
+              content · you do nothing
+            </p>
             <p className={styles.guaranteeChip}>
               <strong>Guarantee:</strong> a full 3 months of content delivered — or
               we keep filming free until it is.
