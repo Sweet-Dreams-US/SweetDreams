@@ -159,8 +159,8 @@
 
 .reelItem {
   position: relative;
-  flex: 1 1 0;
-  max-width: 150px;
+  flex: none;
+  width: clamp(140px, 22vw, 180px);
   aspect-ratio: 9 / 16;
   border-radius: 12px;
   overflow: hidden;
