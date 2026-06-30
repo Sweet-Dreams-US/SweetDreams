@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
+import FunnelReel from '@/components/funnel/FunnelReel';
 import styles from '@/components/funnel/funnel.module.css';
 
 export const metadata: Metadata = {
@@ -9,9 +10,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-// ⬇️ SWAP this for the real vertical reel once you send the Cloudflare ID.
-const REEL_VIDEO_ID: string | null = null;
-const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
+// Real vertical reels — proof of "we bring the cameras and make the content."
+const REELS = ['62ea7c66a3ad77eadd83bd89c01f98c2', 'f4aa9217c51a8f15aaa849a25763fb57'];
 
 const steps: FunnelStep[] = [
   {
@@ -63,26 +63,14 @@ export default function ContentRoadmapPage() {
         </p>
       </section>
 
-      {/* Vertical reel proof — SWAP REEL_VIDEO_ID above when you have it. */}
+      {/* Vertical reel proof — real shoots, autoplaying muted like a feed */}
       <section className={styles.media}>
-        <div className={styles.frameVertical}>
-          {REEL_VIDEO_ID ? (
-            <video
-              className={styles.frameVideo}
-              src={`${CF}/${REEL_VIDEO_ID}/manifest/video.m3u8`}
-              poster={`${CF}/${REEL_VIDEO_ID}/thumbnails/thumbnail.jpg?time=1s&height=900`}
-              controls
-              playsInline
-            />
-          ) : (
-            <div className={styles.framePlaceholder}>
-              <span className={styles.framePlaceholderTitle}>Your reel here</span>
-              <span className={styles.framePlaceholderSub}>
-                Vertical short goes here — send the Cloudflare video ID to drop in
-                a real shoot.
-              </span>
+        <div className={styles.reelGrid}>
+          {REELS.map((id) => (
+            <div key={id} className={styles.reelItem}>
+              <FunnelReel videoId={id} />
             </div>
-          )}
+          ))}
         </div>
       </section>
 
