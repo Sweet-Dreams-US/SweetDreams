@@ -59,13 +59,17 @@
 .splitHero {
   flex: 1;
   width: 100%;
-  max-width: 1180px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 28px 24px;
+  padding: 40px 24px;
   display: grid;
-  grid-template-columns: 1.02fr 0.98fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  /* columns share a top line (form sits beside the headline), and the
+     whole block centers vertically as one unit — no floating form, no
+     lopsided whitespace */
+  align-items: start;
+  align-content: center;
 }
 
 .heroLeft {
