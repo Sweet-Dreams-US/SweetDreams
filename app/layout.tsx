@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import SiteChrome from "@/components/SiteChrome";
 import LeadpipePixel from "@/components/LeadpipePixel";
 import CookieConsent from "@/components/CookieConsent";
 import GradientCursor from "@/components/GradientCursor";
@@ -202,9 +203,9 @@ export default function RootLayout({
           />
         </noscript>
 
-        <Nav />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <SiteChrome nav={<Nav />} footer={<Footer />}>
+          {children}
+        </SiteChrome>
         <CookieConsent />
         <Analytics />
       </body>
