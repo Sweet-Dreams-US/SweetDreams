@@ -57,6 +57,11 @@ export default function ContentRoadmapPage() {
         <h1 className={styles.headline}>
           3 Months of Content. <span className={styles.hl}>You Do Nothing.</span>
         </h1>
+        <p className={styles.subhead}>
+          First, we build your 90-day content plan — <strong>free</strong>. You see
+          exactly what we&apos;d film before you pay a dime. Then we bring the
+          cameras and make it.
+        </p>
 
         <div className={styles.reelRow}>
           {REELS.map((id) => (
@@ -67,6 +72,13 @@ export default function ContentRoadmapPage() {
         </div>
 
         <div className={styles.offerCard}>
+          <p className={styles.offerLineItem}>
+            <span className={styles.offerCheck}>✓</span>{' '}
+            <span className={styles.hl}>
+              <strong>Free 90-day content plan up front</strong>
+            </span>{' '}
+            — see exactly what we&apos;d film before you pay
+          </p>
           <p className={styles.offerLineItem}>
             <span className={styles.offerCheck}>✓</span> Filmed at your business · edited
             in your style · posted &amp; managed everywhere
