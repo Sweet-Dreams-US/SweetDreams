@@ -53,9 +53,10 @@ export default async function ContentRoadmapPage({
   return (
     <div className={`${styles.page} ${styles.accentRed}`}>
       <div className={styles.qualifierBar}>
-        <p className={styles.qualifierText}>
-          <span className={styles.qualifierDot} />
-          {qualifier}
+        <p className={styles.qualifierPill}>
+          <span className={styles.qualifierStar}>✦</span>
+          <span className={styles.qualifierLabel}>{qualifier}</span>
+          <span className={styles.qualifierStar}>✦</span>
         </p>
       </div>
 
