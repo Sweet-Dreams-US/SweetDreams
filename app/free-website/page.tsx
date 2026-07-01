@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
+import { NICHE_BY_SLUG } from '@/lib/funnel-niches';
 import styles from '@/components/funnel/funnel.module.css';
 
 export const metadata: Metadata = {
@@ -45,13 +46,22 @@ const steps: FunnelStep[] = [
   },
 ];
 
-export default function FreeWebsitePage() {
+export default async function FreeWebsitePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ niche?: string }>;
+}) {
+  const { niche } = await searchParams;
+  const qualifier =
+    (niche && NICHE_BY_SLUG[niche]?.w) ||
+    'Built for Fort Wayne businesses ready to look the part';
+
   return (
     <div className={`${styles.page} ${styles.accentBlue}`}>
       <div className={styles.qualifierBar}>
         <p className={styles.qualifierText}>
           <span className={styles.qualifierDot} />
-          Built for Fort Wayne businesses ready to look the part
+          {qualifier}
         </p>
       </div>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
 import FunnelReel from '@/components/funnel/FunnelReel';
+import { NICHE_BY_SLUG } from '@/lib/funnel-niches';
 import styles from '@/components/funnel/funnel.module.css';
 
 export const metadata: Metadata = {
@@ -39,13 +40,22 @@ const steps: FunnelStep[] = [
   },
 ];
 
-export default function ContentRoadmapPage() {
+export default async function ContentRoadmapPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ niche?: string }>;
+}) {
+  const { niche } = await searchParams;
+  const qualifier =
+    (niche && NICHE_BY_SLUG[niche]?.c) ||
+    'For local businesses that want to be everywhere — with no time to film';
+
   return (
     <div className={`${styles.page} ${styles.accentRed}`}>
       <div className={styles.qualifierBar}>
         <p className={styles.qualifierText}>
           <span className={styles.qualifierDot} />
-          For local businesses that want to be everywhere — with no time to film
+          {qualifier}
         </p>
       </div>
 
