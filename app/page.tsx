@@ -16,13 +16,13 @@ import CallNow from "@/components/CallNow";
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-black">
-      {/* 1. Video Hero */}
-      <VideoHero />
-
-      {/* 1.5 Free offers bar — three funnels, one bright strip */}
+      {/* 1. Free offers bar — thin strip under the nav, above the hero */}
       <FreeOffersBar />
 
-      {/* 2. What We Do — four service pillars */}
+      {/* 2. Video Hero */}
+      <VideoHero />
+
+      {/* 3. What We Do — four service pillars */}
       <WhatWeDo />
 
       {/* 3. We Were Raised In This Age — process + positioning */}

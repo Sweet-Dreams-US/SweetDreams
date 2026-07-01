@@ -245,7 +245,9 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 85vh;
+  /* Trimmed from 85vh to leave room for the nav + free-offers bar so the
+     hero header stays above the fold on desktop. */
+  max-height: 72vh;
   border-radius: 40px;
   overflow: hidden;
   background: black;
