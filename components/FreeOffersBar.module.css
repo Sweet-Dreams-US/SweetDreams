@@ -1,0 +1,77 @@
+/* Bright offer strip against the black homepage. Three color-coded
+   segments linking to the free-funnel pages. */
+.bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #ffffff;
+  width: 100%;
+}
+
+.segment {
+  --c: #4a90e2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 24px 20px;
+  text-decoration: none;
+  text-align: center;
+  border-left: 1px solid #ededed;
+  transition: background 0.2s ease;
+}
+
+.segment:first-child {
+  border-left: none;
+}
+
+.blue { --c: #4a90e2; }
+.red { --c: #e63636; }
+.green { --c: #1a9e3a; }
+
+.segment:hover {
+  background: color-mix(in srgb, var(--c) 9%, #fff);
+}
+
+.label {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: clamp(18px, 2.2vw, 27px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--c);
+}
+
+.sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: #555;
+}
+
+.arrow {
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  color: var(--c);
+  margin-top: 2px;
+  transition: transform 0.2s ease;
+}
+
+.segment:hover .arrow {
+  transform: translateX(5px);
+}
+
+@media (max-width: 760px) {
+  .bar {
+    grid-template-columns: 1fr;
+  }
+  .segment {
+    border-left: none;
+    border-top: 1px solid #ededed;
+    padding: 16px 18px;
+  }
+  .segment:first-child {
+    border-top: none;
+  }
+}

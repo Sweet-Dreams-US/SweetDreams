@@ -1,5 +1,6 @@
 import RecentWork from "@/components/RecentWork";
 import VideoHero from "@/components/VideoHero";
+import FreeOffersBar from "@/components/FreeOffersBar";
 import SolutionsAnimated from "@/components/SolutionsAnimated";
 import FriendsAnimated from "@/components/FriendsAnimated";
 import FeaturedProject from "@/components/FeaturedProject";
@@ -17,6 +18,9 @@ export default function HomePage() {
     <div className="min-h-screen bg-black">
       {/* 1. Video Hero */}
       <VideoHero />
+
+      {/* 1.5 Free offers bar — three funnels, one bright strip */}
+      <FreeOffersBar />
 
       {/* 2. What We Do — four service pillars */}
       <WhatWeDo />
