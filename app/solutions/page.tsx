@@ -124,7 +124,7 @@ function SolutionsOfferForm({
           callback: (t: string) => { setToken(t); setTsError(null); },
           'error-callback': () => setToken(null),
           'expired-callback': () => setToken(null),
-          theme: 'dark',
+          theme: 'light',
           size: 'flexible',
         });
       } catch (e) { console.error('Turnstile render error:', e); }
@@ -171,7 +171,7 @@ function SolutionsOfferForm({
   };
 
   return (
-    <div className={styles.blackPricingSection}>
+    <div className={styles.videoProductionSection}>
       <Script
         id="turnstile-script"
         src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
@@ -179,7 +179,7 @@ function SolutionsOfferForm({
         onLoad={renderTurnstile}
       />
       <div className={styles.videoProductionContainer}>
-        <div className={styles.narrativeIntro}>
+        <div className={`${styles.narrativeIntro} ${styles.narrativeIntroWhite}`}>
           <p className={styles.narrativeKicker} style={{ color: accent }}>{kicker}</p>
           <h3 className={styles.narrativeHeadline}>{headline}</h3>
           <p className={styles.narrativeBody}>{subhead}</p>
@@ -189,8 +189,8 @@ function SolutionsOfferForm({
 
         {status === 'success' ? (
           <div className={styles.formSuccess}>
-            <h3>{successTitle}</h3>
-            <p>{successBody}</p>
+            <h3 style={{ color: '#0a0a0a' }}>{successTitle}</h3>
+            <p style={{ color: 'rgba(0,0,0,0.55)' }}>{successBody}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={`${styles.form} ${styles.offerFormWrap}`}>

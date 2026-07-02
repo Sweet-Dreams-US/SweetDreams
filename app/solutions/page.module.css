@@ -1094,17 +1094,18 @@
 
 .offerExampleCard {
   display: block;
-  border: 1px solid #333;
+  border: 1px solid #e5e5ea;
   border-radius: 10px;
   overflow: hidden;
-  background: #000;
+  background: #fff;
   text-decoration: none;
-  transition: transform 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .offerExampleCard:hover {
   transform: translateY(-3px);
-  border-color: #fff;
+  border-color: #0a0a0a;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .offerExampleThumb {
@@ -1123,7 +1124,22 @@
   font-size: 11px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #fff;
+  color: #0a0a0a;
+}
+
+/* Light inputs for the offer form on the white section */
+.offerFormWrap .formInput {
+  background: #f5f5f7;
+  border-color: #d5d5da;
+  color: #0a0a0a;
+}
+
+.offerFormWrap .formInput::placeholder {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.offerFormWrap .formInput:focus {
+  border-color: #0a0a0a;
 }
 
 .offerReels {
