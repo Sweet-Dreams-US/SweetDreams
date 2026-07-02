@@ -2,10 +2,12 @@ import Link from 'next/link';
 import styles from './FreeOffersBar.module.css';
 
 /**
- * Homepage offer bar — a bright strip routing to the three free-funnel
- * landing pages. Each segment is color-coded to its destination's accent
- * (website = blue, content = red, software = green) so the offers read as
- * one product line.
+ * Homepage offer bar — a bright strip routing to the live free-funnel
+ * landing pages. Each segment is color-coded to its destination's accent.
+ *
+ * Business operations (software) is intentionally hidden for now — the
+ * /free-software page stays live but is not promoted here. To re-enable,
+ * uncomment the Free Software Demo entry below (the bar auto-fits the count).
  */
 const offers = [
   {
@@ -20,12 +22,12 @@ const offers = [
     href: '/content-roadmap',
     tone: styles.red,
   },
-  {
-    label: 'Free Software Demo',
-    sub: 'A live demo, branded to you',
-    href: '/free-software',
-    tone: styles.green,
-  },
+  // {
+  //   label: 'Free Software Demo',
+  //   sub: 'A live demo, branded to you',
+  //   href: '/free-software',
+  //   tone: styles.green,
+  // },
 ];
 
 export default function FreeOffersBar() {
