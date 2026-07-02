@@ -3,7 +3,11 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
+import FunnelReel from "@/components/funnel/FunnelReel";
 import styles from "./page.module.css";
+
+const CF_POSTER = (id: string) =>
+  `https://customer-w6h9o08eg118alny.cloudflarestream.com/${id}/thumbnails/thumbnail.jpg?time=2s&height=400`;
 
 const TURNSTILE_SITE_KEY = "0x4AAAAAACJodExIWnZ-7sQq";
 
@@ -78,6 +82,160 @@ function Card({ title, features, buttonText, theme }: { title: string; features:
   );
 }
 
+// ==================== EMBEDDED FREE-OFFER BLOCK ====================
+// The funnel offer (spec website / content plan) rendered in the solutions
+// design at the top of a tab. Posts to /api/funnel-capture like the
+// standalone landing pages, so these leads are tracked the same way.
+
+function SolutionsOfferForm({
+  funnel,
+  accent,
+  kicker,
+  headline,
+  subhead,
+  proof,
+  ctaLabel,
+  successTitle,
+  successBody,
+}: {
+  funnel: string;
+  accent: string;
+  kicker: string;
+  headline: string;
+  subhead: string;
+  proof?: React.ReactNode;
+  ctaLabel: string;
+  successTitle: string;
+  successBody: string;
+}) {
+  const [data, setData] = useState({ firstName: '', lastName: '', businessName: '', email: '', phone: '' });
+  const [honeypot, setHoneypot] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [token, setToken] = useState<string | null>(null);
+  const [tsError, setTsError] = useState<string | null>(null);
+  const tsRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  const renderTurnstile = useCallback(() => {
+    if (window.turnstile && tsRef.current && !widgetIdRef.current) {
+      try {
+        widgetIdRef.current = window.turnstile.render(tsRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: (t: string) => { setToken(t); setTsError(null); },
+          'error-callback': () => setToken(null),
+          'expired-callback': () => setToken(null),
+          theme: 'dark',
+          size: 'flexible',
+        });
+      } catch (e) { console.error('Turnstile render error:', e); }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.turnstile) renderTurnstile();
+    return () => {
+      if (widgetIdRef.current && window.turnstile) {
+        try { window.turnstile.remove(widgetIdRef.current); } catch {}
+        widgetIdRef.current = null;
+      }
+    };
+  }, [renderTurnstile]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setData({ ...data, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!token) { setTsError('Please complete the verification.'); return; }
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/funnel-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ funnel, ...data, honeypot, turnstileToken: token }),
+      });
+      if (res.ok) {
+        setStatus('success');
+        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', { funnel });
+        }
+        setData({ firstName: '', lastName: '', businessName: '', email: '', phone: '' });
+        setToken(null);
+        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
+      } else {
+        setStatus('error');
+        setToken(null);
+        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
+      }
+    } catch { setStatus('error'); }
+  };
+
+  return (
+    <div className={styles.blackPricingSection}>
+      <Script
+        id="turnstile-script"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        strategy="lazyOnload"
+        onLoad={renderTurnstile}
+      />
+      <div className={styles.videoProductionContainer}>
+        <div className={styles.narrativeIntro}>
+          <p className={styles.narrativeKicker} style={{ color: accent }}>{kicker}</p>
+          <h3 className={styles.narrativeHeadline}>{headline}</h3>
+          <p className={styles.narrativeBody}>{subhead}</p>
+        </div>
+
+        {proof}
+
+        {status === 'success' ? (
+          <div className={styles.formSuccess}>
+            <h3>{successTitle}</h3>
+            <p>{successBody}</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className={`${styles.form} ${styles.offerFormWrap}`}>
+            <input
+              type="text" name="company_website" tabIndex={-1} autoComplete="off"
+              value={honeypot} onChange={(e) => setHoneypot(e.target.value)} aria-hidden="true"
+              style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+            />
+            <div className={styles.formRow}>
+              <div className={styles.formField}>
+                <input name="firstName" value={data.firstName} onChange={handleChange} required placeholder="First name" className={styles.formInput} />
+              </div>
+              <div className={styles.formField}>
+                <input name="lastName" value={data.lastName} onChange={handleChange} required placeholder="Last name" className={styles.formInput} />
+              </div>
+            </div>
+            <div className={styles.formField}>
+              <input name="businessName" value={data.businessName} onChange={handleChange} required placeholder="Business name" className={styles.formInput} />
+            </div>
+            <div className={styles.formRow}>
+              <div className={styles.formField}>
+                <input type="email" name="email" value={data.email} onChange={handleChange} required placeholder="Email" className={styles.formInput} />
+              </div>
+              <div className={styles.formField}>
+                <input type="tel" name="phone" value={data.phone} onChange={handleChange} placeholder="Phone (optional)" className={styles.formInput} />
+              </div>
+            </div>
+            <div ref={tsRef} className={styles.turnstile} />
+            {tsError && <p className={styles.formError}>{tsError}</p>}
+            <button
+              type="submit"
+              className={styles.formSubmit}
+              style={{ background: accent, borderColor: accent, color: '#fff' }}
+              disabled={status === 'loading' || !token}
+            >
+              {status === 'loading' ? 'SENDING...' : ctaLabel}
+            </button>
+            {status === 'error' && <p className={styles.formError}>Something went wrong. Please try again.</p>}
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ==================== 1. MEDIA PRODUCTION ====================
 
 function MediaTab() {
@@ -86,6 +244,27 @@ function MediaTab() {
 
   return (
     <div className={styles.tabContent}>
+      {/* ===== FREE CONTENT-PLAN OFFER (landing page, solutions design) ===== */}
+      <SolutionsOfferForm
+        funnel="content-roadmap"
+        accent="#a855f7"
+        kicker="Free — your 90-day content plan"
+        headline="3 months of content. You do nothing."
+        subhead={"First, we build your 90-day content plan — free. See exactly what we'd film before you pay. Then we bring the cameras and make it — filmed, edited, and posted for you."}
+        proof={
+          <div className={styles.offerReels}>
+            {['62ea7c66a3ad77eadd83bd89c01f98c2', 'f4aa9217c51a8f15aaa849a25763fb57'].map((id) => (
+              <div key={id} className={styles.offerReel}>
+                <FunnelReel videoId={id} />
+              </div>
+            ))}
+          </div>
+        }
+        ctaLabel="Get my content plan"
+        successTitle="Your plan is on the way."
+        successBody={"We'll map the exact 90 days of content we'd film and post for you, and send it over."}
+      />
+
       <div className={styles.videoProductionSection}>
         <div className={styles.videoProductionContainer}>
           <Accordion title="BRAND FILM" isOpen={open === 'brand'} onToggle={() => t('brand')} theme="white">
@@ -212,6 +391,33 @@ function WebSoftwareTab() {
 
   return (
     <div className={styles.tabContent}>
+      {/* ===== FREE SPEC-WEBSITE OFFER (landing page, solutions design) ===== */}
+      <SolutionsOfferForm
+        funnel="free-website"
+        accent="#4A90E2"
+        kicker="Free — see it before you pay"
+        headline="See your new website before you pay a dollar."
+        subhead={"Tell us about your business and we'll hand-build a real, clickable site — personalized to you — free. Love it and it's yours. Don't, and you owe nothing."}
+        proof={
+          <div className={styles.offerExamples}>
+            {[
+              { name: 'MC Racing', url: 'https://mcracingfortwayne.com', videoId: '1ab82de79e003fc0c37afc0a27fedbc4' },
+              { name: 'SD Music', url: 'https://sweetdreamsmusic.com', videoId: 'c7a40ce22803114bab73611635add20c' },
+              { name: 'Sweet Dreams', url: 'https://sweetdreams.us', videoId: '2e09ff39e945e08cf28ced40197bf836' },
+            ].map((ex) => (
+              <a key={ex.url} href={ex.url} target="_blank" rel="noopener noreferrer" className={styles.offerExampleCard}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={CF_POSTER(ex.videoId)} alt={`${ex.name} website`} className={styles.offerExampleThumb} loading="lazy" />
+                <span className={styles.offerExampleName}>{ex.name} →</span>
+              </a>
+            ))}
+          </div>
+        }
+        ctaLabel="Build mine free"
+        successTitle="You're in."
+        successBody={"We'll reach out shortly, build your site, and send the live link to click through — no payment, no commitment."}
+      />
+
       {/* ===== HALF 1: Frontend — Brand Perception ===== */}
       <div className={styles.blackPricingSection}>
         <div className={styles.videoProductionContainer}>
@@ -580,8 +786,9 @@ export default function SolutionsPage() {
       {/* ACTIVE TAB CONTENT */}
       {TAB_CONTENT[activeTab]}
 
-      {/* CONTACT FORM */}
-      <SolutionsContactForm />
+      {/* CONTACT FORM — hidden on tabs that carry their own offer form
+          (Web & Software, Media) so there's a single capture point per tab. */}
+      {activeTab !== 'web' && activeTab !== 'media' && <SolutionsContactForm />}
 
       {/* MUSIC STUDIO MINI CARD */}
       <div className={styles.musicCard}>

@@ -1077,3 +1077,75 @@
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
 }
+
+/* ===== Embedded free-offer block (funnel offer inside a solutions tab) ===== */
+.offerFormWrap {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.offerExamples {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 640px;
+  margin: 0 auto 32px auto;
+}
+
+.offerExampleCard {
+  display: block;
+  border: 1px solid #333;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.offerExampleCard:hover {
+  transform: translateY(-3px);
+  border-color: #fff;
+}
+
+.offerExampleThumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.offerExampleName {
+  display: block;
+  padding: 8px;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.offerReels {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 32px auto;
+}
+
+.offerReel {
+  position: relative;
+  width: clamp(130px, 20vw, 170px);
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #333;
+  background: #0b0b0b;
+}
+
+@media (max-width: 640px) {
+  .offerExamples {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+  }
+}
