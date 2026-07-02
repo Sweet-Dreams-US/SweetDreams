@@ -51,7 +51,7 @@ export default async function ContentRoadmapPage({
     'For local businesses that want to be everywhere — with no time to film';
 
   return (
-    <div className={`${styles.page} ${styles.accentRed}`}>
+    <div className={`${styles.page} ${styles.accentPurple}`}>
       <div className={styles.qualifierBar}>
         <p className={styles.qualifierPill}>
           <span className={styles.qualifierStar}>✦</span>

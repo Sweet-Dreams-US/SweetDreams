@@ -20,7 +20,7 @@ const offers = [
     label: 'Free Content Plan',
     sub: 'Your 90 days, mapped free',
     href: '/content-roadmap',
-    tone: styles.red,
+    tone: styles.purple,
   },
   // {
   //   label: 'Free Software Demo',

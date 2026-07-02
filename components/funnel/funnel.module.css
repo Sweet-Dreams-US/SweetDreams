@@ -25,6 +25,7 @@
 .accentBlue { --accent: #4a90e2; }
 .accentGreen { --accent: #28c840; }
 .accentRed { --accent: #e63636; }
+.accentPurple { --accent: #a855f7; }
 
 /* ---------- Qualifier bar ---------- */
 .qualifierBar {
