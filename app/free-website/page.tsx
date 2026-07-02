@@ -54,7 +54,7 @@ export default async function FreeWebsitePage({
   const { niche } = await searchParams;
   const qualifier =
     (niche && NICHE_BY_SLUG[niche]?.w) ||
-    'Built for Fort Wayne businesses ready to look the part';
+    'Built for any business ready to look the part';
 
   return (
     <div className={`${styles.page} ${styles.accentBlue}`}>
