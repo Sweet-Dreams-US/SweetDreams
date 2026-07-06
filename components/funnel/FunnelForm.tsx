@@ -117,15 +117,19 @@ export default function FunnelForm({
     return null;
   };
 
-  const fireConversion = () => {
+  const fireConversion = (metaEventId: string) => {
     try {
       const w = window as unknown as {
         gtag?: (...args: unknown[]) => void;
         fbq?: (...args: unknown[]) => void;
+        dataLayer?: Record<string, unknown>[];
       };
       if (typeof w.gtag === 'function')
         w.gtag('event', 'generate_lead', { funnel });
-      if (typeof w.fbq === 'function') w.fbq('track', 'Lead', { funnel });
+      // eventID matches the server-side CAPI Lead so Meta dedupes the pair.
+      if (typeof w.fbq === 'function')
+        w.fbq('track', 'Lead', { funnel }, { eventID: metaEventId });
+      w.dataLayer?.push({ event: 'lead_captured', funnel });
     } catch {
       /* analytics best-effort */
     }
@@ -153,13 +157,25 @@ export default function FunnelForm({
 
     setStatus('submitting');
     try {
+      // One id for both the browser fbq Lead and the server CAPI Lead —
+      // Meta keeps whichever arrives first and drops the duplicate.
+      const metaEventId =
+        typeof crypto !== 'undefined' && 'randomUUID' in crypto
+          ? crypto.randomUUID()
+          : `${funnel}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
       const res = await fetch('/api/funnel-capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ funnel, ...values, honeypot, turnstileToken: token }),
+        body: JSON.stringify({
+          funnel,
+          ...values,
+          honeypot,
+          turnstileToken: token,
+          metaEventId,
+        }),
       });
       if (res.ok) {
-        fireConversion();
+        fireConversion(metaEventId);
         setStatus('success');
       } else {
         setStatus('error');

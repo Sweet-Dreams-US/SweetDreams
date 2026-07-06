@@ -16,14 +16,14 @@ export default function Nav() {
       <div className={styles.navContainer}>
         <div className={styles.navContent}>
 
-          {/* Left: CTA Button + WORK */}
+          {/* Left: Book a Call + Work (yellow) */}
           <div className={styles.navLeft}>
-            <Link href="/book" className={styles.ctaButton}>
+            <Link href="/book" className={`${styles.ctaButton} ${pathname === '/book' ? styles.ctaActive : ''}`}>
               BOOK A CALL
             </Link>
             <Link
               href="/work"
-              className={`${styles.navLink} ${pathname === '/work' || pathname.startsWith('/work/') ? styles.navLinkActive : ''}`}
+              className={`${styles.navLink} ${styles.linkYellow} ${pathname === '/work' || pathname.startsWith('/work/') ? styles.navLinkActive : ''}`}
             >
               WORK
             </Link>
@@ -40,13 +40,19 @@ export default function Nav() {
             </Link>
           </div>
 
-          {/* Right: SOLUTIONS + Hamburger */}
+          {/* Right: Media Production (red) + Web (blue) + Hamburger */}
           <div className={styles.navRight}>
             <Link
-              href="/solutions"
-              className={`${styles.navLink} ${pathname === '/solutions' ? styles.navLinkActive : ''}`}
+              href="/services/media-production"
+              className={`${styles.navLink} ${styles.linkRed} ${pathname === '/services/media-production' ? styles.navLinkActive : ''}`}
             >
-              SOLUTIONS
+              MEDIA PRODUCTION
+            </Link>
+            <Link
+              href="/services/web-software"
+              className={`${styles.navLink} ${styles.linkBlue} ${pathname === '/services/web-software' ? styles.navLinkActive : ''}`}
+            >
+              WEB
             </Link>
 
             {/* Hamburger - inline */}

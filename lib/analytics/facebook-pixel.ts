@@ -19,7 +19,9 @@ declare global {
   }
 }
 
-export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '3631251467167744';
+// SweetDreamsUS dataset (Events Manager) — the agency-site pixel.
+// The music site uses its own pixel (3631251467167744, SweetDreamsMusicWebsite).
+export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '1675521687053415';
 
 export const pageview = () => {
   if (window.fbq) {

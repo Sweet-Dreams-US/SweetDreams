@@ -1,0 +1,735 @@
+/* ============================================================
+   Sweet Dreams — MARKETING landing (bespoke).
+   Creative direction: ENERGETIC, HIGH-CONTRAST, RESULTS-DRIVEN.
+   Yellow accent (#f4c430) with DARK ink text on fills. Dark
+   canvas hero, upward arrows, momentum, animated stat counters.
+   Anton (display) + IBM Plex Mono (body). Distinct from the
+   white split-hero funnel look used elsewhere.
+   ============================================================ */
+
+.page {
+  --accent: #f4c430;
+  --accent-deep: #b8860b; /* darker gold for accent text on white */
+  --ink: #141414;
+  --paper: #ffffff;
+  --night: #0c0c0d;
+  --night-2: #161616;
+  --muted: #6b7280;
+  --muted-dark: rgba(255, 255, 255, 0.62);
+  --line: #e7e7e7;
+  background: var(--paper);
+  color: var(--ink);
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- Big faint OUTLINED background word ---------- */
+.bgWord {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(90px, 21vw, 320px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(244, 196, 48, 0.16);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100vw;
+}
+
+.bgWordHero {
+  top: clamp(220px, 42vh, 360px);
+  -webkit-text-stroke: 2px rgba(244, 196, 48, 0.22);
+}
+
+.bgWordForm {
+  top: auto;
+  bottom: 8%;
+  -webkit-text-stroke: 2px rgba(244, 196, 48, 0.10);
+}
+
+/* ============================================================
+   HERO — dark canvas, accent color-fade, momentum
+   ============================================================ */
+.hero {
+  position: relative;
+  z-index: 1;
+  background:
+    radial-gradient(120% 90% at 82% -10%, rgba(244, 196, 48, 0.28), transparent 55%),
+    radial-gradient(90% 70% at 0% 110%, rgba(244, 196, 48, 0.10), transparent 60%),
+    linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+  color: #fff;
+  overflow: hidden;
+  padding: clamp(56px, 9vh, 120px) 24px clamp(64px, 10vh, 130px);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.freeTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 8px 15px 8px 13px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 22px rgba(244, 196, 48, 0.35);
+}
+
+.freeTagArrow {
+  font-size: 15px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.heroTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  font-size: clamp(46px, 9vw, 128px);
+  margin: 0;
+  color: #fff;
+  max-width: 14ch;
+}
+
+.heroTitle .hl {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+/* underline swipe drawn under the accent word */
+.heroTitle .hl::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.06em;
+  height: 0.09em;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(var(--swipe, 0));
+  transform-origin: left center;
+  opacity: 0.55;
+}
+
+.heroSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.5vw, 16px);
+  line-height: 1.6;
+  color: var(--muted-dark);
+  margin: 22px 0 0;
+  max-width: 56ch;
+}
+
+.heroSub b {
+  color: #fff;
+  font-weight: 700;
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin-top: 34px;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 17px 28px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.14s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 10px 30px rgba(244, 196, 48, 0.32);
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 16px 40px rgba(244, 196, 48, 0.42);
+}
+
+.ctaPrimary:active { transform: translateY(0); }
+
+.ctaArrow {
+  font-size: 17px;
+  line-height: 1;
+  transition: transform 0.18s ease;
+}
+
+.ctaPrimary:hover .ctaArrow { transform: translateY(-3px); }
+
+.ctaSecondary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid rgba(244, 196, 48, 0.5);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.ctaSecondary:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------- Stat counters bar ---------- */
+.statBar {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: clamp(46px, 7vh, 78px) auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.statCard {
+  border: 1px solid rgba(244, 196, 48, 0.28);
+  border-radius: 14px;
+  padding: 22px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: '↑';
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  opacity: 0.75;
+}
+
+.statNum {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(38px, 5.5vw, 58px);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.statSuffix { color: #fff; }
+
+.statLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+  margin-top: 10px;
+}
+
+/* ============================================================
+   OFFERINGS — big bold titles + how-it-helps line
+   ============================================================ */
+.offerings {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+  padding: clamp(64px, 11vh, 130px) 24px;
+}
+
+.sectionInner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.sectionKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sectionKicker::before {
+  content: '';
+  width: 34px;
+  height: 3px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.sectionTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.95;
+  font-size: clamp(34px, 5.5vw, 68px);
+  margin: 0 0 8px;
+  color: var(--ink);
+  max-width: 16ch;
+}
+
+.sectionLede {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 clamp(38px, 6vh, 64px);
+  max-width: 54ch;
+}
+
+.offerList {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--ink);
+}
+
+.offerRow {
+  display: grid;
+  grid-template-columns: 56px 1fr minmax(200px, 0.9fr);
+  align-items: baseline;
+  gap: 8px 28px;
+  padding: clamp(22px, 3.4vh, 36px) 6px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: background 0.25s ease;
+}
+
+.offerRow:hover { background: color-mix(in srgb, var(--accent) 8%, #fff); }
+
+/* animated accent wipe on hover from the left */
+.offerRow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.28s ease;
+}
+
+.offerRow:hover::before { transform: scaleY(1); }
+
+.offerNum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+
+.offerName {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.98;
+  font-size: clamp(26px, 3.8vw, 46px);
+  color: var(--ink);
+  margin: 0;
+}
+
+.offerHow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.offerHow .arrow {
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* the shared benefit callout under the list */
+.benefitLine {
+  margin-top: clamp(30px, 5vh, 52px);
+  background: var(--ink);
+  color: #fff;
+  border-radius: 16px;
+  padding: clamp(26px, 4vh, 40px) clamp(24px, 4vw, 44px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.benefitBig {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(22px, 3.2vw, 38px);
+  line-height: 1.02;
+  margin: 0;
+  flex: 1;
+  min-width: 260px;
+}
+
+.benefitBig .hl { color: var(--accent); }
+
+.benefitArrowBig {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(44px, 7vw, 84px);
+  color: var(--accent);
+  line-height: 0.8;
+}
+
+/* ============================================================
+   PROOF OF WORK — showcase grid
+   ============================================================ */
+.proof {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, #f7f7f5 0%, #efeeea 100%);
+  padding: clamp(64px, 11vh, 130px) 24px;
+  overflow: hidden;
+}
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: clamp(34px, 5vh, 56px);
+}
+
+.proofCard {
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b0b0b;
+  text-decoration: none;
+  border: 1px solid #e0e0da;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* first card spans two columns for a hero feel */
+.proofCardFeature {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.proofCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.20);
+  border-color: var(--accent);
+}
+
+.proofMediaWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #111;
+}
+
+.proofCardFeature .proofMediaWrap { aspect-ratio: 16 / 11; }
+
+.proofThumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.proofCard:hover .proofThumb { transform: scale(1.05); }
+
+.proofOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.82) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.proofMeta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 16px 16px 15px;
+}
+
+.proofTag {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 4px;
+  margin-bottom: 9px;
+}
+
+.proofName {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: clamp(15px, 1.8vw, 22px);
+  line-height: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proofCardFeature .proofName { font-size: clamp(22px, 3vw, 34px); }
+
+.proofNameArrow {
+  color: var(--accent);
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.proofCard:hover .proofNameArrow { transform: translate(3px, -3px); }
+
+/* ============================================================
+   FORM SECTION — dark, offer restated near the form
+   ============================================================ */
+.formSection {
+  position: relative;
+  z-index: 1;
+  background:
+    radial-gradient(90% 70% at 15% -10%, rgba(244, 196, 48, 0.20), transparent 55%),
+    linear-gradient(180deg, var(--night-2) 0%, var(--night) 100%);
+  color: #fff;
+  padding: clamp(64px, 11vh, 130px) 24px;
+  overflow: hidden;
+}
+
+.formGrid {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(30px, 5vw, 64px);
+  align-items: center;
+}
+
+.formPitchTitle {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(34px, 5.5vw, 66px);
+  line-height: 0.92;
+  margin: 14px 0 0;
+  color: #fff;
+}
+
+.formPitchTitle .hl { color: var(--accent); }
+
+.formPitchSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.65;
+  color: var(--muted-dark);
+  margin: 20px 0 0;
+  max-width: 46ch;
+}
+
+.offerChecks {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.offerCheckItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.offerCheckMark {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.formNoCost {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px dashed rgba(244, 196, 48, 0.5);
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.formHolder {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   CLOSER
+   ============================================================ */
+.closer {
+  position: relative;
+  z-index: 1;
+  background: var(--accent);
+  color: var(--ink);
+  padding: clamp(52px, 8vh, 96px) 24px;
+  text-align: center;
+}
+
+.closerInner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closerTitle {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(32px, 6vw, 74px);
+  line-height: 0.92;
+  margin: 0;
+  color: var(--ink);
+}
+
+.closerSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.4vw, 15px);
+  line-height: 1.6;
+  color: rgba(20, 20, 20, 0.72);
+  margin: 18px 0 30px;
+  max-width: 50ch;
+}
+
+.closerCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 17px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.14s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+
+.closerCta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3); }
+.closerCta .ctaArrow { color: var(--accent); }
+.closerCta:hover .ctaArrow { transform: translateY(-3px); }
+
+/* ============================================================
+   Reveal defaults (JS animates these in; safe if JS is slow)
+   ============================================================ */
+.reveal { opacity: 1; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .statBar { grid-template-columns: 1fr; gap: 10px; }
+  .offerRow {
+    grid-template-columns: 40px 1fr;
+    gap: 6px 16px;
+  }
+  .offerHow {
+    grid-column: 2 / -1;
+    margin-top: 8px;
+  }
+  .proofGrid { grid-template-columns: 1fr 1fr; }
+  .proofCardFeature { grid-column: span 2; grid-row: auto; }
+  .proofCardFeature .proofMediaWrap { aspect-ratio: 16 / 9; }
+  .formGrid { grid-template-columns: 1fr; }
+  .formPitch { order: 1; }
+  .formHolder { order: 2; }
+}
+
+@media (max-width: 560px) {
+  .bgWord { font-size: clamp(70px, 26vw, 150px); }
+  .proofGrid { grid-template-columns: 1fr; }
+  .proofCardFeature { grid-column: auto; }
+  .heroCtas { gap: 12px 16px; }
+  .benefitLine { flex-direction: column; align-items: flex-start; }
+}
+
+/* Reduced motion — let CSS-driven decoration settle */
+@media (prefers-reduced-motion: reduce) {
+  .heroTitle .hl::after { transform: scaleX(1); }
+  .proofThumb { transition: none; }
+}

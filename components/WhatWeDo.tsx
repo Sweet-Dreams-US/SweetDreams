@@ -26,8 +26,8 @@ const PILLARS = [
     title: 'MEDIA',
     description:
       'Brand films, commercials, social video, aerials, event coverage. Cinema cameras, full post production, and stories built to sell.',
-    ctaLabel: 'See Work',
-    ctaHref: '/work?filter=business',
+    ctaLabel: 'Learn More',
+    ctaHref: '/services/media-production',
     colorClass: 'colorRed',
   },
   {
@@ -35,8 +35,8 @@ const PILLARS = [
     title: 'MARKETING',
     description:
       'Full funnel strategy, Google Ads, Meta Ads, local SEO, and email. Campaigns built to measure, not just run.',
-    ctaLabel: 'Get a Plan',
-    ctaHref: '/solutions#marketing',
+    ctaLabel: 'Learn More',
+    ctaHref: '/services/marketing',
     colorClass: 'colorYellow',
   },
   {
@@ -44,8 +44,8 @@ const PILLARS = [
     title: 'SOFTWARE',
     description:
       'Custom websites and web apps, every one hand coded from scratch. Fast, secure, and built to grow with you.',
-    ctaLabel: 'Start a Build',
-    ctaHref: '/solutions#web',
+    ctaLabel: 'Learn More',
+    ctaHref: '/services/web-software',
     colorClass: 'colorBlue',
   },
   {
@@ -53,8 +53,8 @@ const PILLARS = [
     title: 'STRATEGY',
     description:
       'Brand positioning, offer refinement, and content systems. Frameworks that compound instead of expire.',
-    ctaLabel: 'Book a Call',
-    ctaHref: '/partnerships',
+    ctaLabel: 'Learn More',
+    ctaHref: '/services/consulting',
     colorClass: 'colorGreen',
   },
 ] as const;

@@ -1,0 +1,379 @@
+/* ============================================================
+   Service landing template — funnel style.
+   Bold accent hero (fade + ghost watermark) → proof-of-work grid
+   → accent closing band. No feature list, no trusted-by.
+   Per-service accent via .svc* classes.
+   ============================================================ */
+
+.page {
+  --accent: #e63636;
+  --accent-ink: #fff;
+  --accent-text: #e63636;
+  --line: #e7e7ea;
+  background: #fff;
+  color: #0a0a0a;
+  overflow-x: hidden;
+}
+
+.svcRed { --accent: #e63636; --accent-ink: #ffffff; --accent-text: #e63636; }
+.svcYellow { --accent: #f4c430; --accent-ink: #141414; --accent-text: #9c7400; }
+.svcBlue { --accent: #4a90e2; --accent-ink: #ffffff; --accent-text: #2f6fbf; }
+.svcGreen { --accent: #28c840; --accent-ink: #0a0a0a; --accent-text: #178a35; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(56px, 11vh, 128px) 24px clamp(44px, 7vh, 88px);
+  background:
+    radial-gradient(120% 90% at 85% -10%, color-mix(in srgb, var(--accent) 18%, #fff), #fff 62%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.heroWatermark {
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
+  max-width: 92%;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(52px, 11vw, 156px);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 26%, transparent);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin: 0 0 20px 0;
+}
+
+.kicker::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.headline {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  font-size: clamp(46px, 8.4vw, 116px);
+  margin: 0 0 24px 0;
+  max-width: 15ch;
+}
+
+.hl { color: var(--accent-text); }
+
+.subhead {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.7;
+  color: #52525b;
+  max-width: 660px;
+  margin: 0 0 36px 0;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px 34px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.15s ease, filter 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.ctaPrimary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 2px solid var(--accent);
+}
+
+.ctaPrimary:hover { filter: brightness(1.06); transform: translateY(-2px); }
+
+.ctaSecondary {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
+.ctaSecondary:hover { background: #0a0a0a; color: #fff; transform: translateY(-2px); }
+
+/* ---------- What we do — bold offerings band ---------- */
+.offers {
+  background: #0a0a0a;
+  color: #fff;
+  padding: clamp(56px, 9vh, 104px) 24px;
+}
+
+.offersInner {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.offersEyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.offersTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 4.4vw, 52px);
+  text-transform: uppercase;
+  line-height: 1;
+  text-align: center;
+  color: #fff;
+  margin: 0 0 40px 0;
+}
+
+.offersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 48px;
+}
+
+.offerItem {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 20px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(22px, 3vw, 38px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #fff;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.offerItem:hover {
+  color: var(--accent);
+  padding-left: 12px;
+}
+
+.offerNum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .offersGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Proof of work ---------- */
+.proof {
+  padding: clamp(56px, 9vh, 104px) 24px;
+  background: #fff;
+}
+
+.proofInner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.proofEyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.proofTitle {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 4.4vw, 52px);
+  text-transform: uppercase;
+  line-height: 1;
+  text-align: center;
+  margin: 0 0 44px 0;
+}
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.proofCard {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.proofCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.proofThumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.proofMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 15px;
+  background: #fff;
+}
+
+.proofLabel {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #0a0a0a;
+  line-height: 1.05;
+}
+
+.proofTag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.proofMoreRow {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.proofMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  text-decoration: none;
+  padding: 14px 34px;
+  border-radius: 999px;
+  border: 2px solid #0a0a0a;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.proofMore:hover { background: #0a0a0a; color: #fff; }
+
+/* ---------- Closing CTA band ---------- */
+.closing {
+  padding: clamp(64px, 11vh, 130px) 24px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  text-align: center;
+}
+
+.closingInner { max-width: 820px; margin: 0 auto; }
+
+.closingHeadline {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(30px, 5vw, 60px);
+  text-transform: uppercase;
+  line-height: 1.02;
+  margin: 0 0 16px 0;
+}
+
+.closingSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(14px, 1.5vw, 17px);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--accent-ink) 82%, transparent);
+  margin: 0 0 32px 0;
+}
+
+.closingBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent-ink);
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 18px 44px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+.closingBtn:hover { transform: translateY(-2px); filter: brightness(0.96); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .proofGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .proofGrid { grid-template-columns: 1fr; }
+  .ctaRow { flex-direction: column; }
+  .ctaPrimary, .ctaSecondary { justify-content: center; }
+  .heroWatermark { display: none; }
+}

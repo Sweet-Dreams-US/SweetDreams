@@ -1,0 +1,700 @@
+/* ============================================================
+   Web & Software — bespoke landing.
+   Creative direction: CLEAN MODERN TECH. Bright, crisp,
+   blueprint/grid motifs. Browser-window mockups for proof.
+   Blue accent (#4a90e2). Precise, premium-engineered feel.
+   Fonts: Anton (display) + IBM Plex Mono (body) — loaded globally.
+   ============================================================ */
+
+.page {
+  --accent: #4a90e2;
+  --accent-deep: #2f6fc4;
+  --accent-ink: #ffffff;
+  --ink: #0b1220;
+  --muted: #5b6b82;
+  --line: #dbe3ee;
+  --grid: rgba(74, 144, 226, 0.09);
+  --paper: #f5f8fc;
+
+  position: relative;
+  background: #ffffff;
+  color: var(--ink);
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+  /* Blueprint grid backdrop for the whole page */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-position: center top;
+}
+
+/* thin measuring rule at the very top — engineered feel */
+.topRule {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+  box-shadow: 0 1px 0 rgba(74, 144, 226, 0.35);
+}
+
+/* ============================================================
+   BIG BACKGROUND WORD — outlined "WEB"
+   ============================================================ */
+.bgWord {
+  position: absolute;
+  top: clamp(90px, 13vh, 190px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  /* clamp keeps it inside the viewport horizontally */
+  font-size: clamp(120px, 26vw, 380px);
+  line-height: 0.8;
+  letter-spacing: 0.02em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(74, 144, 226, 0.16);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* everything sits above the grid + word */
+.shell {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: clamp(56px, 9vh, 120px) 0 clamp(48px, 7vh, 90px);
+}
+
+/* soft accent color-fade behind the hero content */
+.heroGlow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, 92vw);
+  height: 560px;
+  background:
+    radial-gradient(60% 60% at 50% 30%, rgba(74, 144, 226, 0.22), transparent 70%),
+    radial-gradient(50% 50% at 75% 60%, rgba(47, 111, 196, 0.14), transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.heroTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 15px;
+  backdrop-filter: blur(4px);
+  margin-bottom: 22px;
+}
+
+.heroTag .dotLive {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.6);
+  animation: pulse 2.2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(74, 144, 226, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0); }
+}
+
+.heroTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  font-size: clamp(46px, 8.5vw, 116px);
+  margin: 0 0 20px 0;
+  max-width: 15ch;
+  color: var(--ink);
+}
+
+.heroTitle .hl {
+  color: var(--accent);
+  position: relative;
+}
+
+.heroSub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.35vw, 16px);
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 30px 0;
+  max-width: 56ch;
+}
+
+.heroSub b { color: var(--ink); font-weight: 700; }
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  padding: 16px 26px;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(74, 144, 226, 0.32);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  background: var(--accent-deep);
+  box-shadow: 0 16px 40px rgba(74, 144, 226, 0.4);
+}
+
+.ctaPrimary .arrow { transition: transform 0.2s ease; }
+.ctaPrimary:hover .arrow { transform: translateX(4px); }
+
+.ctaSecondary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ctaSecondary:hover { color: var(--accent-deep); }
+
+/* offer strip under CTA — the free spec-site hook */
+.offerStrip {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 10px 34px rgba(11, 18, 32, 0.06);
+  max-width: 780px;
+}
+
+.offerStripLabel {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: var(--accent-deep);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.offerStripText {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  flex: 1;
+  min-width: 220px;
+}
+
+.offerStripText b { color: var(--ink); }
+
+/* ============================================================
+   SECTION SCAFFOLD
+   ============================================================ */
+.section {
+  padding: clamp(56px, 9vh, 110px) 0;
+  position: relative;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.sectionIndex {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 10px;
+  background: #fff;
+}
+
+.sectionTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(30px, 4.6vw, 60px);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  margin: 0;
+  color: var(--ink);
+}
+
+.sectionTitle .hl { color: var(--accent); }
+
+.sectionLede {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 0 0 0 auto;
+  flex: 1;
+  min-width: 260px;
+}
+
+/* ============================================================
+   OFFERINGS — big titles + benefit line, blueprint cards
+   ============================================================ */
+.offerGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.offerCard {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 30px 28px 28px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.offerCard::before {
+  /* faint corner blueprint tick */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.offerCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 22px 50px rgba(74, 144, 226, 0.16);
+}
+
+.offerCard:hover::before { opacity: 1; }
+
+.offerNum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.offerTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(26px, 3.4vw, 40px);
+  line-height: 0.98;
+  letter-spacing: -0.005em;
+  margin: 0 0 12px 0;
+  color: var(--ink);
+  position: relative;
+}
+
+.offerHow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  position: relative;
+}
+
+.offerHow b { color: var(--accent-deep); font-weight: 700; }
+
+/* ============================================================
+   PROOF — browser-window mockups
+   ============================================================ */
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px;
+}
+
+/* first card spans full width — the hero build */
+.proofFeature { grid-column: 1 / -1; }
+
+.browser {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(11, 18, 32, 0.08);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.browser:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 30px 64px rgba(74, 144, 226, 0.22);
+}
+
+.browserBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: linear-gradient(180deg, #fbfcfe, #f1f5fb);
+  border-bottom: 1px solid var(--line);
+}
+
+.dots { display: flex; gap: 7px; flex-shrink: 0; }
+.dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.dots span:nth-child(1) { background: #ff5f57; }
+.dots span:nth-child(2) { background: #febc2e; }
+.dots span:nth-child(3) { background: #28c840; }
+
+.urlBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 6px 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.urlLock { color: var(--accent); flex-shrink: 0; font-size: 11px; }
+.urlText { overflow: hidden; text-overflow: ellipsis; }
+
+.screenWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0b1220;
+  overflow: hidden;
+}
+
+.proofFeature .screenWrap { aspect-ratio: 16 / 7; }
+
+.screenShot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.browser:hover .screenShot { transform: scale(1.03); }
+
+/* hero HLS clip fills same frame */
+.screenVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.proofMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-top: 1px solid var(--line);
+}
+
+.proofName {
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(17px, 2vw, 24px);
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1;
+}
+
+.proofUrl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+
+.proofVisit {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.proofVisit .arrow { transition: transform 0.2s ease; }
+.browser:hover .proofVisit .arrow { transform: translate(3px, -3px); }
+
+/* ============================================================
+   FORM SECTION
+   ============================================================ */
+.formSection {
+  position: relative;
+  padding: clamp(56px, 9vh, 110px) 0;
+}
+
+.formWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: center;
+}
+
+.formPitch {}
+
+.formEyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px 0;
+}
+
+.formTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  margin: 0 0 18px 0;
+  color: var(--ink);
+}
+
+.formTitle .hl { color: var(--accent); }
+
+.formBlurb {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 22px 0;
+  max-width: 46ch;
+}
+
+.checkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.checkMark {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 14%, #fff);
+  color: var(--accent-deep);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.closing {
+  padding: clamp(64px, 10vh, 130px) 0 clamp(80px, 12vh, 150px);
+  text-align: center;
+}
+
+.closingLine {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(32px, 6vw, 82px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 auto 26px;
+  max-width: 20ch;
+}
+
+.closingLine .hl { color: var(--accent); }
+
+.closingCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 17px 30px;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 12px 34px rgba(74, 144, 226, 0.32);
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.closingCta:hover {
+  transform: translateY(-2px);
+  background: var(--accent-deep);
+  box-shadow: 0 18px 46px rgba(74, 144, 226, 0.42);
+}
+
+.closingCta .arrow { transition: transform 0.2s ease; }
+.closingCta:hover .arrow { transform: translateX(4px); }
+
+.closingFine {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 20px 0 0;
+}
+
+/* ============================================================
+   REVEAL — hidden ONLY once JS confirms it's driving (.isReady).
+   Without JS the content stays fully visible (no permanent hide).
+   ============================================================ */
+.reveal { opacity: 1; transform: none; }
+.isReady .reveal { opacity: 0; transform: translateY(40px); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .offerGrid { grid-template-columns: 1fr; }
+  .proofGrid { grid-template-columns: 1fr; }
+  .proofFeature .screenWrap { aspect-ratio: 16 / 10; }
+  .formWrap { grid-template-columns: 1fr; gap: 32px; }
+  .sectionLede { margin: 0; }
+}
+
+@media (max-width: 560px) {
+  .shell { padding: 0 18px; }
+  .bgWord {
+    font-size: clamp(96px, 40vw, 200px);
+    top: clamp(70px, 10vh, 120px);
+    -webkit-text-stroke-width: 1.5px;
+  }
+  .heroTitle { font-size: clamp(40px, 13vw, 64px); }
+  .offerStrip { flex-direction: column; align-items: flex-start; }
+  .proofMeta { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* Respect reduced motion — show everything, kill transforms/anim */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .heroTag .dotLive { animation: none; }
+  .browser, .offerCard, .ctaPrimary, .closingCta, .screenShot { transition: none; }
+}

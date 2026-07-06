@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { resend, FROM_EMAIL } from '@/lib/emails/resend';
 import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
+import { sendMetaEvent } from '@/lib/meta-capi';
+import { createServiceRoleClient } from '@/utils/supabase/service-role';
 
 // Both team members receive booking requests
 const BOOKING_EMAILS = ['cole@sweetdreams.us', 'jayvalleo@sweetdreams.us'];
@@ -196,6 +198,44 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`Call booking request received from ${name} (${email})`);
+
+    const [firstName, ...restName] = String(name).trim().split(/\s+/);
+
+    // Persist to Supabase (marketing_leads) — the analytics feed the
+    // Dreams & Nightmares platform reads. Non-fatal.
+    try {
+      const supabase = createServiceRoleClient();
+      const { error: dbError } = await supabase.from('marketing_leads').insert({
+        funnel: 'book-call',
+        first_name: firstName || null,
+        last_name: restName.join(' ') || null,
+        email,
+        phone: phone || null,
+        business_name: company || null,
+        extra: message ? { message } : null,
+        client_ip: clientIp ?? null,
+        user_agent: request.headers.get('user-agent'),
+        referer: request.headers.get('referer'),
+        fbp: request.cookies.get('_fbp')?.value ?? null,
+        fbc: request.cookies.get('_fbc')?.value ?? null,
+      });
+      if (dbError) console.error('[book-call] marketing_leads insert failed:', dbError);
+    } catch (dbErr) {
+      console.error('[book-call] marketing_leads insert error (non-fatal):', dbErr);
+    }
+
+    // Meta Conversions API — a booked call is the highest-intent signal
+    // on the site. Server-only (the book form fires no browser fbq event,
+    // so there is no duplicate to dedup against). Never fatal.
+    await sendMetaEvent({
+      eventName: 'Schedule',
+      request,
+      email,
+      phone,
+      firstName,
+      lastName: restName.join(' ') || undefined,
+      customData: { lead_source: 'book-call' },
+    });
 
     return NextResponse.json({ success: true, message: 'Booking request sent successfully' });
   } catch (error) {

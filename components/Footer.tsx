@@ -29,10 +29,10 @@ export default function Footer() {
           <div className={`${styles.column} ${styles.columnSolutions}`}>
             <h3 className={styles.brandTitle}>SOLUTIONS</h3>
             <div className={styles.links}>
-              <Link href="/solutions" className={styles.link}>Media Production</Link>
-              <Link href="/solutions" className={styles.link}>Marketing</Link>
-              <Link href="/solutions" className={styles.link}>Web & Software</Link>
-              <Link href="/solutions" className={styles.link}>Consulting</Link>
+              <Link href="/services/media-production" className={styles.link}>Media Production</Link>
+              <Link href="/services/marketing" className={styles.link}>Marketing</Link>
+              <Link href="/services/web-software" className={styles.link}>Web & Software</Link>
+              <Link href="/services/consulting" className={styles.link}>Consulting</Link>
               <Link href="/partnerships" className={styles.link}>Partnerships</Link>
             </div>
           </div>

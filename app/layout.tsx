@@ -7,6 +7,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SiteChrome from "@/components/SiteChrome";
 import LeadpipePixel from "@/components/LeadpipePixel";
+import MetaPageViews from "@/components/MetaPageViews";
 import CookieConsent from "@/components/CookieConsent";
 import GradientCursor from "@/components/GradientCursor";
 import { consolidatedSchema } from "@/lib/schema";
@@ -93,7 +94,7 @@ export default function RootLayout({
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-NX7KJL3N');
+            })(window,document,'script','dataLayer','GTM-K255FPMR');
           `}
         </Script>
 
@@ -108,7 +109,7 @@ export default function RootLayout({
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '3631251467167744');
+            fbq('init', '1675521687053415');
             fbq('track', 'PageView');
           `}
         </Script>
@@ -181,11 +182,12 @@ export default function RootLayout({
         />
       </head>
       <body className={ibmPlexMono.className}>
+        <MetaPageViews />
         <GradientCursor />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NX7KJL3N"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-K255FPMR"
             height="0"
             width="0"
             style={{display: 'none', visibility: 'hidden'}}
@@ -198,7 +200,7 @@ export default function RootLayout({
             height="1"
             width="1"
             style={{display: 'none'}}
-            src="https://www.facebook.com/tr?id=3631251467167744&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=1675521687053415&ev=PageView&noscript=1"
             alt=""
           />
         </noscript>

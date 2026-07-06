@@ -17,6 +17,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { resend, ADMIN_EMAIL, FROM_EMAIL } from '@/lib/emails/resend';
 import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
+import { sendMetaEvent } from '@/lib/meta-capi';
+import { createServiceRoleClient } from '@/utils/supabase/service-role';
 
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
@@ -56,6 +58,22 @@ const FUNNELS: Record<string, { label: string; offer: string }> = {
     label: 'Social Content System (content roadmap)',
     offer: 'They want their 90-day content roadmap. Send the plan, pitch the system.',
   },
+  'media-production': {
+    label: 'Media Production (service page)',
+    offer: 'They want a free brand content plan. Map what we would shoot, then pitch production.',
+  },
+  'web-software': {
+    label: 'Web & Software (service page)',
+    offer: 'They want a free spec website (media included). Build it, send the link.',
+  },
+  marketing: {
+    label: 'Marketing (service page)',
+    offer: 'They want a free marketing plan / growth audit. Build the plan, book the call.',
+  },
+  consulting: {
+    label: 'Consulting (service page)',
+    offer: 'They want a free strategy audit. Find the bottleneck, book the call.',
+  },
 };
 
 const FIELD_LABELS: Record<string, string> = {
@@ -76,6 +94,7 @@ export async function POST(request: NextRequest) {
       funnel,
       honeypot,
       turnstileToken,
+      metaEventId, // shared with the browser fbq('track','Lead') for CAPI dedup
       firstName = '',
       lastName = '',
       email = '',
@@ -206,6 +225,47 @@ export async function POST(request: NextRequest) {
     console.log(
       `[funnel-capture] Lead captured (${ctx.label}) from ${fullName} <${email}> — id=${sent.data?.id}`
     );
+
+    // 7. Persist to Supabase (marketing_leads) — the analytics feed the
+    //    Dreams & Nightmares platform reads. Non-fatal: the lead already
+    //    reached the team by email above.
+    try {
+      const { businessName, whatYouDo, ...extraFields } = rest as Record<string, unknown>;
+      const supabase = createServiceRoleClient();
+      const { error: dbError } = await supabase.from('marketing_leads').insert({
+        funnel: String(funnel ?? 'unknown'),
+        first_name: firstName || null,
+        last_name: lastName || null,
+        email,
+        phone: phone || null,
+        business_name: (businessName as string) || null,
+        what_you_do: (whatYouDo as string) || null,
+        extra: Object.keys(extraFields).length ? extraFields : null,
+        meta_event_id: typeof metaEventId === 'string' ? metaEventId : null,
+        client_ip: clientIp ?? null,
+        user_agent: request.headers.get('user-agent'),
+        referer: request.headers.get('referer'),
+        fbp: request.cookies.get('_fbp')?.value ?? null,
+        fbc: request.cookies.get('_fbc')?.value ?? null,
+      });
+      if (dbError) console.error('[funnel-capture] marketing_leads insert failed:', dbError);
+    } catch (dbErr) {
+      console.error('[funnel-capture] marketing_leads insert error (non-fatal):', dbErr);
+    }
+
+    // 8. Meta Conversions API — server-side Lead, deduped against the
+    //    browser fbq('track','Lead') via metaEventId. Never fatal.
+    await sendMetaEvent({
+      eventName: 'Lead',
+      eventId: typeof metaEventId === 'string' ? metaEventId : undefined,
+      request,
+      email,
+      phone,
+      firstName,
+      lastName,
+      customData: { funnel: String(funnel ?? 'unknown'), lead_source: 'funnel' },
+    });
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('[funnel-capture] Unexpected error:', error);

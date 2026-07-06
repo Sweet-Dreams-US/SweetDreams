@@ -109,6 +109,9 @@ export default async function FreeWebsitePage({
             <span className={styles.trustStar}>✦</span> Hand-coded, not a template
           </span>
           <span className={styles.trustItem}>
+            <span className={styles.trustStar}>✦</span> Pro photos &amp; video included
+          </span>
+          <span className={styles.trustItem}>
             <span className={styles.trustStar}>✦</span> Yours to keep · live in days
           </span>
         </div>

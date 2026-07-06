@@ -85,14 +85,27 @@ export default function MobileNav() {
     };
   }, []);
 
-  const navLinks = [
-    { href: '/', label: 'HOME' },
-    { href: '/work', label: 'WORK' },
-    { href: '/solutions', label: 'SOLUTIONS' },
-    { href: '/book', label: 'BOOK A CALL' },
-    { href: '/partnerships', label: 'PARTNERSHIPS' },
-    { href: '/blog', label: 'BLOG' },
-    { href: '/about', label: 'ABOUT' },
+  const navSections = [
+    {
+      label: 'Services',
+      links: [
+        { href: '/services/media-production', label: 'Media Production' },
+        { href: '/services/web-software', label: 'Web' },
+        { href: '/services/marketing', label: 'Marketing' },
+        { href: '/services/consulting', label: 'Consulting' },
+        { href: '/solutions', label: 'All Solutions' },
+      ],
+    },
+    {
+      label: 'Explore',
+      links: [
+        { href: '/', label: 'Home' },
+        { href: '/work', label: 'Work' },
+        { href: '/partnerships', label: 'Partnerships' },
+        { href: '/about', label: 'About' },
+        { href: '/blog', label: 'Blog' },
+      ],
+    },
   ];
 
   return (
@@ -133,18 +146,31 @@ export default function MobileNav() {
         </button>
 
         <nav className={styles.mobileNav}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`${styles.navLink} ${
-                pathname === link.href ? styles.active : ''
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              {link.label}
-            </Link>
+          {navSections.map((section) => (
+            <div key={section.label} className={styles.navSection}>
+              <span className={styles.navSectionLabel}>{section.label}</span>
+              {section.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`${styles.navLink} ${
+                    pathname === link.href ? styles.active : ''
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           ))}
+
+          <Link
+            href="/book"
+            className={`${styles.navCta} ${pathname === '/book' ? styles.navCtaActive : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Book a Call
+          </Link>
         </nav>
 
         <div className={styles.mobileMenuFooter}>

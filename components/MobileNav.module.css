@@ -68,33 +68,44 @@
   }
 }
 
-/* Mobile Menu */
+/* Mobile Menu — sized to fit its nav items (not a fixed half-screen).
+   width:max-content hugs the widest link; the panel sits flush to the
+   right edge and slides in via translateX so it never depends on vw math. */
 .mobileMenu {
   position: fixed;
   top: 0;
-  right: -100%;
-  width: 100%;
+  right: 0;
+  width: max-content;
+  max-width: min(90vw, 460px);
+  min-width: 300px;
   height: 100vh;
-  background: #000000;
+  height: 100dvh;
+  background: #0a0a0a;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -30px 0 80px rgba(0, 0, 0, 0.5);
   z-index: 100000;
-  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(100%);
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: max(120px, env(safe-area-inset-top, 120px)) 32px 32px 32px;
+  padding: max(104px, env(safe-area-inset-top, 104px)) 44px 32px 56px;
 }
 
-/* Close button at top center */
+.mobileMenu.menuOpen {
+  transform: translateX(0);
+}
+
+/* Close button — top-left of the panel, out of the way of right-aligned links */
 .closeButton {
   position: absolute;
-  top: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
+  top: 30px;
+  left: 24px;
+  width: 52px;
+  height: 52px;
   background: transparent;
-  border: 2px solid white;
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -106,7 +117,8 @@
 
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateX(-50%) scale(1.1);
+  border-color: white;
+  transform: scale(1.08);
 }
 
 .closeButton svg {
@@ -114,66 +126,106 @@
   stroke-width: 2.5;
 }
 
-.mobileMenu.menuOpen {
-  right: 0;
-}
-
-/* Navigation Links */
+/* Navigation — right-aligned columns, grouped into labelled sections */
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 30px;
   flex: 1;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+}
+
+.navSectionLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 10px;
+  padding-right: 2px;
 }
 
 .navLink {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
-  font-size: 48px;
-  letter-spacing: 0.1em;
-  color: white;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #ffffff;
   text-decoration: none;
-  padding: 20px 32px;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: 60px;
+  text-align: right;
+  padding: 3px 0;
+  transition: color 0.22s ease, transform 0.22s ease;
   background: transparent;
   border: none;
   cursor: pointer;
-  width: auto;
+  transform-origin: right center;
 }
 
 .navLink:hover,
 .navLink:active {
-  background: rgba(255, 255, 255, 0.05);
+  color: #F4C430;
+  transform: scale(1.04);
 }
 
 .navLink.active {
   color: #F4C430;
 }
 
+/* Book a Call — the one filled action, right-aligned under the sections */
+.navCta {
+  margin-top: 6px;
+  align-self: flex-end;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #28c840;
+  text-decoration: none;
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: 2px solid #28c840;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.navCta:hover,
+.navCta.navCtaActive {
+  background: #28c840;
+  color: #06210c;
+  transform: translateY(-2px);
+}
+
 /* Mobile Menu Footer */
 .mobileMenuFooter {
-  margin-top: auto;
-  padding-top: 32px;
+  margin-top: 40px;
+  padding-top: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: center;
+  text-align: right;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-end;
+  gap: 2px;
 }
 
 .mobileMenuFooter p {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
-  margin: 4px 0;
+  margin: 2px 0;
 }
 
 .mobileProfileIcon {
@@ -197,17 +249,18 @@
   stroke: white;
 }
 
-/* Smaller phones */
+/* Smaller phones — half-width menu stays tight */
 @media (max-width: 430px) {
   .navLink {
-    font-size: 40px;
-    padding: 16px 24px;
+    font-size: 14px;
+    padding: 8px 10px;
+    letter-spacing: 0.04em;
   }
 }
 
 /* Very small phones */
 @media (max-width: 374px) {
   .navLink {
-    font-size: 36px;
+    font-size: 13px;
   }
 }
