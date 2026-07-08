@@ -5,16 +5,12 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
-import FunnelReel from '@/components/funnel/FunnelReel';
+import WebPreviewVideo from '@/components/web/WebPreviewVideo';
 import styles from './webSoftware.module.css';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
-const poster = (id: string, t = '1s') =>
-  `${CF}/${id}/thumbnails/thumbnail.jpg?time=${t}&height=600`;
 
 /* ---- capture form config (identical across the four service pages) ---- */
 const steps: FunnelStep[] = [
@@ -77,16 +73,30 @@ type Proof = {
   name: string;
   tag: string;
   videoId: string;
-  href: string;
-  time?: string;
+  /** Case-study page — omit for the smart-video-only builds. */
+  href?: string;
 };
 const PROOF: Proof[] = [
+  // Flagship builds with full case-study pages (clickable).
   { name: 'MC Racing', tag: 'mcracingfortwayne.com', videoId: '1ab82de79e003fc0c37afc0a27fedbc4', href: '/work/web-mcracing' },
   { name: 'Prime Dealer Fund', tag: 'primedealerfund.com', videoId: '652911e44eafee84d9efa47dad31eac5', href: '/work/web-primedealerfund' },
   { name: 'Creator Space', tag: 'creatorspacefw.com', videoId: '37a027a19196653d4ef79b6c2f5f5758', href: '/work/web-creatorspace' },
   { name: 'MindSquire', tag: 'mindsquire.com', videoId: '4db4384638b438d0f2c3fb9b60a48606', href: '/work/web-mindsquire' },
   { name: 'Industrial Bakery', tag: 'industrialbakeryequipment.com', videoId: '33850e02411be4ba7cb880ef7af52dce', href: '/work/web-industrialbakery' },
   { name: 'Sweet Dreams', tag: 'sweetdreams.us', videoId: '2e09ff39e945e08cf28ced40197bf836', href: '/work/web-sweetdreams' },
+  // Additional website builds — smart-video previews (no case-study page).
+  { name: 'Bite Me Protein', tag: 'Bite Me Protein', videoId: 'a7969078d27d7d15394978d0c02cc306' },
+  { name: 'Ace Gameroom', tag: 'Ace Gameroom', videoId: 'abc316f410b475f978ab9322b033add6' },
+  { name: 'Hot Chicks', tag: 'Hot Chicks', videoId: 'bc21e8ee97ddda1e531072021685955a' },
+  { name: 'Blendin Energy', tag: 'Blendin Energy', videoId: 'f691433cd004e9db2cb3194205f4da00' },
+  { name: 'Mocha Lounge', tag: 'Mocha Lounge', videoId: '3832cb4aecd39ed1e0b089f25d6e3612' },
+  { name: 'Fusion Pizza', tag: 'Fusion Pizza', videoId: '49dd58fe3babc51a9659bc532037c02c' },
+  { name: 'Shield Exteriors', tag: 'Shield Exteriors', videoId: '8abed95c28cba3517c834f2cd402b8f9' },
+  { name: 'Lawnscape', tag: 'Lawnscape', videoId: '2e5c8e4dfc925d8f9da5f722704103c3' },
+  { name: 'Summit City Climbing', tag: 'Summit City Climbing', videoId: 'c692d95046b6c84f93cd1636f0f9c608' },
+  { name: 'RV Repair', tag: 'RV Repair', videoId: '2d7db8ae666d103b2bfd08d58289bdde' },
+  { name: 'Revive FW', tag: 'Revive FW', videoId: 'fadf22d878896f6151c6a9b0ca9db90d' },
+  { name: 'Trinbago', tag: 'Trinbago', videoId: '0309ed33f7a7bde00b488c49195533ff' },
 ];
 
 export default function WebSoftwareLanding() {
@@ -265,12 +275,12 @@ export default function WebSoftwareLanding() {
           <div className={styles.proofGrid}>
             {PROOF.map((p, i) => {
               const isFeature = i === 0;
-              return (
-                <Link
-                  key={p.href}
-                  href={p.href}
-                  className={`${styles.browser} ${isFeature ? styles.proofFeature : ''}`}
-                >
+              const clickable = Boolean(p.href);
+              const cardClass = `${styles.browser} ${isFeature ? styles.proofFeature : ''} ${
+                clickable ? '' : styles.browserStatic
+              }`;
+              const inner = (
+                <>
                   <div className={styles.browserBar}>
                     <div className={styles.dots}>
                       <span />
@@ -278,36 +288,44 @@ export default function WebSoftwareLanding() {
                       <span />
                     </div>
                     <div className={styles.urlBar}>
-                      <span className={styles.urlLock}>▲</span>
-                      <span className={styles.urlText}>https://{p.tag}</span>
+                      {clickable && <span className={styles.urlLock}>▲</span>}
+                      <span className={styles.urlText}>
+                        {clickable ? `https://${p.tag}` : p.tag}
+                      </span>
                     </div>
                   </div>
 
                   <div className={styles.screenWrap}>
-                    {isFeature ? (
-                      // hero clip autoplays muted/looping (HLS via hls.js)
-                      <FunnelReel videoId={p.videoId} />
-                    ) : (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        className={styles.screenShot}
-                        src={poster(p.videoId, p.time ?? '1s')}
-                        alt={`${p.name} — ${p.tag}`}
-                        loading="lazy"
-                      />
-                    )}
+                    {/* every window is a live preview, muted/looping, starting 1s in */}
+                    <WebPreviewVideo
+                      videoId={p.videoId}
+                      className={styles.screenShot}
+                      ariaLabel={`${p.name} website preview`}
+                    />
                   </div>
 
                   <div className={styles.proofMeta}>
                     <div>
                       <p className={styles.proofName}>{p.name}</p>
-                      <p className={styles.proofUrl}>{p.tag}</p>
+                      <p className={styles.proofUrl}>{clickable ? p.tag : 'Website build'}</p>
                     </div>
-                    <span className={styles.proofVisit}>
-                      View build <span className={styles.arrow}>↗</span>
-                    </span>
+                    {clickable && (
+                      <span className={styles.proofVisit}>
+                        View build <span className={styles.arrow}>↗</span>
+                      </span>
+                    )}
                   </div>
+                </>
+              );
+
+              return clickable ? (
+                <Link key={p.videoId} href={p.href!} className={cardClass}>
+                  {inner}
                 </Link>
+              ) : (
+                <div key={p.videoId} className={cardClass}>
+                  {inner}
+                </div>
               );
             })}
           </div>

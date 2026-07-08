@@ -408,6 +408,16 @@
   box-shadow: 0 30px 64px rgba(74, 144, 226, 0.22);
 }
 
+/* Smart-video previews aren't links — no click cursor, gentler lift */
+.browserStatic {
+  cursor: default;
+}
+
+.browserStatic:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+}
+
 .browserBar {
   display: flex;
   align-items: center;
