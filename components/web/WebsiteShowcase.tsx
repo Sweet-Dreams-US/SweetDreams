@@ -2,15 +2,20 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import Hls from 'hls.js';
+import WebPreviewVideo from './WebPreviewVideo';
 import styles from './WebsiteShowcase.module.css';
 
 interface WebsiteProject {
-  href: string;
-  url: string;
   videoId: string;
   name: string;
-  description: string;
+  /** Case-study page. Omit for smart-video previews (non-clickable). */
+  href?: string;
+  /** Real domain shown in the browser chrome (clickable projects). */
+  url?: string;
+  /** Chrome label for smart previews that have no live URL to link to. */
+  label?: string;
+  /** Optional blurb under the card. */
+  description?: string;
 }
 
 interface BrowserCardProps {
@@ -22,72 +27,32 @@ interface BrowserCardProps {
 }
 
 function BrowserCard({ project, index, isMobile, isCentered, someCentered }: BrowserCardProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const cardRef = useRef<HTMLAnchorElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Lazy load: only init HLS when card enters viewport
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-
-    observer.observe(card);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    const hlsUrl = `https://customer-w6h9o08eg118alny.cloudflarestream.com/${project.videoId}/manifest/video.m3u8`;
-
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        maxBufferLength: 10,
-        maxMaxBufferLength: 30,
-      });
-      hlsRef.current = hls;
-      hls.loadSource(hlsUrl);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = hlsUrl;
-    }
-
-    return () => {
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-      }
-    };
-  }, [isVisible, project.videoId]);
+  // A card is clickable only when it points at a case-study page. The new
+  // website recordings have no live URL / project page — they're "smart
+  // videos" (autoplay preview, no link, no VIEW PROJECT affordance).
+  const clickable = Boolean(project.href);
+  const chromeText = project.url ?? project.label ?? project.name;
 
   // Only apply focus/dim classes on mobile. On desktop, cards render normally
-  // with no blur — hover states from base CSS handle desktop affordance.
-  // Before any card is centered (initial mount on mobile), no card is dimmed —
-  // prevents the brief "all blurred" flash before the observer fires.
+  // with hover states from base CSS. Smart (non-clickable) cards never take
+  // the click-cursor treatment.
   const cardClassName = [
     styles.browserCard,
+    !clickable ? styles.smartCard : '',
     isMobile && isCentered ? styles.focused : '',
     isMobile && someCentered && !isCentered ? styles.unfocused : '',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  return (
-    <Link ref={cardRef} href={project.href} className={cardClassName} data-card-index={index} aria-label={`View ${project.name} website project`}>
-      {/* Click indicator badge — persistent top-right corner, visible on all devices */}
-      <div className={styles.clickBadge} aria-hidden="true">
-        <span className={styles.clickBadgeIcon}>&#8599;</span>
-      </div>
+  const inner = (
+    <>
+      {/* Click indicator badge — only for real project links */}
+      {clickable && (
+        <div className={styles.clickBadge} aria-hidden="true">
+          <span className={styles.clickBadgeIcon}>&#8599;</span>
+        </div>
+      )}
 
       {/* Browser Chrome */}
       <div className={styles.browserChrome}>
@@ -97,43 +62,66 @@ function BrowserCard({ project, index, isMobile, isCentered, someCentered }: Bro
           <span className={`${styles.dot} ${styles.dotGreen}`} />
         </div>
         <div className={styles.urlBar}>
-          <span className={styles.lockIcon} aria-hidden="true">&#128274;</span>
-          <span className={styles.urlText}>{project.url}</span>
+          {project.url && (
+            <span className={styles.lockIcon} aria-hidden="true">
+              &#128274;
+            </span>
+          )}
+          <span className={styles.urlText}>{chromeText}</span>
         </div>
       </div>
 
       {/* Video Window */}
       <div className={styles.videoWindow}>
-        {isVisible && (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-label={`Preview of ${project.name} website`}
-            poster={`https://customer-w6h9o08eg118alny.cloudflarestream.com/${project.videoId}/thumbnails/thumbnail.jpg?time=2s&height=600`}
-          />
+        <WebPreviewVideo
+          videoId={project.videoId}
+          ariaLabel={`Preview of the ${project.name} website`}
+        />
+        {clickable && (
+          <div className={styles.visitOverlay}>
+            <span className={styles.visitText}>
+              VIEW PROJECT <span className={styles.arrow}>&rarr;</span>
+            </span>
+          </div>
         )}
-        <div className={styles.visitOverlay}>
-          <span className={styles.visitText}>
-            VIEW PROJECT <span className={styles.arrow}>&rarr;</span>
-          </span>
-        </div>
       </div>
 
       {/* Project Info */}
       <div className={styles.projectInfo}>
         <div className={styles.projectInfoText}>
           <h3 className={styles.projectName}>{project.name}</h3>
-          <p className={styles.projectDescription}>{project.description}</p>
+          {project.description ? (
+            <p className={styles.projectDescription}>{project.description}</p>
+          ) : (
+            <p className={styles.projectTag}>Website Design &amp; Build</p>
+          )}
         </div>
-        {/* Persistent CTA — always visible on mobile and desktop */}
-        <span className={styles.viewProjectCTA}>
-          VIEW PROJECT <span className={styles.ctaArrow}>&rarr;</span>
-        </span>
+        {clickable && (
+          <span className={styles.viewProjectCTA}>
+            VIEW PROJECT <span className={styles.ctaArrow}>&rarr;</span>
+          </span>
+        )}
       </div>
-    </Link>
+    </>
+  );
+
+  if (clickable) {
+    return (
+      <Link
+        href={project.href!}
+        className={cardClassName}
+        data-card-index={index}
+        aria-label={`View ${project.name} website project`}
+      >
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <div className={cardClassName} data-card-index={index}>
+      {inner}
+    </div>
   );
 }
 

@@ -606,6 +606,24 @@ export default function WorkPage() {
       name: "Industrial Bakery Equipment",
       description: "Steel fabrication company manufacturing food service equipment since 2008.",
     },
+
+    // ===== Additional website builds — smart-video previews =====
+    // No case-study page or live URL wired up yet, so these render as
+    // non-clickable autoplay previews (browser chrome + business name).
+    // Every one starts 1s in via WebPreviewVideo. Add href/url later to
+    // promote any of these into a full clickable project.
+    { videoId: "a7969078d27d7d15394978d0c02cc306", name: "Bite Me Protein", label: "Bite Me Protein" },
+    { videoId: "abc316f410b475f978ab9322b033add6", name: "Ace Gameroom", label: "Ace Gameroom" },
+    { videoId: "bc21e8ee97ddda1e531072021685955a", name: "Hot Chicks", label: "Hot Chicks" },
+    { videoId: "f691433cd004e9db2cb3194205f4da00", name: "Blendin Energy", label: "Blendin Energy" },
+    { videoId: "3832cb4aecd39ed1e0b089f25d6e3612", name: "Mocha Lounge", label: "Mocha Lounge" },
+    { videoId: "49dd58fe3babc51a9659bc532037c02c", name: "Fusion Pizza", label: "Fusion Pizza" },
+    { videoId: "8abed95c28cba3517c834f2cd402b8f9", name: "Shield Exteriors", label: "Shield Exteriors" },
+    { videoId: "2e5c8e4dfc925d8f9da5f722704103c3", name: "Lawnscape", label: "Lawnscape" },
+    { videoId: "c692d95046b6c84f93cd1636f0f9c608", name: "Summit City Climbing", label: "Summit City Climbing" },
+    { videoId: "2d7db8ae666d103b2bfd08d58289bdde", name: "RV Repair", label: "RV Repair" },
+    { videoId: "fadf22d878896f6151c6a9b0ca9db90d", name: "Revive FW", label: "Revive FW" },
+    { videoId: "0309ed33f7a7bde00b488c49195533ff", name: "Trinbago", label: "Trinbago" },
   ];
 
   useEffect(() => {

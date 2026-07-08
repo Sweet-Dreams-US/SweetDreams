@@ -64,6 +64,27 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
+/* Smart-video cards are previews, not links — no click cursor, and a
+   lighter lift on hover (they still react, they just don't navigate). */
+.smartCard {
+  cursor: default;
+}
+
+.smartCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.14);
+}
+
+/* Small label that replaces the description on smart-video cards */
+.projectTag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0;
+}
+
 /* Persistent click badge — top-right corner, subtle pulse
    Signals "this is clickable" on all devices (no hover needed) */
 .clickBadge {

@@ -162,6 +162,54 @@
   text-align: center;
 }
 
+/* ---------- Website smart-video showcase (bigger, non-clickable) ----------
+   Sized wider than the 680px .stack — .stack is align-items:center, so a
+   child wider than the column overflows symmetrically and stays centered in
+   the viewport. Capped at 96vw so it never causes horizontal scroll. */
+.showcaseRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: min(96vw, 980px);
+  margin: 6px 0 24px;
+}
+
+.showcaseCard {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+}
+
+.showcaseVideo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+
+.showcaseName {
+  display: block;
+  padding: 10px 8px;
+  background: #fff;
+  font-family: 'Anton', sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .showcaseRow {
+    grid-template-columns: 1fr;
+    width: min(92vw, 420px);
+    gap: 12px;
+  }
+}
+
 /* ---------- Social: two vertical reels, compact ---------- */
 .reelRow {
   display: flex;

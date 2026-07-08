@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
+import WebPreviewVideo from '@/components/web/WebPreviewVideo';
 import { NICHE_BY_SLUG } from '@/lib/funnel-niches';
 import styles from '@/components/funnel/funnel.module.css';
 
@@ -10,13 +11,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
-const poster = (id: string) => `${CF}/${id}/thumbnails/thumbnail.jpg?time=2s&height=400`;
-
-const examples = [
-  { name: 'MC Racing', url: 'https://mcracingfortwayne.com', videoId: '1ab82de79e003fc0c37afc0a27fedbc4' },
-  { name: 'SD Music', url: 'https://sweetdreamsmusic.com', videoId: 'c7a40ce22803114bab73611635add20c' },
-  { name: 'Sweet Dreams', url: 'https://sweetdreams.us', videoId: '2e09ff39e945e08cf28ced40197bf836' },
+// Non-clickable smart-video previews — real sites we've built, autoplaying
+// (muted, looped, starting 1s in). Not links: these sell the quality, they
+// aren't case studies to click into.
+const showcase = [
+  { name: 'Bite Me Protein', videoId: 'a7969078d27d7d15394978d0c02cc306' },
+  { name: 'Ace Gameroom', videoId: 'abc316f410b475f978ab9322b033add6' },
+  { name: 'Hot Chicks', videoId: 'bc21e8ee97ddda1e531072021685955a' },
 ];
 
 const steps: FunnelStep[] = [
@@ -76,24 +77,16 @@ export default async function FreeWebsitePage({
           free. Love it and it&apos;s yours. Don&apos;t, and you owe nothing.
         </p>
 
-        <div className={styles.exampleRow}>
-          {examples.map((ex) => (
-            <a
-              key={ex.url}
-              href={ex.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.exampleCardSm}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={poster(ex.videoId)}
-                alt={`${ex.name} website`}
-                className={styles.exampleThumbSm}
-                loading="lazy"
+        <div className={styles.showcaseRow}>
+          {showcase.map((ex) => (
+            <div key={ex.videoId} className={styles.showcaseCard}>
+              <WebPreviewVideo
+                videoId={ex.videoId}
+                className={styles.showcaseVideo}
+                ariaLabel={`${ex.name} website preview`}
               />
-              <span className={styles.exampleNameSm}>{ex.name} →</span>
-            </a>
+              <span className={styles.showcaseName}>{ex.name}</span>
+            </div>
           ))}
         </div>
 
