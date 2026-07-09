@@ -107,6 +107,50 @@ export default function FunnelForm({
     if (isLast && scriptReady) renderTurnstile();
   }, [isLast, scriptReady, renderTurnstile]);
 
+  // Top-of-funnel signal: fire ViewContent when the offer is seen. This is
+  // the missing mid-funnel rung — with only Lead firing, Meta (and we) can't
+  // see landing→lead drop-off per ad. Browser fbq + server CAPI share one
+  // eventID so Meta dedupes the pair (same pattern as Lead). Fires once per
+  // mount. Also pushes a GA4 dataLayer event for funnel analysis.
+  useEffect(() => {
+    const eventId =
+      typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `vc-${funnel}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    try {
+      const w = window as unknown as {
+        fbq?: (...args: unknown[]) => void;
+        dataLayer?: Record<string, unknown>[];
+      };
+      if (typeof w.fbq === 'function') {
+        w.fbq(
+          'track',
+          'ViewContent',
+          { content_name: funnel, content_category: 'funnel' },
+          { eventID: eventId }
+        );
+      }
+      w.dataLayer?.push({ event: 'funnel_view', funnel });
+    } catch {
+      /* analytics best-effort */
+    }
+    // Server-side mirror (CAPI) — deduped by eventId, survives ad blockers.
+    fetch('/api/meta-event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({
+        eventName: 'ViewContent',
+        eventId,
+        funnel,
+        contentName: funnel,
+        sourceUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+      }),
+    }).catch(() => {
+      /* best-effort */
+    });
+  }, [funnel]);
+
   const validateStep = (): string | null => {
     for (const f of step.fields) {
       const val = (values[f.name] ?? '').trim();
@@ -145,6 +189,18 @@ export default function FunnelForm({
     setError(null);
 
     if (!isLast) {
+      // GA4 funnel-progress signal (kept in GA4/dataLayer only — NOT sent to
+      // the Meta pixel, so the Meta dataset stays clean for optimization).
+      try {
+        (window as unknown as { dataLayer?: Record<string, unknown>[] }).dataLayer?.push({
+          event: 'funnel_step',
+          funnel,
+          step: stepIndex + 1,
+          step_name: step.question,
+        });
+      } catch {
+        /* best-effort */
+      }
       setStepIndex((i) => i + 1);
       return;
     }
