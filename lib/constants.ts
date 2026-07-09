@@ -226,7 +226,7 @@ export const SEO = {
 // ==================== ANALYTICS ====================
 
 export const ANALYTICS = {
-  googleAnalytics: 'G-JVM25Y7PGY',
+  googleAnalytics: 'G-G8QD7BQY3L',
   googleTagManager: 'GTM-NX7KJL3N',
   facebookPixel: '3631251467167744',
   microsoftClarity: 'tyjolmx04i',
