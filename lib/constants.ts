@@ -227,7 +227,7 @@ export const SEO = {
 
 export const ANALYTICS = {
   googleAnalytics: 'G-G8QD7BQY3L',
-  googleTagManager: 'GTM-NX7KJL3N',
+  googleTagManager: 'GTM-K255FPMR',
   facebookPixel: '3631251467167744',
   microsoftClarity: 'tyjolmx04i',
 } as const;

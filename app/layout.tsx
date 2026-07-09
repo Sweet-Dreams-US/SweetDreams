@@ -124,7 +124,9 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-18077252453');
+            gtag('config', 'AW-18077252453', {
+              'server_container_url': 'https://server-side-tagging-ybk37fsriq-uc.a.run.app'
+            });
           `}
         </Script>
 
@@ -138,7 +140,9 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-G8QD7BQY3L');
+            gtag('config', 'G-G8QD7BQY3L', {
+              'server_container_url': 'https://server-side-tagging-ybk37fsriq-uc.a.run.app'
+            });
           `}
         </Script>
 
