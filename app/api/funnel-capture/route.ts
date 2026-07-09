@@ -22,6 +22,15 @@ import { createServiceRoleClient } from '@/utils/supabase/service-role';
 
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
+// D&N Website Demo Factory intake — website-demo leads are forwarded here so
+// a demo gets auto-researched + built on the nightmaresturntodreams.com side.
+// Only the funnels that actually offer a free spec website are forwarded.
+const DEMO_LEAD_ENDPOINT =
+  process.env.DEMO_LEAD_ENDPOINT ||
+  'https://www.nightmaresturntodreams.com/api/leads/demo';
+const DEMO_LEAD_SECRET = process.env.DEMO_LEAD_SECRET;
+const DEMO_FUNNELS = new Set(['free-website', 'web-software']);
+
 async function verifyTurnstile(token: string, remoteip?: string): Promise<boolean> {
   if (!TURNSTILE_SECRET_KEY) {
     console.error('[funnel-capture] TURNSTILE_SECRET_KEY not configured');
@@ -265,6 +274,57 @@ export async function POST(request: NextRequest) {
       lastName,
       customData: { funnel: String(funnel ?? 'unknown'), lead_source: 'funnel' },
     });
+
+    // 9. Website-demo leads → D&N Website Demo Factory intake, so a demo gets
+    //    auto-researched + built. Non-fatal: the lead already reached the team,
+    //    Supabase, and Meta above. Awaited (not fire-and-forget) so it finishes
+    //    before the serverless function freezes — failures are logged, swallowed.
+    if (DEMO_FUNNELS.has(String(funnel))) {
+      const restObj = rest as Record<string, unknown>;
+      const businessName =
+        typeof restObj.businessName === 'string' ? restObj.businessName : '';
+      const whatYouDo =
+        typeof restObj.whatYouDo === 'string' ? restObj.whatYouDo : '';
+      if (!DEMO_LEAD_SECRET) {
+        console.warn('[funnel-capture] DEMO_LEAD_SECRET not set — skipping D&N demo forward');
+      } else if (!businessName) {
+        // The intake requires business_name; skip rather than send a 400.
+        console.warn('[funnel-capture] No business name — skipping D&N demo forward', { email });
+      } else {
+        try {
+          const demoRes = await fetch(DEMO_LEAD_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Lead-Secret': DEMO_LEAD_SECRET,
+            },
+            body: JSON.stringify({
+              first_name: firstName,
+              last_name: lastName,
+              email,
+              phone,
+              business_name: businessName,
+              what_you_do: whatYouDo,
+              source: 'sweetdreams.us',
+              funnel: String(funnel),
+              source_url:
+                request.headers.get('referer') ?? 'https://sweetdreams.us/free-website',
+            }),
+          });
+          if (!demoRes.ok) {
+            const errBody = await demoRes.text().catch(() => '');
+            console.error('[funnel-capture] D&N demo forward failed', {
+              status: demoRes.status,
+              body: errBody.slice(0, 300),
+            });
+          } else {
+            console.log('[funnel-capture] Lead forwarded to D&N demo factory', { funnel, email });
+          }
+        } catch (err) {
+          console.error('[funnel-capture] D&N demo forward error (non-fatal):', err);
+        }
+      }
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
