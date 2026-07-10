@@ -20,12 +20,8 @@ export const resend = {
   }
 };
 
-// Lead-notification recipients — every form sends here.
+// Lead-notification recipients — the Sweet Dreams Solutions business inboxes.
 // Overridable via LEAD_NOTIFY_EMAILS (comma-separated) without a code change.
-// cole@marcuccilli.com is included by default because lead mail to the
-// @sweetdreams.us inboxes wasn't being seen (spam / unmonitored mailbox) —
-// this is the "I never received a lead email" fix. Keep a monitored inbox
-// first so at least one recipient reliably gets every lead.
 const envRecipients = process.env.LEAD_NOTIFY_EMAILS?.split(',')
   .map((s) => s.trim())
   .filter(Boolean);
@@ -33,10 +29,14 @@ const envRecipients = process.env.LEAD_NOTIFY_EMAILS?.split(',')
 export const ADMIN_EMAIL =
   envRecipients && envRecipients.length
     ? envRecipients
-    : ['cole@marcuccilli.com', 'cole@sweetdreams.us', 'jayvalleo@sweetdreams.us'];
+    : ['cole@sweetdreams.us', 'jayvalleo@sweetdreams.us'];
 
-// NOTE: sends from the music domain (verified in Resend). It does NOT align
-// with sweetdreams.us, which hurts inbox placement — verifying sweetdreams.us
-// in Resend and switching this to noreply@sweetdreams.us is the deliverability
-// follow-up. Not changed blindly here: an unverified from-domain 403s EVERY send.
-export const FROM_EMAIL = 'Sweet Dreams Solutions <noreply@sweetdreamsmusic.com>';
+// Sender. These ads and landing pages are sweetdreams.us, so lead mail should
+// come FROM noreply@sweetdreams.us — aligned with the recipient domain, which
+// is the real fix for inbox placement (the music domain was misaligned and
+// getting filtered). Flip via LEAD_FROM_EMAIL the moment sweetdreams.us is a
+// verified Resend domain. Default stays on the currently-verified music domain
+// until then — an unverified from-domain 403s EVERY send.
+export const FROM_EMAIL =
+  process.env.LEAD_FROM_EMAIL ||
+  'Sweet Dreams Solutions <noreply@sweetdreamsmusic.com>';
