@@ -218,26 +218,35 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    // 6. Send and inspect the result (never silent — see file header).
-    const sent = await resend.emails.send(emailData);
-    if (sent.error) {
-      console.error('[funnel-capture] Resend send failed:', sent.error, {
+    // 6. Notify the team by email — BEST-EFFORT. Everything below (Supabase,
+    //    Meta CAPI, D&N demo forward) runs regardless, so an email failure or
+    //    a deliverability problem is logged loudly but NEVER loses a captured
+    //    lead. This block used to `return 500` on any Resend error, which
+    //    silently dropped the ENTIRE lead — no Supabase row, no demo, no ad
+    //    signal — the root cause of "a lead came in but nothing happened".
+    try {
+      const sent = await resend.emails.send(emailData);
+      if (sent.error) {
+        console.error(
+          '[funnel-capture] Resend send failed (lead still saved below):',
+          sent.error,
+          { funnel, email }
+        );
+      } else {
+        console.log(
+          `[funnel-capture] Lead emailed (${ctx.label}) from ${fullName} <${email}> — id=${sent.data?.id}`
+        );
+      }
+    } catch (mailErr) {
+      console.error('[funnel-capture] Resend threw (lead still saved below):', mailErr, {
         funnel,
         email,
       });
-      return NextResponse.json(
-        { error: 'Failed to send. Please try again later.' },
-        { status: 500 }
-      );
     }
 
-    console.log(
-      `[funnel-capture] Lead captured (${ctx.label}) from ${fullName} <${email}> — id=${sent.data?.id}`
-    );
-
-    // 7. Persist to Supabase (marketing_leads) — the analytics feed the
-    //    Dreams & Nightmares platform reads. Non-fatal: the lead already
-    //    reached the team by email above.
+    // 7. Persist to Supabase (marketing_leads) — the durable record + the
+    //    analytics feed the Dreams & Nightmares platform reads. This is the
+    //    source of truth for "did a lead come in", independent of email.
     try {
       const { businessName, whatYouDo, ...extraFields } = rest as Record<string, unknown>;
       const supabase = createServiceRoleClient();
@@ -276,8 +285,8 @@ export async function POST(request: NextRequest) {
     });
 
     // 9. Website-demo leads → D&N Website Demo Factory intake, so a demo gets
-    //    auto-researched + built. Non-fatal: the lead already reached the team,
-    //    Supabase, and Meta above. Awaited (not fire-and-forget) so it finishes
+    //    auto-researched + built. Non-fatal: the lead is already saved to
+    //    Supabase + Meta above. Awaited (not fire-and-forget) so it finishes
     //    before the serverless function freezes — failures are logged, swallowed.
     if (DEMO_FUNNELS.has(String(funnel))) {
       const restObj = rest as Record<string, unknown>;
