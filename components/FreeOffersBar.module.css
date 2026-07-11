@@ -1,85 +1,153 @@
-/* Thin offer strip that sits directly under the nav, above the hero.
-   One compact row per segment on desktop; stacks on mobile. */
+/* Bold two-block offer bar under the nav, above the hero. Vivid gradients,
+   a pulsing FREE badge, and a periodic light sweep to grab attention. */
 .bar {
   display: grid;
-  /* one equal column per offer — auto-fits 2 or 3 segments */
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  background: #ffffff;
   width: 100%;
-  border-top: 1px solid #ededed;
-  border-bottom: 1px solid #ededed;
+  background: #0a0a0a;
 }
 
 .segment {
   --c: #4a90e2;
+  --c2: #2f6fbf;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 12px 18px;
+  gap: 16px;
+  padding: 15px 22px;
   text-decoration: none;
-  border-left: 1px solid #ededed;
-  transition: background 0.2s ease;
+  background: linear-gradient(118deg, var(--c) 0%, var(--c2) 100%);
+  transition: filter 0.2s ease;
+}
+.segment + .segment {
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.segment:first-child {
-  border-left: none;
-}
-
-.blue { --c: #4a90e2; }
-.red { --c: #e63636; }
-.green { --c: #1a9e3a; }
-.purple { --c: #a855f7; }
+.blue { --c: #4a90e2; --c2: #2f6fbf; }
+.purple { --c: #a855f7; --c2: #7c3aed; }
+.green { --c: #28c840; --c2: #159a2e; }
+.red { --c: #e63636; --c2: #b81f1f; }
 
 .segment:hover {
-  background: color-mix(in srgb, var(--c) 9%, #fff);
+  filter: brightness(1.08);
 }
 
+/* diagonal light sweep that crosses each block to catch the eye */
+.shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35%;
+  width: 32%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.38),
+    transparent
+  );
+  transform: skewX(-18deg);
+  animation: offerShine 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+.segment:nth-child(2) .shine {
+  animation-delay: 2.75s;
+}
+@keyframes offerShine {
+  0% { left: -35%; }
+  32% { left: 135%; }
+  100% { left: 135%; }
+}
+
+.badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(13px, 1.4vw, 16px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  padding: 5px 13px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.badgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.75);
+  animation: offerPulse 1.8s ease-out infinite;
+}
+@keyframes offerPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.75); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1;
+}
 .label {
   font-family: 'Anton', sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 1.5vw, 19px);
+  font-size: clamp(15px, 1.7vw, 21px);
   text-transform: uppercase;
   letter-spacing: 0.01em;
-  line-height: 1;
-  color: var(--c);
+  color: #fff;
   white-space: nowrap;
 }
-
 .sub {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11.5px;
+  font-size: 11px;
   letter-spacing: 0.02em;
-  color: #666;
+  color: rgba(255, 255, 255, 0.88);
   white-space: nowrap;
 }
 
 .arrow {
+  position: relative;
   font-family: 'Anton', sans-serif;
-  font-size: 16px;
-  color: var(--c);
+  font-size: 18px;
+  color: #fff;
   transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
-
 .segment:hover .arrow {
-  transform: translateX(4px);
+  transform: translateX(5px);
 }
 
-/* Mobile: its own stacked section, one line per offer (sub hidden to stay short) */
+@media (prefers-reduced-motion: reduce) {
+  .shine,
+  .badgeDot {
+    animation: none;
+  }
+}
+
+/* Mobile: stack; keep both blocks bold, hide the sub to stay compact */
 @media (max-width: 760px) {
   .bar {
     grid-auto-flow: row;
     grid-auto-columns: auto;
   }
-  .segment {
+  .segment + .segment {
     border-left: none;
-    border-top: 1px solid #ededed;
-    padding: 13px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
   }
-  .segment:first-child {
-    border-top: none;
+  .segment {
+    padding: 13px 16px;
+    gap: 12px;
   }
   .sub {
     display: none;
