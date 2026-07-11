@@ -98,36 +98,34 @@ export default function VideoHero() {
       video.pause();
       seekStart();
 
-      let ticking = false;
-      const update = () => {
-        ticking = false;
+      // Read scroll position every frame (rather than on scroll events) so the
+      // scrub is smooth and immune to scroll-event quirks. Only re-seek/repaint
+      // when progress actually changed.
+      let rafId = 0;
+      let lastP = -1;
+      const loop = () => {
         const total = hero.offsetHeight - window.innerHeight;
-        if (total <= 0) return;
-        const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / total));
-        scenes.forEach((s, i) => {
-          const { o, y } = sceneStyle(i, p, scenes.length);
-          s.style.opacity = String(o);
-          s.style.transform = `translateY(${y}px)`;
-        });
-        if (video.readyState >= 1) {
-          const t = START + p * (END - START);
-          try {
-            video.currentTime = t;
-          } catch {
-            /* mid-seek */
+        if (total > 0) {
+          const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / total));
+          if (Math.abs(p - lastP) > 0.0004) {
+            lastP = p;
+            scenes.forEach((s, i) => {
+              const { o, y } = sceneStyle(i, p, scenes.length);
+              s.style.opacity = String(o);
+              s.style.transform = `translateY(${y}px)`;
+            });
+            if (video.readyState >= 1) {
+              try {
+                video.currentTime = START + p * (END - START);
+              } catch {
+                /* mid-seek */
+              }
+            }
           }
         }
+        rafId = requestAnimationFrame(loop);
       };
-      const onScroll = () => {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(update);
-        }
-      };
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      update();
+      rafId = requestAnimationFrame(loop);
 
       const entrance = gsap.from(
         `.${styles.eyebrow}, .${styles.sub}, .${styles.ctas}`,
@@ -135,8 +133,7 @@ export default function VideoHero() {
       );
 
       return () => {
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('resize', onScroll);
+        cancelAnimationFrame(rafId);
         entrance.kill();
       };
     });
