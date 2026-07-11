@@ -62,36 +62,22 @@ export default function VideoHero() {
       hls.on(Hls.Events.MANIFEST_PARSED, seekStart);
     }
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    const scenes = Array.from(
+      root.querySelectorAll<HTMLElement>(`.${styles.scene}`)
+    );
 
-    const ctx = gsap.context(() => {
-      const scenes = gsap.utils.toArray<HTMLElement>(`.${styles.scene}`);
+    // gsap.matchMedia re-runs (and cleans up) each branch whenever the viewport
+    // crosses a breakpoint, so the treatment never latches to the mount width.
+    const mm = gsap.matchMedia();
 
-      // Fallback (mobile / reduced-motion): no scroll-scrub. Show the first
-      // headline; on mobile let the clip loop gently so it isn't a dead frame.
-      if (reduced || isMobile) {
-        gsap.set(scenes, { autoAlpha: 0 });
-        gsap.set(scenes[0], { autoAlpha: 1 });
-        if (!reduced) {
-          video.loop = true;
-          video.muted = true;
-          const tryPlay = () => video.play().catch(() => {});
-          if (hls) hls.on(Hls.Events.MANIFEST_PARSED, tryPlay);
-          else video.addEventListener('loadedmetadata', tryPlay, { once: true });
-        }
-        gsap.from(`.${styles.inner} > *`, {
-          y: 22,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: 'power3.out',
-          delay: 0.1,
-        });
-        return;
+    // Desktop: pin the hero and let scroll drive the video + headline scenes.
+    mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
+      video.pause();
+      try {
+        video.currentTime = START;
+      } catch {
+        /* seeks once ready */
       }
-
-      // Desktop: pin the hero and let scroll drive the video + headline scenes.
       gsap.set(scenes[0], { autoAlpha: 1, yPercent: 0 });
       gsap.set([scenes[1], scenes[2]], { autoAlpha: 0, yPercent: 14 });
 
@@ -133,14 +119,52 @@ export default function VideoHero() {
         .to(scenes[1], { autoAlpha: 0, yPercent: -14, duration: 0.09, ease: 'power1.in' }, 0.62)
         .to(scenes[2], { autoAlpha: 1, yPercent: 0, duration: 0.11, ease: 'power2.out' }, 0.64);
 
-      gsap.from(
+      const entrance = gsap.from(
         `.${styles.eyebrow}, .${styles.sub}, .${styles.ctas}`,
         { y: 22, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out', delay: 0.1 }
       );
-    }, root);
+
+      return () => {
+        entrance.kill();
+      };
+    });
+
+    // Mobile (motion ok): no scrub. Show the first headline; loop the clip
+    // gently so it isn't a dead frame.
+    mm.add('(max-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+      gsap.set(scenes, { autoAlpha: 0 });
+      gsap.set(scenes[0], { autoAlpha: 1, yPercent: 0 });
+      video.loop = true;
+      video.muted = true;
+      video.play().catch(() => {});
+      const entrance = gsap.from(`.${styles.inner} > *`, {
+        y: 22,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: 'power3.out',
+        delay: 0.1,
+      });
+      return () => {
+        entrance.kill();
+        video.pause();
+      };
+    });
+
+    // Reduced motion (any width): static first frame, first headline.
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set(scenes, { autoAlpha: 0 });
+      gsap.set(scenes[0], { autoAlpha: 1, yPercent: 0 });
+      video.pause();
+      try {
+        video.currentTime = START;
+      } catch {
+        /* seeks once ready */
+      }
+    });
 
     return () => {
-      ctx.revert();
+      mm.revert();
       if (hls) hls.destroy();
     };
   }, []);
