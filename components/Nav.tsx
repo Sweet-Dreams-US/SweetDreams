@@ -9,29 +9,16 @@ export default function Nav() {
   const pathname = usePathname();
 
   // Single wide logo for all pages
-  const logoSrc = "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreamsUSlogowide.png";
+  const logoSrc =
+    "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreamsUSlogowide.png";
 
   return (
     <nav className={styles.nav}>
       <div className={styles.navContainer}>
         <div className={styles.navContent}>
-
-          {/* Left: Book a Call + Work (yellow) */}
+          {/* Left: Logo */}
           <div className={styles.navLeft}>
-            <Link href="/book" className={`${styles.ctaButton} ${pathname === '/book' ? styles.ctaActive : ''}`}>
-              BOOK A CALL
-            </Link>
-            <Link
-              href="/work"
-              className={`${styles.navLink} ${styles.linkYellow} ${pathname === '/work' || pathname.startsWith('/work/') ? styles.navLinkActive : ''}`}
-            >
-              WORK
-            </Link>
-          </div>
-
-          {/* Center Logo */}
-          <div className={styles.navCenter}>
-            <Link href="/" className={styles.navLogo}>
+            <Link href="/" className={styles.navLogo} aria-label="Sweet Dreams home">
               <img
                 src={logoSrc}
                 alt="Sweet Dreams"
@@ -40,27 +27,40 @@ export default function Nav() {
             </Link>
           </div>
 
-          {/* Right: Media Production (red) + Web (blue) + Hamburger */}
+          {/* Right: the two things we sell + Book a Call + hamburger */}
           <div className={styles.navRight}>
-            <Link
-              href="/services/media-production"
-              className={`${styles.navLink} ${styles.linkRed} ${pathname === '/services/media-production' ? styles.navLinkActive : ''}`}
-            >
-              MEDIA PRODUCTION
-            </Link>
-            <Link
-              href="/services/web-software"
-              className={`${styles.navLink} ${styles.linkBlue} ${pathname === '/services/web-software' ? styles.navLinkActive : ''}`}
-            >
-              WEB
-            </Link>
+            <div className={styles.navLinks}>
+              <Link
+                href="/services/web-software"
+                className={`${styles.navLink} ${styles.linkBlue} ${
+                  pathname === "/software" || pathname.startsWith("/services/web-software")
+                    ? styles.navLinkActive
+                    : ""
+                }`}
+              >
+                SOFTWARE
+              </Link>
+              <Link
+                href="/services/media-production"
+                className={`${styles.navLink} ${styles.linkRed} ${
+                  pathname === "/services/media-production" ? styles.navLinkActive : ""
+                }`}
+              >
+                MEDIA PRODUCTION
+              </Link>
+              <Link
+                href="/book"
+                className={`${styles.ctaButton} ${pathname === "/book" ? styles.ctaActive : ""}`}
+              >
+                BOOK A CALL
+              </Link>
+            </div>
 
-            {/* Hamburger - inline */}
+            {/* Hamburger — the rest of the site lives here */}
             <div className={styles.hamburgerInline}>
               <MobileNav />
             </div>
           </div>
-
         </div>
       </div>
     </nav>

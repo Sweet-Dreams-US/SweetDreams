@@ -85,25 +85,29 @@ export default function MobileNav() {
     };
   }, []);
 
+  // Grouped around what we actually sell. "Build" (software: Websites →
+  // Dream Suite → AI Automations) currently points at the web-software page;
+  // it expands to the three phases once the /software hub is built.
   const navSections = [
     {
-      label: 'Services',
+      label: 'Build',
+      links: [{ href: '/services/web-software', label: 'Software' }],
+    },
+    {
+      label: 'See',
       links: [
+        { href: '/work', label: 'Portfolio' },
         { href: '/services/media-production', label: 'Media Production' },
-        { href: '/services/web-software', label: 'Web' },
-        { href: '/services/marketing', label: 'Marketing' },
-        { href: '/services/consulting', label: 'Consulting' },
-        { href: '/solutions', label: 'All Solutions' },
       ],
     },
     {
-      label: 'Explore',
+      label: 'Company',
       links: [
         { href: '/', label: 'Home' },
-        { href: '/work', label: 'Work' },
-        { href: '/partnerships', label: 'Partnerships' },
         { href: '/about', label: 'About' },
+        { href: '/partnerships', label: 'Partnerships' },
         { href: '/blog', label: 'Blog' },
+        { href: 'https://sweetdreamsmusic.com', label: 'Sweet Dreams Music' },
       ],
     },
   ];
