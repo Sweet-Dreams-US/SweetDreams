@@ -3,14 +3,25 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Hls from 'hls.js';
 import styles from './VideoHero.module.css';
 
-// Heaven in Fort Wayne, aerial drone piece as the living background.
-const HERO_VIDEO_ID = 'd8c34ebf7e9bb7a150feaa29cd60a9a6';
-const HERO_IFRAME_SRC = `https://customer-w6h9o08eg118alny.cloudflarestream.com/${HERO_VIDEO_ID}/iframe?muted=true&autoplay=true&loop=true&controls=false`;
+if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
-// The word that cycles inside the headline. Keep each single-line + punchy.
-const ROTATING = ['UNFORGETTABLE', 'MOVE', 'CONVERT', 'SCALE'];
+const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
+// Heaven in Fort Wayne aerial. Scroll scrubs it from START to END seconds.
+const HERO_VIDEO_ID = 'd8c34ebf7e9bb7a150feaa29cd60a9a6';
+const START = 10;
+const END = 21;
+
+// The headline "options" that scroll brings in, one per third of the scrub.
+const SCENES = [
+  { a: 'WE MAKE BRANDS', b: 'IMPOSSIBLE TO IGNORE.' },
+  { a: 'WE BUILD THE SYSTEMS', b: 'THAT RUN THEM.' },
+  { a: 'MEDIA AND SOFTWARE.', b: 'UNDER ONE ROOF.' },
+];
+
 const MARQUEE = [
   'BRAND FILMS',
   'WEBSITES',
@@ -24,58 +35,127 @@ const MARQUEE = [
 
 export default function VideoHero() {
   const rootRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !rootRef.current) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const root = rootRef.current;
+    const video = videoRef.current;
+    if (!root || !video) return;
+
+    // Load HLS into the <video> so we can control currentTime by scroll.
+    const src = `${CF}/${HERO_VIDEO_ID}/manifest/video.m3u8`;
+    let hls: Hls | null = null;
+    const seekStart = () => {
+      try {
+        video.currentTime = START;
+      } catch {
+        /* seek retried when ready */
+      }
+    };
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      video.addEventListener('loadedmetadata', seekStart, { once: true });
+    } else if (Hls.isSupported()) {
+      hls = new Hls({ maxBufferLength: 40, maxMaxBufferLength: 90 });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, seekStart);
+    }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
 
     const ctx = gsap.context(() => {
-      // Entrance
-      if (!prefersReduced) {
-        const tl = gsap.timeline({ delay: 0.15 });
-        tl.from(`.${styles.eyebrow}`, { y: 18, opacity: 0, duration: 0.6, ease: 'power3.out' })
-          .from(
-            `.${styles.lineInner}`,
-            { yPercent: 120, duration: 1, stagger: 0.12, ease: 'power4.out' },
-            '-=0.25'
-          )
-          .from(`.${styles.sub}`, { y: 22, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.45')
-          .from(
-            `.${styles.ctas} > *`,
-            { y: 18, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
-            '-=0.45'
-          )
-          .from(`.${styles.marquee}`, { opacity: 0, duration: 0.8 }, '-=0.2');
-      }
+      const scenes = gsap.utils.toArray<HTMLElement>(`.${styles.scene}`);
 
-      // Rotating word, a vertical slider through ROTATING (+ a duplicate first
-      // word appended for a seamless loop reset).
-      const inner = rootRef.current!.querySelector(`.${styles.rotatorInner}`) as HTMLElement | null;
-      if (inner && !prefersReduced) {
-        const count = ROTATING.length; // items = count + 1 (dup)
-        const stepPct = 100 / (count + 1);
-        const tl = gsap.timeline({ repeat: -1 });
-        for (let i = 1; i <= count; i++) {
-          tl.to(inner, { yPercent: -stepPct * i, duration: 0.55, ease: 'power3.inOut' }, `+=1.5`);
+      // Fallback (mobile / reduced-motion): no scroll-scrub. Show the first
+      // headline; on mobile let the clip loop gently so it isn't a dead frame.
+      if (reduced || isMobile) {
+        gsap.set(scenes, { autoAlpha: 0 });
+        gsap.set(scenes[0], { autoAlpha: 1 });
+        if (!reduced) {
+          video.loop = true;
+          video.muted = true;
+          const tryPlay = () => video.play().catch(() => {});
+          if (hls) hls.on(Hls.Events.MANIFEST_PARSED, tryPlay);
+          else video.addEventListener('loadedmetadata', tryPlay, { once: true });
         }
-        tl.set(inner, { yPercent: 0 });
+        gsap.from(`.${styles.inner} > *`, {
+          y: 22,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power3.out',
+          delay: 0.1,
+        });
+        return;
       }
-    }, rootRef);
 
-    return () => ctx.revert();
+      // Desktop: pin the hero and let scroll drive the video + headline scenes.
+      gsap.set(scenes[0], { autoAlpha: 1, yPercent: 0 });
+      gsap.set([scenes[1], scenes[2]], { autoAlpha: 0, yPercent: 14 });
+
+      const proxy = { t: START };
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: 'top top',
+          end: '+=170%',
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+        },
+      });
+
+      // Scrub the video time across the whole pinned range.
+      tl.to(
+        proxy,
+        {
+          t: END,
+          ease: 'none',
+          duration: 1,
+          onUpdate: () => {
+            if (video.readyState >= 1) {
+              try {
+                video.currentTime = proxy.t;
+              } catch {
+                /* mid-seek */
+              }
+            }
+          },
+        },
+        0
+      );
+
+      // Bring in the different headline options at scroll milestones.
+      tl.to(scenes[0], { autoAlpha: 0, yPercent: -14, duration: 0.09, ease: 'power1.in' }, 0.3)
+        .to(scenes[1], { autoAlpha: 1, yPercent: 0, duration: 0.11, ease: 'power2.out' }, 0.32)
+        .to(scenes[1], { autoAlpha: 0, yPercent: -14, duration: 0.09, ease: 'power1.in' }, 0.62)
+        .to(scenes[2], { autoAlpha: 1, yPercent: 0, duration: 0.11, ease: 'power2.out' }, 0.64);
+
+      gsap.from(
+        `.${styles.eyebrow}, .${styles.sub}, .${styles.ctas}`,
+        { y: 22, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out', delay: 0.1 }
+      );
+    }, root);
+
+    return () => {
+      ctx.revert();
+      if (hls) hls.destroy();
+    };
   }, []);
 
   return (
     <section className={styles.hero} ref={rootRef}>
-      {/* Living background */}
+      {/* Scroll-scrubbed background video */}
       <div className={styles.videoWrap} aria-hidden="true">
-        <iframe
+        <video
+          ref={videoRef}
           className={styles.videoBg}
-          src={HERO_IFRAME_SRC}
-          title="Sweet Dreams aerial reel"
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          loading="eager"
-          tabIndex={-1}
+          muted
+          playsInline
+          preload="auto"
+          poster={`${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${START}s&height=900`}
         />
         <div className={styles.scrim} />
         <div className={styles.grain} />
@@ -88,24 +168,14 @@ export default function VideoHero() {
           FORT WAYNE · MEDIA + SOFTWARE
         </span>
 
-        <h1 className={styles.headline}>
-          <span className={styles.line}>
-            <span className={styles.lineInner}>WE MAKE BRANDS</span>
-          </span>
-          <span className={styles.line}>
-            <span className={styles.lineInner}>
-              <span className={styles.rotator} aria-label="unforgettable">
-                <span className={styles.rotatorInner}>
-                  {[...ROTATING, ROTATING[0]].map((w, i) => (
-                    <span className={styles.rotatorWord} key={i}>
-                      {w}
-                    </span>
-                  ))}
-                </span>
-              </span>
-            </span>
-          </span>
-        </h1>
+        <div className={styles.headlineStack}>
+          {SCENES.map((s, i) => (
+            <h1 className={styles.scene} key={i}>
+              <span>{s.a}</span>
+              <span className={styles.sceneAccent}>{s.b}</span>
+            </h1>
+          ))}
+        </div>
 
         <p className={styles.sub}>
           A creative agency and software studio under one roof. Cinematic media
@@ -122,6 +192,11 @@ export default function VideoHero() {
           <Link href="/work" className={styles.ctaSecondary}>
             See our work
           </Link>
+        </div>
+
+        <div className={styles.scrollCue} aria-hidden="true">
+          <span className={styles.scrollLine} />
+          Scroll
         </div>
       </div>
 

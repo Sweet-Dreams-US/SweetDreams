@@ -1,13 +1,7 @@
-import type { Metadata } from 'next';
-import WebSoftwareLanding from './WebSoftwareLanding';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title:
-    'Web & Software — Free Spec Website Before You Pay | Sweet Dreams',
-  description:
-    'Tell us about your business and we hand-code a real, clickable spec website before you pay a dollar — professional photo and video included. Custom sites, web apps, e-commerce, custom software, automation, and SEO from Sweet Dreams in Fort Wayne.',
-};
-
+// The old Web & Software landing is folded into the /software hub (its Phase 1
+// Websites section). Redirect so the old page can't surface anymore.
 export default function WebSoftwarePage() {
-  return <WebSoftwareLanding />;
+  redirect('/software');
 }
