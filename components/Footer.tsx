@@ -29,11 +29,11 @@ export default function Footer() {
           <div className={`${styles.column} ${styles.columnSolutions}`}>
             <h3 className={styles.brandTitle}>SOLUTIONS</h3>
             <div className={styles.links}>
+              <Link href="/software" className={styles.link}>Software</Link>
+              <Link href="/software#websites" className={styles.link}>Websites</Link>
+              <Link href="/software#dream-suite" className={styles.link}>Dream Suite</Link>
+              <Link href="/software#automations" className={styles.link}>AI Automations</Link>
               <Link href="/services/media-production" className={styles.link}>Media Production</Link>
-              <Link href="/services/marketing" className={styles.link}>Marketing</Link>
-              <Link href="/services/web-software" className={styles.link}>Web & Software</Link>
-              <Link href="/services/consulting" className={styles.link}>Consulting</Link>
-              <Link href="/partnerships" className={styles.link}>Partnerships</Link>
             </div>
           </div>
 
@@ -41,8 +41,8 @@ export default function Footer() {
           <div className={`${styles.column} ${styles.columnQuick}`}>
             <h3 className={styles.brandTitle}>QUICK LINKS</h3>
             <div className={styles.links}>
-              <Link href="/work" className={styles.link}>Our Work</Link>
-              <Link href="/solutions" className={styles.link}>Solutions</Link>
+              <Link href="/work" className={styles.link}>Portfolio</Link>
+              <Link href="/solutions" className={styles.link}>Not sure? Start here</Link>
               <Link href="/blog" className={styles.link}>Blog</Link>
               <Link href="/about" className={styles.link}>About Us</Link>
               <Link href="/book" className={styles.link}>Book a Call</Link>

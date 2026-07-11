@@ -1,0 +1,348 @@
+/* ============================================================
+   SOLUTIONS — the "not sure what you need?" router
+   Display: Anton  |  Body: IBM Plex Mono
+   Three routes, three accents: blue / red / neutral
+   ============================================================ */
+
+.page {
+  --ink: #ffffff;
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --line: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* subtle vignette + faint tri-color glow so the page never feels flat */
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(70% 55% at 12% 8%, rgba(74, 144, 226, 0.14), transparent 60%),
+    radial-gradient(65% 60% at 92% 22%, rgba(230, 54, 54, 0.12), transparent 62%),
+    radial-gradient(120% 90% at 50% 120%, rgba(0, 0, 0, 0.6), transparent 55%);
+}
+
+/* ---------- contained ghost word ---------- */
+.bgWord {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.8;
+  font-size: clamp(5rem, 20vw, 17rem);
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  max-width: 100vw;
+  will-change: transform;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* mono eyebrow kicker */
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.kicker::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: currentColor;
+  display: inline-block;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.head {
+  padding: 160px 0 70px;
+  position: relative;
+}
+.headInner {
+  max-width: 900px;
+}
+.headline {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  margin: 22px 0 0;
+  font-size: clamp(2.6rem, 8vw, 6.5rem);
+}
+.headline .accent {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.85);
+}
+.sub {
+  margin: 28px 0 0;
+  max-width: 620px;
+  font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================================
+   THREE CHOICE CARDS
+   ============================================================ */
+.cardsSection {
+  padding: 30px 0 100px;
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  --accent: #4a90e2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+  padding: 34px 30px 30px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  border: 1px solid var(--line);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* accent wash that grows on hover */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 90% at 50% 120%, var(--accent), transparent 70%);
+  opacity: 0.12;
+  transition: opacity 0.35s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow: 0 30px 70px -30px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+.card:hover::before {
+  opacity: 0.24;
+}
+
+.cardBlue { --accent: #4a90e2; }
+.cardRed { --accent: #e63636; }
+.cardNeutral { --accent: #e8e8e8; }
+
+.cardNum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  opacity: 0.9;
+}
+.cardKicker {
+  margin-top: 18px;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.cardTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  margin: 12px 0 0;
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  color: #fff;
+  transition: color 0.25s ease;
+}
+.card:hover .cardTitle {
+  color: var(--accent);
+}
+/* keep the neutral card title readable (near-white accent) on hover */
+.cardNeutral:hover .cardTitle {
+  color: #fff;
+}
+.cardBlurb {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+.cardCta {
+  margin-top: auto;
+  padding-top: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.cardArrow {
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  color: var(--accent);
+  transition: transform 0.25s ease;
+}
+.card:hover .cardArrow {
+  transform: translateX(6px);
+}
+
+/* ============================================================
+   UNDECIDED — LEAD CAPTURE
+   ============================================================ */
+.capture {
+  padding: 100px 0 130px;
+  background: var(--bg2);
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.captureWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.captureHead {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  margin: 14px 0 0;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+.captureLede {
+  margin: 22px 0 0;
+  max-width: 560px;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.7;
+  font-size: 15px;
+}
+.pitchList {
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.pitchList li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+.pitchList li::before {
+  content: '▸';
+  color: #4a90e2;
+  font-size: 15px;
+  line-height: 1.4;
+  flex: 0 0 auto;
+}
+.orCall {
+  margin: 30px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.orCallLink {
+  color: #28c840;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(40, 200, 64, 0.4);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+.orCallLink:hover {
+  border-color: #28c840;
+}
+
+/* framed stage for the light FunnelForm card */
+.captureHost {
+  position: relative;
+  padding: 8px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.04));
+  border: 1px solid rgba(74, 144, 226, 0.28);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9);
+}
+
+/* reveal helper — animated via GSAP, visible if JS is slow */
+.reveal {
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 960px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    min-height: 0;
+  }
+  .captureWrap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .head {
+    padding: 120px 0 50px;
+  }
+  .cardsSection {
+    padding: 20px 0 70px;
+  }
+  .capture {
+    padding: 70px 0 90px;
+  }
+  .bgWord {
+    font-size: clamp(4rem, 26vw, 8rem);
+    -webkit-text-stroke-width: 1.25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

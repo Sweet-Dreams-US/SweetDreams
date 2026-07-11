@@ -16,6 +16,9 @@ declare global {
       eventName: string,
       params?: Record<string, unknown>
     ) => void;
+    // Google gtag — canonical global declaration (was previously declared in a
+    // homepage component that got rewritten during the site reorg).
+    gtag?: (...args: unknown[]) => void;
   }
 }
 

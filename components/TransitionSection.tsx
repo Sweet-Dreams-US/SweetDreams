@@ -1,104 +1,133 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './TransitionSection.module.css';
 
-// Three-step process card. Rendered twice (base + inverted layer) so
-// the scroll-clip color-flip effect can reveal the inverted version
-// over the base as the user scrolls past.
-const STEPS = [
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Generational-authenticity positioning. The internet isn't a channel we
+// learned — it's the world we grew up in. Same spirit as before, elevated.
+const POINTS = [
   {
     num: '01',
-    title: 'LEARN THE BUSINESS',
-    description:
-      "We get in deep before we build. Your customers, your margins, your edge.",
+    title: 'Native, not adapted',
+    body: 'The internet isn’t a platform we studied. It’s the world we were raised in.',
   },
   {
     num: '02',
-    title: 'GROW THE ENGINE',
-    description:
-      'Media, marketing, software, or strategy. Whatever actually moves the needle.',
+    title: 'Always current',
+    body: 'New tools, new formats, new platforms — 2026’s latest. We ship on them first.',
   },
   {
     num: '03',
-    title: 'OPTIMIZE THE PROCESS',
-    description:
-      'Measure everything. Automate the systems. Ship fast — no wasted cycles.',
+    title: 'No legacy drag',
+    body: 'No dusty playbooks, no bloated retainers. Just what actually moves the needle now.',
   },
 ];
 
-function Panel() {
-  return (
-    <div className={styles.container}>
-      <h2 className={styles.mainText}>
-        WE WERE RAISED<br />
-        IN THIS AGE.
-      </h2>
-      <p className={styles.subheader}>
-        We stay ahead of the curve. 2026&apos;s latest trends. We don&apos;t get left behind.
-      </p>
-
-      <div className={styles.stepsList}>
-        {STEPS.map((step) => (
-          <div key={step.num} className={styles.step}>
-            <span className={styles.stepNumber}>{step.num}</span>
-            <div className={styles.stepBody}>
-              <h3 className={styles.stepTitle}>{step.title}</h3>
-              <p className={styles.stepDescription}>{step.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <p className={styles.tagline}>
-        No retainers. No hourly billing. Just results.
-      </p>
-      <Link href="/solutions" className={styles.button}>
-        SEE MORE
-      </Link>
-    </div>
-  );
-}
-
 export default function TransitionSection() {
+  const rootRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById('transition-section');
-      const invertedLayer = document.getElementById('inverted-layer-1');
+    if (typeof window === 'undefined' || !rootRef.current) return;
 
-      if (section && invertedLayer) {
-        const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReduced) return;
 
-        // Accelerated so the clip completes at ~50% scroll progress
-        const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-        const clampedProgress = Math.max(0, Math.min(1, progress));
-        const easedProgress = clampedProgress * 2;
-        const finalProgress = Math.min(1, easedProgress);
+    const ctx = gsap.context(() => {
+      // Headline lines clip up
+      gsap.from(`.${styles.lineInner}`, {
+        yPercent: 116,
+        duration: 1,
+        stagger: 0.12,
+        ease: 'power4.out',
+        scrollTrigger: { trigger: `.${styles.headline}`, start: 'top 80%' },
+      });
 
-        // Clip from right to left — reveals the inverted (light) version
-        const clipPercentage = 100 - (finalProgress * 100);
-        invertedLayer.style.clipPath = `inset(0 ${clipPercentage}% 0 0)`;
-      }
-    };
+      gsap.from(`.${styles.sub}`, {
+        y: 26,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: `.${styles.sub}`, start: 'top 86%' },
+      });
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+      gsap.from(`.${styles.point}`, {
+        y: 40,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.14,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: `.${styles.points}`, start: 'top 82%' },
+      });
 
-    return () => window.removeEventListener('scroll', handleScroll);
+      // Ghost word parallax
+      gsap.to(`.${styles.ghost}`, {
+        yPercent: -16,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }, rootRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section className={styles.section} id="transition-section">
-      {/* Base layer — black background, white text */}
-      <div className={styles.baseLayer}>
-        <Panel />
-      </div>
+    <section className={styles.section} ref={rootRef}>
+      <span className={styles.ghost} aria-hidden="true">
+        NOW
+      </span>
 
-      {/* Inverted layer — white background, black text, revealed on scroll */}
-      <div className={styles.invertedLayer} id="inverted-layer-1">
-        <Panel />
+      <div className={styles.container}>
+        <span className={styles.kicker}>Our edge</span>
+
+        <h2 className={styles.headline}>
+          <span className={styles.line}>
+            <span className={styles.lineInner}>We were raised</span>
+          </span>
+          <span className={styles.line}>
+            <span className={styles.lineInner}>
+              in this <span className={styles.accent}>age.</span>
+            </span>
+          </span>
+        </h2>
+
+        <p className={styles.sub}>
+          We stay ahead of the curve because we never had to catch up to it.
+          While others adapt, we build with what&apos;s next — and we don&apos;t
+          get left behind.
+        </p>
+
+        <div className={styles.points}>
+          {POINTS.map((p) => (
+            <div key={p.num} className={styles.point}>
+              <span className={styles.pointNum} aria-hidden="true">
+                {p.num}
+              </span>
+              <h3 className={styles.pointTitle}>{p.title}</h3>
+              <p className={styles.pointBody}>{p.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <Link href="/work" className={styles.link}>
+          See what that looks like
+          <span className={styles.linkArrow} aria-hidden="true">
+            →
+          </span>
+        </Link>
       </div>
     </section>
   );

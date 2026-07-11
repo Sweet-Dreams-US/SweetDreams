@@ -31,7 +31,7 @@ export default function Nav() {
           <div className={styles.navRight}>
             <div className={styles.navLinks}>
               <Link
-                href="/services/web-software"
+                href="/software"
                 className={`${styles.navLink} ${styles.linkBlue} ${
                   pathname === "/software" || pathname.startsWith("/services/web-software")
                     ? styles.navLinkActive

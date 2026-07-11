@@ -2,122 +2,181 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import styles from './WhatWeDo.module.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import WebPreviewVideo from '@/components/web/WebPreviewVideo';
+import styles from './WhatWeDo.module.css';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Four pillars. Color tokens match the Solutions tabs + Work filters
-// so the whole site reads as one visual system.
-// Funnel routing per pillar:
-// - Media: portfolio is the proof. Send to /work?filter=business —
-//   from there users enter project pages which have their own CTAs.
-// - Marketing: the pitch lives on /solutions (Marketing tab). That
-//   page carries the strategy story and its own funnel.
-// - Software: /solutions#web — perception + backend automation pitch,
-//   which then funnels through project showcases.
-// - Consulting: the partnership page IS the consulting funnel.
-const PILLARS = [
+// The two avenues Sweet Dreams sells. Each is a full panel with a live
+// reel, the pitch, and a route into its hub. Software is the 3-phase
+// product ladder; Media is business video/content.
+interface Avenue {
+  num: string;
+  kicker: string;
+  title: string;
+  lede: string;
+  tags: string[];
+  videoId: string;
+  href: string;
+  accentClass: string;
+  ariaLabel: string;
+}
+
+const AVENUES: Avenue[] = [
   {
     num: '01',
-    title: 'MEDIA',
-    description:
-      'Brand films, commercials, social video, aerials, event coverage. Cinema cameras, full post production, and stories built to sell.',
-    ctaLabel: 'Learn More',
-    ctaHref: '/services/media-production',
-    colorClass: 'colorRed',
+    kicker: 'Software',
+    title: 'Platforms that run the business',
+    lede: 'A premium animated brand site, then the ops platform that lives inside it, then the AI that connects the pipelines. One ladder — climb it as you grow.',
+    tags: ['Websites', 'Dream Suite', 'AI Automations'],
+    videoId: '1ab82de79e003fc0c37afc0a27fedbc4',
+    href: '/software',
+    accentClass: 'blue',
+    ariaLabel: 'Software preview reel',
   },
   {
     num: '02',
-    title: 'MARKETING',
-    description:
-      'Full funnel strategy, Google Ads, Meta Ads, local SEO, and email. Campaigns built to measure, not just run.',
-    ctaLabel: 'Learn More',
-    ctaHref: '/services/marketing',
-    colorClass: 'colorYellow',
+    kicker: 'Media Production',
+    title: 'Content that makes you unforgettable',
+    lede: 'Brand films, social, aerial, and event coverage — cinema cameras and full post, built to sell. The work that makes a premium brand look premium.',
+    tags: ['Brand Films', 'Social', 'Aerial', 'Events'],
+    videoId: 'd08682649901944d9bbec1dcfb8bde88',
+    href: '/services/media-production',
+    accentClass: 'red',
+    ariaLabel: 'Media production preview reel',
   },
-  {
-    num: '03',
-    title: 'SOFTWARE',
-    description:
-      'Custom websites and web apps, every one hand coded from scratch. Fast, secure, and built to grow with you.',
-    ctaLabel: 'Learn More',
-    ctaHref: '/services/web-software',
-    colorClass: 'colorBlue',
-  },
-  {
-    num: '04',
-    title: 'STRATEGY',
-    description:
-      'Brand positioning, offer refinement, and content systems. Frameworks that compound instead of expire.',
-    ctaLabel: 'Learn More',
-    ctaHref: '/services/consulting',
-    colorClass: 'colorGreen',
-  },
-] as const;
+];
 
 export default function WhatWeDo() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !cardsRef.current) return;
+    if (typeof window === 'undefined' || !rootRef.current) return;
 
-    const isMobile = window.innerWidth <= 768;
-    const cards = cardsRef.current.querySelectorAll(`.${styles.card}`);
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReduced) return;
 
     const ctx = gsap.context(() => {
-      // Each card slides in from the left and fades up a bit, staggered.
-      // Triggers earlier on mobile so users don't have to scroll past
-      // to see the reveal.
-      gsap.set(cards, { x: -60, opacity: 0 });
-      gsap.to(cards, {
-        x: 0,
-        opacity: 1,
+      // Section header
+      gsap.from(`.${styles.head} > *`, {
+        y: 32,
+        opacity: 0,
         duration: 0.7,
-        stagger: 0.18,
+        stagger: 0.1,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cardsRef.current,
-          start: isMobile ? 'top 90%' : 'top 70%',
-          toggleActions: 'play none none reverse',
-        },
+        scrollTrigger: { trigger: `.${styles.head}`, start: 'top 82%' },
       });
-    }, sectionRef);
+
+      // Each panel reveals: media slides in, copy staggers up
+      gsap.utils.toArray<HTMLElement>(`.${styles.panel}`).forEach((panel) => {
+        const media = panel.querySelector(`.${styles.media}`);
+        const copyBits = panel.querySelectorAll(`.${styles.copy} > *`);
+
+        if (media) {
+          gsap.from(media, {
+            y: 60,
+            opacity: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: panel, start: 'top 78%' },
+          });
+        }
+        gsap.from(copyBits, {
+          y: 36,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.09,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: panel, start: 'top 72%' },
+        });
+      });
+
+      // Ghost word parallax drift
+      gsap.utils.toArray<HTMLElement>(`.${styles.ghost}`).forEach((word) => {
+        gsap.to(word, {
+          yPercent: -12,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: word,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      });
+    }, rootRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <section className={styles.section} ref={rootRef}>
       <div className={styles.container}>
         {/* Header */}
-        <div className={styles.header}>
-          <h2 className={styles.title}>WHAT WE DO</h2>
-          <p className={styles.subtitle}>
-            4 connected strategies that all compliment each other.
+        <div className={styles.head}>
+          <span className={styles.kicker}>What we do</span>
+          <h2 className={styles.title}>Two ways we move you forward</h2>
+          <p className={styles.sub}>
+            Sweet Dreams is a media company and a software studio. Pick the
+            avenue you need now — most brands end up using both.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className={styles.cards} ref={cardsRef}>
-          {PILLARS.map((pillar) => (
+        {/* Two avenue panels */}
+        <div className={styles.panels}>
+          {AVENUES.map((a) => (
             <article
-              key={pillar.num}
-              className={`${styles.card} ${styles[pillar.colorClass]}`}
+              key={a.num}
+              className={`${styles.panel} ${styles[a.accentClass]}`}
             >
-              <span className={styles.cardNumber} aria-hidden="true">
-                {pillar.num}
+              <span className={styles.ghost} aria-hidden="true">
+                {a.kicker.split(' ')[0]}
               </span>
-              <div className={styles.cardBody}>
-                <h3 className={styles.cardTitle}>{pillar.title}</h3>
-                <p className={styles.cardDescription}>{pillar.description}</p>
-                <Link href={pillar.ctaHref} className={styles.cardButton}>
-                  {pillar.ctaLabel}
-                  <span className={styles.cardButtonArrow}>&rarr;</span>
+
+              <div className={styles.media}>
+                <div className={styles.mediaFrame}>
+                  <WebPreviewVideo
+                    videoId={a.videoId}
+                    className={styles.reel}
+                    ariaLabel={a.ariaLabel}
+                    startAt={1}
+                  />
+                  <span className={styles.mediaGlow} aria-hidden="true" />
+                </div>
+              </div>
+
+              <div className={styles.copy}>
+                <span className={styles.panelNum} aria-hidden="true">
+                  {a.num}
+                </span>
+                <span className={styles.panelKicker}>{a.kicker}</span>
+                <h3 className={styles.panelTitle}>{a.title}</h3>
+                <p className={styles.panelLede}>{a.lede}</p>
+
+                <ul className={styles.tags}>
+                  {a.tags.map((t, i) => (
+                    <li key={t} className={styles.tag}>
+                      {t}
+                      {i < a.tags.length - 1 && (
+                        <span className={styles.tagSep} aria-hidden="true">
+                          →
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href={a.href} className={styles.explore}>
+                  Explore
+                  <span className={styles.exploreArrow} aria-hidden="true">
+                    →
+                  </span>
                 </Link>
               </div>
             </article>

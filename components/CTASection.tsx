@@ -1,71 +1,127 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useEffect, useRef } from "react";
-import Hls from "hls.js";
-import styles from "./CTASection.module.css";
+import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import WebPreviewVideo from '@/components/web/WebPreviewVideo';
+import styles from './CTASection.module.css';
 
-// Cloudflare Stream UID for the vertical team reel that replaces the
-// previous static IMPVertphoto.jpg image. Keeps the exact same size
-// as the original image via the .verticalImage CSS class.
-const VIDEO_ID = "a4e77a8138fc0e358032779ae097ac06";
-const HLS_URL = `https://customer-w6h9o08eg118alny.cloudflarestream.com/${VIDEO_ID}/manifest/video.m3u8`;
-const POSTER_URL = `https://customer-w6h9o08eg118alny.cloudflarestream.com/${VIDEO_ID}/thumbnails/thumbnail.jpg?time=1s&height=900`;
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Vertical team reel (Cloudflare Stream) — reused via WebPreviewVideo.
+const REEL_ID = 'a4e77a8138fc0e358032779ae097ac06';
 
 export default function CTASection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
+  const rootRef = useRef<HTMLElement>(null);
 
-  // Attach HLS stream once mounted. Safari handles HLS natively so we
-  // fall back to setting the src directly there.
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    if (typeof window === 'undefined' || !rootRef.current) return;
 
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        maxBufferLength: 10,
-        maxMaxBufferLength: 30,
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReduced) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(`.${styles.lineInner}`, {
+        yPercent: 118,
+        duration: 1,
+        stagger: 0.12,
+        ease: 'power4.out',
+        scrollTrigger: { trigger: `.${styles.title}`, start: 'top 82%' },
       });
-      hlsRef.current = hls;
-      hls.loadSource(HLS_URL);
-      hls.attachMedia(video);
-    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      video.src = HLS_URL;
-    }
 
-    return () => {
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-      }
-    };
+      gsap.from([`.${styles.kicker}`, `.${styles.sub}`, `.${styles.ctas}`], {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: `.${styles.content}`, start: 'top 72%' },
+      });
+
+      gsap.from(`.${styles.mediaFrame}`, {
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: `.${styles.media}`, start: 'top 82%' },
+      });
+
+      gsap.to(`.${styles.ghost}`, {
+        yPercent: -14,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }, rootRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section className={styles.section} data-cursor-hide>
+    <section className={styles.section} ref={rootRef} data-cursor-hide>
+      <span className={styles.ghost} aria-hidden="true">
+        DREAM
+      </span>
+
       <div className={styles.container}>
-        <div className={styles.verticalImageSection}>
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className={styles.verticalImage}
-            poster={POSTER_URL}
-            aria-label="Sweet Dreams team reel"
-          />
-        </div>
-        <div className={styles.contentSection}>
+        <div className={styles.content}>
+          <span className={styles.kicker}>
+            <span className={styles.kickerDot} />
+            Ready when you are
+          </span>
+
           <h2 className={styles.title}>
-            LET&apos;S CREATE<br />
-            SOMETHING<br />
-            THAT REALLY<br />
-            <span className={styles.standsOut}>STANDS OUT</span>
+            <span className={styles.line}>
+              <span className={styles.lineInner}>Let&apos;s create</span>
+            </span>
+            <span className={styles.line}>
+              <span className={styles.lineInner}>something that</span>
+            </span>
+            <span className={styles.line}>
+              <span className={`${styles.lineInner} ${styles.accent}`}>
+                moves.
+              </span>
+            </span>
           </h2>
-          <Link href="/book" className={styles.button}>
-            GET IN TOUCH
-          </Link>
+
+          <p className={styles.sub}>
+            One call. We&apos;ll map the media, the software, or both — and
+            exactly what it takes to grow the business behind your brand.
+          </p>
+
+          <div className={styles.ctas}>
+            <Link href="/book" className={styles.ctaPrimary}>
+              Book a call
+              <span className={styles.ctaArrow} aria-hidden="true">
+                ↗
+              </span>
+            </Link>
+            <Link href="/work" className={styles.ctaSecondary}>
+              See our work
+            </Link>
+          </div>
+        </div>
+
+        <div className={styles.media}>
+          <div className={styles.mediaFrame}>
+            <WebPreviewVideo
+              videoId={REEL_ID}
+              className={styles.reel}
+              ariaLabel="Sweet Dreams team reel"
+              startAt={1}
+              posterHeight={900}
+            />
+            <span className={styles.mediaGlow} aria-hidden="true" />
+          </div>
         </div>
       </div>
     </section>

@@ -1,803 +1,221 @@
-"use client";
+'use client';
 
-import { useState, useRef, useCallback, useEffect } from "react";
-import Link from "next/link";
-import Script from "next/script";
-import FunnelReel from "@/components/funnel/FunnelReel";
-import styles from "./page.module.css";
+import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
+import styles from './solutions.module.css';
 
-const CF_POSTER = (id: string) =>
-  `https://customer-w6h9o08eg118alny.cloudflarestream.com/${id}/thumbnails/thumbnail.jpg?time=2s&height=400`;
+if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
-const TURNSTILE_SITE_KEY = "0x4AAAAAACJodExIWnZ-7sQq";
-
-declare global {
-  interface Window {
-    gtag: (...args: unknown[]) => void;
-  }
-}
-
-// ==================== TAB DATA ====================
-
-const TABS = [
-  { id: 'media', label: 'Media Production', color: 'tabColorRed' },
-  { id: 'marketing', label: 'Marketing', color: 'tabColorYellow' },
-  { id: 'web', label: 'Web & Software', color: 'tabColorBlue' },
-  { id: 'consulting', label: 'Consulting', color: 'tabColorGreen' },
-] as const;
-
-type TabId = typeof TABS[number]['id'];
-
-// ==================== ACCORDION COMPONENT ====================
-
-function Accordion({
-  title,
-  subtitle,
-  isOpen,
-  onToggle,
-  children,
-  theme,
-}: {
-  title: string;
-  subtitle?: string;
-  isOpen: boolean;
-  onToggle: () => void;
-  children: React.ReactNode;
-  theme: 'white' | 'black';
-}) {
-  const isBlack = theme === 'black';
-  return (
-    <>
-      <div
-        className={`${isBlack ? styles.accordionHeader : styles.accordionHeaderWhite} ${isOpen ? (isBlack ? styles.accordionOpen : styles.accordionOpenWhite) : ''}`}
-        onClick={onToggle}
-      >
-        <div>
-          <h2 className={`${isBlack ? styles.accordionTitle : styles.accordionTitleWhite} ${isOpen ? (isBlack ? styles.titleOpenBlack : styles.titleOpenWhite) : ''}`}>{title}</h2>
-          {subtitle && <p className={styles.accordionSubtitle}>{subtitle}</p>}
-        </div>
-        <span className={`${isBlack ? styles.accordionCaret : styles.accordionCaretWhite} ${isOpen ? styles.caretOpen : ''}`}>
-          ▼
-        </span>
-      </div>
-      <div className={`${isBlack ? styles.accordionContent : styles.accordionContentWhite} ${isOpen ? (isBlack ? styles.accordionContentOpen : styles.accordionContentOpenWhite) : ''}`}>
-        {children}
-      </div>
-    </>
-  );
-}
-
-// ==================== CARD COMPONENT ====================
-
-function Card({ title, features, buttonText, theme }: { title: string; features: string[]; buttonText: string; theme: 'white' | 'black' }) {
-  const isBlack = theme === 'black';
-  return (
-    <div className={isBlack ? styles.pricingCardBlack : styles.pricingCard}>
-      <h3 className={isBlack ? styles.pricingCardTitleBlack : styles.pricingCardTitle}>{title}</h3>
-      <div className={isBlack ? styles.pricingCardFeaturesBlack : styles.pricingCardFeatures}>
-        {features.map((f, i) => <p key={i}>{f}</p>)}
-      </div>
-      <Link href="/book" className={isBlack ? styles.pricingCardButtonBlack : styles.pricingCardButton}>{buttonText}</Link>
-    </div>
-  );
-}
-
-// ==================== EMBEDDED FREE-OFFER BLOCK ====================
-// The funnel offer (spec website / content plan) rendered in the solutions
-// design at the top of a tab. Posts to /api/funnel-capture like the
-// standalone landing pages, so these leads are tracked the same way.
-
-function SolutionsOfferForm({
-  funnel,
-  accent,
-  kicker,
-  headline,
-  subhead,
-  proof,
-  ctaLabel,
-  successTitle,
-  successBody,
-}: {
-  funnel: string;
-  accent: string;
+/* ---------- the three routes ---------- */
+const CHOICES: {
   kicker: string;
-  headline: string;
-  subhead: string;
-  proof?: React.ReactNode;
-  ctaLabel: string;
-  successTitle: string;
-  successBody: string;
-}) {
-  const [data, setData] = useState({ firstName: '', lastName: '', businessName: '', email: '', phone: '' });
-  const [honeypot, setHoneypot] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [token, setToken] = useState<string | null>(null);
-  const [tsError, setTsError] = useState<string | null>(null);
-  const tsRef = useRef<HTMLDivElement>(null);
-  const widgetIdRef = useRef<string | null>(null);
+  title: string;
+  blurb: string;
+  href: string;
+  cta: string;
+  variant: string;
+}[] = [
+  {
+    kicker: 'Build & automate',
+    title: 'Software',
+    blurb:
+      'A website, or a whole operating system for your business — sites, Dream Suite ops, and AI automations.',
+    href: '/software',
+    cta: 'Explore software',
+    variant: styles.cardBlue,
+  },
+  {
+    kicker: 'Get seen',
+    title: 'Media Production',
+    blurb:
+      'Video and content that makes you unforgettable — brand films, commercials, and social shot to look premium.',
+    href: '/services/media-production',
+    cta: 'Explore media',
+    variant: styles.cardRed,
+  },
+  {
+    kicker: 'See the work',
+    title: 'Portfolio',
+    blurb:
+      "Just want to see what we make? Browse everything — the films, the sites, the whole reel.",
+    href: '/work',
+    cta: 'Browse the work',
+    variant: styles.cardNeutral,
+  },
+];
 
-  const renderTurnstile = useCallback(() => {
-    if (window.turnstile && tsRef.current && !widgetIdRef.current) {
-      try {
-        widgetIdRef.current = window.turnstile.render(tsRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
-          callback: (t: string) => { setToken(t); setTsError(null); },
-          'error-callback': () => setToken(null),
-          'expired-callback': () => setToken(null),
-          theme: 'light',
-          size: 'flexible',
-        });
-      } catch (e) { console.error('Turnstile render error:', e); }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (window.turnstile) renderTurnstile();
-    return () => {
-      if (widgetIdRef.current && window.turnstile) {
-        try { window.turnstile.remove(widgetIdRef.current); } catch {}
-        widgetIdRef.current = null;
-      }
-    };
-  }, [renderTurnstile]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setData({ ...data, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!token) { setTsError('Please complete the verification.'); return; }
-    setStatus('loading');
-    try {
-      const res = await fetch('/api/funnel-capture', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ funnel, ...data, honeypot, turnstileToken: token }),
-      });
-      if (res.ok) {
-        setStatus('success');
-        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-          window.gtag('event', 'generate_lead', { funnel });
-        }
-        setData({ firstName: '', lastName: '', businessName: '', email: '', phone: '' });
-        setToken(null);
-        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
-      } else {
-        setStatus('error');
-        setToken(null);
-        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
-      }
-    } catch { setStatus('error'); }
-  };
-
-  return (
-    <div className={styles.videoProductionSection}>
-      <Script
-        id="turnstile-script"
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
-        strategy="lazyOnload"
-        onLoad={renderTurnstile}
-      />
-      <div className={styles.videoProductionContainer}>
-        <div className={`${styles.narrativeIntro} ${styles.narrativeIntroWhite}`}>
-          <p className={styles.narrativeKicker} style={{ color: accent }}>{kicker}</p>
-          <h3 className={styles.narrativeHeadline}>{headline}</h3>
-          <p className={styles.narrativeBody}>{subhead}</p>
-        </div>
-
-        {proof}
-
-        {status === 'success' ? (
-          <div className={styles.formSuccess}>
-            <h3 style={{ color: '#0a0a0a' }}>{successTitle}</h3>
-            <p style={{ color: 'rgba(0,0,0,0.55)' }}>{successBody}</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className={`${styles.form} ${styles.offerFormWrap}`}>
-            <input
-              type="text" name="company_website" tabIndex={-1} autoComplete="off"
-              value={honeypot} onChange={(e) => setHoneypot(e.target.value)} aria-hidden="true"
-              style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
-            />
-            <div className={styles.formRow}>
-              <div className={styles.formField}>
-                <input name="firstName" value={data.firstName} onChange={handleChange} required placeholder="First name" className={styles.formInput} />
-              </div>
-              <div className={styles.formField}>
-                <input name="lastName" value={data.lastName} onChange={handleChange} required placeholder="Last name" className={styles.formInput} />
-              </div>
-            </div>
-            <div className={styles.formField}>
-              <input name="businessName" value={data.businessName} onChange={handleChange} required placeholder="Business name" className={styles.formInput} />
-            </div>
-            <div className={styles.formRow}>
-              <div className={styles.formField}>
-                <input type="email" name="email" value={data.email} onChange={handleChange} required placeholder="Email" className={styles.formInput} />
-              </div>
-              <div className={styles.formField}>
-                <input type="tel" name="phone" value={data.phone} onChange={handleChange} placeholder="Phone (optional)" className={styles.formInput} />
-              </div>
-            </div>
-            <div ref={tsRef} className={styles.turnstile} />
-            {tsError && <p className={styles.formError}>{tsError}</p>}
-            <button
-              type="submit"
-              className={styles.formSubmit}
-              style={{ background: accent, borderColor: accent, color: '#fff' }}
-              disabled={status === 'loading' || !token}
-            >
-              {status === 'loading' ? 'SENDING...' : ctaLabel}
-            </button>
-            {status === 'error' && <p className={styles.formError}>Something went wrong. Please try again.</p>}
-          </form>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ==================== 1. MEDIA PRODUCTION ====================
-
-function MediaTab() {
-  const [open, setOpen] = useState<string | null>('brand');
-  const t = (s: string) => setOpen(open === s ? null : s);
-
-  return (
-    <div className={styles.tabContent}>
-      {/* ===== FREE CONTENT-PLAN OFFER (landing page, solutions design) ===== */}
-      <SolutionsOfferForm
-        funnel="content-roadmap"
-        accent="#a855f7"
-        kicker="Free — your 90-day content plan"
-        headline="3 months of content. You do nothing."
-        subhead={"First, we build your 90-day content plan — free. See exactly what we'd film before you pay. Then we bring the cameras and make it — filmed, edited, and posted for you."}
-        proof={
-          <div className={styles.offerReels}>
-            {['62ea7c66a3ad77eadd83bd89c01f98c2', 'f4aa9217c51a8f15aaa849a25763fb57'].map((id) => (
-              <div key={id} className={styles.offerReel}>
-                <FunnelReel videoId={id} />
-              </div>
-            ))}
-          </div>
-        }
-        ctaLabel="Get my content plan"
-        successTitle="Your plan is on the way."
-        successBody={"We'll map the exact 90 days of content we'd film and post for you, and send it over."}
-      />
-
-      <div className={styles.videoProductionSection}>
-        <div className={styles.videoProductionContainer}>
-          <Accordion title="BRAND FILM" isOpen={open === 'brand'} onToggle={() => t('brand')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Brand Identity" features={['Mission & origin story', 'What you do & how', 'Case study ready']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Campaign Package" features={['Multi-platform delivery', 'Cohesive brand story', 'Social + web + ads']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Multi-Day Production" features={['Multiple locations', 'Full crew & equipment', 'Extended storytelling']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="COMMERCIALS" isOpen={open === 'commercials'} onToggle={() => t('commercials')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Single Spot" features={['TV or digital ready', '15-60 second format', 'One core message']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Ad Campaign" features={['Multi-spot package', 'Cohesive messaging', 'All platform formats']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Multi-Day Production" features={['Multiple locations', 'Full crew & equipment', 'Series or seasonal']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="INTERNAL & RECRUITING" isOpen={open === 'internal'} onToggle={() => t('internal')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Onboarding Video" features={['Welcome to the team', 'Culture showcase', 'Set the tone']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Recruiting Content" features={['Why you should apply', 'What it\'s like here', 'Attract top talent']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Training Videos" features={['How we do things', 'Process documentation', 'Internal use']} buttonText="DISCUSS PROJECT" />
-            </div>
-          </Accordion>
-
-          <Accordion title="AERIAL & DRONE" isOpen={open === 'drone'} onToggle={() => t('drone')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Cinema Drone" features={['Cinematic flyovers', 'Business & property', 'National brand look']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Real Estate & Location" features={['Property showcases', 'Venue tours', 'Quick turnaround']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="FPV & 360" features={['Indoor FPV flights', 'Dynamic tracking shots', 'Immersive 360 content']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-
-      <div className={styles.blackPricingSection}>
-        <div className={styles.videoProductionContainer}>
-          <Accordion title="SOCIAL CONTENT PACKAGES" isOpen={open === 'content'} onToggle={() => t('content')} theme="black">
-            <div className={styles.pricingGridBlack}>
-              <Card theme="black" title="Starter" features={['4 videos per month', '1x per week', 'Basic editing']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="Growth" features={['8 videos per month', '2x per week', 'Full production']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="Scale" features={['7-14 posts per week', 'Daily content', 'Full service team']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="EVENT COVERAGE" isOpen={open === 'event'} onToggle={() => t('event')} theme="black">
-            <div className={styles.pricingGridBlack}>
-              <Card theme="black" title="1 Day" features={['Single day coverage', 'Highlight reel', 'Social clips']} buttonText="BOOK" />
-              <Card theme="black" title="2+ Days" features={['Multi-day events', 'Full highlight + raw', 'Extended coverage']} buttonText="BOOK" />
-              <Card theme="black" title="Full Package" features={['Monthly event plan', 'Large-scale production', 'Multi-person crew']} buttonText="GET QUOTE" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==================== 2. MARKETING ====================
-
-function MarketingTab() {
-  const [open, setOpen] = useState<string | null>('funnel');
-  const t = (s: string) => setOpen(open === s ? null : s);
-
-  return (
-    <div className={styles.tabContent}>
-      <div className={styles.videoProductionSection}>
-        <div className={styles.videoProductionContainer}>
-          <Accordion title="FULL-FUNNEL STRATEGY" isOpen={open === 'funnel'} onToggle={() => t('funnel')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Campaign Planning" features={['Market research & analysis', 'Audience targeting', 'Multi-channel calendar']} buttonText="BUILD YOUR PLAN" />
-              <Card theme="white" title="Conversion Optimization" features={['Landing page design', 'A/B testing', 'Form & UX optimization']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Performance Reporting" features={['Monthly analytics', 'ROI tracking', 'Strategy adjustments']} buttonText="DISCUSS PROJECT" />
-            </div>
-          </Accordion>
-
-          <Accordion title="LOCAL SEO" isOpen={open === 'seo'} onToggle={() => t('seo')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Google Business Profile" features={['GBP optimization', 'Review strategy', 'Local citations']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="On-Page SEO" features={['Keyword optimization', 'Technical SEO audit', 'Content strategy']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Ongoing SEO" features={['Monthly optimization', 'Ranking reports', 'Competitor monitoring']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="PAID ADVERTISING" isOpen={open === 'ads'} onToggle={() => t('ads')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Google Ads" features={['Search campaigns', 'Keyword targeting', 'Conversion tracking']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Meta Ads" features={['Facebook & Instagram', 'Audience targeting', 'Creative testing']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Full Ad Management" features={['All platforms', 'Budget optimization', 'Monthly reporting']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="EMAIL MARKETING" isOpen={open === 'email'} onToggle={() => t('email')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Welcome Sequences" features={['Automated onboarding', 'Brand introduction', 'First-purchase nudge']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Nurture Campaigns" features={['Lead warming', 'Value-first content', 'Sales conversion']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Full Email System" features={['Complete automation', 'Segmentation', 'A/B testing & analytics']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-
-      <div className={styles.blackPricingSection}>
-        <div className={styles.videoProductionContainer}>
-          <Accordion title="SOCIAL MEDIA MANAGEMENT" isOpen={open === 'social'} onToggle={() => t('social')} theme="black">
-            <div className={styles.pricingGridBlack}>
-              <Card theme="black" title="Content Calendars" features={['Monthly planning', 'Platform-native content', 'Scheduled posting']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="Community Management" features={['Comment responses', 'DM management', 'Audience engagement']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="Full Management" features={['All platforms handled', 'Content + engagement + growth', 'Monthly reporting']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==================== 3. WEB & SOFTWARE ====================
-
-function WebSoftwareTab() {
-  const [open, setOpen] = useState<string | null>('websites');
-  const t = (s: string) => setOpen(open === s ? null : s);
-
-  return (
-    <div className={styles.tabContent}>
-      {/* ===== FREE SPEC-WEBSITE OFFER (landing page, solutions design) ===== */}
-      <SolutionsOfferForm
-        funnel="free-website"
-        accent="#4A90E2"
-        kicker="Free — see it before you pay"
-        headline="See your new website before you pay a dollar."
-        subhead={"Tell us about your business and we'll hand-build a real, clickable site — personalized to you — free. Love it and it's yours. Don't, and you owe nothing."}
-        proof={
-          <div className={styles.offerExamples}>
-            {[
-              { name: 'MC Racing', url: 'https://mcracingfortwayne.com', videoId: '1ab82de79e003fc0c37afc0a27fedbc4' },
-              { name: 'SD Music', url: 'https://sweetdreamsmusic.com', videoId: 'c7a40ce22803114bab73611635add20c' },
-              { name: 'Sweet Dreams', url: 'https://sweetdreams.us', videoId: '2e09ff39e945e08cf28ced40197bf836' },
-            ].map((ex) => (
-              <a key={ex.url} href={ex.url} target="_blank" rel="noopener noreferrer" className={styles.offerExampleCard}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={CF_POSTER(ex.videoId)} alt={`${ex.name} website`} className={styles.offerExampleThumb} loading="lazy" />
-                <span className={styles.offerExampleName}>{ex.name} →</span>
-              </a>
-            ))}
-          </div>
-        }
-        ctaLabel="Build mine free"
-        successTitle="You're in."
-        successBody={"We'll reach out shortly, build your site, and send the live link to click through — no payment, no commitment."}
-      />
-
-      {/* ===== HALF 1: Frontend — Brand Perception ===== */}
-      <div className={styles.blackPricingSection}>
-        <div className={styles.videoProductionContainer}>
-          <div className={styles.narrativeIntro}>
-            <p className={styles.narrativeKicker}>01 — HOW PEOPLE SEE YOU</p>
-            <h3 className={styles.narrativeHeadline}>
-              Your brand&apos;s feel to others is the most important perspective.
-            </h3>
-            <p className={styles.narrativeBody}>
-              Your website is the first handshake. Care about your look. Build trust in seconds.
-              Seem professional to the skeptic. Be memorable to anyone who sees your page.
-              Every site we build is hand-coded from scratch — no templates, no page-builder
-              bloat, no subscription traps.
-            </p>
-          </div>
-
-          <Accordion title="WEBSITES" subtitle="Every site hand-coded from scratch." isOpen={open === 'websites'} onToggle={() => t('websites')} theme="black">
-            <div className={styles.pricingGridBlack}>
-              <Card theme="black" title="Starter" features={['Clean & professional', '3-5 pages', 'Mobile responsive']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="Professional" features={['Full brand experience', '10+ pages', 'SEO optimized']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="E-commerce & Apps" features={['Full-stack applications', 'Booking / payments', 'Custom integrations']} buttonText="DISCUSS PROJECT" />
-            </div>
-          </Accordion>
-
-          <Accordion title="SEO & PERFORMANCE" isOpen={open === 'seoPerf'} onToggle={() => t('seoPerf')} theme="black">
-            <div className={styles.pricingGridBlack}>
-              <Card theme="black" title="Technical SEO" features={['Core Web Vitals', 'Site speed optimization', 'Structured data']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="On-Page SEO" features={['Keyword strategy', 'Meta optimization', 'Content structure']} buttonText="DISCUSS PROJECT" />
-              <Card theme="black" title="Ongoing Maintenance" features={['Updates & security', 'Performance monitoring', 'Content updates']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <div className={styles.narrativeProofRow}>
-            <Link href="/work#websites" className={styles.narrativeProofLink}>
-              SEE OUR WEBSITES →
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* ===== HALF 2: Backend — One Platform, Every Department ===== */}
-      <div className={styles.videoProductionSection}>
-        <div className={styles.videoProductionContainer}>
-          <div className={`${styles.narrativeIntro} ${styles.narrativeIntroWhite}`}>
-            <p className={styles.narrativeKicker}>02 — HOW YOUR BUSINESS RUNS</p>
-            <h3 className={styles.narrativeHeadline}>
-              One platform. Every department. No more subscription chaos.
-            </h3>
-            <p className={styles.narrativeBody}>
-              Most businesses run on a dozen subscriptions that don&apos;t talk to each other.
-              Employees in one tool, bookings in another, accounting somewhere else, taxes in
-              spreadsheets, marketing on a fourth login. We build custom backend software that
-              puts it all in one place — your employees, your bookings, your accounting, your
-              taxes, your marketing — connected, automated, and owned by you.
-            </p>
-          </div>
-
-          <Accordion title="CUSTOM SOFTWARE" isOpen={open === 'custom'} onToggle={() => t('custom')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Custom CRM" features={['Client management', 'Pipeline tracking', 'Communication tools']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Admin Dashboards" features={['Business analytics', 'Operations tracking', 'Real-time reporting']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Internal Tools" features={['Workflow automation', 'Team management', 'Custom integrations']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="AUTOMATION & AI" isOpen={open === 'automation'} onToggle={() => t('automation')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Business Automation" features={['Invoice automation', 'Scheduling systems', 'Report generation']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="AI Implementation" features={['Chatbots & assistants', 'Content automation', 'Data analysis tools']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Full Automation Suite" features={['End-to-end workflow', 'Multi-tool integration', 'Ongoing optimization']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==================== 4. CONSULTING ====================
-
-function ConsultingTab() {
-  const [open, setOpen] = useState<string | null>('growth');
-  const t = (s: string) => setOpen(open === s ? null : s);
-
-  return (
-    <div className={styles.tabContent}>
-      <div className={styles.videoProductionSection}>
-        <div className={styles.videoProductionContainer}>
-          <Accordion title="GROWTH STRATEGY" isOpen={open === 'growth'} onToggle={() => t('growth')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="Business Analysis" features={['Market positioning', 'Bottleneck identification', 'Growth roadmap']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Offer Design" features={['Value engineering', 'Pricing strategy', 'Guarantee design']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Scaling Systems" features={['Revenue architecture', 'Lead generation design', 'Retention frameworks']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-
-          <Accordion title="OPERATIONS" isOpen={open === 'ops'} onToggle={() => t('ops')} theme="white">
-            <div className={styles.pricingGrid}>
-              <Card theme="white" title="SOPs & Documentation" features={['Process documentation', 'Training systems', 'Knowledge management']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Delegation Systems" features={['Task frameworks', 'Team structure design', 'Accountability systems']} buttonText="DISCUSS PROJECT" />
-              <Card theme="white" title="Full Operations Overhaul" features={['Complete systems audit', 'Implementation plan', 'Ongoing optimization']} buttonText="BOOK A CALL" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-
-      <div className={styles.blackPricingSection}>
-        <div className={styles.videoProductionContainer}>
-          <Accordion title="STRATEGIC PARTNERSHIPS" isOpen={open === 'partnerships'} onToggle={() => t('partnerships')} theme="black">
-            <div className={styles.pricingGridBlack}>
-              <Card theme="black" title="Growth Partnership" features={['Revenue-tied outcomes', 'Unlimited content', 'Full marketing support']} buttonText="APPLY" />
-              <Card theme="black" title="Media Partnership" features={['Ongoing production', 'Brand asset creation', 'Social management']} buttonText="APPLY" />
-              <Card theme="black" title="Custom Partnership" features={['Tailored to your goals', 'Performance-based', 'Long-term alignment']} buttonText="LET&apos;S TALK" />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ==================== TAB CONTENT MAP ====================
-
-const TAB_CONTENT: Record<TabId, React.ReactNode> = {
-  media: <MediaTab />,
-  marketing: <MarketingTab />,
-  web: <WebSoftwareTab />,
-  consulting: <ConsultingTab />,
-};
-
-// ==================== SOLUTIONS CONTACT FORM ====================
-
-const SOLUTION_OPTIONS = [
-  { label: 'Media Production', color: '#e63636' },
-  { label: 'Marketing', color: '#F4C430' },
-  { label: 'Social Media Management', color: '#4A90E2' },
-  { label: 'Web Development', color: '#e63636' },
-  { label: 'Business Software', color: '#F4C430' },
-  { label: 'Business Consulting', color: '#4A90E2' },
-  { label: 'Strategic Partnership', color: '#e63636' },
-] as const;
-
-function SolutionsContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    solutions: [] as string[],
-    message: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const [turnstileError, setTurnstileError] = useState<string | null>(null);
-  const turnstileRef = useRef<HTMLDivElement>(null);
-  const widgetIdRef = useRef<string | null>(null);
-
-  const renderTurnstile = useCallback(() => {
-    if (window.turnstile && turnstileRef.current && !widgetIdRef.current) {
-      try {
-        widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
-          sitekey: TURNSTILE_SITE_KEY,
-          callback: (token: string) => {
-            setTurnstileToken(token);
-            setTurnstileError(null);
-          },
-          'error-callback': () => {
-            setTurnstileError('Verification failed. Please try again.');
-            setTurnstileToken(null);
-          },
-          'expired-callback': () => {
-            setTurnstileToken(null);
-            setTurnstileError('Verification expired. Please verify again.');
-          },
-          theme: 'dark',
-          size: 'flexible',
-        });
-      } catch (error) {
-        console.error('Turnstile render error:', error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (window.turnstile) renderTurnstile();
-    return () => {
-      if (widgetIdRef.current && window.turnstile) {
-        try { window.turnstile.remove(widgetIdRef.current); } catch {}
-        widgetIdRef.current = null;
-      }
-    };
-  }, [renderTurnstile]);
-
-  const toggleSolution = (label: string) => {
-    setFormData(prev => ({
-      ...prev,
-      solutions: prev.solutions.includes(label)
-        ? prev.solutions.filter(s => s !== label)
-        : [...prev.solutions, label],
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setTurnstileError(null);
-    if (!turnstileToken) { setTurnstileError('Please complete the verification.'); return; }
-    if (!formData.phone) return;
-
-    setStatus('loading');
-    try {
-      const response = await fetch('/api/book-call', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          company: '',
-          message: `Solutions interest: ${formData.solutions.join(', ')}\n\n${formData.message}`,
-          preferredDate: '',
-          preferredTime: '',
-          turnstileToken,
-        }),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-          window.gtag('event', 'ads_conversion_Book_appointment_1', {});
-        }
-        setFormData({ name: '', email: '', phone: '', solutions: [], message: '' });
-        setTurnstileToken(null);
-        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
-      } else {
-        setStatus('error');
-        if (widgetIdRef.current && window.turnstile) window.turnstile.reset(widgetIdRef.current);
-      }
-    } catch {
-      setStatus('error');
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  return (
-    <section className={styles.formSection}>
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
-        strategy="lazyOnload"
-        onLoad={renderTurnstile}
-      />
-      <div className={styles.formContainer}>
-        <h2 className={styles.formTitle}>LET&apos;S TALK</h2>
-        <p className={styles.formSubtext}>Tell us what you need. We&apos;ll get back to you within 24 hours.</p>
-
-        {status === 'success' ? (
-          <div className={styles.formSuccess}>
-            <h3>Message sent!</h3>
-            <p>We&apos;ll be in touch soon.</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.formRow}>
-              <div className={styles.formField}>
-                <label className={styles.formLabel}>Name *</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required className={styles.formInput} placeholder="Your name" />
-              </div>
-              <div className={styles.formField}>
-                <label className={styles.formLabel}>Phone *</label>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required className={styles.formInput} placeholder="(555) 555-5555" />
-              </div>
-            </div>
-
-            <div className={styles.formField}>
-              <label className={styles.formLabel}>Email</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} className={styles.formInput} placeholder="you@company.com" />
-            </div>
-
-            <div className={styles.formField}>
-              <label className={styles.formLabel}>What are you interested in? (select all that apply)</label>
-              <div className={styles.solutionTags}>
-                {SOLUTION_OPTIONS.map((sol) => {
-                  const isSelected = formData.solutions.includes(sol.label);
-                  return (
-                    <button
-                      key={sol.label}
-                      type="button"
-                      onClick={() => toggleSolution(sol.label)}
-                      className={`${styles.solutionTag} ${isSelected ? styles.solutionTagActive : ''}`}
-                      style={isSelected ? { borderColor: sol.color, background: sol.color, color: sol.color === '#F4C430' ? '#000' : '#fff' } : {}}
-                    >
-                      <span className={styles.checkbox} style={isSelected ? { borderColor: sol.color === '#F4C430' ? '#000' : '#fff', background: sol.color === '#F4C430' ? '#000' : '#fff' } : {}}>
-                        {isSelected && <span className={styles.checkmark} style={{ color: sol.color }}>&#10003;</span>}
-                      </span>
-                      {sol.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className={styles.formField}>
-              <label className={styles.formLabel}>Tell us more (optional)</label>
-              <textarea name="message" value={formData.message} onChange={handleChange} className={styles.formTextarea} rows={3} placeholder="Describe your project or goals..." />
-            </div>
-
-            <div ref={turnstileRef} className={styles.turnstile} />
-            {turnstileError && <p className={styles.formError}>{turnstileError}</p>}
-
-            <button type="submit" className={styles.formSubmit} disabled={status === 'loading'}>
-              {status === 'loading' ? 'SENDING...' : 'SEND MESSAGE'}
-            </button>
-
-            {status === 'error' && <p className={styles.formError}>Something went wrong. Please try again.</p>}
-          </form>
-        )}
-      </div>
-    </section>
-  );
-}
-
-// ==================== MAIN PAGE ====================
+/* ---------- lead capture for the undecided ---------- */
+const steps: FunnelStep[] = [
+  {
+    question: "First — what's your {name}?",
+    cta: 'Continue',
+    fields: [
+      { name: 'firstName', placeholder: 'First name', required: true, half: true },
+      { name: 'lastName', placeholder: 'Last name', required: true, half: true },
+    ],
+  },
+  {
+    question: 'Tell us about your {business}',
+    cta: 'Continue',
+    fields: [
+      { name: 'businessName', placeholder: 'Business name', required: true },
+      { name: 'detail', placeholder: 'What are you trying to solve?', required: true },
+    ],
+  },
+  {
+    question: 'Where do we {reach you}?',
+    cta: 'Point me the right way',
+    fields: [
+      { name: 'email', placeholder: 'Email', type: 'email', required: true },
+      { name: 'phone', placeholder: 'Phone (optional)', type: 'tel' },
+    ],
+  },
+];
 
 export default function SolutionsPage() {
-  const [activeTab, setActiveTab] = useState<TabId>('media');
+  const root = useRef<HTMLDivElement>(null);
+  const bgWord = useRef<HTMLDivElement>(null);
 
-  // Support deep-linking to a specific tab via URL hash:
-  //   /solutions#marketing, /solutions#web, /solutions#consulting
-  // Lets the homepage's WhatWeDo CTAs land users directly on the
-  // right tab. Also listens for hashchange (in-page nav).
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const reduce =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
 
-    const TAB_IDS: readonly TabId[] = ['media', 'marketing', 'web', 'consulting'];
+    const ctx = gsap.context(() => {
+      gsap.from(`.${styles.headInner} > *`, {
+        y: 44,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: 'power3.out',
+      });
 
-    const syncTabFromHash = () => {
-      const hash = window.location.hash.replace('#', '') as TabId;
-      if (TAB_IDS.includes(hash)) {
-        setActiveTab(hash);
+      gsap.from(`.${styles.card}`, {
+        y: 56,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: `.${styles.cards}`, start: 'top 82%' },
+      });
+
+      gsap.utils.toArray<HTMLElement>(`.${styles.reveal}`).forEach((el) => {
+        gsap.from(el, {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 84%' },
+        });
+      });
+
+      if (bgWord.current) {
+        gsap.to(bgWord.current, {
+          yPercent: 18,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: root.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+          },
+        });
       }
-    };
+    }, root);
 
-    syncTabFromHash();
-    window.addEventListener('hashchange', syncTabFromHash);
-    return () => window.removeEventListener('hashchange', syncTabFromHash);
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className={styles.page}>
-      {/* TAB NAV */}
-      <nav className={styles.tabNav}>
-        <div className={styles.tabNavInner}>
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`${styles.tabButton} ${styles[tab.color]} ${activeTab === tab.id ? styles.tabButtonActive : ''}`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </nav>
+    <div ref={root} className={styles.page}>
+      {/* contained ghost word */}
+      <div ref={bgWord} className={styles.bgWord} aria-hidden="true">
+        START
+      </div>
 
-      {/* ACTIVE TAB CONTENT */}
-      {TAB_CONTENT[activeTab]}
+      <div className={styles.content}>
+        {/* ================= HEADER ================= */}
+        <header className={styles.head}>
+          <div className={`${styles.shell} ${styles.headInner}`}>
+            <p className={styles.kicker}>Not sure what you need?</p>
+            <h1 className={styles.headline}>
+              Not sure where to start?
+              <br />
+              <span className={styles.accent}>Let&apos;s point you</span> the right way.
+            </h1>
+            <p className={styles.sub}>
+              Tell us where you are and we&apos;ll aim you at the fastest win — software,
+              media, or just the proof. Pick a lane below, or let us decide with you.
+            </p>
+          </div>
+        </header>
 
-      {/* CONTACT FORM — hidden on tabs that carry their own offer form
-          (Web & Software, Media) so there's a single capture point per tab. */}
-      {activeTab !== 'web' && activeTab !== 'media' && <SolutionsContactForm />}
+        {/* ================= THREE CHOICES ================= */}
+        <section className={styles.cardsSection}>
+          <div className={styles.shell}>
+            <div className={styles.cards}>
+              {CHOICES.map((c, i) => (
+                <Link key={c.href} href={c.href} className={`${styles.card} ${c.variant}`}>
+                  <span className={styles.cardNum}>{String(i + 1).padStart(2, '0')}</span>
+                  <span className={styles.cardKicker}>{c.kicker}</span>
+                  <h2 className={styles.cardTitle}>{c.title}</h2>
+                  <p className={styles.cardBlurb}>{c.blurb}</p>
+                  <span className={styles.cardCta}>
+                    {c.cta}
+                    <span className={styles.cardArrow} aria-hidden="true">
+                      →
+                    </span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
-      {/* MUSIC STUDIO MINI CARD */}
-      <div className={styles.musicCard}>
-        <div className={styles.musicCardInner}>
-          <p className={styles.musicCardText}>Looking for music recording, mixing, or mastering?</p>
-          <a href="https://sweetdreamsmusic.com" target="_blank" rel="noopener noreferrer" className={styles.musicCardLink}>
-            Visit Sweet Dreams Music &rarr;
-          </a>
-        </div>
+        {/* ================= UNDECIDED — LEAD CAPTURE ================= */}
+        <section className={styles.capture}>
+          <div className={styles.shell}>
+            <div className={styles.captureWrap}>
+              <div className={`${styles.capturePitch} ${styles.reveal}`}>
+                <p className={styles.kicker}>Still on the fence?</p>
+                <h2 className={styles.captureHead}>
+                  Tell us the goal.
+                  <br />
+                  We&apos;ll map the fit.
+                </h2>
+                <p className={styles.captureLede}>
+                  Not every business knows whether it needs a new site, a content engine, or
+                  a system behind the scenes. Give us two minutes and we&apos;ll tell you
+                  where your money moves the needle — honestly, even if it isn&apos;t with us.
+                </p>
+                <ul className={styles.pitchList}>
+                  <li>A straight read on what you actually need first</li>
+                  <li>The one move that unlocks the most growth</li>
+                  <li>No pressure, no cost to get pointed the right way</li>
+                </ul>
+                <p className={styles.orCall}>
+                  Rather just talk?{' '}
+                  <Link href="/book" className={styles.orCallLink}>
+                    Book a call →
+                  </Link>
+                </p>
+              </div>
+
+              <div className={styles.captureHost}>
+                <FunnelForm
+                  funnel="consulting"
+                  steps={steps}
+                  successTitle="Got it."
+                  successBody="We'll reach out and help you figure out the right fit."
+                />
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

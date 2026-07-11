@@ -1,167 +1,130 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Link from "next/link";
+import Link from 'next/link';
 import { gsap } from 'gsap';
-import { CustomEase } from 'gsap/all';
-import styles from "./Header.module.css";
+import styles from './VideoHero.module.css';
 
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(CustomEase);
-}
+// HERO VIDEO — swap videoId for the flagship clip
+const HERO_VIDEO_ID = '7d5f758e9ad94d17703b2f7842ca309b';
+const HERO_IFRAME_SRC = `https://customer-w6h9o08eg118alny.cloudflarestream.com/${HERO_VIDEO_ID}/iframe?muted=true&autoplay=true&loop=true&controls=false`;
 
 export default function VideoHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !containerRef.current) return;
+    if (typeof window === 'undefined' || !rootRef.current) return;
 
-    CustomEase.create("customEase", "0.86, 0, 0.07, 1");
+    const prefersReduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReduced) return;
 
-    const container = containerRef.current;
-    const videoBox = container.querySelector(`.${styles.videoBox}`);
-    const clientName = container.querySelector(`.${styles.clientName}`);
-    const viewButton = container.querySelector(`.${styles.viewButton}`);
-    const titleLines = container.querySelectorAll('.title-line');
-    const subtitle = container.querySelector(`.${styles.subtitle}`);
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.15 });
 
-    if (!videoBox || !titleLines.length || !clientName || !viewButton || !subtitle) return;
-
-    // Kill any existing animations
-    gsap.killTweensOf([videoBox, clientName, viewButton, titleLines, subtitle]);
-
-    // Set initial visibility - ensure button is visible
-    gsap.set([videoBox, clientName, titleLines, subtitle], { clearProps: 'all' });
-    gsap.set(viewButton, { opacity: 1, scale: 1 }); // Explicitly set button to visible
-
-    // Main animation timeline
-    const mainTimeline = gsap.timeline({
-      delay: 0.1,
-    });
-
-    // Step 1: Video box scales in
-    mainTimeline.from(videoBox, {
-      scale: 0.8,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out"
-    }, 0);
-
-    // Step 2: Client name and button fade in
-    mainTimeline.from(clientName, {
-      opacity: 0,
-      y: -20,
-      duration: 0.6,
-      ease: "power2.out"
-    }, 0.5);
-
-    mainTimeline.fromTo(viewButton,
-      {
+      tl.from(`.${styles.eyebrow}`, {
+        y: 18,
         opacity: 0,
-        scale: 0.8,
-      },
-      {
-        opacity: 1,
-        scale: 1,
         duration: 0.6,
-        ease: "power2.out"
-      }, 0.5);
+        ease: 'power3.out',
+      })
+        // Cinematic line rise — each headline line clips up from below
+        .from(
+          `.${styles.lineInner}`,
+          {
+            yPercent: 118,
+            duration: 1,
+            stagger: 0.12,
+            ease: 'power4.out',
+          },
+          '-=0.25'
+        )
+        .from(
+          `.${styles.sub}`,
+          { y: 24, opacity: 0, duration: 0.7, ease: 'power3.out' },
+          '-=0.4'
+        )
+        .from(
+          `.${styles.ctas} > *`,
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out',
+          },
+          '-=0.45'
+        )
+        .from(
+          `.${styles.scrollCue}`,
+          { opacity: 0, duration: 0.8, ease: 'power2.out' },
+          '-=0.2'
+        );
+    }, rootRef);
 
-    // Step 3: Title lines slide in from sides with rotation
-    mainTimeline.from(titleLines[0], {
-      x: '-100vw',
-      rotation: -25,
-      opacity: 0,
-      duration: 1.2,
-      ease: "customEase",
-    }, 0.7);
-
-    mainTimeline.from(titleLines[1], {
-      x: '100vw',
-      rotation: 25,
-      opacity: 0,
-      duration: 1.2,
-      ease: "customEase",
-    }, 0.85);
-
-    // Step 4: Settle and scale down text
-    mainTimeline.to(titleLines, {
-      scale: 1,
-      rotation: 0,
-      duration: 0.8,
-      ease: "power3.inOut",
-      stagger: 0.1,
-      onComplete: () => {
-        gsap.set(titleLines, { scale: 1, rotation: 0 });
-      }
-    }, '+=0.3');
-
-    // Step 5: Subtitle fades in
-    mainTimeline.from(subtitle, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      ease: "power2.out"
-    }, '-=0.3');
-
-    return () => {
-      // Timeline persists
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section className={styles.videoSection} ref={containerRef}>
-      <div className={styles.videoContainer}>
-        {/* Video Box - Rounded Rectangle */}
-        <div className={styles.videoBox}>
+    <section className={styles.hero} ref={rootRef}>
+      {/* ---- Full-bleed background video ---- */}
+      <div className={styles.videoWrap} aria-hidden="true">
+        <iframe
+          className={styles.videoBg}
+          src={HERO_IFRAME_SRC}
+          title="Sweet Dreams reel"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          loading="eager"
+          tabIndex={-1}
+        />
+        <div className={styles.scrim} />
+        <div className={styles.grain} />
+      </div>
 
-          {/* Cloudflare Stream Video Background */}
-          <iframe
-            src="https://customer-w6h9o08eg118alny.cloudflarestream.com/d8c34ebf7e9bb7a150feaa29cd60a9a6/iframe?muted=true&autoplay=true&loop=true&controls=false"
-            className={styles.videoElement}
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-            allowFullScreen={true}
-            style={{ border: 'none' }}
-          />
+      {/* ---- Overlay content ---- */}
+      <div className={styles.inner}>
+        <span className={styles.eyebrow}>
+          <span className={styles.eyebrowDot} />
+          Fort Wayne — Media + Software
+        </span>
 
-          {/* Dark overlay for text readability */}
-          <div className={styles.videoOverlay}></div>
+        <h1 className={styles.headline}>
+          <span className={styles.line}>
+            <span className={styles.lineInner}>
+              We build brands that <span className={styles.accentRed}>move</span>
+            </span>
+          </span>
+          <span className={styles.line}>
+            <span className={styles.lineInner}>
+              — and the systems that{' '}
+              <span className={styles.accentBlue}>run them.</span>
+            </span>
+          </span>
+        </h1>
 
-          {/* Content Overlay */}
-          <div className={styles.videoContent}>
+        <p className={styles.sub}>
+          A creative agency and software studio under one roof. Cinematic media
+          production and custom platforms — built to grow the business behind
+          the brand.
+        </p>
 
-            {/* Top Row */}
-            <div className={styles.topRow}>
-              {/* Client Name - Top Left */}
-              <div className={styles.clientName}>
-                SWEET DREAMS MEDIA
-              </div>
-
-              {/* View Project Button - Top Right */}
-              <Link href="/work/heaven-in-fort-wayne" className={styles.viewButton}>
-                <span className={styles.viewButtonText}>VIEW PROJECT</span>
-              </Link>
-            </div>
-
-            {/* Center Title - Absolute Positioned */}
-            <div className={styles.centerTitle}>
-              <h1>
-                <div className={`${styles.titleText} title-line`}>WE DON'T MAKE VIDEOS.</div>
-                <div className={`${styles.titleText} title-line`}>WE GROW BUSINESSES.</div>
-              </h1>
-            </div>
-
-            {/* Bottom Row */}
-            <div className={styles.bottomRow}>
-              {/* Subtitle - Bottom Left */}
-              <div className={styles.subtitle}>
-                YOUR VISION, AMPLIFIED
-              </div>
-            </div>
-
-          </div>
+        <div className={styles.ctas}>
+          <Link href="/book" className={styles.ctaPrimary}>
+            Book a call
+            <span className={styles.ctaArrow} aria-hidden="true">
+              ↗
+            </span>
+          </Link>
+          <Link href="/work" className={styles.ctaSecondary}>
+            See our work
+          </Link>
         </div>
+      </div>
+
+      <div className={styles.scrollCue} aria-hidden="true">
+        <span className={styles.scrollLine} />
+        Scroll
       </div>
     </section>
   );

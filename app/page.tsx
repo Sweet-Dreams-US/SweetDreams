@@ -1,17 +1,11 @@
-import RecentWork from "@/components/RecentWork";
-import VideoHero from "@/components/VideoHero";
 import FreeOffersBar from "@/components/FreeOffersBar";
-import SolutionsAnimated from "@/components/SolutionsAnimated";
-import FriendsAnimated from "@/components/FriendsAnimated";
-import FeaturedProject from "@/components/FeaturedProject";
-import Work from "@/components/Work";
-import CTASection from "@/components/CTASection";
-import ContentStrategyAnimated from "@/components/ContentStrategyAnimated";
-import TransitionSection from "@/components/TransitionSection";
-import TransitionSection2 from "@/components/TransitionSection2";
+import VideoHero from "@/components/VideoHero";
 import WhatWeDo from "@/components/WhatWeDo";
-import PartnerWithUs from "@/components/PartnerWithUs";
-import CallNow from "@/components/CallNow";
+import TransitionSection from "@/components/TransitionSection";
+import RecentWork from "@/components/RecentWork";
+import FeaturedProject from "@/components/FeaturedProject";
+import FriendsAnimated from "@/components/FriendsAnimated";
+import CTASection from "@/components/CTASection";
 
 export default function HomePage() {
   return (
@@ -19,43 +13,25 @@ export default function HomePage() {
       {/* 1. Free offers bar — thin strip under the nav, above the hero */}
       <FreeOffersBar />
 
-      {/* 2. Video Hero */}
+      {/* 2. Full-bleed cinematic video hero — sells both avenues */}
       <VideoHero />
 
-      {/* 3. What We Do — four service pillars */}
+      {/* 3. What We Do — the two avenues (Software + Media Production) */}
       <WhatWeDo />
 
-      {/* 3. We Were Raised In This Age — process + positioning */}
+      {/* 4. We Were Raised In This Age — generational-authenticity beat */}
       <TransitionSection />
 
-      {/* 4. Content That Keeps Them Watching / Listening / Buying / Trusting */}
-      <ContentStrategyAnimated />
-
-      {/* 5. Latest Work — featured projects carousel */}
+      {/* 5. Recent Work — featured projects carousel */}
       <RecentWork />
 
-      {/* 6. Ready To Start? — pick your pillar */}
-      <SolutionsAnimated />
-
-      {/* 7. Partner With Us — Sweet Spot Partnerships */}
-      <PartnerWithUs />
-
-      {/* 8. Why Us — generational positioning (More Touchpoints. More Trust. More Sales.) */}
-      <TransitionSection2 />
-
-      {/* 8.5 Call Now — high-contrast pattern-interrupt for phone-preferring leads */}
-      <CallNow />
-
-      {/* 9a. Our Friends — trusted brands */}
-      <FriendsAnimated />
-
-      {/* 9b. Featured Project — Nissan spotlight */}
+      {/* 6. Featured Project — Nissan spotlight */}
       <FeaturedProject />
 
-      {/* 10. We Care About Your "Why?" — work grid */}
-      <Work />
+      {/* 7. Trusted by our friends — brand proof */}
+      <FriendsAnimated />
 
-      {/* 11. Let's Create Something — final CTA with vertical video */}
+      {/* 8. Final CTA — Let's create something that moves */}
       <CTASection />
     </div>
   );

@@ -1,8 +1,14 @@
+/* ============================================================
+   Sweet Dreams — WHAT WE DO (two avenues).
+   Dark canvas. Alternating full-width panels: Software (blue) +
+   Media Production (red). Live reels, ghost words, scroll reveal.
+   ============================================================ */
+
 .section {
   width: 100%;
-  background: #000;
+  background: #0a0a0a;
   color: #fff;
-  padding: 96px 48px;
+  padding: clamp(80px, 11vh, 140px) 48px;
   position: relative;
   overflow: hidden;
 }
@@ -10,189 +16,282 @@
 .container {
   max-width: 1400px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
-/* ===== Header ===== */
-.header {
-  text-align: center;
-  margin-bottom: 56px;
+/* ---------- Header ---------- */
+.head {
+  max-width: 760px;
+  margin-bottom: clamp(52px, 7vh, 88px);
+}
+
+.kicker {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-bottom: 18px;
 }
 
 .title {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(48px, 7vw, 96px);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
+  font-family: 'Anton', sans-serif !important;
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 0.94;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 14px 0;
-  font-weight: 400;
+  margin: 0 0 20px;
 }
 
-.subtitle {
+.sub {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  color: #aaa;
+  font-size: clamp(14px, 1.3vw, 16px);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.66);
   margin: 0;
-  text-transform: uppercase;
+  max-width: 56ch;
 }
 
-/* ===== Card Grid — 2×2 on desktop, 1 column on mobile ===== */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+/* ---------- Panels ---------- */
+.panels {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 8vh, 104px);
 }
 
-/* ===== Card ===== */
-.card {
+.panel {
   --accent: #fff;
-
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 32px 36px 32px 40px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 5px solid var(--accent);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.02);
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(28px, 3vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      90% 120% at 100% 0%,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 60%
+    ),
+    rgba(255, 255, 255, 0.015);
   overflow: hidden;
-  transition:
-    background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card:hover {
-  background: color-mix(in srgb, var(--accent) 6%, transparent);
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-  border-left-color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: 0 18px 50px color-mix(in srgb, var(--accent) 18%, transparent);
+/* Alternate the media side for editorial rhythm */
+.panel:nth-child(even) .media {
+  order: 2;
+}
+.panel:nth-child(even) .copy {
+  order: 1;
 }
 
-/* ===== Card Number — sits top-right as an anchor, more compact ===== */
-.cardNumber {
+.blue {
+  --accent: #4a90e2;
+}
+.red {
+  --accent: #e63636;
+}
+
+/* Ghost word behind each panel */
+.ghost {
   position: absolute;
-  top: 18px;
-  right: 28px;
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(64px, 6vw, 92px);
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 2px var(--accent);
-  letter-spacing: -0.02em;
+  top: 50%;
+  right: -2%;
+  transform: translateY(-50%);
+  font-family: 'Anton', sans-serif !important;
   font-weight: 400;
+  font-size: clamp(120px, 20vw, 320px);
+  line-height: 0.8;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 16%, transparent);
   pointer-events: none;
-  transition: -webkit-text-stroke-color 0.4s ease, color 0.4s ease;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.card:hover .cardNumber {
-  color: var(--accent);
-}
-
-/* ===== Card Body ===== */
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* ---------- Media / reel ---------- */
+.media {
   position: relative;
   z-index: 1;
-  padding-right: 100px; /* room for the absolute-positioned number */
 }
 
-.cardTitle {
-  font-family: 'Anton', sans-serif;
-  font-size: clamp(28px, 2.6vw, 36px);
-  letter-spacing: 0.04em;
+.mediaFrame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  background: #000;
+  aspect-ratio: 16 / 10;
+}
+
+.reel {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mediaGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: 0 0 120px color-mix(in srgb, var(--accent) 30%, transparent) inset;
+  opacity: 0.6;
+}
+
+/* ---------- Copy ---------- */
+.copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.panelNum {
+  font-family: 'Anton', sans-serif !important;
+  font-weight: 400;
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--accent);
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+
+.panelKicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.panelTitle {
+  font-family: 'Anton', sans-serif !important;
+  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 52px);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0;
-  font-weight: 400;
-  line-height: 1;
+  margin: 0 0 16px;
 }
 
-.cardDescription {
+.panelLede {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
-  line-height: 1.6;
-  color: #bbb;
-  margin: 0;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 22px;
+  max-width: 46ch;
 }
 
-/* ===== Button ===== */
-.cardButton {
+/* Product ladder / capability chips */
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.tag {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  align-self: flex-start;
-  margin-top: 6px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: transparent;
-  border: 2px solid var(--accent);
-  color: var(--accent);
-  font-family: 'Anton', sans-serif;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8e8e8;
+  padding: 8px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.tagSep {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ---------- Explore link / button ---------- */
+.explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
+  color: var(--accent);
+  padding: 13px 26px;
+  border: 2px solid var(--accent);
+  border-radius: 999px;
   transition:
-    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
 }
 
-.cardButton:hover {
+.explore:hover {
   background: var(--accent);
-  color: #000;
-  transform: translateX(4px);
-}
-
-.cardButtonArrow {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.cardButton:hover .cardButtonArrow {
-  transform: translateX(4px);
-}
-
-/* Yellow + green need dark text when filled (light bg, light text = unreadable) */
-.colorYellow .cardButton:hover,
-.colorGreen .cardButton:hover {
   color: #0a0a0a;
+  transform: translateX(4px);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
-/* ===== Per-pillar Accent Color ===== */
-.colorRed    { --accent: #e63636; }
-.colorYellow { --accent: #F4C430; }
-.colorBlue   { --accent: #4A90E2; }
-.colorGreen  { --accent: #28c840; }
+.exploreArrow {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
 
-/* ===== Responsive ===== */
+.explore:hover .exploreArrow {
+  transform: translateX(4px);
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .section {
-    padding: 80px 32px;
+    padding: 88px 32px;
   }
 
-  .header {
-    margin-bottom: 48px;
+  .panel {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 
-  .card {
-    padding: 28px 28px 28px 32px;
+  /* Media always on top when stacked */
+  .panel:nth-child(even) .media,
+  .media {
+    order: 1;
   }
-
-  .cardBody {
-    padding-right: 80px;
-  }
-
-  .cardNumber {
-    right: 20px;
+  .panel:nth-child(even) .copy,
+  .copy {
+    order: 2;
   }
 }
 
@@ -201,31 +300,37 @@
     padding: 64px 20px;
   }
 
-  .cards {
-    grid-template-columns: 1fr;
-    gap: 18px;
+  .panel {
+    padding: 20px;
+    border-radius: 18px;
   }
 
-  .card {
-    padding: 24px 24px 24px 28px;
-    border-left-width: 4px;
+  .mediaFrame {
+    aspect-ratio: 16 / 9;
   }
 
-  .card:hover {
-    transform: translateY(-2px); /* gentler lift on touch devices */
-  }
-
-  .cardBody {
-    gap: 10px;
-    padding-right: 80px;
-  }
-
-  .cardDescription {
+  .panelLede {
     font-size: 13px;
   }
 
-  .cardButton {
+  .ghost {
+    font-size: clamp(90px, 34vw, 160px);
+    right: -6%;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 430px) {
+  .section {
+    padding: 56px 16px;
+  }
+
+  .tags {
+    gap: 8px;
+  }
+
+  .tag {
     font-size: 11px;
-    padding: 9px 16px;
+    padding: 7px 12px;
   }
 }
