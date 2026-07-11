@@ -53,49 +53,19 @@
   white-space: nowrap;
 }
 
-/* Per-link accent colors (Work=yellow, Media=red, Web=blue).
-   Colored OUTLINE by default; filled solid on hover or when active.
-   Compound selectors beat .navLink:hover on specificity. */
-.navLink.linkYellow {
-  color: transparent;
-  -webkit-text-stroke: 1px #F4C430;
-  text-stroke: 1px #F4C430;
-}
-.navLink.linkRed {
-  color: transparent;
-  -webkit-text-stroke: 1px #e63636;
-  text-stroke: 1px #e63636;
-}
-.navLink.linkBlue {
-  color: transparent;
-  -webkit-text-stroke: 1px #4a90e2;
-  text-stroke: 1px #4a90e2;
-}
-
+/* Solid, readable nav text: black by default (see .navLink). A subtle brand
+   accent appears only on hover / active — no hard-to-read outline text. */
 .navLink.linkYellow:hover,
 .navLink.linkYellow.navLinkActive {
-  color: #F4C430;
-  -webkit-text-stroke: 0;
-  text-stroke: 0;
+  color: #b8890a;
 }
 .navLink.linkRed:hover,
 .navLink.linkRed.navLinkActive {
   color: #e63636;
-  -webkit-text-stroke: 0;
-  text-stroke: 0;
 }
 .navLink.linkBlue:hover,
 .navLink.linkBlue.navLinkActive {
-  color: #4a90e2;
-  -webkit-text-stroke: 0;
-  text-stroke: 0;
-}
-
-/* Hide the black underline on the colored outline links (fill is the cue) */
-.navLink.linkYellow::after,
-.navLink.linkRed::after,
-.navLink.linkBlue::after {
-  display: none;
+  color: #2f6fbf;
 }
 
 /* Underline on hover */
@@ -238,32 +208,30 @@
   color: #666;
 }
 
-/* CTA Button - outline text style */
+/* CTA Button - solid filled pill (high contrast, clearly the primary action) */
 .ctaButton {
-  display: inline-block;
-  background: transparent;
-  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  background: #0a0a0a;
+  color: #ffffff;
   font-family: 'Anton', sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  padding: 4px 12px;
+  letter-spacing: 0.03em;
+  padding: 9px 22px;
   line-height: 1;
-  border-radius: 0;
+  border-radius: 999px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
   white-space: nowrap;
-  -webkit-text-stroke: 1px #28c840;
-  text-stroke: 1px #28c840;
 }
 
 .ctaButton:hover,
 .ctaButton.ctaActive {
-  color: #28c840;
-  -webkit-text-stroke: 0;
-  text-stroke: 0;
-  transform: scale(1.02);
+  background: #28c840;
+  color: #06210c;
+  transform: translateY(-1px);
 }
 
 /* Hamburger inline with nav — pushed to the far edge so the text links
@@ -475,7 +443,7 @@
 
   .ctaButton {
     font-size: 20px;
-    padding: 4px 12px;
+    padding: 8px 20px;
   }
 }
 
@@ -501,7 +469,7 @@
 
   .ctaButton {
     font-size: 18px;
-    padding: 4px 10px;
+    padding: 8px 18px;
   }
 
   .authButton {
@@ -542,7 +510,7 @@
 
   .ctaButton {
     font-size: 16px;
-    padding: 3px 9px;
+    padding: 7px 16px;
   }
 
   .authButton {

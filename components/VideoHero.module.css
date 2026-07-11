@@ -121,10 +121,7 @@
   display: block;
   height: 0.9em;
   line-height: 0.9;
-  background: linear-gradient(92deg, #e63636 0%, #f4c430 55%, #4a90e2 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #ffffff;
   white-space: nowrap;
 }
 
