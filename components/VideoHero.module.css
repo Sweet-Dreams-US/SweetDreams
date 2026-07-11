@@ -6,9 +6,18 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100svh;
-  overflow: hidden;
+  /* Scroll stage: 100svh of sticky view + 160svh of scrub distance.
+     The sticky child stays pinned while this scrolls, driving the video. */
+  height: 260svh;
   background: #060608;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,6 +110,13 @@
   letter-spacing: 0.005em;
   font-size: clamp(34px, 7vw, 116px);
   will-change: transform, opacity;
+  /* Opacity/transform are driven per-frame from scroll — no CSS easing lag. */
+  transition: none;
+  opacity: 0;
+}
+
+.scene:first-of-type {
+  opacity: 1;
 }
 
 .scene span {
@@ -264,6 +280,17 @@
   .marqueeTrack,
   .scrollLine::after {
     animation: none;
+  }
+  /* No scrub — collapse the scroll stage to a single screen. */
+  .hero {
+    height: 100svh;
+  }
+}
+
+/* Mobile: no scrub, so the stage is just one screen (video loops instead). */
+@media (max-width: 900px) {
+  .hero {
+    height: 100svh;
   }
 }
 
