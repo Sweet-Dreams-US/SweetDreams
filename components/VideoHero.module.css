@@ -1,91 +1,64 @@
 /* ============================================================
-   Sweet Dreams — HOMEPAGE HERO (bespoke, full-bleed video).
-   Cinematic dark canvas. Anton display + IBM Plex Mono labels.
-   Two-avenue headline: red (media) + blue (software).
+   Homepage hero — living aerial background + kinetic headline
+   (rotating word) + moving marquee. Cinematic, in motion.
    ============================================================ */
 
 .hero {
-  --accent-red: #e63636;
-  --accent-blue: #4a90e2;
-  --accent-green: #28c840;
-
   position: relative;
   width: 100%;
   min-height: 92vh;
-  display: flex;
-  align-items: flex-end;
   overflow: hidden;
-  background: #050505;
+  background: #060608;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   isolation: isolate;
 }
 
-/* ---------- Full-bleed background video ---------- */
+/* ---- Living background video (iframe, covered) ---- */
 .videoWrap {
   position: absolute;
   inset: 0;
   z-index: 0;
-  overflow: hidden;
 }
 
-/* 16:9 iframe scaled to cover the viewport (object-fit:cover for iframes) */
 .videoBg {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   width: 100vw;
   height: 56.25vw; /* 16:9 from width */
-  min-width: 177.78vh; /* 16:9 from height */
   min-height: 100%;
-  transform: translate(-50%, -50%);
-  border: none;
+  min-width: 177.78vh; /* 16:9 from height so it always covers */
+  border: 0;
   pointer-events: none;
 }
 
-/* Legibility scrim — darker at bottom-left where the copy sits */
 .scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(
-      180deg,
-      rgba(5, 5, 5, 0.55) 0%,
-      rgba(5, 5, 5, 0.15) 32%,
-      rgba(5, 5, 5, 0.45) 68%,
-      rgba(5, 5, 5, 0.94) 100%
-    ),
-    radial-gradient(
-      120% 110% at 12% 100%,
-      rgba(5, 5, 5, 0.8) 0%,
-      transparent 55%
-    );
-  pointer-events: none;
+    linear-gradient(180deg, rgba(6, 6, 8, 0.55) 0%, rgba(6, 6, 8, 0.15) 35%, rgba(6, 6, 8, 0.75) 100%),
+    radial-gradient(120% 80% at 20% 30%, transparent 40%, rgba(6, 6, 8, 0.6) 100%);
 }
 
-/* Subtle film grain / vignette for a premium finish */
 .grain {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  background: radial-gradient(
-    140% 120% at 50% 40%,
-    transparent 55%,
-    rgba(0, 0, 0, 0.55) 100%
-  );
-  mix-blend-mode: multiply;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ---------- Overlay content ---------- */
+/* ---- Content ---- */
 .inner {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 0 48px clamp(72px, 10vh, 120px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  padding: 120px 64px 96px;
 }
 
 .eyebrow {
@@ -95,85 +68,79 @@
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #fff;
-  padding: 8px 16px 8px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
-  margin-bottom: 26px;
+  letter-spacing: 0.26em;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 22px 0;
 }
 
 .eyebrowDot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent-red);
-  box-shadow: 0 0 0 4px rgba(230, 54, 54, 0.22);
-  animation: pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(0.82);
-  }
+  background: #e63636;
+  box-shadow: 0 0 14px 2px rgba(230, 54, 54, 0.8);
 }
 
 .headline {
-  font-family: 'Anton', sans-serif !important;
+  font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(42px, 7.4vw, 128px);
-  line-height: 0.92;
-  letter-spacing: 0.01em;
   color: #fff;
-  margin: 0;
-  max-width: 18ch;
-  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.35);
+  line-height: 0.9;
+  letter-spacing: 0.005em;
+  font-size: clamp(46px, 8.8vw, 148px);
+  margin: 0 0 30px 0;
 }
 
-/* Each line clips its inner span for the cinematic rise-in */
 .line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.04em; /* room for descenders during clip */
 }
 
 .lineInner {
-  display: block;
+  display: inline-block;
   will-change: transform;
 }
 
-.accentRed {
-  color: var(--accent-red);
+/* Rotating word — a vertical slider masked to one line */
+.rotator {
+  display: inline-block;
+  overflow: hidden;
+  height: 0.9em; /* one headline line */
+  vertical-align: bottom;
+  line-height: 0.9;
 }
 
-.accentBlue {
-  color: var(--accent-blue);
+.rotatorInner {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.rotatorWord {
+  display: block;
+  height: 0.9em;
+  line-height: 0.9;
+  background: linear-gradient(92deg, #e63636 0%, #f4c430 55%, #4a90e2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
 }
 
 .sub {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: clamp(14px, 1.35vw, 17px);
+  font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.82);
-  margin: 28px 0 0;
-  max-width: 52ch;
+  max-width: 620px;
+  margin: 0 0 38px 0;
 }
 
 .ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 38px;
+  gap: 16px;
 }
 
 .ctaPrimary,
@@ -184,155 +151,116 @@
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  text-decoration: none;
-  padding: 16px 30px;
+  padding: 17px 34px;
   border-radius: 999px;
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.35s ease,
-    color 0.35s ease,
-    box-shadow 0.35s ease;
+  text-decoration: none;
+  transition: transform 0.18s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .ctaPrimary {
-  background: var(--accent-green);
-  color: #062a0e;
-  border: 2px solid var(--accent-green);
-  box-shadow: 0 12px 34px rgba(40, 200, 64, 0.32);
+  background: #28c840;
+  color: #06210c;
+  box-shadow: 0 10px 40px rgba(40, 200, 64, 0.28);
 }
 
 .ctaPrimary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 44px rgba(40, 200, 64, 0.42);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px rgba(40, 200, 64, 0.4);
 }
 
 .ctaArrow {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  font-size: 16px;
+  transition: transform 0.2s ease;
 }
 
 .ctaPrimary:hover .ctaArrow {
-  transform: translate(3px, -3px);
+  transform: translate(2px, -2px);
 }
 
 .ctaSecondary {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(4px);
 }
 
 .ctaSecondary:hover {
-  transform: translateY(-3px);
-  background: #fff;
-  color: #0a0a0a;
-  border-color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
 }
 
-/* ---------- Scroll cue ---------- */
-.scrollCue {
-  position: absolute;
-  right: clamp(20px, 4vw, 56px);
-  bottom: clamp(28px, 5vh, 52px);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.scrollLine {
-  width: 1px;
-  height: 46px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.65),
-    rgba(255, 255, 255, 0)
-  );
+/* ---- Moving marquee ---- */
+.marquee {
   position: relative;
-  overflow: hidden;
-}
-
-.scrollLine::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: 0;
+  z-index: 2;
   width: 100%;
-  height: 50%;
-  background: #fff;
-  animation: scrollDrop 2s ease-in-out infinite;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 16px 0;
+  background: rgba(6, 6, 8, 0.35);
+  backdrop-filter: blur(2px);
+  margin-top: auto;
 }
 
-@keyframes scrollDrop {
-  0% {
-    transform: translateY(-100%);
-  }
-  60%,
-  100% {
-    transform: translateY(300%);
-  }
+.marqueeTrack {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  animation: heroMarquee 32s linear infinite;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 1024px) {
-  .inner {
-    padding: 0 32px clamp(64px, 9vh, 100px);
-  }
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding: 0 26px;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(15px, 1.6vw, 22px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    min-height: 88vh;
-  }
-
-  .inner {
-    padding: 0 22px 72px;
-  }
-
-  .headline {
-    max-width: 100%;
-  }
-
-  .sub {
-    font-size: 14px;
-  }
-
-  .ctas {
-    width: 100%;
-  }
-
-  .ctaPrimary,
-  .ctaSecondary {
-    flex: 1 1 auto;
-    justify-content: center;
-  }
-
-  .scrollCue {
-    display: none;
-  }
+.marqueeDot {
+  color: #e63636;
+  font-size: 12px;
 }
 
-@media (max-width: 430px) {
-  .inner {
-    padding: 0 16px 60px;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.16em;
+@keyframes heroMarquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .eyebrowDot,
-  .scrollLine::after {
+  .marqueeTrack {
     animation: none;
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .inner {
+    padding: 104px 40px 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 88vh;
+  }
+  .inner {
+    padding: 92px 22px 64px;
+  }
+  .sub {
+    margin-bottom: 30px;
+  }
+  .ctaPrimary,
+  .ctaSecondary {
+    padding: 15px 26px;
   }
 }

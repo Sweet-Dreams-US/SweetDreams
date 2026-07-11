@@ -330,15 +330,15 @@
    ============================================================ */
 .band {
   position: relative;
-  padding: 104px 0;
+  padding: 132px 0;
   border-top: 1px solid var(--line);
   scroll-margin-top: 90px;
 }
 .bandAlt { background: var(--bg2); }
 
 .bandHead {
-  max-width: 780px;
-  margin-bottom: 46px;
+  max-width: 1000px;
+  margin-bottom: 64px;
 }
 .bandCount {
   font-size: 12px;
@@ -349,10 +349,11 @@
   font-family: 'Anton', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  line-height: 0.92;
+  line-height: 0.94;
   letter-spacing: 0.01em;
-  margin: 14px 0 0;
-  font-size: clamp(2.2rem, 5.4vw, 4.4rem);
+  margin: 16px 0 0;
+  font-size: clamp(2rem, 4.4vw, 3.9rem);
+  text-wrap: balance;
 }
 .bandLede {
   margin: 20px 0 0;
@@ -446,8 +447,8 @@
 .socialReels {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  max-width: 720px;
+  gap: 20px;
+  max-width: 560px;
 }
 .vtile {
   position: relative;
@@ -466,10 +467,10 @@
 
 /* free-plan highlighted offer bar */
 .offerBar {
-  margin-top: 30px;
+  margin-top: 68px;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 40px;
+  gap: 44px;
   align-items: center;
   padding: 40px;
   border-radius: 20px;
@@ -655,13 +656,13 @@
 }
 .planLink:hover { background: rgba(230, 54, 54, 0.18); transform: translateY(-2px); }
 
+/* Let the FunnelForm's own white card stand cleanly — no red frame around it. */
 .formHost {
   position: relative;
-  padding: 8px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, rgba(230, 54, 54, 0.35), rgba(230, 54, 54, 0.05));
-  border: 1px solid rgba(230, 54, 54, 0.3);
-  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9);
+  align-self: stretch;
+}
+.formHost > * {
+  width: 100%;
 }
 
 /* ============================================================

@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 }
 
 // Generational-authenticity positioning. The internet isn't a channel we
-// learned — it's the world we grew up in. Same spirit as before, elevated.
+// learned, it's the world we grew up in. Same spirit as before, elevated.
 const POINTS = [
   {
     num: '01',
@@ -21,7 +21,7 @@ const POINTS = [
   {
     num: '02',
     title: 'Always current',
-    body: 'New tools, new formats, new platforms — 2026’s latest. We ship on them first.',
+    body: 'New tools, new formats, new platforms, 2026’s latest. We ship on them first.',
   },
   {
     num: '03',
@@ -106,7 +106,7 @@ export default function TransitionSection() {
 
         <p className={styles.sub}>
           We stay ahead of the curve because we never had to catch up to it.
-          While others adapt, we build with what&apos;s next — and we don&apos;t
+          While others adapt, we build with what&apos;s next, and we don&apos;t
           get left behind.
         </p>
 

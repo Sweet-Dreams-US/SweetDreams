@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Vertical team reel (Cloudflare Stream) — reused via WebPreviewVideo.
+// Vertical team reel (Cloudflare Stream), reused via WebPreviewVideo.
 const REEL_ID = 'a4e77a8138fc0e358032779ae097ac06';
 
 export default function CTASection() {
@@ -94,7 +94,7 @@ export default function CTASection() {
           </h2>
 
           <p className={styles.sub}>
-            One call. We&apos;ll map the media, the software, or both — and
+            One call. We&apos;ll map the media, the software, or both, and
             exactly what it takes to grow the business behind your brand.
           </p>
 

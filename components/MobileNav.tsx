@@ -105,7 +105,6 @@ export default function MobileNav() {
       links: [
         { href: '/', label: 'Home' },
         { href: '/about', label: 'About' },
-        { href: '/partnerships', label: 'Partnerships' },
         { href: '/blog', label: 'Blog' },
         { href: 'https://sweetdreamsmusic.com', label: 'Sweet Dreams Music' },
       ],

@@ -31,7 +31,7 @@ const AVENUES: Avenue[] = [
     num: '01',
     kicker: 'Software',
     title: 'Platforms that run the business',
-    lede: 'A premium animated brand site, then the ops platform that lives inside it, then the AI that connects the pipelines. One ladder — climb it as you grow.',
+    lede: 'A premium animated brand site, then the ops platform that lives inside it, then the AI that connects the pipelines. One ladder, climb it as you grow.',
     tags: ['Websites', 'Dream Suite', 'AI Automations'],
     videoId: '1ab82de79e003fc0c37afc0a27fedbc4',
     href: '/software',
@@ -42,7 +42,7 @@ const AVENUES: Avenue[] = [
     num: '02',
     kicker: 'Media Production',
     title: 'Content that makes you unforgettable',
-    lede: 'Brand films, social, aerial, and event coverage — cinema cameras and full post, built to sell. The work that makes a premium brand look premium.',
+    lede: 'Brand films, social, aerial, and event coverage, cinema cameras and full post, built to sell. The work that makes a premium brand look premium.',
     tags: ['Brand Films', 'Social', 'Aerial', 'Events'],
     videoId: 'd08682649901944d9bbec1dcfb8bde88',
     href: '/services/media-production',
@@ -124,7 +124,7 @@ export default function WhatWeDo() {
           <h2 className={styles.title}>Two ways we move you forward</h2>
           <p className={styles.sub}>
             Sweet Dreams is a media company and a software studio. Pick the
-            avenue you need now — most brands end up using both.
+            avenue you need now, most brands end up using both.
           </p>
         </div>
 

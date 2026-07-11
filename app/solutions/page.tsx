@@ -22,7 +22,7 @@ const CHOICES: {
     kicker: 'Build & automate',
     title: 'Software',
     blurb:
-      'A website, or a whole operating system for your business — sites, Dream Suite ops, and AI automations.',
+      'A website, or a whole operating system for your business, sites, Dream Suite ops, and AI automations.',
     href: '/software',
     cta: 'Explore software',
     variant: styles.cardBlue,
@@ -31,7 +31,7 @@ const CHOICES: {
     kicker: 'Get seen',
     title: 'Media Production',
     blurb:
-      'Video and content that makes you unforgettable — brand films, commercials, and social shot to look premium.',
+      'Video and content that makes you unforgettable, brand films, commercials, and social shot to look premium.',
     href: '/services/media-production',
     cta: 'Explore media',
     variant: styles.cardRed,
@@ -40,7 +40,7 @@ const CHOICES: {
     kicker: 'See the work',
     title: 'Portfolio',
     blurb:
-      "Just want to see what we make? Browse everything — the films, the sites, the whole reel.",
+      "Just want to see what we make? Browse everything, the films, the sites, the whole reel.",
     href: '/work',
     cta: 'Browse the work',
     variant: styles.cardNeutral,
@@ -50,7 +50,7 @@ const CHOICES: {
 /* ---------- lead capture for the undecided ---------- */
 const steps: FunnelStep[] = [
   {
-    question: "First — what's your {name}?",
+    question: "First, what's your {name}?",
     cta: 'Continue',
     fields: [
       { name: 'firstName', placeholder: 'First name', required: true, half: true },
@@ -148,7 +148,7 @@ export default function SolutionsPage() {
               <span className={styles.accent}>Let&apos;s point you</span> the right way.
             </h1>
             <p className={styles.sub}>
-              Tell us where you are and we&apos;ll aim you at the fastest win — software,
+              Tell us where you are and we&apos;ll aim you at the fastest win, software,
               media, or just the proof. Pick a lane below, or let us decide with you.
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function SolutionsPage() {
           </div>
         </section>
 
-        {/* ================= UNDECIDED — LEAD CAPTURE ================= */}
+        {/* ================= UNDECIDED, LEAD CAPTURE ================= */}
         <section className={styles.capture}>
           <div className={styles.shell}>
             <div className={styles.captureWrap}>
@@ -190,7 +190,7 @@ export default function SolutionsPage() {
                 <p className={styles.captureLede}>
                   Not every business knows whether it needs a new site, a content engine, or
                   a system behind the scenes. Give us two minutes and we&apos;ll tell you
-                  where your money moves the needle — honestly, even if it isn&apos;t with us.
+                  where your money moves the needle, honestly, even if it isn&apos;t with us.
                 </p>
                 <ul className={styles.pitchList}>
                   <li>A straight read on what you actually need first</li>

@@ -26,7 +26,7 @@ const VALUES = [
   { name: 'Funnel-built', how: 'Every page is engineered to turn a visitor into a booked, qualified lead.' },
   { name: 'SEO from day one', how: 'Structured, fast, and built to be found on Google in your city.' },
   { name: 'Media included', how: 'Pro photo + video, shot for your brand and baked right into the site.' },
-  { name: 'Yours to keep', how: 'Your brand, your domain, your code — no hostage-ware, ever.' },
+  { name: 'Yours to keep', how: 'Your brand, your domain, your code, never held hostage.' },
   { name: 'Managed hosting', how: 'Fast, secure, and monitored. One flat monthly fee, nothing to babysit.' },
 ];
 
@@ -83,9 +83,9 @@ const BIG_STATS: {
   staticUnit?: string;
   label: string;
 }[] = [
-  { to: 3, unit: '×', label: 'More output from the same team — the work runs on rails, not on people.' },
-  { prefix: '−', to: 40, unit: '%', label: 'Less busywork — the manual steps between your tools simply disappear.' },
-  { staticNum: '24', staticUnit: '/7', label: 'Always-on — sales, research, and operations keep moving overnight.' },
+  { to: 3, unit: '×', label: 'More output from the same team, the work runs on rails, not on people.' },
+  { prefix: '−', to: 40, unit: '%', label: 'Less busywork, the manual steps between your tools simply disappear.' },
+  { staticNum: '24', staticUnit: '/7', label: 'Always on. Sales, research, and operations keep moving overnight.' },
 ];
 
 export default function SoftwareHub() {
@@ -241,7 +241,7 @@ export default function SoftwareHub() {
       {/* Masthead */}
       <div className={styles.wrap}>
         <div className={styles.masthead}>
-          <span className={styles.mastheadMark}>Sweet Dreams — Software</span>
+          <span className={styles.mastheadMark}>Sweet Dreams, Software</span>
           <span className={styles.mastheadNote}>Software / Fort Wayne</span>
         </div>
         <div className={styles.rule} />
@@ -254,16 +254,16 @@ export default function SoftwareHub() {
           <div className={styles.heroInner} data-hero>
             <p className={styles.eyebrow}>
               <span className={styles.eyebrowDot} />
-              Software — Fort Wayne
+              Software, Fort Wayne
             </p>
             <h1 className={styles.headline}>
-              We build your website — then the system that{' '}
+              We build your website, then the system that{' '}
               <span className={styles.hl}>runs your business</span>.
             </h1>
             <p className={styles.subhead}>
               It starts with a website that actually sells. Then it grows into{' '}
-              <b>Dream Suite</b> — the operations platform living in your own
-              backend — and finally into <b>AI automations</b> that run the
+              <b>Dream Suite</b>, the operations platform living in your own
+              backend, and finally into <b>AI automations</b> that run the
               pipelines for you. One ladder, one system, built to compound.
             </p>
 
@@ -285,7 +285,7 @@ export default function SoftwareHub() {
                   <span className={styles.railArrow} aria-hidden="true">↘</span>
                   <span className={styles.railNum}>01</span>
                   <p className={styles.railLabel}>Websites</p>
-                  <p className={styles.railHint}>A site that sells — media included.</p>
+                  <p className={styles.railHint}>A site that sells, media included.</p>
                 </a>
                 <a href="#dream-suite" className={styles.railStep}>
                   <span className={styles.railArrow} aria-hidden="true">↘</span>
@@ -305,20 +305,20 @@ export default function SoftwareHub() {
         </div>
       </header>
 
-      {/* ==================== PHASE 1 — WEBSITES ==================== */}
+      {/* ==================== PHASE 1, WEBSITES ==================== */}
       <section className={styles.section} id="websites">
         <div className={styles.wrap}>
           <div className={styles.sectionHead} data-reveal>
             <p className={styles.kicker}>
               <span className={styles.kickerBar} />
-              Phase 01 — Websites
+              Phase 01, Websites
             </p>
             <h2 className={styles.sectionTitle}>
-              A website that sells — <span className={styles.hl}>media included</span>.
+              A website that sells, <span className={styles.hl}>media included</span>.
             </h2>
             <p className={styles.sectionLede}>
-              Your foundation. A premium, hand-coded brand site with a built-in
-              funnel, real SEO, and professional photo and video — engineered to
+              Your foundation. A premium, hand built brand site with a built in
+              funnel, real SEO, and professional photo and video, engineered to
               turn attention into booked business from the day it launches.
             </p>
           </div>
@@ -333,7 +333,7 @@ export default function SoftwareHub() {
             ))}
           </div>
 
-          {/* Real builds — smart-video previews (name only, no link) */}
+          {/* Real builds, smart-video previews (name only, no link) */}
           <div className={styles.showcaseHost} data-reveal>
             <WebsiteShowcase projects={BUILDS} />
           </div>
@@ -348,20 +348,20 @@ export default function SoftwareHub() {
         </div>
       </section>
 
-      {/* ================== PHASE 2 — DREAM SUITE ================== */}
+      {/* ================== PHASE 2, DREAM SUITE ================== */}
       <section className={styles.suiteStage} id="dream-suite">
         <div className={styles.suiteGlow} aria-hidden="true" />
         <div className={styles.wrap}>
           <div className={styles.sectionHead} data-reveal>
             <p className={styles.kicker}>
               <span className={styles.kickerBar} />
-              Phase 02 — Dream Suite
+              Phase 02, Dream Suite
             </p>
             <h2 className={styles.sectionTitle}>
               The system that <span className={styles.hl}>runs</span> your business.
             </h2>
             <p className={styles.sectionLede}>
-              Dream Suite lives in the backend of your own site — one login to run
+              Dream Suite lives in the backend of your own site, one login to run
               the whole operation. Bookings, customers, money, and marketing, all
               under your brand, all in one place.
             </p>
@@ -529,13 +529,13 @@ export default function SoftwareHub() {
           <div className={styles.ownRow} data-reveal>
             <div>
               <p className={styles.ownTitle}>
-                You own it — your <span className={styles.hl}>brand</span>, your{' '}
+                You own it, your <span className={styles.hl}>brand</span>, your{' '}
                 <span className={styles.hl}>domain</span>, your{' '}
                 <span className={styles.hl}>data</span>.
               </p>
               <p className={styles.ownSub}>
                 No rented dashboards, no data held hostage. Dream Suite is built
-                into the software you already own — so the whole operation stays
+                into the software you already own, so the whole operation stays
                 yours.
               </p>
             </div>
@@ -547,13 +547,13 @@ export default function SoftwareHub() {
         </div>
       </section>
 
-      {/* ============ PHASE 3 — AI POWERED AUTOMATIONS ============ */}
+      {/* ============ PHASE 3, AI POWERED AUTOMATIONS ============ */}
       <section className={styles.autoStage} id="automations">
         <div className={styles.wrap}>
           <div className={styles.sectionHead} data-reveal>
             <p className={styles.kicker}>
               <span className={styles.kickerBar} />
-              Phase 03 — AI Powered Business Automations
+              Phase 03, AI Powered Business Automations
             </p>
             <h2 className={styles.sectionTitle}>
               Your systems, <span className={styles.hl}>running themselves</span>.
@@ -561,7 +561,7 @@ export default function SoftwareHub() {
             <p className={styles.sectionLede}>
               Every module from Dream Suite, wired together by AI. An inquiry
               becomes a booking, a booking becomes a payment, a payment triggers
-              the follow-up — sales, research, and operations run with fewer
+              the follow up. Sales, research, and operations run with fewer
               people in the loop.
             </p>
           </div>
@@ -635,7 +635,7 @@ export default function SoftwareHub() {
           </div>
 
           <p className={styles.autoCopy} data-reveal>
-            Your systems, running themselves — sales, research, and{' '}
+            Your systems, running themselves, sales, research, and{' '}
             <span className={styles.hl}>operations with fewer people</span>.
           </p>
         </div>

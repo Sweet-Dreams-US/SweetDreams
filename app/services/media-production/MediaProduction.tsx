@@ -53,7 +53,7 @@ interface Reel {
 }
 
 const brandLead: Reel = {
-  name: 'Coleman — Back to the Future',
+  name: 'Coleman: Back to the Future',
   tag: 'Commercial',
   id: '7943215ed685238e8ca63bc3617f807d',
   start: 8,
@@ -114,7 +114,7 @@ function ReelTile({ reel, feature }: { reel: Reel; feature?: boolean }) {
         videoId={reel.id}
         startAt={reel.start ?? 1}
         className={styles.tileVideo}
-        ariaLabel={`${reel.name} — ${reel.tag}`}
+        ariaLabel={`${reel.name} · ${reel.tag}`}
       />
       <span className={styles.tileScrim} aria-hidden="true" />
       <div className={styles.tileMeta}>
@@ -136,7 +136,6 @@ export default function MediaProduction() {
     if (reduce) return;
 
     const ctx = gsap.context(() => {
-      // hero intro
       gsap.from(`.${styles.heroInner} > *`, {
         y: 46,
         opacity: 0,
@@ -160,7 +159,6 @@ export default function MediaProduction() {
         ease: 'power3.out',
       });
 
-      // ghost-word parallax
       if (bgWord.current) {
         gsap.to(bgWord.current, {
           yPercent: 20,
@@ -174,7 +172,6 @@ export default function MediaProduction() {
         });
       }
 
-      // section reveals
       gsap.utils.toArray<HTMLElement>(`.${styles.reveal}`).forEach((el) => {
         gsap.from(el, {
           y: 54,
@@ -185,7 +182,6 @@ export default function MediaProduction() {
         });
       });
 
-      // staggered children in any .stagger container
       gsap.utils.toArray<HTMLElement>(`.${styles.stagger}`).forEach((c) => {
         gsap.from(Array.from(c.children), {
           y: 44,
@@ -203,7 +199,6 @@ export default function MediaProduction() {
 
   return (
     <div ref={root} className={styles.page}>
-      {/* ghost word */}
       <div ref={bgWord} className={styles.bgWord} aria-hidden="true">
         MEDIA
       </div>
@@ -227,7 +222,7 @@ export default function MediaProduction() {
 
               <div className={styles.offerTag}>
                 <span className={styles.offerDot} />
-                Free 90-day content plan — before you pay anything
+                Free 90 day content plan · before you pay anything
               </div>
 
               <h1 className={styles.heroTitle}>
@@ -238,7 +233,7 @@ export default function MediaProduction() {
               </h1>
 
               <p className={styles.heroSub}>
-                Cinematic media production — brand films, commercials, social
+                Cinematic media production. Brand films, commercials, social
                 content, event coverage, and aerial, shot to look premium and
                 built to move people. Tell us about your business and we&apos;ll
                 map the exact content we&apos;d shoot for you, free.
@@ -292,12 +287,10 @@ export default function MediaProduction() {
               <p className={styles.eyebrow}>
                 <span className={styles.bandCount}>01 / Brand &amp; Story</span>
               </p>
-              <h2 className={styles.bandTitle}>
-                Films that make people feel something.
-              </h2>
+              <h2 className={styles.bandTitle}>Films people remember.</h2>
               <p className={styles.bandLede}>
                 Brand films, commercials, and brand trailers shot at cinema
-                quality — because the story that makes people feel something is
+                quality, because the story that makes people feel something is
                 the one they remember, and premium footage reads as a premium
                 brand.
               </p>
@@ -321,9 +314,9 @@ export default function MediaProduction() {
               <p className={styles.eyebrow}>
                 <span className={styles.bandCount}>02 / Social &amp; Content</span>
               </p>
-              <h2 className={styles.bandTitle}>Short-form that stops the scroll.</h2>
+              <h2 className={styles.bandTitle}>Stop the scroll.</h2>
               <p className={styles.bandLede}>
-                Vertical social and recruiting content built for the feed —
+                Vertical social and recruiting content built for the feed,
                 designed to show up daily where attention actually lives.
               </p>
             </div>
@@ -335,7 +328,7 @@ export default function MediaProduction() {
                     videoId={r.id}
                     startAt={r.start ?? 1}
                     className={styles.tileVideo}
-                    ariaLabel={`${r.name} — ${r.tag}`}
+                    ariaLabel={`${r.name} · ${r.tag}`}
                   />
                   <span className={styles.tileScrim} aria-hidden="true" />
                   <div className={styles.tileMeta}>
@@ -356,11 +349,11 @@ export default function MediaProduction() {
                 </h3>
                 <p className={styles.offerCopy}>
                   We&apos;ll plan, shoot, and schedule a full 90 days of posts for
-                  your business — so you show up every single day without lifting a
+                  your business, so you show up every single day without lifting a
                   finger. See the whole plan before you spend a dollar.
                 </p>
                 <Link href="/content-roadmap" className={styles.btnPrimary}>
-                  Get the 90-day plan →
+                  Get the 90 day plan →
                 </Link>
               </div>
 
@@ -370,8 +363,8 @@ export default function MediaProduction() {
                     Content that keeps them watching
                   </h4>
                   <p className={styles.persuadeBody}>
-                    Every piece is engineered to earn the next second of attention
-                    — hooks that stop the scroll and stories that hold it.
+                    Every piece is engineered to earn the next second of attention,
+                    with hooks that stop the scroll and stories that hold it.
                   </p>
                 </div>
                 <div className={styles.persuadeItem}>
@@ -380,7 +373,7 @@ export default function MediaProduction() {
                   </h4>
                   <p className={styles.persuadeBody}>
                     Posting daily keeps your brand in front of buyers until
-                    they&apos;re ready — familiarity builds trust, and trust is
+                    they&apos;re ready. Familiarity builds trust, and trust is
                     what closes.
                   </p>
                 </div>
@@ -396,12 +389,10 @@ export default function MediaProduction() {
               <p className={styles.eyebrow}>
                 <span className={styles.bandCount}>03 / Live &amp; Events</span>
               </p>
-              <h2 className={styles.bandTitle}>
-                Turn one day into months of content.
-              </h2>
+              <h2 className={styles.bandTitle}>Capture the room.</h2>
               <p className={styles.bandLede}>
                 Full event coverage and recap films that capture the energy in the
-                room — proof you can run for months after the lights go down.
+                room, proof you can run for months after the lights go down.
               </p>
             </div>
 
@@ -423,7 +414,7 @@ export default function MediaProduction() {
               <p className={styles.eyebrow}>
                 <span className={styles.bandCount}>04 / Aerial &amp; Motion</span>
               </p>
-              <h2 className={styles.bandTitle}>Scale and scope from above.</h2>
+              <h2 className={styles.bandTitle}>Scale from above.</h2>
               <p className={styles.bandLede}>
                 Licensed drone cinematography and hyperlapse motion that make your
                 brand look bigger, bolder, and built for the big screen.
@@ -450,8 +441,8 @@ export default function MediaProduction() {
               </p>
               <h2 className={styles.bandTitle}>Stills that sell.</h2>
               <p className={styles.bandLede}>
-                Product, food, headshots, and campaign photography — the same
-                cinematic eye, frozen into a single frame.
+                Product, food, headshots, and campaign photography, the same
+                cinematic eye frozen into a single frame.
               </p>
             </div>
 
@@ -497,7 +488,7 @@ export default function MediaProduction() {
                 </h2>
                 <p className={styles.bandLede}>
                   We&apos;ll map the exact content we&apos;d shoot for your
-                  business — the concepts, the formats, the shot list — before you
+                  business. The concepts, the formats, the shot list, before you
                   spend a dollar. No pressure, just a plan you can keep.
                 </p>
                 <ul className={styles.freeList}>
@@ -507,7 +498,7 @@ export default function MediaProduction() {
                   <li>Zero cost, zero commitment to see the plan</li>
                 </ul>
                 <Link href="/content-roadmap" className={styles.planLink}>
-                  Or grab the free 90-day content plan →
+                  Or grab the free 90 day content plan →
                 </Link>
               </div>
 
@@ -527,7 +518,7 @@ export default function MediaProduction() {
         <section className={styles.closing}>
           <div className={styles.reveal}>
             <p className={styles.eyebrow} style={{ justifyContent: 'center' }}>
-              Sweet Dreams — Fort Wayne
+              Sweet Dreams · Fort Wayne
             </p>
             <h2 className={styles.closingTitle}>
               LIGHTS. CAMERA.
