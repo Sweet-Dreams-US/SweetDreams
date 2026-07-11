@@ -7,6 +7,9 @@
   padding-bottom: 0;
   margin-bottom: 0;
   z-index: 100;
+  /* Cast a shadow down over the free-offer blocks so the nav reads as
+     elevated above them, not flatly stacked. */
+  box-shadow: 0 10px 24px -3px rgba(0, 0, 0, 0.32);
 }
 
 /* On mobile, ensure nav stays below mobile menu */
