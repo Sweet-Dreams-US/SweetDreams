@@ -1,7 +1,9 @@
 /* ============================================================
-   Sweet Dreams — SOFTWARE HUB
-   One story down the page:
-     Phase 01 Websites → Phase 02 Dream Suite → Phase 03 Automations
+   Sweet Dreams — SOFTWARE
+   Shared styles for the Software hub (/software), Websites
+   (/websites), and AI Workflows (/ai). Two products: a website
+   that sells, and AI workflows. The dark admin mockup is unnamed
+   proof of the system we build behind it.
    Accent: blue #4A90E2. Anton (display) + IBM Plex Mono (body).
    Light editorial rhythm punctuated by a DARK premium admin
    mockup and a self-drawing AI pipeline. High-end, bespoke.
@@ -237,7 +239,7 @@
 
 .railInner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
 
@@ -376,7 +378,7 @@
 }
 
 /* ============================================================
-   PHASE 1 — WEBSITES
+   WEBSITES  (value grid, showcase, hand-off link)
    ============================================================ */
 .valueGrid {
   display: grid;
@@ -434,7 +436,7 @@
   background: #fff;
 }
 
-/* Hand-off line into phase 2 */
+/* Hand-off line — a link into the deep-dive page */
 .handoff {
   display: flex;
   align-items: center;
@@ -445,6 +447,13 @@
   color: #fff;
   border-radius: 16px;
   flex-wrap: wrap;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.handoff:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 30px 60px -34px rgba(10, 25, 47, 0.6);
 }
 
 .handoffArrow {
@@ -452,6 +461,11 @@
   font-size: clamp(28px, 4vw, 44px);
   color: var(--accent);
   line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.handoff:hover .handoffArrow {
+  transform: translateX(6px);
 }
 
 .handoffText {
@@ -468,7 +482,7 @@
 }
 
 /* ============================================================
-   PHASE 2 — DREAM SUITE  (dark premium admin)
+   PLATFORM MOCKUP  (dark premium admin, the unnamed system we build)
    ============================================================ */
 .suiteStage {
   --d-bg: #0a0e15;
@@ -581,6 +595,16 @@
 
 /* --- The dashboard mockup (browser-chrome framed) --- */
 .mockup {
+  /* Self-contained dark tokens so the mockup renders correctly anywhere
+     inside a `.page`, not only inside `.suiteStage`. */
+  --d-bg: #0a0e15;
+  --d-surface: #121926;
+  --d-surface-2: #0e141e;
+  --d-line: rgba(255, 255, 255, 0.08);
+  --d-line-2: rgba(255, 255, 255, 0.14);
+  --d-text: #eaf0f8;
+  --d-muted: #8b95a7;
+
   margin: clamp(34px, 6vh, 56px) 0 0;
   border-radius: 16px;
   overflow: hidden;
@@ -1020,7 +1044,7 @@
 }
 
 /* ============================================================
-   PHASE 3 — AI POWERED BUSINESS AUTOMATIONS
+   AI WORKFLOWS  (self-drawing pipeline + count-up stats)
    ============================================================ */
 .autoStage {
   position: relative;

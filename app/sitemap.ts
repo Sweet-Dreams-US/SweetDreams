@@ -67,8 +67,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      // Software hub — primary pillar (Websites → Dream Suite → AI Automations)
+      // Software hub — overview of the two products (Websites + AI Workflows)
       url: `${baseUrl}/software`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      // Websites — product page
+      url: `${baseUrl}/websites`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      // AI Workflows — product page
+      url: `${baseUrl}/ai`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,

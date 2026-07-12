@@ -70,6 +70,10 @@
 .navLink.linkBlue.navLinkActive {
   color: #2f6fbf;
 }
+.navLink.linkViolet:hover,
+.navLink.linkViolet.navLinkActive {
+  color: #7c3aed;
+}
 
 /* Underline on hover */
 .navLink::after {

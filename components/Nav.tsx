@@ -33,12 +33,22 @@ export default function Nav() {
               <Link
                 href="/software"
                 className={`${styles.navLink} ${styles.linkBlue} ${
-                  pathname === "/software" || pathname.startsWith("/services/web-software")
+                  pathname === "/software" ||
+                  pathname === "/websites" ||
+                  pathname.startsWith("/services/web-software")
                     ? styles.navLinkActive
                     : ""
                 }`}
               >
                 SOFTWARE
+              </Link>
+              <Link
+                href="/ai"
+                className={`${styles.navLink} ${styles.linkViolet} ${
+                  pathname === "/ai" ? styles.navLinkActive : ""
+                }`}
+              >
+                AI
               </Link>
               <Link
                 href="/services/media-production"

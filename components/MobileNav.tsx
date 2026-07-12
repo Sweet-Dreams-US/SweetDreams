@@ -85,12 +85,16 @@ export default function MobileNav() {
     };
   }, []);
 
-  // Grouped around what we actually sell. "Build" is the Software hub
-  // (Websites → Dream Suite → AI Automations).
+  // Grouped around what we actually sell. "Build" holds the two software
+  // products, Websites and AI Workflows, with Software as the overview hub.
   const navSections = [
     {
       label: 'Build',
-      links: [{ href: '/software', label: 'Software' }],
+      links: [
+        { href: '/software', label: 'Software' },
+        { href: '/websites', label: 'Websites' },
+        { href: '/ai', label: 'AI Workflows' },
+      ],
     },
     {
       label: 'See',

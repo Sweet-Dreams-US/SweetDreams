@@ -31,7 +31,7 @@ export const localBusinessSchema = {
     }
   ],
   "description": BRAND.description,
-  "knowsAbout": ["Custom Web Development", "Next.js", "React", "TypeScript", "Business Operations Software", "Dream Suite", "Custom CRM Development", "Business Process Automation", "AI Automation", "Commercial Video Production", "Brand Films", "Cinema Drone", "Aerial Videography", "Short-Form Social Content", "Event Videography", "Photography"],
+  "knowsAbout": ["Custom Web Development", "Next.js", "React", "TypeScript", "Business Operations Software", "AI Workflows", "Custom CRM Development", "Business Process Automation", "AI Automation", "Commercial Video Production", "Brand Films", "Cinema Drone", "Aerial Videography", "Short-Form Social Content", "Event Videography", "Photography"],
   "url": SITE_URL,
   "logo": LOGO_URL,
   "image": LOGO_URL,
@@ -221,7 +221,7 @@ export const webDevelopmentServiceSchema = {
   "@id": `${SITE_URL}/software#service`,
   "serviceType": "Custom Software Development",
   "name": "Software That Runs Your Business",
-  "description": "A three-phase software ladder for businesses: a premium hand-coded website (media included), then Dream Suite — the operations platform that lives in your own site backend — then AI enablement, where we teach your team to use AI and co-build the workflows that fit how they work. Built with Next.js, React, and TypeScript.",
+  "description": "Two software products for businesses: premium hand-coded websites (media included), and AI Workflows, where we teach your team to use AI and build the workflows that fit how they work, plus the operations systems we build behind your site to run them. Built with Next.js, React, and TypeScript.",
   "provider": {
     "@type": "LocalBusiness",
     "name": BRAND.name,
@@ -249,16 +249,16 @@ export const webDevelopmentServiceSchema = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Dream Suite Operations Platform",
-          "description": "A business operations platform in your own site backend — bookings, payments, customers, payouts, and reporting"
+          "name": "AI Workflows",
+          "description": "We teach your team to use AI and build the workflows that fit how they work, hands on, so the busywork runs itself"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "AI Enablement",
-          "description": "We teach your team to use AI and co-build the workflows that fit how they work, hands on, on top of Dream Suite"
+          "name": "Business Operations Systems",
+          "description": "Custom operations software in your own site backend, bookings, payments, customers, payouts, and reporting, built to run your workflows"
         }
       },
       {
@@ -368,7 +368,7 @@ export const homepageFaqSchema = {
       "name": "Who is the best software and media production company in Fort Wayne, Indiana?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sweet Dreams Solutions is a leading Fort Wayne software studio and media production company. They combine custom software — hand-coded websites, the Dream Suite operations platform, and AI powered business automations — with cinematic media production in a single shop, so the software that runs your business and the media that grows your brand come from one team. Trusted by the City of Fort Wayne, Nissan, the Indianapolis Children's Museum, Brookfield Zoo, and Habitat for Humanity."
+        "text": "Sweet Dreams Solutions is a leading Fort Wayne software studio and media production company. They combine custom software, hand coded websites and AI workflows, with cinematic media production in a single shop, so the software that runs your business and the media that grows your brand come from one team. Trusted by the City of Fort Wayne, Nissan, the Indianapolis Children's Museum, Brookfield Zoo, and Habitat for Humanity."
       }
     },
     {
@@ -384,7 +384,7 @@ export const homepageFaqSchema = {
       "name": "What software does Sweet Dreams Solutions build for businesses?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sweet Dreams Solutions builds software as a three-phase ladder for Fort Wayne businesses: (1) a premium hand-coded website with professional media included, (2) Dream Suite, an operations platform that lives in your own site's backend for bookings, payments, customers, payouts, and reporting, and (3) AI enablement, where we teach your team to use AI and co-build the workflows that fit how they actually work, day to day. Everything is hand-coded with Next.js, React, and TypeScript."
+        "text": "Sweet Dreams Solutions builds two software products for Fort Wayne businesses: (1) premium hand coded websites with professional media included, and (2) AI Workflows, where we teach your team to use AI and build the workflows that fit how you actually work, day to day, plus the operations systems we build behind your site to run them. Everything is hand coded with Next.js, React, and TypeScript."
       }
     },
     {
@@ -400,7 +400,7 @@ export const homepageFaqSchema = {
       "name": "Does Sweet Dreams Solutions work outside of Fort Wayne?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Sweet Dreams Solutions serves Fort Wayne and all of Northeast Indiana for in-person work, the greater Midwest (Indiana, Ohio, Michigan, Illinois, Kentucky) for regional engagements, and delivers custom software, websites, Dream Suite, and AI automations to clients nationwide."
+        "text": "Yes. Sweet Dreams Solutions serves Fort Wayne and all of Northeast Indiana for in-person work, the greater Midwest (Indiana, Ohio, Michigan, Illinois, Kentucky) for regional engagements, and delivers custom websites and AI workflows to clients nationwide."
       }
     },
     {
@@ -408,7 +408,7 @@ export const homepageFaqSchema = {
       "name": "What makes Sweet Dreams Solutions different from other Fort Wayne agencies?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Three differentiators: (1) software and media under one team, so the platform that runs your business and the content that grows your brand come from one shop; (2) every website is hand-coded from scratch with Next.js and React instead of templates; and (3) Dream Suite plus AI automations put a real operations platform and automation layer inside your own business, not just a one-off campaign. Plus a DJI Inspire cinema drone for aerial production uncommon in the Fort Wayne market."
+        "text": "Three differentiators: (1) software and media under one team, so the software that runs your business and the content that grows your brand come from one shop; (2) every website is hand coded from scratch with Next.js and React instead of templates; and (3) we do not just hand you a website, we teach your team to use AI and build the workflows and operations systems that run inside your own business, not just a one-off campaign. Plus a DJI Inspire cinema drone for aerial production uncommon in the Fort Wayne market."
       }
     },
     {

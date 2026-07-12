@@ -22,7 +22,7 @@ const CHOICES: {
     kicker: 'Build & automate',
     title: 'Software',
     blurb:
-      'A website, or a whole operating system for your business, sites, Dream Suite ops, and AI automations.',
+      'A website that sells, or AI workflows we build with your team to run the busywork. Start with one, add the other.',
     href: '/software',
     cta: 'Explore software',
     variant: styles.cardBlue,
