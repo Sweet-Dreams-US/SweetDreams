@@ -9,16 +9,19 @@ const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
 // Heaven in Fort Wayne aerial. We scrub a frame SEQUENCE (Cloudflare per-time
 // thumbnails) on a canvas instead of seeking a <video>, so scroll is smooth.
 const HERO_VIDEO_ID = 'd8c34ebf7e9bb7a150feaa29cd60a9a6';
+// A tighter window = higher effective fps for the same frame budget (smoother
+// slow scrubs). 10-16s over 84 frames is ~14 sampled fps.
 const START = 10;
-const END = 21;
-const FRAME_COUNT = 80; // frames across the scrub (memory ~ count x 3.7MB @720p)
-const FRAME_H = 720;
+const END = 16;
+const FRAME_COUNT = 84;
+const FRAME_H = 540; // scrub-frame height (kept low: it sits behind scrim+grain)
+const POSTER_H = 1080; // crisp still for the first paint / LCP element
 
 const frameUrl = (i: number) => {
   const t = START + (END - START) * (i / (FRAME_COUNT - 1));
   return `${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${t.toFixed(3)}s&height=${FRAME_H}`;
 };
-const POSTER_URL = `${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${START}s&height=${FRAME_H}`;
+const POSTER_URL = `${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${START}s&height=${POSTER_H}`;
 
 // The headline "options" that scroll brings in, one per third of the scrub.
 const SCENES = [
@@ -57,8 +60,7 @@ function sceneStyle(i: number, p: number, count: number) {
   return { o: 0, y: 14 };
 }
 
-// Coarse-first load order so a rough scrub is usable before every frame lands:
-// ends, then middle, then progressively finer subdivisions.
+// Coarse-first load order so a rough scrub is usable before every frame lands.
 function loadOrder(n: number) {
   const order: number[] = [];
   const seen = new Array(n).fill(false);
@@ -98,10 +100,7 @@ export default function VideoHero() {
     };
 
     // Cover-fit draw of an image onto the (DPR-scaled) canvas.
-    const drawCover = (
-      ctx: CanvasRenderingContext2D,
-      img: HTMLImageElement
-    ) => {
+    const drawCover = (ctx: CanvasRenderingContext2D, img: HTMLImageElement) => {
       if (!img.naturalWidth) return;
       const cw = canvas.width;
       const ch = canvas.height;
@@ -122,13 +121,17 @@ export default function VideoHero() {
       ctx.drawImage(img, dx, dy, dw, dh);
     };
 
-    const sizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Resize backing store to CSS px * DPR (capped — source is only 540p).
+    // Reassigning width/height resets the 2D context, so re-apply smoothing.
+    const sizeCanvas = (ctx: CanvasRenderingContext2D) => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = Math.round(canvas.clientWidth * dpr);
       const h = Math.round(canvas.clientHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         return true;
       }
       return false;
@@ -138,20 +141,24 @@ export default function VideoHero() {
 
     // Desktop (motion): scroll-scrubbed canvas frame sequence.
     mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
-      const ctx = canvas.getContext('2d', { alpha: false });
+      const ctx = canvas.getContext('2d'); // alpha:true → poster shows through
       if (!ctx) return;
-      ctx.imageSmoothingQuality = 'high';
 
       let imgs: (HTMLImageElement | null)[] = new Array(FRAME_COUNT).fill(null);
       const loaded = new Array<boolean>(FRAME_COUNT).fill(false);
       loadOrder(FRAME_COUNT).forEach((i) => {
         const im = new Image();
         im.decoding = 'async';
-        im.onload = () => {
-          loaded[i] = true;
-        };
+        // Frames must not out-prioritize the poster/LCP.
+        im.setAttribute('fetchpriority', i === 0 ? 'high' : 'low');
         im.src = frameUrl(i);
         imgs[i] = im;
+        // Gate readiness on DECODE, not just bytes, so drawImage never blocks.
+        const mark = () => {
+          loaded[i] = true;
+        };
+        if (im.decode) im.decode().then(mark).catch(() => (im.onload = mark));
+        else im.onload = mark;
       });
 
       const nearestLoaded = (idx: number) => {
@@ -163,21 +170,37 @@ export default function VideoHero() {
         return null;
       };
 
-      sizeCanvas();
+      sizeCanvas(ctx);
 
       let raf = 0;
+      let running = false;
+      let inited = false;
+      let lastTs = 0;
       let current = 0;
-      let lastDrawn = -1;
-      const loop = () => {
-        if (sizeCanvas()) lastDrawn = -1; // canvas resized → force redraw
+      let lastImg: HTMLImageElement | null = null;
+
+      const loop = (ts: number) => {
+        if (!running) return;
+        const dt = lastTs ? Math.min(64, ts - lastTs) : 16.67;
+        lastTs = ts;
+
+        if (sizeCanvas(ctx)) lastImg = null; // resized → force redraw
+
         const total = hero.offsetHeight - window.innerHeight;
         const target =
           total > 0
             ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / total))
             : 0;
-        // Ease toward the scroll target for smooth, slightly-trailing motion.
-        current += (target - current) * 0.15;
-        if (Math.abs(target - current) < 0.0006) current = target;
+
+        if (!inited) {
+          current = target; // lock to entry position, no intro scrub
+          inited = true;
+        } else {
+          // Frame-rate-independent ease (same feel on 60Hz and 120Hz).
+          const k = 1 - Math.pow(1 - 0.16, dt / 16.67);
+          current += (target - current) * k;
+          if (Math.abs(target - current) < 0.0006) current = target;
+        }
 
         scenes.forEach((s, i) => {
           const { o, y } = sceneStyle(i, current, scenes.length);
@@ -186,16 +209,33 @@ export default function VideoHero() {
         });
 
         const idx = Math.round(current * (FRAME_COUNT - 1));
-        if (idx !== lastDrawn) {
-          const img = nearestLoaded(idx);
-          if (img) {
-            drawCover(ctx, img);
-            if (loaded[idx]) lastDrawn = idx;
-          }
+        const img = nearestLoaded(idx);
+        if (img && img !== lastImg) {
+          drawCover(ctx, img);
+          lastImg = img;
         }
         raf = requestAnimationFrame(loop);
       };
-      raf = requestAnimationFrame(loop);
+
+      const start = () => {
+        if (running) return;
+        running = true;
+        inited = false; // re-seed to scroll position on (re)entry
+        lastTs = 0;
+        raf = requestAnimationFrame(loop);
+      };
+      const stop = () => {
+        running = false;
+        if (raf) cancelAnimationFrame(raf);
+        raf = 0;
+      };
+
+      // Only run the loop while the hero is near the viewport.
+      const io = new IntersectionObserver(
+        (entries) => (entries[0].isIntersecting ? start() : stop()),
+        { rootMargin: '200px 0px' }
+      );
+      io.observe(hero);
 
       const entrance = gsap.from(
         `.${styles.eyebrow}, .${styles.sub}, .${styles.ctas}`,
@@ -203,9 +243,9 @@ export default function VideoHero() {
       );
 
       return () => {
-        cancelAnimationFrame(raf);
+        stop();
+        io.disconnect();
         entrance.kill();
-        // release frame bitmaps
         imgs.forEach((im) => {
           if (im) {
             im.onload = null;
@@ -216,20 +256,10 @@ export default function VideoHero() {
       };
     });
 
-    // Mobile + reduced motion (any width): single static frame, first headline.
-    const staticPoster = () => {
-      showFirst();
-      const ctx = canvas.getContext('2d', { alpha: false });
-      const im = new Image();
-      im.decoding = 'async';
-      im.onload = () => {
-        sizeCanvas();
-        if (ctx) drawCover(ctx, im);
-      };
-      im.src = POSTER_URL;
-    };
-    mm.add('(max-width: 900px)', staticPoster);
-    mm.add('(min-width: 901px) and (prefers-reduced-motion: reduce)', staticPoster);
+    // Mobile + reduced motion: no scrub. The crisp <img> poster stays visible
+    // under the (untouched, transparent) canvas — just show the first headline.
+    mm.add('(max-width: 900.98px)', showFirst);
+    mm.add('(min-width: 901px) and (prefers-reduced-motion: reduce)', showFirst);
 
     return () => {
       mm.revert();
@@ -239,12 +269,15 @@ export default function VideoHero() {
   return (
     <section className={styles.hero} ref={rootRef}>
       <div className={styles.sticky}>
-        {/* Scroll-scrubbed frame sequence on a canvas (poster shows first) */}
-        <div
-          className={styles.videoWrap}
-          aria-hidden="true"
-          style={{ backgroundImage: `url(${POSTER_URL})` }}
-        >
+        {/* Crisp poster is the LCP element; canvas draws frames over it on scroll */}
+        <div className={styles.videoWrap} aria-hidden="true">
+          <img
+            className={styles.poster}
+            src={POSTER_URL}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+          />
           <canvas ref={canvasRef} className={styles.videoBg} />
           <div className={styles.scrim} />
           <div className={styles.grain} />
@@ -258,12 +291,20 @@ export default function VideoHero() {
           </span>
 
           <div className={styles.headlineStack}>
-            {SCENES.map((s, i) => (
-              <h1 className={styles.scene} key={i}>
-                <span>{s.a}</span>
-                <span className={styles.sceneAccent}>{s.b}</span>
-              </h1>
-            ))}
+            {SCENES.map((s, i) =>
+              i === 0 ? (
+                <h1 className={styles.scene} key={i}>
+                  <span>{s.a}</span>
+                  <span className={styles.sceneAccent}>{s.b}</span>
+                </h1>
+              ) : (
+                // Decorative animated variants — one real <h1> is enough for a11y/SEO.
+                <div className={styles.scene} key={i} aria-hidden="true">
+                  <span>{s.a}</span>
+                  <span className={styles.sceneAccent}>{s.b}</span>
+                </div>
+              )
+            )}
           </div>
 
           <p className={styles.sub}>
