@@ -2,9 +2,11 @@
 .bar {
   --c: #e63636;
   --c2: #b81f1f;
-  position: sticky;
-  top: 0;
-  z-index: 70;
+  /* !important so host-page child resets (e.g. `.page > * { position: relative }`
+     on the Software page) can't override the sticky behavior. */
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 70 !important;
   display: flex;
   align-items: center;
   justify-content: center;
