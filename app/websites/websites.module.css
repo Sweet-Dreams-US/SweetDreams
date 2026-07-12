@@ -1,0 +1,559 @@
+/* ============================================================
+   WEBSITES — dark, cinematic, media forward
+   Accent: #4A90E2 (blue)  |  Display: Anton  |  Body: IBM Plex Mono
+   Same dark stage as Media Production, tuned blue and web native.
+   ============================================================ */
+
+.page {
+  --accent: #4a90e2;
+  --accent-2: #7fb4f2;
+  --ink: #ffffff;
+  --bg: #06090f;
+  --bg2: #0b1018;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-2: rgba(255, 255, 255, 0.16);
+  --muted: rgba(255, 255, 255, 0.62);
+  --pos: #28c840;
+
+  position: relative;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* grain vignette over everything */
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
+    radial-gradient(90% 90% at 50% 120%, rgba(74, 144, 226, 0.06), transparent 60%);
+}
+
+/* big background ghost word */
+.bgWord {
+  position: fixed;
+  top: 26vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 0.8;
+  font-size: clamp(5rem, 24vw, 22rem);
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(74, 144, 226, 0.14);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  max-width: 100vw;
+  will-change: transform;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 4vw, 56px);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(96px, 14vh, 150px) clamp(24px, 4.5vw, 96px) clamp(56px, 8vh, 96px);
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 720px;
+  background:
+    radial-gradient(52% 62% at 22% 12%, rgba(74, 144, 226, 0.22), transparent 70%),
+    radial-gradient(46% 56% at 92% 0%, rgba(74, 144, 226, 0.12), transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+}
+
+.headline {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  font-size: clamp(48px, 9.5vw, 148px);
+  margin: 26px 0 0;
+  color: var(--ink);
+}
+
+/* "stand out" must never split across lines */
+.headline .hl {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.subhead {
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 28px 0 0;
+  max-width: 60ch;
+}
+.subhead b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.ctaRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 40px 0 0;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--accent);
+  color: #04121f;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 17px 30px;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  transition: transform 0.16s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  box-shadow: 0 22px 44px -20px rgba(74, 144, 226, 0.7);
+}
+
+.ctaGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 3px;
+  transition: opacity 0.18s ease;
+}
+.ctaGhost:hover {
+  opacity: 0.65;
+}
+
+.ctaArrow {
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ============================================================
+   SECTION SCAFFOLD
+   ============================================================ */
+.section {
+  position: relative;
+  padding: clamp(56px, 10vh, 120px) 0;
+}
+
+.sectionHead {
+  max-width: 860px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin: 0 0 16px;
+}
+.kickerBar {
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.sectionTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.96;
+  font-size: clamp(32px, 5.4vw, 68px);
+  margin: 0;
+  color: var(--ink);
+}
+.sectionTitle .hl {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.sectionLede {
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 20px 0 0;
+}
+
+/* ============================================================
+   SHOWCASE — 4 curated builds, dark browser-chrome cards
+   ============================================================ */
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 2.4vw, 34px);
+  margin: clamp(36px, 6vh, 56px) 0 0;
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 70px -46px rgba(0, 0, 0, 0.9);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.card:hover {
+  transform: translateY(-8px);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 40px 90px -40px rgba(74, 144, 226, 0.4);
+}
+
+.cardChrome {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: #05080d;
+  border-bottom: 1px solid var(--line);
+}
+.chromeDots {
+  display: flex;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dotR { background: #ff5f57; }
+.dotY { background: #febc2e; }
+.dotG { background: #28c840; }
+.cardUrl {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 12px;
+  background: #02040a;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cardUrl b { color: var(--ink); font-weight: 700; }
+
+.cardVideoWrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #000;
+  overflow: hidden;
+}
+.cardVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cardFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+}
+.cardName {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(17px, 2vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.cardTag {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.portfolioRow {
+  display: flex;
+  justify-content: center;
+  margin: clamp(30px, 5vh, 48px) 0 0;
+}
+.portfolioBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line-2);
+  background: transparent;
+  color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.16s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.portfolioBtn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(74, 144, 226, 0.08);
+}
+
+/* ============================================================
+   BULLETS — the six reasons, simple + colored
+   ============================================================ */
+.bullets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px clamp(28px, 5vw, 72px);
+  margin: clamp(30px, 5vh, 48px) 0 0;
+}
+
+.bullet {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: start;
+  gap: 14px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.bulletMark {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  flex: 0 0 auto;
+}
+
+.bulletName {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(17px, 2.1vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--ink);
+  margin: 0;
+}
+.bulletName .hl { color: var(--accent-2); }
+
+.bulletDesc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+/* ============================================================
+   STEPS — how it works
+   ============================================================ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: clamp(30px, 5vh, 48px) 0 0;
+}
+.step {
+  padding: 26px 24px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 14px;
+}
+.stepNum {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1;
+  color: color-mix(in srgb, var(--accent) 60%, var(--line-2));
+}
+.stepName {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(18px, 2.2vw, 24px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 12px 0 0;
+}
+.stepDesc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 10px 0 0;
+}
+
+/* quiet AI hint */
+.aiHint {
+  margin: clamp(36px, 6vh, 56px) 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+.aiHint a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  padding-bottom: 2px;
+  transition: opacity 0.18s ease;
+}
+.aiHint a:hover { opacity: 0.6; }
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.closing {
+  position: relative;
+  padding: clamp(72px, 13vh, 150px) 0;
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+}
+.closingGlow {
+  position: absolute;
+  inset: auto -10% -40% -10%;
+  height: 520px;
+  background: radial-gradient(50% 70% at 50% 100%, rgba(74, 144, 226, 0.22), transparent 72%);
+  pointer-events: none;
+}
+.closing .shell { position: relative; z-index: 1; }
+
+.closingKicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin: 0 0 18px;
+}
+
+/* One line, always: scale with viewport and never wrap */
+.closingLine {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  font-size: min(6.4vw, 72px);
+  white-space: nowrap;
+  margin: 0 auto;
+  color: var(--ink);
+}
+.closingLine .hl { color: var(--accent); }
+
+.closingSub {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 24px auto 36px;
+  max-width: 56ch;
+}
+
+.closingCtas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .showcase { grid-template-columns: 1fr; }
+  .bullets { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .ctaPrimary { width: 100%; justify-content: center; }
+  .closingCtas .ctaPrimary { width: 100%; }
+  .bgWord { font-size: clamp(4rem, 26vw, 10rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .ctaPrimary, .portfolioBtn { transition: none !important; }
+}
