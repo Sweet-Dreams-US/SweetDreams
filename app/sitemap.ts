@@ -53,9 +53,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      // No trailing slash — matches the homepage canonical (SITE_URL) and
-      // Next's default trailingSlash: false.
-      url: baseUrl,
+      // Trailing slash — matches the homepage canonical, which metadataBase
+      // normalizes to `${SITE_URL}/`.
+      url: `${baseUrl}/`,
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 1.0,
