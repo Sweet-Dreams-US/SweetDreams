@@ -202,7 +202,7 @@ export default function MediaProduction() {
     <div ref={root} className={styles.page}>
       <TopOfferBar
         tone="red"
-        label="Free 90 Day Content Plan"
+        label="90 Day Content Plan"
         sub="Before you pay anything"
         href="#start"
       />

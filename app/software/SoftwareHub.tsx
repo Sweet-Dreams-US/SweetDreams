@@ -236,7 +236,7 @@ export default function SoftwareHub() {
     <div ref={root} className={styles.page}>
       <TopOfferBar
         tone="blue"
-        label="Free Website"
+        label="Website"
         sub="Built before you pay a dollar"
         href="/free-website"
       />
