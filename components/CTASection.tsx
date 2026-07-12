@@ -26,11 +26,13 @@ export default function CTASection() {
     if (prefersReduced) return;
 
     const ctx = gsap.context(() => {
+      // Bold, not busy: a quiet fade-up rather than the big line-slide reveal.
       gsap.from(`.${styles.lineInner}`, {
-        yPercent: 118,
-        duration: 1,
-        stagger: 0.12,
-        ease: 'power4.out',
+        opacity: 0,
+        y: 22,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power3.out',
         scrollTrigger: { trigger: `.${styles.title}`, start: 'top 82%' },
       });
 
@@ -88,7 +90,7 @@ export default function CTASection() {
             </span>
             <span className={styles.line}>
               <span className={`${styles.lineInner} ${styles.accent}`}>
-                moves.
+                stands out.
               </span>
             </span>
           </h2>

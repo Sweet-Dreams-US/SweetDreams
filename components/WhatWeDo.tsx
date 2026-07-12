@@ -33,7 +33,7 @@ const AVENUES: Avenue[] = [
     title: 'Platforms that run the business',
     lede: 'A premium animated brand site, then the ops platform that lives inside it, then the AI that connects the pipelines. One ladder, climb it as you grow.',
     tags: ['Websites', 'Dream Suite', 'AI Automations'],
-    videoId: '1ab82de79e003fc0c37afc0a27fedbc4',
+    videoId: 'abc316f410b475f978ab9322b033add6', // Ace Gameroom build
     href: '/software',
     accentClass: 'blue',
     ariaLabel: 'Software preview reel',

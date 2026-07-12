@@ -12,7 +12,7 @@ const HERO_VIDEO_ID = 'd8c34ebf7e9bb7a150feaa29cd60a9a6';
 // A tighter window = higher effective fps for the same frame budget (smoother
 // slow scrubs). 10-16s over 84 frames is ~14 sampled fps.
 const START = 10;
-const END = 16;
+const END = 14; // last ~2s trimmed — there's a jump in the edit near 16s
 const FRAME_COUNT = 84;
 const FRAME_H = 540; // scrub-frame height (kept low: it sits behind scrim+grain)
 const POSTER_H = 1080; // crisp still for the first paint / LCP element

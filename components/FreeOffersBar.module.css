@@ -6,6 +6,10 @@
   grid-auto-columns: 1fr;
   width: 100%;
   background: #0a0a0a;
+  /* Stay pinned at the top as the page scrolls — persistent lead magnets. */
+  position: sticky;
+  top: 0;
+  z-index: 60;
 }
 
 .segment {
@@ -140,6 +144,8 @@
   .bar {
     grid-auto-flow: row;
     grid-auto-columns: auto;
+    /* Stacked, it's two rows tall — don't eat mobile screen by pinning it. */
+    position: static;
   }
   .segment + .segment {
     border-left: none;
