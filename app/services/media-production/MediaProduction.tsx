@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WebPreviewVideo from '@/components/web/WebPreviewVideo';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
+import TopOfferBar from '@/components/TopOfferBar';
 import styles from './media.module.css';
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
@@ -199,6 +200,13 @@ export default function MediaProduction() {
 
   return (
     <div ref={root} className={styles.page}>
+      <TopOfferBar
+        tone="red"
+        label="Free 90 Day Content Plan"
+        sub="Before you pay anything"
+        href="#start"
+      />
+
       <div ref={bgWord} className={styles.bgWord} aria-hidden="true">
         MEDIA
       </div>

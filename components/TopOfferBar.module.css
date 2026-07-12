@@ -1,0 +1,122 @@
+/* Skinny sticky promo bar for the top of the Media / Software pages. */
+.bar {
+  --c: #e63636;
+  --c2: #b81f1f;
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 20px;
+  background: linear-gradient(180deg, var(--c) 0%, var(--c2) 140%);
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: filter 0.2s ease;
+}
+
+.red {
+  --c: #e63636;
+  --c2: #b81f1f;
+}
+.blue {
+  --c: #4a90e2;
+  --c2: #2f6fbf;
+}
+
+.bar:hover {
+  filter: brightness(1.06);
+}
+
+/* light sweep for a bit of life */
+.shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -30%;
+  width: 26%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  transform: skewX(-18deg);
+  animation: tobShine 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes tobShine {
+  0% { left: -30%; }
+  34% { left: 130%; }
+  100% { left: 130%; }
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  animation: tobPulse 1.8s ease-out infinite;
+}
+@keyframes tobPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.label {
+  position: relative;
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: clamp(13px, 1.4vw, 16px);
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+
+.sub {
+  position: relative;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.92;
+  white-space: nowrap;
+}
+.sub::before {
+  content: '·';
+  margin-right: 11px;
+  opacity: 0.7;
+}
+
+.arrow {
+  position: relative;
+  font-family: 'Anton', sans-serif;
+  font-size: 15px;
+  transition: transform 0.2s ease;
+}
+.bar:hover .arrow {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shine,
+  .dot {
+    animation: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .bar {
+    padding: 10px 14px;
+    gap: 9px;
+  }
+  .sub {
+    display: none;
+  }
+}

@@ -662,6 +662,13 @@
 .formHost {
   position: relative;
   align-self: stretch;
+  /* The embedded funnel form renders as a light/white card and expects the
+     funnel .page tokens. Those aren't present here, so text and input borders
+     fall back to the dark page's colors and vanish on white. Restore them. */
+  --accent: #e63636;
+  --ink: #0a0a0a;
+  --muted: #6b7280;
+  --line: #e5e7eb;
 }
 .formHost > * {
   width: 100%;

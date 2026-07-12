@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WebsiteShowcase from '@/components/web/WebsiteShowcase';
+import TopOfferBar from '@/components/TopOfferBar';
 import styles from './software.module.css';
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
@@ -233,6 +234,13 @@ export default function SoftwareHub() {
 
   return (
     <div ref={root} className={styles.page}>
+      <TopOfferBar
+        tone="blue"
+        label="Free Website"
+        sub="Built before you pay a dollar"
+        href="/free-website"
+      />
+
       {/* Contained ghost word */}
       <span className={styles.bgWord} data-bgword aria-hidden="true">
         SOFTWARE
