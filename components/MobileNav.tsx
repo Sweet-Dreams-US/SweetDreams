@@ -85,13 +85,12 @@ export default function MobileNav() {
     };
   }, []);
 
-  // Grouped around what we actually sell. "Build" holds the two software
-  // products, Websites and AI Workflows, with Software as the overview hub.
+  // Grouped around what we do: Media Production, Websites, and AI Workflows.
   const navSections = [
     {
-      label: 'Build',
+      label: 'What we do',
       links: [
-        { href: '/software', label: 'Software' },
+        { href: '/services/media-production', label: 'Media Production' },
         { href: '/websites', label: 'Websites' },
         { href: '/ai', label: 'AI Workflows' },
       ],
@@ -100,7 +99,6 @@ export default function MobileNav() {
       label: 'See',
       links: [
         { href: '/work', label: 'Portfolio' },
-        { href: '/services/media-production', label: 'Media Production' },
       ],
     },
     {

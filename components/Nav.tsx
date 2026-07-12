@@ -27,20 +27,28 @@ export default function Nav() {
             </Link>
           </div>
 
-          {/* Right: the two things we sell + Book a Call + hamburger */}
+          {/* Right: Media, Websites, AI + Book a Call + hamburger */}
           <div className={styles.navRight}>
             <div className={styles.navLinks}>
               <Link
-                href="/software"
+                href="/services/media-production"
+                className={`${styles.navLink} ${styles.linkRed} ${
+                  pathname === "/services/media-production" ? styles.navLinkActive : ""
+                }`}
+              >
+                MEDIA PRODUCTION
+              </Link>
+              <Link
+                href="/websites"
                 className={`${styles.navLink} ${styles.linkBlue} ${
-                  pathname === "/software" ||
                   pathname === "/websites" ||
+                  pathname === "/software" ||
                   pathname.startsWith("/services/web-software")
                     ? styles.navLinkActive
                     : ""
                 }`}
               >
-                SOFTWARE
+                WEBSITES
               </Link>
               <Link
                 href="/ai"
@@ -49,14 +57,6 @@ export default function Nav() {
                 }`}
               >
                 AI
-              </Link>
-              <Link
-                href="/services/media-production"
-                className={`${styles.navLink} ${styles.linkRed} ${
-                  pathname === "/services/media-production" ? styles.navLinkActive : ""
-                }`}
-              >
-                MEDIA PRODUCTION
               </Link>
               <Link
                 href="/book"

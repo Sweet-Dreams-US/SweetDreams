@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Websites from './Websites';
 
-const title = 'Custom Websites in Fort Wayne, Built Before You Pay | Sweet Dreams';
+const title = 'Creative Websites in Fort Wayne, Media Included | Sweet Dreams';
 const description =
-  'Hand coded, funnel built websites with professional media included. Real SEO, fast, and yours to keep. We build a live demo on your business before you pay a dollar.';
+  'Hand coded websites built to stand out, with cinematic photo and video included. Custom design and motion from a media company, and a live demo built on your brand before you pay a dollar.';
 
 export const metadata: Metadata = {
   title,
