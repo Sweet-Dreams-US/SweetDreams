@@ -3,14 +3,22 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
-import Hls from 'hls.js';
 import styles from './VideoHero.module.css';
 
 const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
-// Heaven in Fort Wayne aerial. Scroll scrubs it from START to END seconds.
+// Heaven in Fort Wayne aerial. We scrub a frame SEQUENCE (Cloudflare per-time
+// thumbnails) on a canvas instead of seeking a <video>, so scroll is smooth.
 const HERO_VIDEO_ID = 'd8c34ebf7e9bb7a150feaa29cd60a9a6';
 const START = 10;
 const END = 21;
+const FRAME_COUNT = 80; // frames across the scrub (memory ~ count x 3.7MB @720p)
+const FRAME_H = 720;
+
+const frameUrl = (i: number) => {
+  const t = START + (END - START) * (i / (FRAME_COUNT - 1));
+  return `${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${t.toFixed(3)}s&height=${FRAME_H}`;
+};
+const POSTER_URL = `${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${START}s&height=${FRAME_H}`;
 
 // The headline "options" that scroll brings in, one per third of the scrub.
 const SCENES = [
@@ -31,7 +39,6 @@ const MARQUEE = [
 ];
 
 // Crossfade opacity/offset for scene `i` given overall scrub progress `p`.
-// Scenes hand off in the last 15% of each third; the last scene never fades.
 function sceneStyle(i: number, p: number, count: number) {
   const f = Math.min(count - 0.0001, p * count);
   const idx = Math.floor(f);
@@ -50,34 +57,35 @@ function sceneStyle(i: number, p: number, count: number) {
   return { o: 0, y: 14 };
 }
 
+// Coarse-first load order so a rough scrub is usable before every frame lands:
+// ends, then middle, then progressively finer subdivisions.
+function loadOrder(n: number) {
+  const order: number[] = [];
+  const seen = new Array(n).fill(false);
+  const add = (i: number) => {
+    if (i >= 0 && i < n && !seen[i]) {
+      seen[i] = true;
+      order.push(i);
+    }
+  };
+  add(0);
+  add(n - 1);
+  for (let step = Math.max(1, n >> 1); ; step = step >> 1) {
+    for (let i = step; i < n; i += step) add(i);
+    if (step === 1) break;
+  }
+  for (let i = 0; i < n; i++) add(i);
+  return order;
+}
+
 export default function VideoHero() {
   const rootRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const hero = rootRef.current;
-    const video = videoRef.current;
-    if (!hero || !video) return;
-
-    // Load HLS into the <video> so we can control currentTime by scroll.
-    const src = `${CF}/${HERO_VIDEO_ID}/manifest/video.m3u8`;
-    let hls: Hls | null = null;
-    const seekStart = () => {
-      try {
-        video.currentTime = START;
-      } catch {
-        /* seeks once ready */
-      }
-    };
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = src;
-      video.addEventListener('loadedmetadata', seekStart, { once: true });
-    } else if (Hls.isSupported()) {
-      hls = new Hls({ maxBufferLength: 40, maxMaxBufferLength: 90 });
-      hls.loadSource(src);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, seekStart);
-    }
+    const canvas = canvasRef.current;
+    if (!hero || !canvas) return;
 
     const scenes = Array.from(
       hero.querySelectorAll<HTMLElement>(`.${styles.scene}`)
@@ -89,43 +97,105 @@ export default function VideoHero() {
       });
     };
 
-    // gsap.matchMedia re-runs (and cleans up) each branch on breakpoint change,
-    // so the treatment never latches to the width at mount.
+    // Cover-fit draw of an image onto the (DPR-scaled) canvas.
+    const drawCover = (
+      ctx: CanvasRenderingContext2D,
+      img: HTMLImageElement
+    ) => {
+      if (!img.naturalWidth) return;
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const ir = img.naturalWidth / img.naturalHeight;
+      const cr = cw / ch;
+      let dw, dh, dx, dy;
+      if (cr > ir) {
+        dw = cw;
+        dh = cw / ir;
+        dx = 0;
+        dy = (ch - dh) / 2;
+      } else {
+        dh = ch;
+        dw = ch * ir;
+        dy = 0;
+        dx = (cw - dw) / 2;
+      }
+      ctx.drawImage(img, dx, dy, dw, dh);
+    };
+
+    const sizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.round(canvas.clientWidth * dpr);
+      const h = Math.round(canvas.clientHeight * dpr);
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        return true;
+      }
+      return false;
+    };
+
     const mm = gsap.matchMedia();
 
-    // Desktop: sticky stage + scroll-driven scrub (no ScrollTrigger pin).
+    // Desktop (motion): scroll-scrubbed canvas frame sequence.
     mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
-      video.pause();
-      seekStart();
+      const ctx = canvas.getContext('2d', { alpha: false });
+      if (!ctx) return;
+      ctx.imageSmoothingQuality = 'high';
 
-      // Read scroll position every frame (rather than on scroll events) so the
-      // scrub is smooth and immune to scroll-event quirks. Only re-seek/repaint
-      // when progress actually changed.
-      let rafId = 0;
-      let lastP = -1;
+      let imgs: (HTMLImageElement | null)[] = new Array(FRAME_COUNT).fill(null);
+      const loaded = new Array<boolean>(FRAME_COUNT).fill(false);
+      loadOrder(FRAME_COUNT).forEach((i) => {
+        const im = new Image();
+        im.decoding = 'async';
+        im.onload = () => {
+          loaded[i] = true;
+        };
+        im.src = frameUrl(i);
+        imgs[i] = im;
+      });
+
+      const nearestLoaded = (idx: number) => {
+        if (loaded[idx]) return imgs[idx];
+        for (let r = 1; r < FRAME_COUNT; r++) {
+          if (idx - r >= 0 && loaded[idx - r]) return imgs[idx - r];
+          if (idx + r < FRAME_COUNT && loaded[idx + r]) return imgs[idx + r];
+        }
+        return null;
+      };
+
+      sizeCanvas();
+
+      let raf = 0;
+      let current = 0;
+      let lastDrawn = -1;
       const loop = () => {
+        if (sizeCanvas()) lastDrawn = -1; // canvas resized → force redraw
         const total = hero.offsetHeight - window.innerHeight;
-        if (total > 0) {
-          const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / total));
-          if (Math.abs(p - lastP) > 0.0004) {
-            lastP = p;
-            scenes.forEach((s, i) => {
-              const { o, y } = sceneStyle(i, p, scenes.length);
-              s.style.opacity = String(o);
-              s.style.transform = `translateY(${y}px)`;
-            });
-            if (video.readyState >= 1) {
-              try {
-                video.currentTime = START + p * (END - START);
-              } catch {
-                /* mid-seek */
-              }
-            }
+        const target =
+          total > 0
+            ? Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / total))
+            : 0;
+        // Ease toward the scroll target for smooth, slightly-trailing motion.
+        current += (target - current) * 0.15;
+        if (Math.abs(target - current) < 0.0006) current = target;
+
+        scenes.forEach((s, i) => {
+          const { o, y } = sceneStyle(i, current, scenes.length);
+          s.style.opacity = String(o);
+          s.style.transform = `translateY(${y}px)`;
+        });
+
+        const idx = Math.round(current * (FRAME_COUNT - 1));
+        if (idx !== lastDrawn) {
+          const img = nearestLoaded(idx);
+          if (img) {
+            drawCover(ctx, img);
+            if (loaded[idx]) lastDrawn = idx;
           }
         }
-        rafId = requestAnimationFrame(loop);
+        raf = requestAnimationFrame(loop);
       };
-      rafId = requestAnimationFrame(loop);
+      raf = requestAnimationFrame(loop);
 
       const entrance = gsap.from(
         `.${styles.eyebrow}, .${styles.sub}, .${styles.ctas}`,
@@ -133,57 +203,49 @@ export default function VideoHero() {
       );
 
       return () => {
-        cancelAnimationFrame(rafId);
+        cancelAnimationFrame(raf);
         entrance.kill();
+        // release frame bitmaps
+        imgs.forEach((im) => {
+          if (im) {
+            im.onload = null;
+            im.src = '';
+          }
+        });
+        imgs = [];
       };
     });
 
-    // Mobile (motion ok): no scrub. First headline; loop the clip gently.
-    mm.add('(max-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+    // Mobile + reduced motion (any width): single static frame, first headline.
+    const staticPoster = () => {
       showFirst();
-      video.loop = true;
-      video.muted = true;
-      video.play().catch(() => {});
-      const entrance = gsap.from(`.${styles.inner} > *`, {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.08,
-        ease: 'power3.out',
-        delay: 0.1,
-      });
-      return () => {
-        entrance.kill();
-        video.pause();
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const im = new Image();
+      im.decoding = 'async';
+      im.onload = () => {
+        sizeCanvas();
+        if (ctx) drawCover(ctx, im);
       };
-    });
-
-    // Reduced motion (any width): static first frame, first headline.
-    mm.add('(prefers-reduced-motion: reduce)', () => {
-      showFirst();
-      video.pause();
-      seekStart();
-    });
+      im.src = POSTER_URL;
+    };
+    mm.add('(max-width: 900px)', staticPoster);
+    mm.add('(min-width: 901px) and (prefers-reduced-motion: reduce)', staticPoster);
 
     return () => {
       mm.revert();
-      if (hls) hls.destroy();
     };
   }, []);
 
   return (
     <section className={styles.hero} ref={rootRef}>
       <div className={styles.sticky}>
-        {/* Scroll-scrubbed background video */}
-        <div className={styles.videoWrap} aria-hidden="true">
-          <video
-            ref={videoRef}
-            className={styles.videoBg}
-            muted
-            playsInline
-            preload="auto"
-            poster={`${CF}/${HERO_VIDEO_ID}/thumbnails/thumbnail.jpg?time=${START}s&height=900`}
-          />
+        {/* Scroll-scrubbed frame sequence on a canvas (poster shows first) */}
+        <div
+          className={styles.videoWrap}
+          aria-hidden="true"
+          style={{ backgroundImage: `url(${POSTER_URL})` }}
+        >
+          <canvas ref={canvasRef} className={styles.videoBg} />
           <div className={styles.scrim} />
           <div className={styles.grain} />
         </div>
