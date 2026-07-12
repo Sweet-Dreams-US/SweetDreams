@@ -85,13 +85,12 @@ export default function MobileNav() {
     };
   }, []);
 
-  // Grouped around what we actually sell. "Build" (software: Websites →
-  // Dream Suite → AI Automations) currently points at the web-software page;
-  // it expands to the three phases once the /software hub is built.
+  // Grouped around what we actually sell. "Build" is the Software hub
+  // (Websites → Dream Suite → AI Automations).
   const navSections = [
     {
       label: 'Build',
-      links: [{ href: '/services/web-software', label: 'Software' }],
+      links: [{ href: '/software', label: 'Software' }],
     },
     {
       label: 'See',

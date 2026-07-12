@@ -53,8 +53,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      // Trailing slash on root for canonical consistency with Search Console
-      url: `${baseUrl}/`,
+      // No trailing slash — matches the homepage canonical (SITE_URL) and
+      // Next's default trailingSlash: false.
+      url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 1.0,
@@ -66,28 +67,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/media`,
+      // Software hub — primary pillar (Websites → Dream Suite → AI Automations)
+      url: `${baseUrl}/software`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.95,
     },
     {
-      url: `${baseUrl}/solutions`,
+      // Media Production hub — primary pillar
+      url: `${baseUrl}/services/media-production`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.95,
+    },
+    {
+      // Router page — footer-only, kept indexable but low priority
+      url: `${baseUrl}/solutions`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.4,
     },
     {
       url: `${baseUrl}/book`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/partnerships`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
     },
     {
       url: `${baseUrl}/about`,

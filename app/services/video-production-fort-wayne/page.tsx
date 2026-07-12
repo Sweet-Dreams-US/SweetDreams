@@ -4,7 +4,7 @@ import { SITE_URL, CONTACT, ADDRESS, BRAND } from "@/lib/constants";
 
 export const metadata = {
   title: "Video Production Fort Wayne | Commercial Video & Brand Films | Sweet Dreams",
-  description: "Professional video production in Fort Wayne, Indiana. Sweet Dreams creates commercials, brand films, corporate videos, event coverage, and promotional content for businesses. Call (260) 450-7739 for a free consultation.",
+  description: "Professional video production in Fort Wayne, Indiana. Sweet Dreams creates commercials, brand films, corporate videos, event coverage, and promotional content for businesses. Call (260) 615-7467 for a free consultation.",
   keywords: [
     "video production Fort Wayne",
     "videographer Fort Wayne Indiana",
@@ -33,7 +33,7 @@ export const metadata = {
 const faqs = [
   {
     question: "How much does video production cost in Fort Wayne?",
-    answer: "Video production costs in Fort Wayne vary based on project scope. Sweet Dreams offers competitive pricing starting from single-day shoots for commercials to multi-day brand film productions. We provide free consultations to scope your project and give you an accurate quote. Call us at (260) 450-7739 or book a free discovery call on our website."
+    answer: "Video production costs in Fort Wayne vary based on project scope. Sweet Dreams offers competitive pricing starting from single-day shoots for commercials to multi-day brand film productions. We provide free consultations to scope your project and give you an accurate quote. Call us at (260) 615-7467 or book a free discovery call on our website."
   },
   {
     question: "What types of videos does Sweet Dreams produce?",

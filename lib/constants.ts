@@ -11,6 +11,10 @@
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://sweetdreams.us';
 export const MUSIC_SITE_URL = 'https://sweetdreamsmusic.com';
+// Real, hosted logo asset — used for schema logo, Open Graph, and favicons.
+// (The old /og-image.png, /logo.png, /studio-photo.jpg paths 404.)
+export const LOGO_URL =
+  'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png';
 export const LEGACY_DOMAINS = ['sweetdreamsvideo.com', 'sweetdreamsprod.com'] as const;
 
 // ==================== BRAND IDENTITY ====================
@@ -19,8 +23,8 @@ export const BRAND = {
   name: 'Sweet Dreams Solutions',
   shortName: 'Sweet Dreams',
   legalName: 'Sweet Dreams US LLC',
-  tagline: 'Media Production, Marketing, Business Consulting & Software Development',
-  description: 'Sweet Dreams Solutions is a full-service business agency in Fort Wayne, Indiana delivering media production, marketing strategy, business consulting, and custom software development. We help businesses scale with commercial video, brand films, social media growth, custom-coded websites, business operations software, and strategic consulting — all under one roof.',
+  tagline: 'Custom Software & Cinematic Media Production',
+  description: 'Sweet Dreams Solutions is a Fort Wayne, Indiana software studio and media production company. We build the software that runs your business — a premium hand-coded website, then Dream Suite, the operations platform that lives in your own site backend, then AI powered automations that run the pipelines for you — and we produce the cinematic media that makes your brand impossible to forget: brand films, commercials, social content, event coverage, and aerial drone. Trusted by the City of Fort Wayne, Nissan, the Indianapolis Children\'s Museum, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the greater Midwest.',
 } as const;
 
 // ==================== CONTACT INFORMATION ====================
@@ -83,39 +87,24 @@ export const BUSINESS_HOURS = {
 // ==================== SERVICE CONFIGURATION ====================
 
 export const SERVICES = {
+  software: {
+    name: 'Software',
+    slug: 'software',
+    description: 'A premium hand-coded website (media included), then Dream Suite — the operations platform in your own site backend — then AI powered business automations. Built with Next.js, React, and TypeScript.',
+  },
   media: {
     name: 'Media Production',
-    slug: 'media',
-    description: 'Commercial video production, brand films, documentary-style storytelling, photography, event coverage, drone/cinema drone, and short-form social video content for businesses.',
-  },
-  marketing: {
-    name: 'Marketing',
-    slug: 'solutions',
-    description: 'Full-funnel marketing strategy, local SEO, email marketing automation, paid advertising, social media growth and management, content strategy, and conversion optimization.',
-  },
-  consulting: {
-    name: 'Business Consulting',
-    slug: 'solutions',
-    description: 'Growth strategy, operations design, offer strategy, pricing, delegation systems, and scaling frameworks for business owners.',
-  },
-  software: {
-    name: 'Software Development',
-    slug: 'solutions',
-    description: 'Custom-coded websites (Next.js, React, TypeScript), business operations software, custom CRMs, automation tools, AI implementation, and API integrations.',
-  },
-  partnerships: {
-    name: 'Strategic Partnerships',
-    slug: 'partnerships',
-    description: 'Performance-based growth partnerships with revenue-tied compensation. Unlimited content production, brand asset creation, and social media management.',
+    slug: 'services/media-production',
+    description: 'Cinematic brand films, commercials, short-form social content, live event coverage, aerial drone, and photography for businesses. Includes a free 90-day content plan.',
   },
 } as const;
 
 // ==================== SEO CONFIGURATION ====================
 
 export const SEO = {
-  defaultTitle: 'Sweet Dreams Solutions | Fort Wayne\'s Leading Full-Service Agency',
+  defaultTitle: 'Sweet Dreams Solutions | Fort Wayne Software & Media Production',
   titleTemplate: '%s | Sweet Dreams Solutions',
-  defaultDescription: 'Sweet Dreams Solutions is the leading full-service business agency in Fort Wayne, Indiana — media production, marketing, custom software, and business consulting all under one roof. Trusted by the City of Fort Wayne, Nissan, Indianapolis Children\'s Museum, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the greater Midwest.',
+  defaultDescription: 'Sweet Dreams Solutions is a Fort Wayne software studio and media production company. We build custom-coded websites, the Dream Suite operations platform, and AI business automations, and produce cinematic brand films, social content, event coverage, and aerial drone. Trusted by the City of Fort Wayne, Nissan, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the Midwest.',
   keywords: [
     // Brand
     'Sweet Dreams Solutions',
@@ -194,13 +183,14 @@ export const SEO = {
     'conversion rate optimization',
     'performance based marketing',
     'revenue partnership marketing',
-    // Consulting
-    'business consulting',
-    'small business growth consultant',
-    'business operations consultant',
-    'pricing strategy consultant',
-    'offer design consultant',
-    'fractional marketing leader',
+    // Software / automations (Dream Suite ladder)
+    'AI business automation',
+    'AI automation agency Fort Wayne',
+    'business automation Fort Wayne',
+    'business operations software',
+    'business operations platform',
+    'Dream Suite',
+    'custom software Fort Wayne',
     // Software / Web
     'custom website development',
     'custom coded websites',
@@ -216,8 +206,8 @@ export const SEO = {
     type: 'website',
     locale: 'en_US',
     siteName: 'Sweet Dreams Solutions',
-    imageUrl: `${SITE_URL}/og-image.png`,
-    imageAlt: 'Sweet Dreams Solutions — Media Production, Marketing, Business Consulting & Software Development',
+    imageUrl: LOGO_URL,
+    imageAlt: 'Sweet Dreams Solutions — Custom Software & Media Production in Fort Wayne, Indiana',
     imageWidth: 1200,
     imageHeight: 630,
   },
@@ -228,7 +218,8 @@ export const SEO = {
 export const ANALYTICS = {
   googleAnalytics: 'G-G8QD7BQY3L',
   googleTagManager: 'GTM-K255FPMR',
-  facebookPixel: '3631251467167744',
+  // Live sweetdreams.us Meta pixel (matches app/layout.tsx fbq init).
+  facebookPixel: '1675521687053415',
   microsoftClarity: 'tyjolmx04i',
 } as const;
 

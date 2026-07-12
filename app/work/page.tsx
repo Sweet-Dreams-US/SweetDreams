@@ -673,6 +673,23 @@ export default function WorkPage() {
 
   return (
     <div className={styles.page}>
+      {/* Single semantic H1 for the page (visually hidden — the portfolio
+          section carries its own visible heading). */}
+      <h1
+        style={{
+          position: 'absolute',
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+        }}
+      >
+        Our Work — Fort Wayne Media Production &amp; Web Development Portfolio
+      </h1>
       {/* Complete Portfolio - Horizontal Scroll */}
       <PortfolioHorizontalScroll
         items={portfolioItems}

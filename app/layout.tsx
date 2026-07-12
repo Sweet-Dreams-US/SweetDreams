@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -27,6 +28,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: SEO.defaultTitle,
   description: SEO.defaultDescription,
   keywords: SEO.keywords.join(', '),
@@ -55,8 +57,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: SEO.openGraph.type,
-    title: "Sweet Dreams Solutions | Fort Wayne's Leading Full-Service Agency",
-    description: "Fort Wayne's leading full-service agency. Media production, marketing, custom software, and business consulting — all under one roof. Trusted by the City of Fort Wayne, Nissan, Indianapolis Children's Museum, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the Midwest.",
+    title: "Sweet Dreams Solutions | Fort Wayne Software & Media Production",
+    description: "A Fort Wayne software studio and media production company. Custom-coded websites, the Dream Suite operations platform, and AI business automations — plus cinematic brand films, social content, events, and aerial drone. Trusted by the City of Fort Wayne, Nissan, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the Midwest.",
     url: SITE_URL,
     siteName: SEO.openGraph.siteName,
     locale: SEO.openGraph.locale,
@@ -73,8 +75,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@jayvalleo',
     creator: '@jayvalleo',
-    title: "Sweet Dreams Solutions | Fort Wayne's Leading Full-Service Agency",
-    description: "Media production, marketing, custom software, and business consulting — all under one roof. Trusted by the City of Fort Wayne, Nissan, and Brookfield Zoo. Fort Wayne, Northeast Indiana & the Midwest.",
+    title: "Sweet Dreams Solutions | Fort Wayne Software & Media Production",
+    description: "Fort Wayne software studio + media production company. Custom-coded websites, the Dream Suite ops platform, AI automations, and cinematic brand films, social, events & aerial drone.",
     images: ['https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/SweetDreamsLogo/SweetDreams3StackBlackLogo.png'],
   },
 };
@@ -214,6 +216,7 @@ export default function RootLayout({
         </SiteChrome>
         <CookieConsent />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

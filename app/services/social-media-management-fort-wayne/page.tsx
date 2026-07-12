@@ -4,7 +4,7 @@ import { SITE_URL, CONTACT, ADDRESS } from "@/lib/constants";
 
 export const metadata = {
   title: "Social Media Management Fort Wayne | Content & Growth | Sweet Dreams",
-  description: "Social media management and growth services in Fort Wayne, Indiana. Sweet Dreams handles strategy, content creation, posting, and audience growth for businesses. Call (260) 450-7739 for a free consultation.",
+  description: "Social media management and growth services in Fort Wayne, Indiana. Sweet Dreams handles strategy, content creation, posting, and audience growth for businesses. Call (260) 615-7467 for a free consultation.",
   keywords: [
     "social media management Fort Wayne",
     "social media marketing Fort Wayne",
@@ -33,7 +33,7 @@ export const metadata = {
 const faqs = [
   {
     question: "How much does social media management cost in Fort Wayne?",
-    answer: "Social media management pricing depends on the scope of work — number of platforms, posting frequency, content creation needs, and whether paid ads are included. Sweet Dreams offers competitive pricing for Fort Wayne businesses. Book a free discovery call at (260) 450-7739 to discuss your needs and get a custom quote."
+    answer: "Social media management pricing depends on the scope of work — number of platforms, posting frequency, content creation needs, and whether paid ads are included. Sweet Dreams offers competitive pricing for Fort Wayne businesses. Book a free discovery call at (260) 615-7467 to discuss your needs and get a custom quote."
   },
   {
     question: "What social media platforms do you manage?",

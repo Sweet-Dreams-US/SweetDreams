@@ -4,7 +4,7 @@ import { SITE_URL, CONTACT, ADDRESS } from "@/lib/constants";
 
 export const metadata = {
   title: "Web Development Fort Wayne | Custom Websites & E-Commerce | Sweet Dreams",
-  description: "Professional web development in Fort Wayne, Indiana. Sweet Dreams builds custom websites, e-commerce stores, booking platforms, and business web applications. View our 8-site portfolio. Call (260) 450-7739.",
+  description: "Professional web development in Fort Wayne, Indiana. Sweet Dreams builds custom websites, e-commerce stores, booking platforms, and business web applications. View our 8-site portfolio. Call (260) 615-7467.",
   keywords: [
     "web development Fort Wayne",
     "website design Fort Wayne",
@@ -33,7 +33,7 @@ export const metadata = {
 const faqs = [
   {
     question: "How much does a website cost in Fort Wayne?",
-    answer: "Website costs depend on complexity. A business landing page starts at a lower price point, while custom web applications with booking systems, e-commerce, or member portals are priced based on scope. Sweet Dreams provides free consultations to understand your needs and give an accurate quote. Call (260) 450-7739."
+    answer: "Website costs depend on complexity. A business landing page starts at a lower price point, while custom web applications with booking systems, e-commerce, or member portals are priced based on scope. Sweet Dreams provides free consultations to understand your needs and give an accurate quote. Call (260) 615-7467."
   },
   {
     question: "How long does it take to build a website?",
