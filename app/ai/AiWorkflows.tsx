@@ -4,39 +4,78 @@ import { useRef, type CSSProperties } from 'react';
 import Link from 'next/link';
 import PlatformMockup from '@/components/software/PlatformMockup';
 import AiPipeline from '@/components/software/AiPipeline';
-import BigStats from '@/components/software/BigStats';
 import { useReveals } from '@/components/software/useReveals';
 import styles from '@/app/software/software.module.css';
+import ai from './ai.module.css';
+
+/* Green accent trio, set on the page root so the whole design system themes. */
+const GREEN: CSSProperties = {
+  '--accent': '#16a34a',
+  '--accent-2': '#4ade80',
+  '--accent-ink': '#04160c',
+} as CSSProperties;
 
 /* Done with you, not to you — the answer to "what do they know about MY business". */
 const APPROACH = [
   {
     name: 'We teach your team',
-    how: 'Hands on sessions where your people learn to actually use AI, on your real work, not generic prompts off the internet.',
+    how: 'Hands on sessions where your people learn to use AI on your real work, not generic prompts off the internet.',
   },
   {
     name: 'We build it with you',
     how: 'The workflows come from how you already work, so they fit the jobs no outsider could ever guess from the outside.',
   },
   {
-    name: 'Your team owns it',
-    how: 'Every workflow we build is yours to run and change. No lock in, no black box, no monthly hostage situation.',
+    name: 'You own all of it',
+    how: 'Your workflows, your data, your accounts. No lock in, no black box, no monthly hostage situation. When we leave, it still runs.',
   },
 ];
 
-/* The model — hourly, flexible, no numbers on the page. */
-const MODEL = [
+/* The real ladder: free audit -> first workflow -> monthly, together. */
+const STEPS = [
   {
-    name: 'Start with a few hours',
-    how: 'We find where AI saves the most time in your week, then ship the first workflow together, fast.',
+    name: 'Free AI Time Audit',
+    how: 'We find where the busywork lives and run one automation live on your real work. You leave with the number: hours a week lost, and what it costs in payroll.',
   },
   {
-    name: 'Scale as it pays off',
-    how: 'Add hours or a monthly block once it is working. Flexible plans, priced by the hour, no big upfront commitment.',
+    name: 'Working Session',
+    how: 'Three hours with your team. We ship your first workflow live, train them to run it, then show you the next three we found.',
   },
   {
-    name: 'It compounds',
-    how: 'Each workflow trains your team and stacks on the last, so the output keeps climbing long after we start.',
+    name: 'Monthly, together',
+    how: 'We teach and build the next workflows side by side, one at a time, until your team runs the whole thing without us.',
+  },
+];
+
+/* Public pricing ladder. Low friction and no surprises is the brand. */
+const TIERS = [
+  {
+    name: 'AI Time Audit',
+    price: 'Free',
+    unit: '30 to 45 minutes',
+    blurb: 'Live on your real work. You leave with the payroll math, no pitch and no cost.',
+    featured: false,
+  },
+  {
+    name: 'Working Session',
+    price: '$750',
+    unit: 'one time',
+    blurb: 'Three hours with your team. Your first workflow shipped live and trained.',
+    featured: false,
+  },
+  {
+    name: 'Monthly Block',
+    price: '$2,500',
+    unit: 'per month',
+    blurb: 'Ten hours a month, teach and build together. Cancel anytime. Twenty hours at $4,500.',
+    featured: true,
+  },
+  {
+    name: 'Team Workshop',
+    price: '$1,500',
+    unit: 'half day',
+    blurb: 'Up to eight of your people, hands on with AI on their real work.',
+    featured: false,
   },
 ];
 
@@ -45,17 +84,7 @@ export default function AiWorkflows() {
   useReveals(root);
 
   return (
-    <div
-      ref={root}
-      className={styles.page}
-      style={
-        {
-          '--accent': '#16a34a',
-          '--accent-2': '#4ade80',
-          '--accent-ink': '#04160c',
-        } as CSSProperties
-      }
-    >
+    <div ref={root} className={styles.page} style={GREEN}>
       <span className={styles.bgWord} data-bgword aria-hidden="true">
         AI
       </span>
@@ -78,18 +107,18 @@ export default function AiWorkflows() {
               AI Workflows, Fort Wayne
             </p>
             <h1 className={styles.headline}>
-              Put <span className={styles.hl}>AI to work</span> in your business.
+              Put AI to work on your <span className={styles.hl}>busywork</span>.
             </h1>
             <p className={styles.subhead}>
-              We work hands on with your team, teach them to use AI, then build
-              the workflows that fit how you actually work, so the busywork runs
-              itself. Built <b>with</b> your team, not around them, and yours to
-              keep.
+              We sit down with your team, find the repetitive work eating your
+              payroll, and teach them to hand it to AI. Built <b>with</b> your
+              team, on your <b>real work</b>, and yours to keep. It starts with a
+              free AI Time Audit.
             </p>
 
             <div className={styles.ctaRow}>
               <Link href="/book" className={styles.ctaPrimary}>
-                Book a call
+                Book your free AI Time Audit
                 <span className={styles.ctaArrow}>→</span>
               </Link>
               <a href="#how" className={styles.ctaSecondary}>
@@ -100,6 +129,47 @@ export default function AiWorkflows() {
           </div>
         </div>
       </header>
+
+      {/* ==================== FREE AI TIME AUDIT ==================== */}
+      <section className={styles.section} id="audit" style={{ paddingBottom: 0 }}>
+        <div className={styles.wrap}>
+          <div className={ai.auditBand} data-reveal>
+            <p className={ai.auditLabel}>Start here, free</p>
+            <h2 className={ai.auditTitle}>
+              The free <span className={ai.hl}>AI Time Audit</span>.
+            </h2>
+            <p className={ai.auditText}>
+              In about forty minutes, we find where the busywork lives, run one
+              automation live on your real work, and leave you a number: <b>how
+              many hours a week your team loses to it, and what that costs you in
+              payroll every year</b>. No pitch. No cost.
+            </p>
+
+            <ul className={ai.auditPoints} data-stagger>
+              <li className={ai.auditPoint}>
+                <span className={ai.auditPointNum}>01</span>
+                We come prepared, with an automation ready for your kind of work.
+              </li>
+              <li className={ai.auditPoint}>
+                <span className={ai.auditPointNum}>02</span>
+                We run it live, on your real work, right there in the room.
+              </li>
+              <li className={ai.auditPoint}>
+                <span className={ai.auditPointNum}>03</span>
+                You leave with the number: hours saved a week, and dollars a year.
+              </li>
+            </ul>
+
+            <div className={ai.auditCtaRow}>
+              <Link href="/book" className={ai.auditCta}>
+                Book your free audit
+                <span aria-hidden="true">→</span>
+              </Link>
+              <span className={ai.auditFine}>Fort Wayne and northeast Indiana, in person. Remote available.</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ===================== DONE WITH YOU ====================== */}
       <section className={styles.section} id="approach">
@@ -140,16 +210,17 @@ export default function AiWorkflows() {
               How it works
             </p>
             <h2 className={styles.sectionTitle}>
-              Start small. <span className={styles.hl}>Scale</span> as it pays off.
+              Free audit. First workflow. <span className={styles.hl}>Then we go</span>.
             </h2>
             <p className={styles.sectionLede}>
-              No giant contract to find out if AI helps. We start with a few
-              hours, prove it on your real work, and grow from there.
+              No giant contract to find out if AI helps. We prove it free, ship
+              the first workflow for real, and grow from there, one workflow at a
+              time.
             </p>
           </div>
 
           <div className={styles.valueGrid} data-stagger>
-            {MODEL.map((m, i) => (
+            {STEPS.map((m, i) => (
               <div className={styles.valueItem} key={m.name}>
                 <span className={styles.valueNum}>{String(i + 1).padStart(2, '0')}</span>
                 <p className={styles.valueName}>{m.name}</p>
@@ -172,18 +243,58 @@ export default function AiWorkflows() {
               Every step, <span className={styles.hl}>connected</span>.
             </h2>
             <p className={styles.sectionLede}>
-              Inquiries, bookings, payments, follow up, reporting. AI sits at the
-              core and moves the work between them, so the routine handoffs happen
-              without anyone touching them.
+              Invoicing, scheduling, inquiries, follow up, research, reporting. AI
+              sits at the core and moves the work between them, so the routine
+              handoffs happen without anyone touching them.
             </p>
           </div>
 
           <AiPipeline />
-          <BigStats />
 
           <p className={styles.autoCopy} data-reveal>
             The AI workflows that fit{' '}
             <span className={styles.hl}>how you actually work</span>.
+          </p>
+        </div>
+      </section>
+
+      {/* ========================= PRICING ========================= */}
+      <section className={styles.section} id="pricing">
+        <div className={styles.wrap}>
+          <div className={styles.sectionHead} data-reveal>
+            <p className={styles.kicker}>
+              <span className={styles.kickerBar} />
+              Pricing
+            </p>
+            <h2 className={styles.sectionTitle}>
+              Simple, and <span className={styles.hl}>public</span>.
+            </h2>
+            <p className={styles.sectionLede}>
+              Start free. Buy the first working result for a fixed price. Scale
+              into a monthly block only once it is paying off.
+            </p>
+          </div>
+
+          <div className={ai.pricing} data-stagger>
+            {TIERS.map((t) => (
+              <div
+                className={`${ai.tier} ${t.featured ? ai.tierFeatured : ''}`}
+                key={t.name}
+              >
+                {t.featured && <span className={ai.tierTag}>Most pick this</span>}
+                <p className={ai.tierName}>{t.name}</p>
+                <p className={ai.tierPrice}>{t.price}</p>
+                <p className={ai.tierUnit}>{t.unit}</p>
+                <p className={ai.tierBlurb}>{t.blurb}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className={ai.pricingNote} data-reveal>
+            <b>No discounts.</b> The price holds and the scope moves. You own every
+            workflow, your data, and your accounts, and any AI subscriptions run on
+            your card from day one. Prefer we build the whole thing for you? Ask
+            about done for you.
           </p>
         </div>
       </section>
@@ -233,18 +344,19 @@ export default function AiWorkflows() {
         <div className={styles.closingGlow} aria-hidden="true" />
         <div className={styles.wrap}>
           <p className={styles.closingKicker} data-reveal>
-            A few hours to start.
+            No pitch. No cost.
           </p>
           <h2 className={styles.closingLine} data-reveal>
-            Put <span className={styles.hl}>AI to work</span> in your business.
+            See your <span className={styles.hl}>busywork</span> on paper.
           </h2>
           <p className={styles.closingSub} data-reveal>
-            We will find the busywork worth handing to AI, build the first
-            workflow with your team, and go from there.
+            Book the free AI Time Audit. We will find the busywork worth handing to
+            AI, put a real payroll number on it, and build the first workflow with
+            your team.
           </p>
           <div className={styles.closingCtas} data-reveal>
             <Link href="/book" className={styles.ctaLight}>
-              Book a call
+              Book your free audit
               <span className={styles.ctaArrow}>→</span>
             </Link>
             <Link href="/software" className={styles.ctaGhost}>

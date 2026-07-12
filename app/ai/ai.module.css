@@ -1,0 +1,245 @@
+/* ============================================================
+   AI Workflows page extras: the free-audit band and the public
+   pricing ladder. Inherits the accent + surface tokens from the
+   `.page` root (green on /ai via inline vars), so everything here
+   themes automatically.
+   ============================================================ */
+
+/* ---------- Free AI Time Audit band ---------- */
+.auditBand {
+  margin: clamp(36px, 6vh, 60px) 0 0;
+  padding: clamp(30px, 4.5vw, 52px);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--accent) 12%, var(--paper-2)),
+      var(--paper-2));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-top: 3px solid var(--accent);
+}
+
+.auditLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+
+.auditLabel::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.auditTitle {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  font-size: clamp(30px, 4.6vw, 60px);
+  margin: 0;
+  color: var(--ink);
+}
+
+.auditTitle .hl {
+  color: var(--accent);
+}
+
+.auditText {
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 18px 0 0;
+}
+
+.auditText b {
+  color: var(--ink);
+}
+
+.auditPoints {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.auditPoint {
+  padding: 18px 18px 18px 40px;
+  position: relative;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.auditPointNum {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  font-family: 'Anton', sans-serif;
+  font-size: 15px;
+  color: var(--accent);
+}
+
+.auditCtaRow {
+  margin: 28px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.auditCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--accent);
+  color: #04160c;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 17px 30px;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  transition: transform 0.16s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auditCta:hover {
+  transform: translateY(-2px);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  box-shadow: 0 20px 40px -20px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.auditFine {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted-2);
+}
+
+/* ---------- Public pricing ladder ---------- */
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: clamp(34px, 6vh, 54px) 0 0;
+  align-items: stretch;
+}
+
+.tier {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 22px 24px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tier:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 30px 60px -40px rgba(10, 25, 47, 0.45);
+}
+
+.tierFeatured {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent),
+    0 30px 60px -38px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.tierTag {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #04160c;
+  background: var(--accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin: 0 0 14px;
+}
+
+.tierName {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(18px, 2.2vw, 23px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--ink);
+  margin: 0;
+}
+
+.tierPrice {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(34px, 4.4vw, 46px);
+  line-height: 1;
+  color: var(--accent);
+  margin: 14px 0 0;
+}
+
+.tierUnit {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  margin: 6px 0 0;
+  min-height: 14px;
+}
+
+.tierBlurb {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 16px 0 0;
+  flex: 1;
+}
+
+.pricingNote {
+  margin: clamp(24px, 4vh, 36px) 0 0;
+  padding: 22px 24px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px 14px 14px 4px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.pricingNote b {
+  color: var(--ink);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .pricing { grid-template-columns: repeat(2, 1fr); }
+  .auditPoints { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .pricing { grid-template-columns: 1fr; }
+  .auditCta { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tier, .auditCta { transition: none !important; }
+}
