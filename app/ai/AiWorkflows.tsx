@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, type CSSProperties } from 'react';
 import Link from 'next/link';
 import PlatformMockup from '@/components/software/PlatformMockup';
 import AiPipeline from '@/components/software/AiPipeline';
@@ -45,7 +45,17 @@ export default function AiWorkflows() {
   useReveals(root);
 
   return (
-    <div ref={root} className={styles.page}>
+    <div
+      ref={root}
+      className={styles.page}
+      style={
+        {
+          '--accent': '#16a34a',
+          '--accent-2': '#4ade80',
+          '--accent-ink': '#04160c',
+        } as CSSProperties
+      }
+    >
       <span className={styles.bgWord} data-bgword aria-hidden="true">
         AI
       </span>

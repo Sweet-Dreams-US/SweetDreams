@@ -44,7 +44,7 @@ export default function Nav() {
               </Link>
               <Link
                 href="/ai"
-                className={`${styles.navLink} ${styles.linkViolet} ${
+                className={`${styles.navLink} ${styles.linkGreen} ${
                   pathname === "/ai" ? styles.navLinkActive : ""
                 }`}
               >

@@ -141,14 +141,6 @@ export default function Websites() {
               </div>
             ))}
           </div>
-
-          {/* Cross-link to the AI page */}
-          <Link href="/ai" className={styles.handoff} data-reveal>
-            <span className={styles.handoffArrow} aria-hidden="true">→</span>
-            <p className={styles.handoffText}>
-              Got the site? Now put <span className={styles.hl}>AI to work</span>
-            </p>
-          </Link>
         </div>
       </section>
 

@@ -31,6 +31,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* The AI page sets a green accent trio via inline vars on its root (see
+   app/ai/AiWorkflows.tsx); everything below reads var(--accent) so it themes
+   automatically. */
+
 /* ---------- Big faint outlined background word ---------- */
 .bgWord {
   position: absolute;
@@ -698,7 +702,7 @@
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), #2f6fc0);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   display: grid;
   place-items: center;
   font-family: 'Anton', sans-serif;
@@ -801,7 +805,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2f6fc0, var(--accent));
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
   display: grid;
   place-items: center;
   font-size: 11px;
@@ -917,7 +921,7 @@
 }
 
 .barPeak {
-  background: linear-gradient(180deg, #7fb4f2, var(--accent));
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
   box-shadow: 0 0 22px -2px color-mix(in srgb, var(--accent) 60%, transparent);
 }
 
