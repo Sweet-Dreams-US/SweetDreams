@@ -3,7 +3,7 @@ import SoftwareHub from './SoftwareHub';
 
 const title = 'Software That Runs Your Business | Sweet Dreams';
 const description =
-  'One ladder for Fort Wayne businesses: a website that sells (media included), then Dream Suite, the ops platform in your own backend, then AI automations that run the pipelines for you.';
+  'One ladder for Fort Wayne businesses: a website that sells (media included), then Dream Suite, the ops platform in your own backend, then AI enablement, where we teach your team and build the workflows with you.';
 
 export const metadata: Metadata = {
   title,

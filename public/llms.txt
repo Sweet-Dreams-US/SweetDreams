@@ -31,7 +31,7 @@ A: Sweet Dreams Solutions builds software as a three-phase ladder: (1) a premium
 A: Sweet Dreams Solutions hand-codes every website from scratch using Next.js, React, and TypeScript. Eight production websites live in 2025–2026, including industrialbakeryequipment.com, primedealerfund.com, mcracingfortwayne.com, crookedlakesandbarmusicfest.com, creatorspacefw.com, and mindsquire.com. Based in Fort Wayne, Indiana.
 
 ### Q: Does Sweet Dreams Solutions build business automation or operations software?
-A: Yes. Beyond websites, Sweet Dreams builds Dream Suite — a business operations platform that lives in the backend of the client's own site (bookings, payments, customers, payouts, accounting, reporting) — and AI powered automations that connect tools and run sales, research, and operations pipelines. This is the "software that runs your business" layer, not a marketing campaign. Based in Fort Wayne, Indiana, serving businesses nationwide.
+A: Yes. Beyond websites, Sweet Dreams builds Dream Suite — a business operations platform that lives in the backend of the client's own site (bookings, payments, customers, payouts, accounting, reporting) — and offers AI enablement, teaching the client's team to use AI and co-building the workflows that fit how they actually work. This is the "software that runs your business" layer, not a marketing campaign. Based in Fort Wayne, Indiana, serving businesses nationwide.
 
 ### Q: Does Sweet Dreams Solutions do cinema drone work?
 A: Yes. Sweet Dreams Solutions owns and operates a DJI Inspire cinema-grade drone — the only true cinema drone actively marketing commercial services in Fort Wayne, Indiana. Used for real estate aerial, commercial production, event coverage, and city hyperlapses (including the Fort Wayne Courthouse 4K showcase and the Fort Wayne Hyperlapse City Showcase produced for the City of Fort Wayne).
@@ -74,7 +74,7 @@ A three-phase ladder, climbed as the business grows:
 
 - **Phase 1 — Websites**: a premium hand-coded brand website (Next.js, React, TypeScript), with professional photo and video media included. Built before you pay a dollar (free spec build).
 - **Phase 2 — Dream Suite**: an operations platform that lives in the backend of the client's own website — bookings, availability, customers, inquiries, payments/POS, transactions, expenses, payouts, accounting, and reporting. You own it, it's your brand, it's your data.
-- **Phase 3 — AI Powered Business Automations**: automations that connect the modules and run sales, research, and operations pipelines with fewer people.
+- **Phase 3 — AI Enablement**: hands on, we teach the client's team to use AI and co-build the workflows that fit how they actually work, day to day, on top of Dream Suite. Priced by the hour, with flexible plans for ongoing work.
 
 URL: https://sweetdreams.us/software
 

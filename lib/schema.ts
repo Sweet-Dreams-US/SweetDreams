@@ -221,7 +221,7 @@ export const webDevelopmentServiceSchema = {
   "@id": `${SITE_URL}/software#service`,
   "serviceType": "Custom Software Development",
   "name": "Software That Runs Your Business",
-  "description": "A three-phase software ladder for businesses: a premium hand-coded website (media included), then Dream Suite — the operations platform that lives in your own site backend — then AI powered automations that run the pipelines. Built with Next.js, React, and TypeScript.",
+  "description": "A three-phase software ladder for businesses: a premium hand-coded website (media included), then Dream Suite — the operations platform that lives in your own site backend — then AI enablement, where we teach your team to use AI and co-build the workflows that fit how they work. Built with Next.js, React, and TypeScript.",
   "provider": {
     "@type": "LocalBusiness",
     "name": BRAND.name,
@@ -257,8 +257,8 @@ export const webDevelopmentServiceSchema = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "AI Powered Business Automations",
-          "description": "Automations that connect your tools and run sales, research, and operations pipelines with fewer people"
+          "name": "AI Enablement",
+          "description": "We teach your team to use AI and co-build the workflows that fit how they work, hands on, on top of Dream Suite"
         }
       },
       {
@@ -384,7 +384,7 @@ export const homepageFaqSchema = {
       "name": "What software does Sweet Dreams Solutions build for businesses?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sweet Dreams Solutions builds software as a three-phase ladder for Fort Wayne businesses: (1) a premium hand-coded website with professional media included, (2) Dream Suite, an operations platform that lives in your own site's backend for bookings, payments, customers, payouts, and reporting, and (3) AI powered automations that connect your tools and run sales, research, and operations pipelines with fewer people. Everything is hand-coded with Next.js, React, and TypeScript."
+        "text": "Sweet Dreams Solutions builds software as a three-phase ladder for Fort Wayne businesses: (1) a premium hand-coded website with professional media included, (2) Dream Suite, an operations platform that lives in your own site's backend for bookings, payments, customers, payouts, and reporting, and (3) AI enablement, where we teach your team to use AI and co-build the workflows that fit how they actually work, day to day. Everything is hand-coded with Next.js, React, and TypeScript."
       }
     },
     {

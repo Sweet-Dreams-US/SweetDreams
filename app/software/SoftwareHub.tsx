@@ -84,9 +84,9 @@ const BIG_STATS: {
   staticUnit?: string;
   label: string;
 }[] = [
-  { to: 3, unit: '×', label: 'More output from the same team, the work runs on rails, not on people.' },
-  { prefix: '−', to: 40, unit: '%', label: 'Less busywork, the manual steps between your tools simply disappear.' },
-  { staticNum: '24', staticUnit: '/7', label: 'Always on. Sales, research, and operations keep moving overnight.' },
+  { to: 3, unit: '×', label: 'More output from the same team, once AI is built into how they work.' },
+  { prefix: '−', to: 40, unit: '%', label: 'Less busywork, the repetitive steps in everyone’s day handed to AI.' },
+  { staticNum: '100', staticUnit: '%', label: 'Yours to keep. Every workflow we build with you, your team owns and runs.' },
 ];
 
 export default function SoftwareHub() {
@@ -561,16 +561,17 @@ export default function SoftwareHub() {
           <div className={styles.sectionHead} data-reveal>
             <p className={styles.kicker}>
               <span className={styles.kickerBar} />
-              Phase 03, AI Powered Business Automations
+              Phase 03, AI Enablement
             </p>
             <h2 className={styles.sectionTitle}>
-              Your systems, <span className={styles.hl}>running themselves</span>.
+              We make your team <span className={styles.hl}>AI powered</span>.
             </h2>
             <p className={styles.sectionLede}>
-              Every module from Dream Suite, wired together by AI. An inquiry
-              becomes a booking, a booking becomes a payment, a payment triggers
-              the follow up. Sales, research, and operations run with fewer
-              people in the loop.
+              Dream Suite runs your business. Now we make it think. We work hands
+              on with your team, teach them to use AI, then build the workflows
+              that fit how you actually work, day to day, so the busywork runs
+              itself. Start with a few hours and scale as it pays off. Your team
+              owns every workflow we build.
             </p>
           </div>
 
@@ -643,8 +644,8 @@ export default function SoftwareHub() {
           </div>
 
           <p className={styles.autoCopy} data-reveal>
-            Your systems, running themselves, sales, research, and{' '}
-            <span className={styles.hl}>operations with fewer people</span>.
+            Built with your team, not around them, the AI workflows that fit{' '}
+            <span className={styles.hl}>how you actually work</span>.
           </p>
         </div>
       </section>
@@ -662,7 +663,7 @@ export default function SoftwareHub() {
           </h2>
           <p className={styles.closingSub} data-reveal>
             We build the site that sells, plug in the platform that runs the
-            business, then let AI run the pipelines. Let&apos;s map your first
+            business, then make your team AI powered. Let&apos;s map your first
             phase.
           </p>
           <div className={styles.closingCtas} data-reveal>
