@@ -50,17 +50,28 @@ interface Reel {
   start?: number;
 }
 
-const brandLead: Reel = {
+/* Commercials */
+const commLead: Reel = {
   name: 'Coleman: Back to the Future',
   tag: 'Commercial',
   id: '7943215ed685238e8ca63bc3617f807d',
   start: 8,
 };
+const commTiles: Reel[] = [
+  { name: 'Nissan Warsaw', tag: 'Commercial', id: '700297c313e97262173f0c2107f3b8db', start: 2 },
+];
+
+/* Brand Films */
+const brandLead: Reel = {
+  name: 'The Coleman Prime Story',
+  tag: 'Brand Trailer',
+  id: 'd08682649901944d9bbec1dcfb8bde88',
+  start: 89,
+};
 const brandTiles: Reel[] = [
-  { name: 'The Coleman Prime Story', tag: 'Brand Trailer', id: 'd08682649901944d9bbec1dcfb8bde88', start: 89 },
+  { name: 'Kissel Entertainment', tag: 'Brand Film', id: 'd554360a479b1380f96df7a4ef8f03a3' },
+  { name: 'MC Sim Racing', tag: 'Brand Video', id: 'a279eed7ef4ceef1b3b257b0fb4dfc67' },
   { name: 'Breastie Box', tag: 'Brand Film', id: 'cd386f606ba61022ba3e608f684b3c80', start: 15 },
-  { name: 'Nissan of Elgin', tag: 'Brand Spot', id: '66f28edb4b5c20354896a437b7be5220', start: 5 },
-  { name: 'M.O.M.', tag: 'Nonprofit Film', id: 'a03f0e00cd2fda4a43464adec197c0b6', start: 5 },
 ];
 
 const socialReels: Reel[] = [
@@ -71,15 +82,16 @@ const socialReels: Reel[] = [
   { name: 'Another9', tag: 'Grand Opening', id: '179d826809918e1f087948d6e93ee1a5' },
 ];
 
-const liveLead: Reel = {
+/* Event Recap */
+const eventLead: Reel = {
   name: 'Fort Wayne State of the City',
-  tag: 'Event Coverage',
+  tag: 'Event Recap',
   id: 'd8719a81b378ac68b2c64e1cd2819a3e',
   start: 5,
 };
-const liveTiles: Reel[] = [
-  { name: 'Kissel Entertainment', tag: 'Event Recap', id: 'd554360a479b1380f96df7a4ef8f03a3' },
-  { name: 'Humane Shelter', tag: 'Charity Film', id: 'a5be567ba670d8e102cf9b507a4ad936' },
+const eventTiles: Reel[] = [
+  { name: 'Nissan of Elgin', tag: 'Acquisition', id: '66f28edb4b5c20354896a437b7be5220', start: 5 },
+  { name: 'Fort Wayne Carnival', tag: 'Event Recap', id: '1a0f730d316664839064b8a88543d63a' },
 ];
 
 const aerialLead: Reel = {
@@ -96,7 +108,8 @@ const categories = [
   { n: '01', label: 'Commercials', href: '#brand-story' },
   { n: '02', label: 'Social Media', href: '#social-content' },
   { n: '03', label: 'Brand Films', href: '#live-events' },
-  { n: '04', label: 'Aerial & Motion', href: '#aerial-motion' },
+  { n: '04', label: 'Event Recap', href: '#event-recap' },
+  { n: '05', label: 'Aerial & Motion', href: '#aerial-motion' },
 ];
 
 /* ---------- reel tile ---------- */
@@ -280,7 +293,7 @@ export default function MediaProduction() {
           </div>
         </header>
 
-        {/* ================= BRAND & STORY ================= */}
+        {/* ================= COMMERCIALS ================= */}
         <section id="brand-story" className={styles.band}>
           <div className={styles.shell}>
             <div className={`${styles.bandHead} ${styles.reveal}`}>
@@ -289,17 +302,17 @@ export default function MediaProduction() {
               </p>
               <h2 className={styles.bandTitle}>Commercials.</h2>
               <p className={styles.bandLede}>
-                Commercials, brand films, and trailers shot at cinema quality,
-                because the story that makes people feel something is the one
-                they remember, and premium footage reads as a premium brand.
+                Cinema grade commercials built to make people feel something,
+                because the ad that moves you is the one you remember, and premium
+                footage reads as a premium brand.
               </p>
             </div>
 
             <div className={styles.bandLead + ' ' + styles.reveal}>
-              <ReelTile reel={brandLead} feature />
+              <ReelTile reel={commLead} feature />
             </div>
             <div className={styles.bandStrip + ' ' + styles.stagger}>
-              {brandTiles.map((r) => (
+              {commTiles.map((r) => (
                 <ReelTile key={r.id} reel={r} />
               ))}
             </div>
@@ -375,26 +388,50 @@ export default function MediaProduction() {
           </div>
         </section>
 
-        {/* ================= LIVE & EVENTS ================= */}
+        {/* ================= BRAND FILMS ================= */}
         <section id="live-events" className={styles.band}>
           <div className={styles.shell}>
             <div className={`${styles.bandHead} ${styles.reveal}`}>
               <p className={styles.eyebrow}>
-                <span className={styles.bandCount}>03 · Capture the room</span>
+                <span className={styles.bandCount}>03 · The story of your brand</span>
               </p>
               <h2 className={styles.bandTitle}>Brand Films.</h2>
               <p className={styles.bandLede}>
-                Story driven brand films and full event coverage that capture the
-                energy in the room, proof you can run for months after the lights
-                go down.
+                Story driven brand films and trailers that show who you are, not
+                just what you sell, the kind of film a brand runs for years.
               </p>
             </div>
 
             <div className={styles.bandLead + ' ' + styles.reveal}>
-              <ReelTile reel={liveLead} feature />
+              <ReelTile reel={brandLead} feature />
             </div>
             <div className={styles.bandStrip + ' ' + styles.stagger}>
-              {liveTiles.map((r) => (
+              {brandTiles.map((r) => (
+                <ReelTile key={r.id} reel={r} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ================= EVENT RECAP ================= */}
+        <section id="event-recap" className={`${styles.band} ${styles.bandAlt}`}>
+          <div className={styles.shell}>
+            <div className={`${styles.bandHead} ${styles.reveal}`}>
+              <p className={styles.eyebrow}>
+                <span className={styles.bandCount}>04 · Capture the room</span>
+              </p>
+              <h2 className={styles.bandTitle}>Event Recap.</h2>
+              <p className={styles.bandLede}>
+                Full event coverage and recap films that capture the energy in the
+                room, proof you can run for months after the lights go down.
+              </p>
+            </div>
+
+            <div className={styles.bandLead + ' ' + styles.reveal}>
+              <ReelTile reel={eventLead} feature />
+            </div>
+            <div className={styles.bandStrip + ' ' + styles.stagger}>
+              {eventTiles.map((r) => (
                 <ReelTile key={r.id} reel={r} />
               ))}
             </div>
@@ -402,11 +439,11 @@ export default function MediaProduction() {
         </section>
 
         {/* ================= AERIAL & MOTION ================= */}
-        <section id="aerial-motion" className={`${styles.band} ${styles.bandAlt}`}>
+        <section id="aerial-motion" className={styles.band}>
           <div className={styles.shell}>
             <div className={`${styles.bandHead} ${styles.reveal}`}>
               <p className={styles.eyebrow}>
-                <span className={styles.bandCount}>04 / Aerial &amp; Motion</span>
+                <span className={styles.bandCount}>05 / Aerial &amp; Motion</span>
               </p>
               <h2 className={styles.bandTitle}>Scale from above.</h2>
               <p className={styles.bandLede}>
