@@ -7,6 +7,7 @@ import AiPipeline from '@/components/software/AiPipeline';
 import { useReveals } from '@/components/software/useReveals';
 import styles from '@/app/software/software.module.css';
 import ai from './ai.module.css';
+import AiConsole from './AiConsole';
 
 /* Dark green theme, set on the page root so the whole design system themes. */
 const DARK: CSSProperties = {
@@ -108,7 +109,8 @@ export default function AiWorkflows() {
       <header className={styles.hero}>
         <div className={styles.heroWash} aria-hidden="true" />
         <div className={styles.wrap}>
-          <div className={styles.heroInner} data-hero>
+          <div className={ai.heroGrid}>
+            <div className={styles.heroInner} data-hero>
             <p className={styles.eyebrow}>
               <span className={styles.eyebrowDot} />
               AI Workflows, Fort Wayne
@@ -136,6 +138,11 @@ export default function AiWorkflows() {
                 See how it works
                 <span aria-hidden="true">↓</span>
               </a>
+            </div>
+            </div>
+
+            <div className={ai.heroVisual} data-reveal>
+              <AiConsole />
             </div>
           </div>
         </div>
