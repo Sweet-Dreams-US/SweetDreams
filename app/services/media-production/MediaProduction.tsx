@@ -11,10 +11,6 @@ import styles from './media.module.css';
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
-const CF = 'https://customer-w6h9o08eg118alny.cloudflarestream.com';
-const poster = (id: string, t: number) =>
-  `${CF}/${id}/thumbnails/thumbnail.jpg?time=${t}s&height=800`;
-
 const HERO_REEL_ID = 'd08682649901944d9bbec1dcfb8bde88';
 
 /* ---------- capture form config ---------- */
@@ -69,7 +65,9 @@ const brandTiles: Reel[] = [
 const socialReels: Reel[] = [
   { name: 'Revive', tag: 'Social Reel', id: '62ea7c66a3ad77eadd83bd89c01f98c2' },
   { name: 'Revive', tag: 'Vertical', id: 'f4aa9217c51a8f15aaa849a25763fb57' },
-  { name: 'Coleman', tag: 'Recruiting', id: '313f0b9be3d81f11e7d239fd08a34d38', start: 8 },
+  { name: 'PS5 Giveaway', tag: 'Promo Reel', id: 'd8c943ecf6fb3fcd91b5b5981f0c93ba' },
+  { name: 'Another9', tag: 'Teaser', id: '1af67b520ce2d7ce398c09393dda1f89' },
+  { name: 'Another9', tag: 'Grand Opening', id: '179d826809918e1f087948d6e93ee1a5' },
 ];
 
 const liveLead: Reel = {
@@ -93,18 +91,11 @@ const aerialTiles: Reel[] = [
   { name: 'Fort Wayne', tag: 'Hyperlapse', id: 'a507a5b8a369b70b7332c0567cbbcc4c' },
 ];
 
-const photoStills = [
-  { id: 'd08682649901944d9bbec1dcfb8bde88', t: 45, label: 'Product' },
-  { id: 'cd386f606ba61022ba3e608f684b3c80', t: 30, label: 'Brand' },
-  { id: '66f28edb4b5c20354896a437b7be5220', t: 12, label: 'Campaign' },
-];
-
 const categories = [
-  { n: '01', label: 'Brand & Story', href: '#brand-story' },
-  { n: '02', label: 'Social & Content', href: '#social-content' },
-  { n: '03', label: 'Live & Events', href: '#live-events' },
+  { n: '01', label: 'Commercials', href: '#brand-story' },
+  { n: '02', label: 'Social Media', href: '#social-content' },
+  { n: '03', label: 'Brand Films', href: '#live-events' },
   { n: '04', label: 'Aerial & Motion', href: '#aerial-motion' },
-  { n: '05', label: 'Photography', href: '#photography' },
 ];
 
 /* ---------- reel tile ---------- */
@@ -293,14 +284,13 @@ export default function MediaProduction() {
           <div className={styles.shell}>
             <div className={`${styles.bandHead} ${styles.reveal}`}>
               <p className={styles.eyebrow}>
-                <span className={styles.bandCount}>01 / Brand &amp; Story</span>
+                <span className={styles.bandCount}>01 · Films people remember</span>
               </p>
-              <h2 className={styles.bandTitle}>Films people remember.</h2>
+              <h2 className={styles.bandTitle}>Commercials.</h2>
               <p className={styles.bandLede}>
-                Brand films, commercials, and brand trailers shot at cinema
-                quality, because the story that makes people feel something is
-                the one they remember, and premium footage reads as a premium
-                brand.
+                Commercials, brand films, and trailers shot at cinema quality,
+                because the story that makes people feel something is the one
+                they remember, and premium footage reads as a premium brand.
               </p>
             </div>
 
@@ -320,12 +310,12 @@ export default function MediaProduction() {
           <div className={styles.shell}>
             <div className={`${styles.bandHead} ${styles.reveal}`}>
               <p className={styles.eyebrow}>
-                <span className={styles.bandCount}>02 / Social &amp; Content</span>
+                <span className={styles.bandCount}>02 · Stop the scroll</span>
               </p>
-              <h2 className={styles.bandTitle}>Stop the scroll.</h2>
+              <h2 className={styles.bandTitle}>Social Media Content.</h2>
               <p className={styles.bandLede}>
-                Vertical social and recruiting content built for the feed,
-                designed to show up daily where attention actually lives.
+                Vertical social content built for the feed, designed to show up
+                daily where attention actually lives.
               </p>
             </div>
 
@@ -395,12 +385,13 @@ export default function MediaProduction() {
           <div className={styles.shell}>
             <div className={`${styles.bandHead} ${styles.reveal}`}>
               <p className={styles.eyebrow}>
-                <span className={styles.bandCount}>03 / Live &amp; Events</span>
+                <span className={styles.bandCount}>03 · Capture the room</span>
               </p>
-              <h2 className={styles.bandTitle}>Capture the room.</h2>
+              <h2 className={styles.bandTitle}>Brand Films.</h2>
               <p className={styles.bandLede}>
-                Full event coverage and recap films that capture the energy in the
-                room, proof you can run for months after the lights go down.
+                Story driven brand films and full event coverage that capture the
+                energy in the room, proof you can run for months after the lights
+                go down.
               </p>
             </div>
 
@@ -440,49 +431,6 @@ export default function MediaProduction() {
           </div>
         </section>
 
-        {/* ================= PHOTOGRAPHY ================= */}
-        <section id="photography" className={styles.band}>
-          <div className={styles.shell}>
-            <div className={`${styles.bandHead} ${styles.reveal}`}>
-              <p className={styles.eyebrow}>
-                <span className={styles.bandCount}>05 / Photography</span>
-              </p>
-              <h2 className={styles.bandTitle}>Stills that sell.</h2>
-              <p className={styles.bandLede}>
-                Product, food, headshots, and campaign photography, the same
-                cinematic eye frozen into a single frame.
-              </p>
-            </div>
-
-            <div className={styles.photoGrid + ' ' + styles.stagger}>
-              {photoStills.map((p) => (
-                <div key={`${p.id}-${p.t}`} className={styles.photo}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    className={styles.photoImg}
-                    src={poster(p.id, p.t)}
-                    alt={`${p.label} photography still`}
-                    loading="lazy"
-                  />
-                  <span className={styles.photoScrim} aria-hidden="true" />
-                  <span className={styles.photoLabel}>{p.label}</span>
-                </div>
-              ))}
-              <div className={styles.photoCard}>
-                <h3 className={styles.photoCardHead}>
-                  One shoot,
-                  <br />
-                  every asset.
-                </h3>
-                <p className={styles.photoCardBody}>
-                  We pull stills alongside every production, so your website, ads,
-                  and socials all speak the same premium visual language.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ================= CAPTURE ================= */}
         <section id="start" className={styles.formSection}>
           <div className={styles.shell}>
@@ -490,9 +438,9 @@ export default function MediaProduction() {
               <div className={`${styles.formPitch} ${styles.reveal}`}>
                 <p className={styles.eyebrow}>The free offer</p>
                 <h2 className={styles.bandTitle}>
-                  Get your brand
+                  Get your <span className={styles.accent}>free</span>
                   <br />
-                  content plan.
+                  brand content plan.
                 </h2>
                 <p className={styles.bandLede}>
                   We&apos;ll map the exact content we&apos;d shoot for your
