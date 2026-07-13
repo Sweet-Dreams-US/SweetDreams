@@ -4,8 +4,37 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import WebPreviewVideo from '@/components/web/WebPreviewVideo';
 import TopOfferBar from '@/components/TopOfferBar';
+import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
 import { useReveals } from '@/components/software/useReveals';
 import s from './websites.module.css';
+
+/* Free demo funnel — same steps and pipeline as /free-website. */
+const DEMO_STEPS: FunnelStep[] = [
+  {
+    question: "What's your {name}?",
+    cta: "Let's start",
+    fields: [
+      { name: 'firstName', placeholder: 'First name', required: true, half: true },
+      { name: 'lastName', placeholder: 'Last name', required: true, half: true },
+    ],
+  },
+  {
+    question: "What's your {business}?",
+    cta: 'Continue',
+    fields: [
+      { name: 'businessName', placeholder: 'Business name', required: true },
+      { name: 'whatYouDo', placeholder: 'What do you do?', required: true },
+    ],
+  },
+  {
+    question: 'Where do we {send it}?',
+    cta: 'Build mine free',
+    fields: [
+      { name: 'email', placeholder: 'Email', type: 'email', required: true },
+      { name: 'phone', placeholder: 'Phone (optional)', type: 'tel' },
+    ],
+  },
+];
 
 /* Four curated builds shown up top; full set lives on the portfolio. */
 const FEATURED = [
@@ -53,26 +82,52 @@ export default function Websites() {
         {/* ============================ HERO ============================ */}
         <header className={s.hero}>
           <div className={s.heroGlow} aria-hidden="true" />
-          <div className={s.heroInner} data-hero>
-            <p className={s.eyebrow}>Websites, Fort Wayne</p>
-            <h1 className={s.headline}>
-              Websites that <span className={s.hl}>stand out</span>.
-            </h1>
-            <p className={s.subhead}>
-              You are a brand worth looking at. We hand code websites that look
-              like it: custom design, cinematic photo and video, and motion that
-              makes people stop. Shot and built by a media company, and{' '}
-              <b>built before you pay a dollar</b>.
-            </p>
-            <div className={s.ctaRow}>
-              <Link href="/free-website" className={s.ctaPrimary}>
-                Get your free build
-                <span className={s.ctaArrow}>→</span>
-              </Link>
-              <Link href="/book" className={s.ctaGhost}>
-                Book a call
-                <span aria-hidden="true">→</span>
-              </Link>
+          <div className={s.heroGrid}>
+            <div className={s.heroInner} data-hero>
+              <p className={s.eyebrow}>Websites, Fort Wayne</p>
+              <h1 className={s.headline}>
+                Websites that <span className={s.hl}>stand out</span>.
+              </h1>
+              <p className={s.subhead}>
+                You are a brand worth looking at. We hand code websites that look
+                like it: custom design, cinematic photo and video, and motion
+                that makes people stop. Shot and built by a media company, and{' '}
+                <b>built before you pay a dollar</b>.
+              </p>
+              <div className={s.ctaRow}>
+                <a href="#start" className={s.ctaPrimary}>
+                  Get your free build
+                  <span className={s.ctaArrow}>→</span>
+                </a>
+                <Link href="/book" className={s.ctaGhost}>
+                  Book a call
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className={s.heroVisual} data-reveal>
+              <div className={s.heroFrame}>
+                <div className={s.cardChrome}>
+                  <div className={s.chromeDots} aria-hidden="true">
+                    <span className={`${s.dot} ${s.dotR}`} />
+                    <span className={`${s.dot} ${s.dotY}`} />
+                    <span className={`${s.dot} ${s.dotG}`} />
+                  </div>
+                  <div className={s.cardUrl}>
+                    <span aria-hidden="true">🔒 </span>
+                    <b>mindsquire.com</b>
+                  </div>
+                </div>
+                <div className={s.cardVideoWrap}>
+                  <WebPreviewVideo
+                    videoId="4db4384638b438d0f2c3fb9b60a48606"
+                    className={s.cardVideo}
+                    posterHeight={800}
+                    ariaLabel="Preview of the MindSquire website"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </header>
@@ -197,27 +252,49 @@ export default function Websites() {
           </div>
         </section>
 
-        {/* ======================== CLOSING ======================== */}
-        <section className={s.closing}>
-          <div className={s.closingGlow} aria-hidden="true" />
+        {/* ==================== FREE DEMO (capture) ==================== */}
+        <section className={s.freeBand} id="start">
           <div className={s.shell}>
-            <p className={s.closingKicker} data-reveal>Built before you pay.</p>
-            <h2 className={s.closingLine} data-reveal>
-              See your new site <span className={s.hl}>live</span> first.
-            </h2>
-            <p className={s.closingSub} data-reveal>
-              We research your business, design a real demo on your brand, shoot
-              the media, and send you the link. Then you decide.
-            </p>
-            <div className={s.closingCtas} data-reveal>
-              <Link href="/free-website" className={s.ctaPrimary}>
-                Get your free build
-                <span className={s.ctaArrow}>→</span>
-              </Link>
-              <Link href="/book" className={s.ctaGhost}>
-                Book a call
-                <span aria-hidden="true">→</span>
-              </Link>
+            <div className={s.freeHead} data-reveal>
+              <p className={s.closingKicker}>Built before you pay.</p>
+              <h2 className={s.closingLine}>
+                See your new site <span className={s.hl}>live</span> first.
+              </h2>
+              <p className={s.freeSub}>
+                We research your business, design a real demo on your brand, shoot
+                the media, and send you the live link. Love it and it is yours. If
+                not, you owe nothing.
+              </p>
+            </div>
+
+            <div className={s.freeGrid}>
+              <ul className={s.freeList} data-reveal>
+                <li className={s.freeListItem}>
+                  <span className={s.freeCheck} aria-hidden="true">✦</span>
+                  A real, clickable site built on your brand, not a mockup.
+                </li>
+                <li className={s.freeListItem}>
+                  <span className={s.freeCheck} aria-hidden="true">✦</span>
+                  Photo and video shot by our media team, included.
+                </li>
+                <li className={s.freeListItem}>
+                  <span className={s.freeCheck} aria-hidden="true">✦</span>
+                  Hand coded to load fast and rank, and yours to keep.
+                </li>
+                <li className={s.freeListItem}>
+                  <span className={s.freeCheck} aria-hidden="true">✦</span>
+                  No payment and no commitment to see it.
+                </li>
+              </ul>
+
+              <div className={s.formHost}>
+                <FunnelForm
+                  funnel="free-website"
+                  steps={DEMO_STEPS}
+                  successTitle="You're in."
+                  successBody="We'll reach out shortly, build your site, and send the live link to click through. No payment, no commitment."
+                />
+              </div>
             </div>
           </div>
         </section>
