@@ -614,15 +614,15 @@
 .freeBadge {
   display: inline-block;
   font-family: 'Anton', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #04121f;
-  background: var(--accent);
-  padding: 9px 20px;
+  color: #fff;
+  background: #e63636;
+  padding: 10px 22px;
   border-radius: 999px;
   margin: 0 0 18px;
-  box-shadow: 0 14px 34px -10px rgba(74, 144, 226, 0.65);
+  box-shadow: 0 14px 34px -8px rgba(230, 54, 54, 0.7);
 }
 .freeSub {
   font-size: 14px;
@@ -678,7 +678,8 @@
    ============================================================ */
 @media (max-width: 980px) {
   .heroGrid { grid-template-columns: 1fr; gap: 44px; }
-  .heroFrame { transform: none; animation: none; }
+  /* Keep a tilt on mobile; JS then tilts it live with device orientation. */
+  .heroFrame { transform: rotateY(-8deg) rotateX(3deg); animation: none; }
   .freeGrid { grid-template-columns: 1fr; }
 }
 

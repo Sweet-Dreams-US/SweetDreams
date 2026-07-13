@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WebPreviewVideo from '@/components/web/WebPreviewVideo';
+import SocialReel from '@/components/media/SocialReel';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
 import TopOfferBar from '@/components/TopOfferBar';
 import styles from './media.module.css';
@@ -319,21 +320,15 @@ export default function MediaProduction() {
               </p>
             </div>
 
-            <div className={styles.socialReels + ' ' + styles.stagger}>
+            <div className={styles.socialReels}>
               {socialReels.map((r) => (
-                <div key={r.id} className={styles.vtile}>
-                  <WebPreviewVideo
-                    videoId={r.id}
-                    startAt={r.start ?? 1}
-                    className={styles.tileVideo}
-                    ariaLabel={`${r.name} · ${r.tag}`}
-                  />
-                  <span className={styles.tileScrim} aria-hidden="true" />
-                  <div className={styles.tileMeta}>
-                    <span className={styles.tileTag}>{r.tag}</span>
-                    <h3 className={styles.tileName}>{r.name}</h3>
-                  </div>
-                </div>
+                <SocialReel
+                  key={r.id}
+                  videoId={r.id}
+                  name={r.name}
+                  tag={r.tag}
+                  startAt={r.start ?? 1}
+                />
               ))}
             </div>
 

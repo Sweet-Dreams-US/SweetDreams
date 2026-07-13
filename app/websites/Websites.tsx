@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import WebPreviewVideo from '@/components/web/WebPreviewVideo';
 import HeroMontage, { type MontageClip } from '@/components/web/HeroMontage';
@@ -71,8 +71,53 @@ const STEPS = [
 
 export default function Websites() {
   const root = useRef<HTMLDivElement>(null);
+  const heroFrameRef = useRef<HTMLDivElement>(null);
   const [heroActive, setHeroActive] = useState(0);
   useReveals(root);
+
+  // On mobile, tilt the hero browser frame with the phone's orientation.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!window.matchMedia('(max-width: 980px)').matches) return;
+    const el = heroFrameRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onOrient = (e: DeviceOrientationEvent) => {
+      const gamma = e.gamma ?? 0; // left-right tilt
+      const beta = e.beta ?? 0; // front-back tilt
+      const ry = Math.max(-18, Math.min(18, gamma * 0.45));
+      const rx = Math.max(-12, Math.min(12, (beta - 55) * 0.22));
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `rotateY(${ry}deg) rotateX(${rx}deg)`;
+      });
+    };
+    const enable = () => window.addEventListener('deviceorientation', onOrient);
+    const DOE = window.DeviceOrientationEvent as unknown as
+      | { requestPermission?: () => Promise<'granted' | 'denied'> }
+      | undefined;
+    let cleanupTouch: (() => void) | undefined;
+    if (DOE && typeof DOE.requestPermission === 'function') {
+      // iOS needs a user gesture before it will emit orientation events.
+      const onFirstTouch = () => {
+        DOE.requestPermission?.()
+          .then((r) => {
+            if (r === 'granted') enable();
+          })
+          .catch(() => {});
+        window.removeEventListener('touchstart', onFirstTouch);
+      };
+      window.addEventListener('touchstart', onFirstTouch, { once: true });
+      cleanupTouch = () => window.removeEventListener('touchstart', onFirstTouch);
+    } else {
+      enable();
+    }
+    return () => {
+      window.removeEventListener('deviceorientation', onOrient);
+      cleanupTouch?.();
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <div ref={root} className={s.page}>
@@ -116,7 +161,7 @@ export default function Websites() {
             </div>
 
             <div className={s.heroVisual} data-reveal>
-              <div className={s.heroFrame}>
+              <div className={s.heroFrame} ref={heroFrameRef}>
                 <div className={s.cardChrome}>
                   <div className={s.chromeDots} aria-hidden="true">
                     <span className={`${s.dot} ${s.dotR}`} />

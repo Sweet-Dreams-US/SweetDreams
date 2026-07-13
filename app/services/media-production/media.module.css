@@ -447,24 +447,46 @@
    SOCIAL & CONTENT — vertical reels + free-plan offer
    ============================================================ */
 .socialReels {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 560px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(10px, 1.4vw, 18px);
+  max-width: none;
 }
 .vtile {
+  flex: 0 0 calc(20% - 15px);
+  max-width: 260px;
   position: relative;
   aspect-ratio: 9 / 16;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #000;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.25, 0.5, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease;
 }
-.vtile:hover {
-  transform: translateY(-6px);
-  border-color: rgba(230, 54, 54, 0.55);
-  box-shadow: 0 26px 60px -24px rgba(230, 54, 54, 0.45);
+/* hover (desktop) / tap (mobile): scale up + glow; JS turns the sound on */
+.vtileActive {
+  transform: scale(1.32);
+  z-index: 6;
+  border-color: var(--accent);
+  box-shadow: 0 34px 80px -20px rgba(230, 54, 54, 0.6);
+}
+.vtileActive .tileVideo {
+  filter: none;
+}
+
+@media (max-width: 1040px) {
+  .vtile { flex-basis: calc(33.333% - 12px); }
+}
+@media (max-width: 680px) {
+  .vtile { flex-basis: calc(50% - 8px); }
+  .vtileActive { transform: scale(1.18); }
+}
+@media (max-width: 420px) {
+  .vtile { flex-basis: 100%; max-width: 300px; }
 }
 
 /* free-plan highlighted offer bar */
@@ -730,8 +752,6 @@
 @media (max-width: 640px) {
   .band { padding: 74px 0; }
   .hero { padding: 100px 20px 60px; min-height: auto; }
-  .socialReels { grid-template-columns: repeat(2, 1fr); max-width: none; }
-  .socialReels > *:nth-child(3) { grid-column: span 2; max-width: 62%; margin: 0 auto; }
   .offerBar { padding: 28px 22px; }
   .photoGrid { grid-template-columns: repeat(2, 1fr); }
   .bgWord {
