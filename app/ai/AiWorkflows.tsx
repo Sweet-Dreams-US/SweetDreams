@@ -8,11 +8,18 @@ import { useReveals } from '@/components/software/useReveals';
 import styles from '@/app/software/software.module.css';
 import ai from './ai.module.css';
 
-/* Green accent trio, set on the page root so the whole design system themes. */
-const GREEN: CSSProperties = {
+/* Dark green theme, set on the page root so the whole design system themes. */
+const DARK: CSSProperties = {
   '--accent': '#16a34a',
   '--accent-2': '#4ade80',
   '--accent-ink': '#04160c',
+  '--ink': '#ffffff',
+  '--paper': '#06100b',
+  '--paper-2': '#0c1712',
+  '--muted': 'rgba(255, 255, 255, 0.62)',
+  '--muted-2': 'rgba(255, 255, 255, 0.44)',
+  '--line': 'rgba(255, 255, 255, 0.1)',
+  '--line-strong': 'rgba(255, 255, 255, 0.16)',
 } as CSSProperties;
 
 /* Done with you, not to you — the answer to "what do they know about MY business". */
@@ -84,7 +91,7 @@ export default function AiWorkflows() {
   useReveals(root);
 
   return (
-    <div ref={root} className={styles.page} style={GREEN}>
+    <div ref={root} className={styles.page} style={DARK}>
       <span className={styles.bgWord} data-bgword aria-hidden="true">
         AI
       </span>
@@ -117,7 +124,11 @@ export default function AiWorkflows() {
             </p>
 
             <div className={styles.ctaRow}>
-              <Link href="/book" className={styles.ctaPrimary}>
+              <Link
+                href="/book"
+                className={styles.ctaPrimary}
+                style={{ background: 'var(--accent)', color: '#04160c', borderColor: 'var(--accent)' }}
+              >
                 Book your free AI Time Audit
                 <span className={styles.ctaArrow}>→</span>
               </Link>
@@ -340,7 +351,7 @@ export default function AiWorkflows() {
       </section>
 
       {/* ======================== CLOSING ======================== */}
-      <section className={styles.closing}>
+      <section className={styles.closing} style={{ background: '#04100a' }}>
         <div className={styles.closingGlow} aria-hidden="true" />
         <div className={styles.wrap}>
           <p className={styles.closingKicker} data-reveal>

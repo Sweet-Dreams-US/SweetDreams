@@ -1,12 +1,20 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import WebPreviewVideo from '@/components/web/WebPreviewVideo';
+import HeroMontage, { type MontageClip } from '@/components/web/HeroMontage';
 import TopOfferBar from '@/components/TopOfferBar';
 import FunnelForm, { type FunnelStep } from '@/components/funnel/FunnelForm';
 import { useReveals } from '@/components/software/useReveals';
 import s from './websites.module.css';
+
+/* Hero montage: first 6s of Bite Me, 6s of Ace, 4s of Hot Chicks, on loop. */
+const HERO_CLIPS: MontageClip[] = [
+  { videoId: 'a7969078d27d7d15394978d0c02cc306', seconds: 6, label: 'Bite Me Protein' },
+  { videoId: 'abc316f410b475f978ab9322b033add6', seconds: 6, label: 'Ace Gameroom' },
+  { videoId: 'bc21e8ee97ddda1e531072021685955a', seconds: 4, label: 'Hot Chicks' },
+];
 
 /* Free demo funnel — same steps and pipeline as /free-website. */
 const DEMO_STEPS: FunnelStep[] = [
@@ -63,6 +71,7 @@ const STEPS = [
 
 export default function Websites() {
   const root = useRef<HTMLDivElement>(null);
+  const [heroActive, setHeroActive] = useState(0);
   useReveals(root);
 
   return (
@@ -115,16 +124,16 @@ export default function Websites() {
                     <span className={`${s.dot} ${s.dotG}`} />
                   </div>
                   <div className={s.cardUrl}>
-                    <span aria-hidden="true">🔒 </span>
-                    <b>mindsquire.com</b>
+                    <b>{HERO_CLIPS[heroActive].label}</b>
                   </div>
                 </div>
                 <div className={s.cardVideoWrap}>
-                  <WebPreviewVideo
-                    videoId="4db4384638b438d0f2c3fb9b60a48606"
+                  <HeroMontage
+                    clips={HERO_CLIPS}
                     className={s.cardVideo}
                     posterHeight={800}
-                    ariaLabel="Preview of the MindSquire website"
+                    onActiveChange={setHeroActive}
+                    ariaLabel="Recent Sweet Dreams website builds"
                   />
                 </div>
               </div>
@@ -256,14 +265,14 @@ export default function Websites() {
         <section className={s.freeBand} id="start">
           <div className={s.shell}>
             <div className={s.freeHead} data-reveal>
-              <p className={s.closingKicker}>Built before you pay.</p>
+              <span className={s.freeBadge}>100% Free</span>
               <h2 className={s.closingLine}>
                 See your new site <span className={s.hl}>live</span> first.
               </h2>
               <p className={s.freeSub}>
                 We research your business, design a real demo on your brand, shoot
-                the media, and send you the live link. Love it and it is yours. If
-                not, you owe nothing.
+                the media, and send you the live link, all <b>free</b>. Love it and
+                it is yours. If not, you owe nothing.
               </p>
             </div>
 
