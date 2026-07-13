@@ -55,38 +55,6 @@ const STEPS = [
   },
 ];
 
-/* Public pricing ladder. Low friction and no surprises is the brand. */
-const TIERS = [
-  {
-    name: 'AI Time Audit',
-    price: 'Free',
-    unit: '30 to 45 minutes',
-    blurb: 'Live on your real work. You leave with the payroll math, no pitch and no cost.',
-    featured: false,
-  },
-  {
-    name: 'Working Session',
-    price: '$750',
-    unit: 'one time',
-    blurb: 'Three hours with your team. Your first workflow shipped live and trained.',
-    featured: false,
-  },
-  {
-    name: 'Monthly Block',
-    price: '$2,500',
-    unit: 'per month',
-    blurb: 'Ten hours a month, teach and build together. Cancel anytime. Twenty hours at $4,500.',
-    featured: true,
-  },
-  {
-    name: 'Team Workshop',
-    price: '$1,500',
-    unit: 'half day',
-    blurb: 'Up to eight of your people, hands on with AI on their real work.',
-    featured: false,
-  },
-];
-
 export default function AiWorkflows() {
   const root = useRef<HTMLDivElement>(null);
   useReveals(root);
@@ -272,47 +240,6 @@ export default function AiWorkflows() {
           <p className={styles.autoCopy} data-reveal>
             The AI workflows that fit{' '}
             <span className={styles.hl}>how you actually work</span>.
-          </p>
-        </div>
-      </section>
-
-      {/* ========================= PRICING ========================= */}
-      <section className={styles.section} id="pricing">
-        <div className={styles.wrap}>
-          <div className={styles.sectionHead} data-reveal>
-            <p className={styles.kicker}>
-              <span className={styles.kickerBar} />
-              Pricing
-            </p>
-            <h2 className={styles.sectionTitle}>
-              Simple, and <span className={styles.hl}>public</span>.
-            </h2>
-            <p className={styles.sectionLede}>
-              Start free. Buy the first working result for a fixed price. Scale
-              into a monthly block only once it is paying off.
-            </p>
-          </div>
-
-          <div className={ai.pricing} data-stagger>
-            {TIERS.map((t) => (
-              <div
-                className={`${ai.tier} ${t.featured ? ai.tierFeatured : ''}`}
-                key={t.name}
-              >
-                {t.featured && <span className={ai.tierTag}>Most pick this</span>}
-                <p className={ai.tierName}>{t.name}</p>
-                <p className={ai.tierPrice}>{t.price}</p>
-                <p className={ai.tierUnit}>{t.unit}</p>
-                <p className={ai.tierBlurb}>{t.blurb}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className={ai.pricingNote} data-reveal>
-            <b>No discounts.</b> The price holds and the scope moves. You own every
-            workflow, your data, and your accounts, and any AI subscriptions run on
-            your card from day one. Prefer we build the whole thing for you? Ask
-            about done for you.
           </p>
         </div>
       </section>
