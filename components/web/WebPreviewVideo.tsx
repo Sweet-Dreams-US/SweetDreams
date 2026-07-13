@@ -26,12 +26,16 @@ export default function WebPreviewVideo({
   startAt = 1,
   posterHeight = 600,
   ariaLabel,
+  noMobileVideo = false,
 }: {
   videoId: string;
   className?: string;
   startAt?: number;
   posterHeight?: number;
   ariaLabel?: string;
+  /** On phones, show the poster still instead of decoding an HLS stream
+   *  (several streams at once tank INP on a mobile CPU). */
+  noMobileVideo?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
@@ -56,6 +60,9 @@ export default function WebPreviewVideo({
 
   useEffect(() => {
     if (!visible) return;
+    // On phones, skip the HLS stream entirely and let the poster show —
+    // several decoding streams at once are the main INP hog on mobile.
+    if (noMobileVideo && window.matchMedia('(max-width: 768px)').matches) return;
     const v = videoRef.current;
     if (!v) return;
 
@@ -102,7 +109,7 @@ export default function WebPreviewVideo({
       hlsRef.current?.destroy();
       hlsRef.current = null;
     };
-  }, [visible, videoId, startAt]);
+  }, [visible, videoId, startAt, noMobileVideo]);
 
   return (
     <video

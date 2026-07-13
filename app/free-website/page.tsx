@@ -84,6 +84,7 @@ export default async function FreeWebsitePage({
                 videoId={ex.videoId}
                 className={styles.showcaseVideo}
                 ariaLabel={`${ex.name} website preview`}
+                noMobileVideo
               />
               <span className={styles.showcaseName}>{ex.name}</span>
             </div>
