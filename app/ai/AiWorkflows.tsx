@@ -94,14 +94,16 @@ export default function AiWorkflows() {
             </p>
 
             <div className={styles.ctaRow}>
-              <Link
-                href="/book"
+              <a
+                href="https://www.dreamsuite.us/#book"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.ctaPrimary}
                 style={{ background: 'var(--accent)', color: '#04160c', borderColor: 'var(--accent)' }}
               >
                 Book your free AI Assessment
                 <span className={styles.ctaArrow}>→</span>
-              </Link>
+              </a>
               <a href="#how" className={styles.ctaSecondary}>
                 See how it works
                 <span aria-hidden="true">↓</span>
@@ -147,10 +149,15 @@ export default function AiWorkflows() {
             </ul>
 
             <div className={ai.auditCtaRow}>
-              <Link href="/book" className={ai.auditCta}>
+              <a
+                href="https://www.dreamsuite.us/#book"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={ai.auditCta}
+              >
                 Book your free assessment
                 <span aria-hidden="true">→</span>
-              </Link>
+              </a>
               <span className={ai.auditFine}>Fort Wayne and northeast Indiana, in person. Remote available.</span>
             </div>
           </div>
@@ -301,10 +308,15 @@ export default function AiWorkflows() {
             your team.
           </p>
           <div className={styles.closingCtas} data-reveal>
-            <Link href="/book" className={styles.ctaLight}>
+            <a
+              href="https://www.dreamsuite.us/#book"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaLight}
+            >
               Book your free assessment
               <span className={styles.ctaArrow}>→</span>
-            </Link>
+            </a>
             <a
               href="https://dreamsuite.us"
               target="_blank"
