@@ -1274,7 +1274,7 @@
   align-items: center;
   gap: 12px;
   background: #fff;
-  color: var(--ink);
+  color: #0a0a0a;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 700;
   font-size: 14px;
