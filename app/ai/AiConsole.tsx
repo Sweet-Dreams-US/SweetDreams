@@ -5,11 +5,11 @@ import ai from './ai.module.css';
 
 /* The busywork AI takes off the team's plate — shown running live. */
 const TASKS = [
-  'Reading new inquiries',
-  'Drafting personalized replies',
-  'Scheduling the follow ups',
-  'Updating the CRM',
-  'Building the weekly report',
+  'Typing up the quotes and invoices',
+  'Chasing the paperwork',
+  'Managing the bookings',
+  'Re-keying the data',
+  'Writing the repetitive replies',
 ];
 
 /**

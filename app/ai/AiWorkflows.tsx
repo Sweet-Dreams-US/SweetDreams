@@ -39,19 +39,19 @@ const APPROACH = [
   },
 ];
 
-/* The real ladder: free audit -> first workflow -> monthly, together. */
+/* The real ladder: free assessment -> build sessions -> monthly coaching. */
 const STEPS = [
   {
-    name: 'Free AI Time Audit',
-    how: 'We find where the busywork lives and run one automation live on your real work. You leave with the number: hours a week lost, and what it costs in payroll.',
+    name: 'Free AI Assessment',
+    how: 'We find what your payroll spends on repetitive computer work, run one automation live on it, and leave you the number: hours a week lost, and what it costs.',
   },
   {
-    name: 'Working Session',
-    how: 'Three hours with your team. We ship your first workflow live, train them to run it, then show you the next three we found.',
+    name: 'Build Sessions',
+    how: 'Working sessions where we build the workflows together with your team, one at a time, so they learn it as it gets made.',
   },
   {
-    name: 'Monthly, together',
-    how: 'We teach and build the next workflows side by side, one at a time, until your team runs the whole thing without us.',
+    name: 'Monthly Coaching',
+    how: 'Ongoing support and new automations, month to month, cancel anytime, until your team runs it all without us.',
   },
 ];
 
@@ -87,10 +87,10 @@ export default function AiWorkflows() {
               Put AI to work on your <span className={styles.hl}>busywork</span>.
             </h1>
             <p className={styles.subhead}>
-              We sit down with your team, find the repetitive work eating your
-              payroll, and teach them to hand it to AI. Built <b>with</b> your
-              team, on your <b>real work</b>, and yours to keep. It starts with a
-              free AI Time Audit.
+              Your team does the <b>real work</b>. AI does the <b>busywork</b>. We
+              sit down with your people, find the repetitive computer work eating
+              your payroll, and teach them to hand it to AI. Built with your team
+              and yours to keep. It starts with a free AI Assessment.
             </p>
 
             <div className={styles.ctaRow}>
@@ -99,7 +99,7 @@ export default function AiWorkflows() {
                 className={styles.ctaPrimary}
                 style={{ background: 'var(--accent)', color: '#04160c', borderColor: 'var(--accent)' }}
               >
-                Book your free AI Time Audit
+                Book your free AI Assessment
                 <span className={styles.ctaArrow}>→</span>
               </Link>
               <a href="#how" className={styles.ctaSecondary}>
@@ -116,19 +116,19 @@ export default function AiWorkflows() {
         </div>
       </header>
 
-      {/* ==================== FREE AI TIME AUDIT ==================== */}
-      <section className={styles.section} id="audit" style={{ paddingBottom: 0 }}>
+      {/* ==================== FREE AI ASSESSMENT ==================== */}
+      <section className={styles.section} id="assessment" style={{ paddingBottom: 0 }}>
         <div className={styles.wrap}>
           <div className={ai.auditBand} data-reveal>
             <p className={ai.auditLabel}>Start here, free</p>
             <h2 className={ai.auditTitle}>
-              The free <span className={ai.hl}>AI Time Audit</span>.
+              The free <span className={ai.hl}>AI Assessment</span>.
             </h2>
             <p className={ai.auditText}>
-              In about forty minutes, we find where the busywork lives, run one
-              automation live on your real work, and leave you a number: <b>how
-              many hours a week your team loses to it, and what that costs you in
-              payroll every year</b>. No pitch. No cost.
+              In a 30 to 45 minute session, we find what your payroll spends on
+              repetitive computer work, run one automation live on it, and leave
+              you a number: <b>how many hours a week your team loses, and what that
+              costs you</b>. No pitch. No cost.
             </p>
 
             <ul className={ai.auditPoints} data-stagger>
@@ -148,7 +148,7 @@ export default function AiWorkflows() {
 
             <div className={ai.auditCtaRow}>
               <Link href="/book" className={ai.auditCta}>
-                Book your free audit
+                Book your free assessment
                 <span aria-hidden="true">→</span>
               </Link>
               <span className={ai.auditFine}>Fort Wayne and northeast Indiana, in person. Remote available.</span>
@@ -196,12 +196,12 @@ export default function AiWorkflows() {
               How it works
             </p>
             <h2 className={styles.sectionTitle}>
-              Free audit. First workflow. <span className={styles.hl}>Then we go</span>.
+              Assess. Build. <span className={styles.hl}>Then we go</span>.
             </h2>
             <p className={styles.sectionLede}>
-              No giant contract to find out if AI helps. We prove it free, ship
-              the first workflow for real, and grow from there, one workflow at a
-              time.
+              No giant contract to find out if AI helps. We prove it free, build
+              the first workflows with your team, and grow from there, one workflow
+              at a time.
             </p>
           </div>
 
@@ -273,7 +273,8 @@ export default function AiWorkflows() {
               </p>
               <p className={styles.ownSub}>
                 We teach as we build, so the people who run it every day are the
-                ones who understand it. When we are done, it does not need us.
+                ones who understand it. If your team cannot run it without us, it
+                is not finished.
               </p>
             </div>
             <Link href="/websites" className={styles.ctaOnDark}>
@@ -295,13 +296,13 @@ export default function AiWorkflows() {
             See your <span className={styles.hl}>busywork</span> on paper.
           </h2>
           <p className={styles.closingSub} data-reveal>
-            Book the free AI Time Audit. We will find the busywork worth handing to
+            Book the free AI Assessment. We will find the busywork worth handing to
             AI, put a real payroll number on it, and build the first workflow with
             your team.
           </p>
           <div className={styles.closingCtas} data-reveal>
             <Link href="/book" className={styles.ctaLight}>
-              Book your free audit
+              Book your free assessment
               <span className={styles.ctaArrow}>→</span>
             </Link>
             <a
