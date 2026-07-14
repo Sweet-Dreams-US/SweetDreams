@@ -304,10 +304,15 @@ export default function AiWorkflows() {
               Book your free audit
               <span className={styles.ctaArrow}>→</span>
             </Link>
-            <Link href="/software" className={styles.ctaGhost}>
-              See the full picture
+            <a
+              href="https://dreamsuite.us"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaGhost}
+            >
+              Visit DreamSuite.us
               <span aria-hidden="true">↗</span>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
