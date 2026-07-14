@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
+import BookCallLink from "./BookCallLink";
 
 export default function Footer() {
   return (
@@ -44,7 +45,7 @@ export default function Footer() {
               <Link href="/solutions" className={styles.link}>Not sure? Start here</Link>
               <Link href="/blog" className={styles.link}>Blog</Link>
               <Link href="/about" className={styles.link}>About Us</Link>
-              <Link href="/book" className={styles.link}>Book a Call</Link>
+              <BookCallLink className={styles.link}>Book a Call</BookCallLink>
             </div>
           </div>
 

@@ -39,20 +39,29 @@ const APPROACH = [
   },
 ];
 
-/* The real ladder: free assessment -> build sessions -> monthly coaching. */
+/* Three steps, and you own the result. Mirrors dreamsuite.us how it works. */
 const STEPS = [
   {
     name: 'Free AI Assessment',
-    how: 'We find what your payroll spends on repetitive computer work, run one automation live on it, and leave you the number: hours a week lost, and what it costs.',
+    how: '30 to 45 minutes with your team. We find where the busywork lives, run one automation live on your real work, and hand you the number: hours a week lost, and what it costs your payroll a year.',
   },
   {
-    name: 'Build Sessions',
-    how: 'Working sessions where we build the workflows together with your team, one at a time, so they learn it as it gets made.',
+    name: 'We build it with you',
+    how: 'In a working session we build your first workflow live and train your team to run it. You walk out with it working, and a short list of what to automate next.',
   },
   {
-    name: 'Monthly Coaching',
-    how: 'Ongoing support and new automations, month to month, cancel anytime, until your team runs it all without us.',
+    name: 'Until you run it without us',
+    how: 'We keep building and teaching, one workflow at a time, until your team owns it and does not need us. Most teams get there in a few months.',
   },
+];
+
+/* Who it is for — the busywork done by hand, straight from dreamsuite.us. */
+const WHO = [
+  'Typing the same quotes and invoices by hand',
+  'Chasing paperwork, follow ups, and missing files',
+  'Booking and rebooking by phone and email',
+  'Re-keying the same information between apps',
+  'Writing the same replies again and again',
 ];
 
 export default function AiWorkflows() {
@@ -158,7 +167,7 @@ export default function AiWorkflows() {
                 Book your free assessment
                 <span aria-hidden="true">→</span>
               </a>
-              <span className={ai.auditFine}>Fort Wayne and northeast Indiana, in person. Remote available.</span>
+              <span className={ai.auditFine}>Free. 30 to 45 minutes. In person within 150 miles of Fort Wayne, or remote anywhere.</span>
             </div>
           </div>
         </div>
@@ -224,6 +233,45 @@ export default function AiWorkflows() {
         </div>
       </section>
 
+      {/* ======================= WHO IT IS FOR ======================= */}
+      <section className={styles.section} id="who">
+        <div className={styles.wrap}>
+          <div className={styles.sectionHead} data-reveal>
+            <p className={styles.kicker}>
+              <span className={styles.kickerBar} />
+              Who it is for
+            </p>
+            <h2 className={styles.sectionTitle}>
+              Built for the businesses doing the{' '}
+              <span className={styles.hl}>busywork by hand</span>.
+            </h2>
+            <p className={styles.sectionLede}>
+              You already feel it every week. The question is not whether AI can
+              help, it is which task it takes off your plate first.
+            </p>
+          </div>
+
+          <ul className={ai.whoList} data-stagger>
+            {WHO.map((w) => (
+              <li className={ai.whoItem} key={w}>
+                <span className={ai.whoTick} aria-hidden="true">
+                  ✓
+                </span>
+                <span className={ai.whoText}>{w}</span>
+                <span className={ai.whoTag}>AI takes it</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className={ai.whoIndustries} data-reveal>
+            We work with concrete, HVAC, plumbing, electrical, remodeling, law
+            offices, accounting firms, insurance agencies, real estate teams,
+            medical offices, dental offices, gyms and booking businesses,
+            logistics and dispatch, and more.
+          </p>
+        </div>
+      </section>
+
       {/* =================== WORKFLOWS WE BUILD =================== */}
       <section className={styles.autoStage} id="workflows">
         <div className={styles.wrap}>
@@ -266,7 +314,8 @@ export default function AiWorkflows() {
             <p className={styles.sectionLede}>
               To make AI actually run the work, we build the operations system it
               plugs into, in the backend of your own site. This is the kind of
-              thing your workflows run on. You own all of it.
+              thing your workflows run on. You own all of it. We run our own
+              company on this. Now we teach it to yours.
             </p>
           </div>
 

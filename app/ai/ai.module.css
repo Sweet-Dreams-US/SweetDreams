@@ -134,6 +134,79 @@
   color: var(--muted-2);
 }
 
+/* ---------- Who it is for ---------- */
+.whoList {
+  list-style: none;
+  margin: clamp(28px, 5vh, 44px) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.whoItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+  border-radius: 12px;
+  transition: transform 0.18s ease, border-color 0.2s ease;
+}
+
+.whoItem:hover {
+  transform: translateX(4px);
+  border-left-color: var(--accent);
+}
+
+.whoTick {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.whoText {
+  flex: 1;
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.whoTag {
+  flex: 0 0 auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  padding: 5px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.whoIndustries {
+  margin: clamp(22px, 4vh, 32px) 0 0;
+  padding: 20px 24px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
 /* ---------- Public pricing ladder ---------- */
 .pricing {
   display: grid;
@@ -379,6 +452,8 @@
 @media (max-width: 560px) {
   .pricing { grid-template-columns: 1fr; }
   .auditCta { width: 100%; justify-content: center; }
+  .whoItem { flex-wrap: wrap; }
+  .whoTag { margin-left: 38px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

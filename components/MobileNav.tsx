@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './MobileNav.module.css';
+import BookCallLink from './BookCallLink';
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -168,13 +169,13 @@ export default function MobileNav() {
             </div>
           ))}
 
-          <Link
-            href="/book"
-            className={`${styles.navCta} ${pathname === '/book' ? styles.navCtaActive : ''}`}
+          <BookCallLink
+            className={styles.navCta}
+            activeClassName={styles.navCtaActive}
             onClick={() => setIsOpen(false)}
           >
             Book a Call
-          </Link>
+          </BookCallLink>
         </nav>
 
         <div className={styles.mobileMenuFooter}>

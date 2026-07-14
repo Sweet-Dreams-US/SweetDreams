@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 import MobileNav from "./MobileNav";
+import BookCallLink from "./BookCallLink";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -58,12 +59,9 @@ export default function Nav() {
               >
                 AI
               </Link>
-              <Link
-                href="/book"
-                className={`${styles.ctaButton} ${pathname === "/book" ? styles.ctaActive : ""}`}
-              >
+              <BookCallLink className={styles.ctaButton} activeClassName={styles.ctaActive}>
                 BOOK A CALL
-              </Link>
+              </BookCallLink>
             </div>
 
             {/* Hamburger — the rest of the site lives here */}
