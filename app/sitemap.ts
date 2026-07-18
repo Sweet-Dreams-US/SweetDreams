@@ -67,14 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      // Software hub — overview of the two products (Websites + AI Workflows)
-      url: `${baseUrl}/software`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      // Websites — product page
+      // Websites — product page (the former /software hub redirects here)
       url: `${baseUrl}/websites`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

@@ -75,8 +75,6 @@ Two products, bought on their own or together:
 - **Websites**: a premium hand coded brand website (Next.js, React, TypeScript), funnel built, with professional photo and video media included. Built before you pay a dollar (free spec build). URL: https://sweetdreams.us/websites
 - **AI Workflows**: hands on, we teach the client's team to use AI and build the workflows that fit how they actually work, day to day, so the busywork runs itself. Priced by the hour, with flexible plans for ongoing work, and the client's team owns every workflow. To run those workflows we also build the operations systems behind the client's own site (bookings, availability, customers, inquiries, payments/POS, transactions, payouts, accounting, and reporting), which the client owns. URL: https://sweetdreams.us/ai
 
-Overview of both: https://sweetdreams.us/software
-
 Live production websites built by Sweet Dreams Solutions (2024–2026):
 - sweetdreams.us (this site)
 - sweetdreamsmusic.com (sister music studio)
@@ -133,7 +131,6 @@ Portfolio (all work): https://sweetdreams.us/work
 ## Key Pages
 
 - Homepage: https://sweetdreams.us
-- Software (overview of both products): https://sweetdreams.us/software
 - Websites: https://sweetdreams.us/websites
 - AI Workflows: https://sweetdreams.us/ai
 - Media Production: https://sweetdreams.us/services/media-production

@@ -1,22 +1,7 @@
-import type { Metadata } from 'next';
-import SoftwareHub from './SoftwareHub';
+import { permanentRedirect } from 'next/navigation';
 
-const title = 'Software That Runs Your Business | Sweet Dreams';
-const description =
-  'Two things for Fort Wayne businesses: a website that sells (media included), and AI Workflows, where we teach your team and build the AI that handles the busywork behind it.';
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: '/software' },
-  openGraph: {
-    title,
-    description,
-    url: '/software',
-    type: 'website',
-  },
-};
-
+// The Software hub was folded into the Websites product (with AI as the upsell).
+// Send the old /software URL and any inbound links to /websites permanently.
 export default function Page() {
-  return <SoftwareHub />;
+  permanentRedirect('/websites');
 }

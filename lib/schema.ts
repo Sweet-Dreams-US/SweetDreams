@@ -218,7 +218,7 @@ export const videoProductionServiceSchema = {
 export const webDevelopmentServiceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": `${SITE_URL}/software#service`,
+  "@id": `${SITE_URL}/websites#service`,
   "serviceType": "Custom Software Development",
   "name": "Software That Runs Your Business",
   "description": "Two software products for businesses: premium hand-coded websites (media included), and AI Workflows, where we teach your team to use AI and build the workflows that fit how they work, plus the operations systems we build behind your site to run them. Built with Next.js, React, and TypeScript.",
@@ -231,7 +231,7 @@ export const webDevelopmentServiceSchema = {
   "offers": {
     "@type": "Offer",
     "availability": "https://schema.org/InStock",
-    "url": `${SITE_URL}/software`
+    "url": `${SITE_URL}/websites`
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",

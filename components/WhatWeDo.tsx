@@ -34,7 +34,7 @@ const AVENUES: Avenue[] = [
     lede: 'A premium brand site that turns attention into booked business, then AI workflows we build with your team so the busywork runs itself. Start with the site, add AI when you are ready.',
     tags: ['Websites', 'AI Workflows'],
     videoId: 'abc316f410b475f978ab9322b033add6', // Ace Gameroom build
-    href: '/software',
+    href: '/websites',
     accentClass: 'blue',
     ariaLabel: 'Software preview reel',
   },

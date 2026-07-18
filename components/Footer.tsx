@@ -30,7 +30,6 @@ export default function Footer() {
           <div className={`${styles.column} ${styles.columnSolutions}`}>
             <h3 className={styles.brandTitle}>SOLUTIONS</h3>
             <div className={styles.links}>
-              <Link href="/software" className={styles.link}>Software</Link>
               <Link href="/websites" className={styles.link}>Websites</Link>
               <Link href="/ai" className={styles.link}>AI Workflows</Link>
               <Link href="/services/media-production" className={styles.link}>Media Production</Link>

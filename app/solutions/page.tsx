@@ -23,7 +23,7 @@ const CHOICES: {
     title: 'Software',
     blurb:
       'A website that sells, or AI workflows we build with your team to run the busywork. Start with one, add the other.',
-    href: '/software',
+    href: '/websites',
     cta: 'Explore software',
     variant: styles.cardBlue,
   },

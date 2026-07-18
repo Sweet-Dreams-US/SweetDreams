@@ -43,7 +43,6 @@ export default function Nav() {
                 href="/websites"
                 className={`${styles.navLink} ${styles.linkBlue} ${
                   pathname === "/websites" ||
-                  pathname === "/software" ||
                   pathname.startsWith("/services/web-software")
                     ? styles.navLinkActive
                     : ""
