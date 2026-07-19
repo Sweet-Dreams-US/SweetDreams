@@ -42,15 +42,6 @@ export const trackPurchase = (value: number, currency = 'USD') => {
   }
 };
 
-// Track contact form submission (Lead event)
-export const trackLead = (contentName: string) => {
-  if (window.fbq) {
-    window.fbq('track', 'Lead', {
-      content_name: contentName,
-    });
-  }
-};
-
 // Track account signup (CompleteRegistration event)
 export const trackSignup = () => {
   if (window.fbq) {

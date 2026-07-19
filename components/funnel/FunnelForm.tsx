@@ -70,6 +70,12 @@ export default function FunnelForm({
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
 
+  // One-shot latch so the browser Lead conversion fires at most once per form
+  // instance, even if two submit events race through before the disabled
+  // button state commits. Purely a tracking guard — it does not touch submit,
+  // validation, the DB write, or the email.
+  const firedRef = useRef(false);
+
   const step = steps[stepIndex];
   const isLast = stepIndex === steps.length - 1;
 
@@ -162,6 +168,11 @@ export default function FunnelForm({
   };
 
   const fireConversion = (metaEventId: string) => {
+    // Idempotent: only the first successful submission fires the Lead. A second
+    // call (e.g. a rapid double-submit that slips past the disabled button) is a
+    // no-op, so the browser can never mint two Lead events for one submission.
+    if (firedRef.current) return;
+    firedRef.current = true;
     try {
       const w = window as unknown as {
         gtag?: (...args: unknown[]) => void;
