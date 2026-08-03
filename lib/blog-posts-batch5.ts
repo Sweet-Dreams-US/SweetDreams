@@ -156,12 +156,12 @@ export const blogPostsBatch5: BlogPost[] = [
       {
         "type": "heading",
         "level": 2,
-        "text": "Yes, You Own the Website",
+        "text": "A Real Site, Not a Rented Template",
         "id": "you-own-the-website"
       },
       {
         "type": "paragraph",
-        "text": "This is real, and it is yours. It is not a rented page on some platform that vanishes the day you leave. It is a genuine custom website built for your business. You keep it. It represents your brand, your services, and your reputation, and it is built to last and to rank."
+        "text": "This is a real, hand-coded website built specifically for your business, not a rented page on a platform that vanishes the day you stop paying a builder. It represents your brand, your services, and your reputation, and it is built to last and to rank."
       },
       {
         "type": "quote",
@@ -199,7 +199,7 @@ export const blogPostsBatch5: BlogPost[] = [
     "readTime": "9 min read",
     "published": true,
     "metaTitle": "A Free Website With No Catch? Honest Breakdown",
-    "metaDescription": "Free build, free design, free media shoot, and you own the site. The only cost is monthly hosting from $50 to $400. Here is the honest breakdown.",
+    "metaDescription": "Free build, free design, and a free media shoot. The only cost is monthly hosting, $50 to $400 a month. Here is the honest breakdown.",
     "seoKeywords": [
       "free website",
       "free website offer",
@@ -242,7 +242,7 @@ export const blogPostsBatch5: BlogPost[] = [
           "The full website build. Hand-coded in Next.js and React, not a template and not a drag-and-drop builder.",
           "The design. Custom layout, structure, and styling built around your business and your customers.",
           "One professional media shoot. Photo and video captured for your site by our team.",
-          "Ownership. The finished website is yours to keep."
+          "A real custom site. Hand-coded for your business, not a template you rent."
         ],
         "ordered": false
       },
@@ -321,7 +321,7 @@ export const blogPostsBatch5: BlogPost[] = [
       },
       {
         "type": "paragraph",
-        "text": "Do I actually own the website? Yes. The site is built for your business and it is your property. And what happens if you leave? You are not locked in. Hosting is a monthly service, not a long contract designed to trap you. If you decide to move on, you keep your site."
+        "text": "Am I locked into a long contract? No. Hosting is a simple month to month service, not a long term contract designed to trap you. If your needs change down the road, reach out and we will talk through the right option for you."
       },
       {
         "type": "paragraph",
@@ -479,16 +479,16 @@ export const blogPostsBatch5: BlogPost[] = [
       {
         "type": "heading",
         "level": 2,
-        "text": "Who Actually Owns the Site?",
+        "text": "A Real Site vs a Rented Template",
         "id": "ownership"
       },
       {
         "type": "paragraph",
-        "text": "On a page builder, you are renting. Stop paying the subscription and the site goes dark, locked inside their platform. Moving it somewhere else is difficult by design. The Sweet Dreams site is yours to keep. It is hand-coded, real, and built to last, not trapped behind a monthly login."
+        "text": "On a page builder, you are renting a template inside someone else's platform, and it looks like every other business using the same theme. A Sweet Dreams site is the opposite: a real, hand-coded website, designed and produced specifically for your business, and kept fast and supported by our team."
       },
       {
         "type": "quote",
-        "text": "Free build, free media shoot, and a site that is actually yours. You only pay hosting to keep it live and supported.",
+        "text": "A free build, a free media shoot, and a real custom site. You only pay hosting to keep it live and supported.",
         "attribution": "Sweet Dreams Solutions"
       },
       {
@@ -530,7 +530,7 @@ export const blogPostsBatch5: BlogPost[] = [
       { "type": "paragraph", "text": "So most local businesses settle. They grab a DIY template, spend their own nights fighting with it, and end up with a site that looks like every other business using the same theme. Customers cannot tell them apart from the competitor down the road, and the phone does not ring." },
       { "type": "heading", "level": 2, "text": "What We Are Doing Instead", "id": "what-we-do" },
       { "type": "paragraph", "text": "We build the full website for free. No build fee, no design fee, no media fee. The only thing you pay is monthly hosting, which runs $50 to $400 a month depending on the size of your site. Hosting keeps it live, fast, secure, and supported by us." },
-      { "type": "list", "items": ["A custom, hand-coded website, not a drag-and-drop template", "A professional photo and video shoot produced by our own production company", "A design branded to make you stand out and stay memorable against your competitors", "Built to load fast and rank locally in Fort Wayne and Northeast Indiana", "Yours to keep, your brand, your content"] },
+      { "type": "list", "items": ["A custom, hand-coded website, not a drag-and-drop template", "A professional photo and video shoot produced by our own production company", "A design branded to make you stand out and stay memorable against your competitors", "Built to load fast and rank locally in Fort Wayne and Northeast Indiana", "Real footage of your business, team, and work, not stock photos"] },
       { "type": "heading", "level": 2, "text": "Why Custom and Media Actually Matter", "id": "why-custom-media" },
       { "type": "paragraph", "text": "A template makes you look like everyone else. A custom site built around your specific business, with real photo and video of your work, your team, and your space, makes customers trust you in seconds and remember you after they leave. We are a media production company first, so the footage on your site is the same quality we shoot for brands that pay us thousands. Most of your local competitors will never invest in that. That gap is your advantage." },
       { "type": "quote", "text": "A website should make a business look like the best option in town. Most local owners never get that, only because of the price tag. We are removing the price tag.", "attribution": "Sweet Dreams Team" },

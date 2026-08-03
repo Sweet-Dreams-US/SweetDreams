@@ -7,7 +7,7 @@ import styles from '@/components/funnel/funnel.module.css';
 export const metadata: Metadata = {
   title: 'Free Website for Your Business, You Only Pay Hosting | Sweet Dreams',
   description:
-    'We build your full website and shoot the photo and video for it, free. You only pay monthly hosting. Hand coded, yours to keep. Fort Wayne and Northeast Indiana.',
+    'We build your full website and shoot the photo and video for it, free. You only pay monthly hosting. Hand coded and fully managed. Fort Wayne and Northeast Indiana.',
   robots: { index: false, follow: true },
 };
 
@@ -75,7 +75,7 @@ export default async function FreeWebsitePage({
         <p className={styles.subhead}>
           We hand build your full website and shoot the photos and video for it,
           free. You only pay hosting, $50 to $400 a month depending on your site.
-          Love it and it&apos;s yours to keep.
+          A real custom site, designed and shot for your brand.
         </p>
 
         <div className={styles.showcaseRow}>
@@ -107,7 +107,7 @@ export default async function FreeWebsitePage({
             <span className={styles.trustStar}>✦</span> Pro photos &amp; video included
           </span>
           <span className={styles.trustItem}>
-            <span className={styles.trustStar}>✦</span> Yours to keep · live in days
+            <span className={styles.trustStar}>✦</span> Fully managed · live in days
           </span>
         </div>
 

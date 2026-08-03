@@ -1,6 +1,7 @@
 import FreeOffersBar from "@/components/FreeOffersBar";
 import VideoHero from "@/components/VideoHero";
 import WhatWeDo from "@/components/WhatWeDo";
+import PressBanner from "@/components/PressBanner";
 import TransitionSection from "@/components/TransitionSection";
 import RecentWork from "@/components/RecentWork";
 import FeaturedProject from "@/components/FeaturedProject";
@@ -18,6 +19,9 @@ export default function HomePage() {
 
       {/* 3. What We Do — the two avenues (Software + Media Production) */}
       <WhatWeDo />
+
+      {/* 3.5 Press announcement — 50 free websites → on-site release (/press) */}
+      <PressBanner />
 
       {/* 4. We Were Raised In This Age — generational-authenticity beat */}
       <TransitionSection />

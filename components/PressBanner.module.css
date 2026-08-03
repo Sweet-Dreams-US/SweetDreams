@@ -1,0 +1,57 @@
+/* Homepage announcement strip → the on-site press release (/press).
+   Sits on the black homepage; green accent, quiet until hovered. */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 16px 24px;
+  background: #0b0f0c;
+  border-top: 1px solid rgba(40, 200, 64, 0.28);
+  border-bottom: 1px solid rgba(40, 200, 64, 0.28);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.banner:hover { background: #0f160f; }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Anton', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #04160c;
+  background: #28c840;
+  padding: 5px 12px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.7vw, 16px);
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.01em;
+}
+.text .free { color: #28c840; font-weight: 700; }
+
+.cta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(13px, 1.7vw, 15px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #28c840;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.banner:hover .arrow { transform: translateX(4px); }
+.arrow { display: inline-block; transition: transform 0.2s ease; }
+
+@media (max-width: 620px) {
+  .banner { gap: 10px; padding: 14px 16px; text-align: center; }
+}

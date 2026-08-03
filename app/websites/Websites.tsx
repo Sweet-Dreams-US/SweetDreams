@@ -58,7 +58,7 @@ const REASONS = [
   { name: 'Media included', desc: 'Pro photo and video, shot for your brand. We are a media company first.' },
   { name: 'Designed to stand out', desc: 'Bold and art directed, built to be remembered, not another look alike.' },
   { name: 'Motion and cinema', desc: 'Animation and video that make people stop scrolling and feel the brand.' },
-  { name: 'Yours to keep', desc: 'Your brand, your domain, your code, never held hostage.' },
+  { name: 'Fully managed', desc: 'We host it, keep it fast, updated, and supported, so it just works.' },
   { name: 'Fast and found', desc: 'Hand coded to load fast and still rank in your city on Google.' },
 ];
 
@@ -66,7 +66,7 @@ const REASONS = [
 const STEPS = [
   { name: 'We build it free', desc: 'We design and hand code your real website on your brand. No build fee, no design fee, no media fee.' },
   { name: 'Shot for your brand', desc: 'Our media team shoots the photo and video for it, one media shoot included, so the site runs on real footage of you.' },
-  { name: 'Launch on hosting', desc: 'It goes live and it is yours to keep. You only pay hosting, $50 to $400 a month depending on the size of your site.' },
+  { name: 'Launch on hosting', desc: 'It goes live on managed hosting. You only pay hosting, $50 to $400 a month depending on the size of your site.' },
 ];
 
 export default function Websites() {
@@ -318,8 +318,8 @@ export default function Websites() {
               </h2>
               <p className={s.freeSub}>
                 We research your business, hand code your real website, shoot the
-                photo and video, and send you the live link, all <b>free</b>. Love
-                it and it is yours. You only pay hosting to keep it live.
+                photo and video, and send you the live link, all <b>free</b>. You
+                only pay monthly hosting to keep it live.
               </p>
             </div>
 
@@ -335,7 +335,7 @@ export default function Websites() {
                 </li>
                 <li className={s.freeListItem}>
                   <span className={s.freeCheck} aria-hidden="true">✦</span>
-                  Hand coded to load fast and rank, and yours to keep.
+                  Hand coded to load fast and rank locally.
                 </li>
                 <li className={s.freeListItem}>
                   <span className={s.freeCheck} aria-hidden="true">✦</span>
