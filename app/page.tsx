@@ -1,7 +1,6 @@
 import FreeOffersBar from "@/components/FreeOffersBar";
 import VideoHero from "@/components/VideoHero";
 import WhatWeDo from "@/components/WhatWeDo";
-import PressBanner from "@/components/PressBanner";
 import TransitionSection from "@/components/TransitionSection";
 import RecentWork from "@/components/RecentWork";
 import FeaturedProject from "@/components/FeaturedProject";
@@ -13,9 +12,6 @@ export default function HomePage() {
     <div className="min-h-screen bg-black">
       {/* 1. Free offers bar — thin strip under the nav, above the hero */}
       <FreeOffersBar />
-
-      {/* 1.5 Press announcement — thin strip right under the header → /press */}
-      <PressBanner />
 
       {/* 2. Full-bleed cinematic video hero — sells both avenues */}
       <VideoHero />
