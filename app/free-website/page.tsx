@@ -68,6 +68,16 @@ export default async function FreeWebsitePage({
       </div>
 
       <div className={styles.stack}>
+        <a
+          href="/press"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.announce}
+        >
+          <span className={styles.announceTag}>New</span>
+          50 free websites for local businesses. Read the announcement
+          <span className={styles.announceArrow} aria-hidden="true">→</span>
+        </a>
         <p className={styles.kicker}>Local Businesses</p>
         <h1 className={styles.headline}>
           Your Website, Free. You Only <span className={styles.hl}>Pay Hosting</span>
