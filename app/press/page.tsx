@@ -17,10 +17,9 @@ export default function PressPage() {
   return (
     <article className={styles.pr}>
       <header className={styles.hero}>
-        <h1 className={styles.signWords} aria-label="Fifty Free Websites">
-          <span>Fifty</span>
-          <span className={styles.free}>Free</span>
-          <span>Websites</span>
+        <h1 className={styles.signWords} aria-label="50 Free Websites">
+          <span className={styles.line}>50 <span className={styles.free}>Free</span></span>
+          <span className={styles.line}>Websites</span>
         </h1>
         <div className={styles.signContact}>
           <div className={styles.url}>WWW.SWEETDREAMS.US</div>

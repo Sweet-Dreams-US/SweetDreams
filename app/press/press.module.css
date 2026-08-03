@@ -36,7 +36,7 @@
   font-size: clamp(58px, 14vw, 172px);
   margin: 0;
 }
-.signWords span { display: block; }
+.signWords .line { display: block; }
 .free { color: var(--green); }
 .signContact {
   margin: clamp(26px, 4vw, 40px) auto 0;
