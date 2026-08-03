@@ -14,14 +14,14 @@ export default function HomePage() {
       {/* 1. Free offers bar — thin strip under the nav, above the hero */}
       <FreeOffersBar />
 
+      {/* 1.5 Press announcement — thin strip right under the header → /press */}
+      <PressBanner />
+
       {/* 2. Full-bleed cinematic video hero — sells both avenues */}
       <VideoHero />
 
       {/* 3. What We Do — the two avenues (Software + Media Production) */}
       <WhatWeDo />
-
-      {/* 3.5 Press announcement — 50 free websites → on-site release (/press) */}
-      <PressBanner />
 
       {/* 4. We Were Raised In This Age — generational-authenticity beat */}
       <TransitionSection />
