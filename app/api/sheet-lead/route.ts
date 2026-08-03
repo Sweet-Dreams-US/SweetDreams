@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
           <p style="display:inline-block;background:#4a90e2;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;margin:0 0 8px;">
             Meta Instant Form · Free Website Demo
           </p>
-          <p style="color:#666;margin:0 0 24px;">They want their new site built before paying. Research the business, build the spec, send the link.</p>
+          <p style="color:#666;margin:0 0 24px;">They want a free website (full build + one media shoot). Research the business, build it, send the link. They only pay monthly hosting.</p>
           <div style="background:#f7f8fa;padding:22px;border-radius:10px;">${rowsHtml}</div>
           <p style="color:#9aa3af;font-size:12px;margin-top:24px;">Captured from a Meta lead ad.</p>
         </div>

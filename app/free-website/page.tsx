@@ -5,9 +5,9 @@ import { NICHE_BY_SLUG } from '@/lib/funnel-niches';
 import styles from '@/components/funnel/funnel.module.css';
 
 export const metadata: Metadata = {
-  title: 'Get Your Website Built Free — See It Before You Pay | Sweet Dreams',
+  title: 'Free Website for Your Business, You Only Pay Hosting | Sweet Dreams',
   description:
-    'We build your new website first — real, clickable, personalized — before you spend a dollar. Hand-coded, yours to keep, live in days. Fort Wayne.',
+    'We build your full website and shoot the photo and video for it, free. You only pay monthly hosting. Hand coded, yours to keep. Fort Wayne and Northeast Indiana.',
   robots: { index: false, follow: true },
 };
 
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 // aren't case studies to click into.
 const showcase = [
   { name: 'Bite Me Protein', videoId: 'a7969078d27d7d15394978d0c02cc306' },
-  { name: 'Ace Gameroom', videoId: 'abc316f410b475f978ab9322b033add6' },
-  { name: 'Hot Chicks', videoId: 'bc21e8ee97ddda1e531072021685955a' },
+  { name: 'Revive FW', videoId: 'fadf22d878896f6151c6a9b0ca9db90d' },
+  { name: 'Creator Space', videoId: '37a027a19196653d4ef79b6c2f5f5758' },
 ];
 
 const steps: FunnelStep[] = [
@@ -58,7 +58,7 @@ export default async function FreeWebsitePage({
     'Built for any business ready to look the part';
 
   return (
-    <div className={`${styles.page} ${styles.accentBlue}`}>
+    <div className={`${styles.page} ${styles.accentGreen}`}>
       <div className={styles.qualifierBar}>
         <p className={styles.qualifierPill}>
           <span className={styles.qualifierStar}>✦</span>
@@ -70,11 +70,12 @@ export default async function FreeWebsitePage({
       <div className={styles.stack}>
         <p className={styles.kicker}>Local Businesses</p>
         <h1 className={styles.headline}>
-          See Your New Website <span className={styles.hl}>Before You Pay</span>
+          Your Website, Free. You Only <span className={styles.hl}>Pay Hosting</span>
         </h1>
         <p className={styles.subhead}>
-          We hand-build a real, clickable site personalized to your business —
-          free. Love it and it&apos;s yours. Don&apos;t, and you owe nothing.
+          We hand build your full website and shoot the photos and video for it,
+          free. You only pay hosting, $50 to $400 a month depending on your site.
+          Love it and it&apos;s yours to keep.
         </p>
 
         <div className={styles.showcaseRow}>
@@ -95,7 +96,7 @@ export default async function FreeWebsitePage({
           funnel="free-website"
           steps={steps}
           successTitle="You're in."
-          successBody="We'll reach out shortly, build your site, and send the live link to click through — no payment, no commitment."
+          successBody="We'll reach out shortly, build your site, and send you the live link. You only pay hosting once it is live."
         />
 
         <div className={styles.trustRow}>
@@ -128,7 +129,7 @@ export default async function FreeWebsitePage({
         </div>
         <p className={styles.miniFooterFine}>
           © {new Date().getFullYear()} Sweet Dreams US LLC · Fort Wayne, Indiana.
-          Spec builds offered at our discretion.
+          Free builds offered at our discretion. Monthly hosting required to keep your site live.
         </p>
       </footer>
     </div>

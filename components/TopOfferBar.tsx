@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styles from './TopOfferBar.module.css';
 
 interface TopOfferBarProps {
-  tone: 'red' | 'blue';
+  tone: 'red' | 'blue' | 'green';
   label: string;
   sub?: string;
   href: string;
@@ -10,7 +10,7 @@ interface TopOfferBarProps {
 
 /**
  * Bold, sticky offer bar pinned to the top of a page (like the homepage offers
- * bar, but a single page-specific block). Red on Media, blue on Software.
+ * bar, but a single page-specific block). Red on Media, green on Websites.
  */
 export default function TopOfferBar({ tone, label, sub, href }: TopOfferBarProps) {
   return (

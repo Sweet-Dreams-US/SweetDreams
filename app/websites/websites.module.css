@@ -1,12 +1,12 @@
 /* ============================================================
    WEBSITES — dark, cinematic, media forward
-   Accent: #4A90E2 (blue)  |  Display: Anton  |  Body: IBM Plex Mono
-   Same dark stage as Media Production, tuned blue and web native.
+   Accent: #28C840 (green)  |  Display: Anton  |  Body: IBM Plex Mono
+   Same dark stage as Media Production, tuned green and web native.
    ============================================================ */
 
 .page {
-  --accent: #4a90e2;
-  --accent-2: #7fb4f2;
+  --accent: #28c840;
+  --accent-2: #5fe07a;
   --ink: #ffffff;
   --bg: #06090f;
   --bg2: #0b1018;
@@ -32,7 +32,7 @@
   z-index: 3;
   background:
     radial-gradient(120% 90% at 50% 0%, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
-    radial-gradient(90% 90% at 50% 120%, rgba(74, 144, 226, 0.06), transparent 60%);
+    radial-gradient(90% 90% at 50% 120%, rgba(40, 200, 64, 0.06), transparent 60%);
 }
 
 /* big background ghost word */
@@ -48,7 +48,7 @@
   line-height: 0.8;
   font-size: clamp(5rem, 24vw, 22rem);
   color: transparent;
-  -webkit-text-stroke: 2px rgba(74, 144, 226, 0.14);
+  -webkit-text-stroke: 2px rgba(40, 200, 64, 0.14);
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
@@ -104,8 +104,8 @@
   inset: -20% -10% auto -10%;
   height: 720px;
   background:
-    radial-gradient(52% 62% at 22% 12%, rgba(74, 144, 226, 0.22), transparent 70%),
-    radial-gradient(46% 56% at 92% 0%, rgba(74, 144, 226, 0.12), transparent 72%);
+    radial-gradient(52% 62% at 22% 12%, rgba(40, 200, 64, 0.22), transparent 70%),
+    radial-gradient(46% 56% at 92% 0%, rgba(40, 200, 64, 0.12), transparent 72%);
   pointer-events: none;
   z-index: 0;
 }
@@ -174,7 +174,7 @@
   transform: translateY(-2px);
   background: var(--accent-2);
   border-color: var(--accent-2);
-  box-shadow: 0 22px 44px -20px rgba(74, 144, 226, 0.7);
+  box-shadow: 0 22px 44px -20px rgba(40, 200, 64, 0.7);
 }
 
 .ctaGhost {
@@ -274,7 +274,7 @@
 .card:hover {
   transform: translateY(-8px);
   border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-  box-shadow: 0 40px 90px -40px rgba(74, 144, 226, 0.4);
+  box-shadow: 0 40px 90px -40px rgba(40, 200, 64, 0.4);
 }
 
 .cardChrome {
@@ -373,7 +373,7 @@
 .portfolioBtn:hover {
   transform: translateY(-2px);
   border-color: var(--accent);
-  background: rgba(74, 144, 226, 0.08);
+  background: rgba(40, 200, 64, 0.08);
 }
 
 /* ============================================================
@@ -495,7 +495,7 @@
   position: absolute;
   inset: auto -10% -40% -10%;
   height: 520px;
-  background: radial-gradient(50% 70% at 50% 100%, rgba(74, 144, 226, 0.22), transparent 72%);
+  background: radial-gradient(50% 70% at 50% 100%, rgba(40, 200, 64, 0.22), transparent 72%);
   pointer-events: none;
 }
 .closing .shell { position: relative; z-index: 1; }
@@ -560,7 +560,7 @@
   content: '';
   position: absolute;
   inset: -16%;
-  background: radial-gradient(50% 50% at 56% 46%, rgba(74, 144, 226, 0.32), transparent 70%);
+  background: radial-gradient(50% 50% at 56% 46%, rgba(40, 200, 64, 0.32), transparent 70%);
   filter: blur(28px);
   z-index: -1;
   pointer-events: none;
@@ -573,7 +573,7 @@
   border: 1px solid var(--line-2);
   background: var(--bg2);
   box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9),
-    0 0 0 1px rgba(74, 144, 226, 0.12);
+    0 0 0 1px rgba(40, 200, 64, 0.12);
   transform: rotateY(-9deg) rotateX(3deg) rotate(-1deg);
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   animation: heroFloat 7s ease-in-out infinite;
@@ -600,7 +600,7 @@
   position: absolute;
   inset: auto -10% -45% -10%;
   height: 560px;
-  background: radial-gradient(50% 70% at 50% 100%, rgba(74, 144, 226, 0.16), transparent 72%);
+  background: radial-gradient(50% 70% at 50% 100%, rgba(40, 200, 64, 0.16), transparent 72%);
   pointer-events: none;
 }
 
@@ -667,7 +667,7 @@
 
 /* Light tokens so the embedded white form card renders correctly on dark */
 .formHost {
-  --accent: #4a90e2;
+  --accent: #28c840;
   --ink: #0a0a0a;
   --muted: #6b7280;
   --line: #e5e7eb;

@@ -1,0 +1,8 @@
+[mcp_servers.stripe]
+url = "https://mcp.stripe.com/"
+
+[mcp_servers.vercel]
+url = "https://mcp.vercel.com"
+
+[mcp_servers.vercel-awesome-ai]
+url = "https://vercel.com/sweet-dreams-projects/sweet-dreams"

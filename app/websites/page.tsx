@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Websites from './Websites';
 
-const title = 'Creative Websites in Fort Wayne, Media Included | Sweet Dreams';
+const title = 'Free Website in Fort Wayne, You Only Pay Hosting | Sweet Dreams';
 const description =
-  'Hand coded websites built to stand out, with cinematic photo and video included. Custom design and motion from a media company, and a live demo built on your brand before you pay a dollar.';
+  'We build your full custom website and shoot the photo and video for it, free. You only pay monthly hosting. Hand coded, media included, yours to keep. Fort Wayne.';
 
 export const metadata: Metadata = {
   title,

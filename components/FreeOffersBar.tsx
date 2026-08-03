@@ -12,10 +12,10 @@ import styles from './FreeOffersBar.module.css';
  */
 const offers = [
   {
-    label: 'Website',
-    sub: 'Built before you pay a dollar',
+    label: 'Free Website',
+    sub: 'Free build, you only pay hosting',
     href: '/free-website',
-    tone: styles.blue,
+    tone: styles.green,
   },
   {
     label: 'Content Plan',

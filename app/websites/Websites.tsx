@@ -62,11 +62,11 @@ const REASONS = [
   { name: 'Fast and found', desc: 'Hand coded to load fast and still rank in your city on Google.' },
 ];
 
-/* How it works — the free spec build. */
+/* How it works — free build + media shoot, you only pay hosting. */
 const STEPS = [
-  { name: 'Built before you pay', desc: 'We design a real demo on your brand first. You see it live before you spend a dollar.' },
-  { name: 'Shot for your brand', desc: 'Our media team captures the photo and video, so the site is built on real footage of you.' },
-  { name: 'Launched and yours', desc: 'Hand coded, fast, and cared for on managed hosting. Your brand, your code, yours to keep.' },
+  { name: 'We build it free', desc: 'We design and hand code your real website on your brand. No build fee, no design fee, no media fee.' },
+  { name: 'Shot for your brand', desc: 'Our media team shoots the photo and video for it, one media shoot included, so the site runs on real footage of you.' },
+  { name: 'Launch on hosting', desc: 'It goes live and it is yours to keep. You only pay hosting, $50 to $400 a month depending on the size of your site.' },
 ];
 
 export default function Websites() {
@@ -122,9 +122,9 @@ export default function Websites() {
   return (
     <div ref={root} className={s.page}>
       <TopOfferBar
-        tone="blue"
-        label="Website"
-        sub="Built before you pay a dollar"
+        tone="green"
+        label="Free Website"
+        sub="Free build, you only pay hosting"
         href="/free-website"
       />
 
@@ -140,13 +140,14 @@ export default function Websites() {
             <div className={s.heroInner} data-hero>
               <p className={s.eyebrow}>Websites, Fort Wayne</p>
               <h1 className={s.headline}>
-                Websites that <span className={s.hl}>stand out</span>.
+                A free website that <span className={s.hl}>stands out</span>.
               </h1>
               <p className={s.subhead}>
-                You are a brand worth looking at. We hand code websites that look
-                like it: custom design, cinematic photo and video, and motion
-                that makes people stop. Shot and built by a media company, and{' '}
-                <b>built before you pay a dollar</b>.
+                You are a brand worth looking at. We hand code your website and
+                shoot the photo and video for it, free. Custom design, cinematic
+                media, and motion that makes people stop. The only cost is{' '}
+                <b>hosting, $50 to $400 a month</b> depending on the size of your
+                site.
               </p>
               <div className={s.ctaRow}>
                 <a href="#start" className={s.ctaPrimary}>
@@ -283,8 +284,9 @@ export default function Websites() {
                 You see it live <span className={s.hl}>first</span>.
               </h2>
               <p className={s.sectionLede}>
-                No big deposit to find out what you are getting. We design a real
-                demo on your brand, shoot the media, then you decide.
+                No build fee to find out what you are getting. We build your real
+                site and shoot the media, free. You only pay hosting once it is
+                live.
               </p>
             </div>
 
@@ -315,9 +317,9 @@ export default function Websites() {
                 See your new site <span className={s.hl}>live</span> first.
               </h2>
               <p className={s.freeSub}>
-                We research your business, design a real demo on your brand, shoot
-                the media, and send you the live link, all <b>free</b>. Love it and
-                it is yours. If not, you owe nothing.
+                We research your business, hand code your real website, shoot the
+                photo and video, and send you the live link, all <b>free</b>. Love
+                it and it is yours. You only pay hosting to keep it live.
               </p>
             </div>
 
@@ -337,7 +339,7 @@ export default function Websites() {
                 </li>
                 <li className={s.freeListItem}>
                   <span className={s.freeCheck} aria-hidden="true">✦</span>
-                  No payment and no commitment to see it.
+                  Free to build. You only pay hosting, $50 to $400 a month, once it is live.
                 </li>
               </ul>
 
@@ -346,7 +348,7 @@ export default function Websites() {
                   funnel="free-website"
                   steps={DEMO_STEPS}
                   successTitle="You're in."
-                  successBody="We'll reach out shortly, build your site, and send the live link to click through. No payment, no commitment."
+                  successBody="We'll reach out shortly, build your site, and send the live link to click through. You only pay hosting once it is live."
                 />
               </div>
             </div>

@@ -56,8 +56,8 @@ async function verifyTurnstile(token: string, remoteip?: string): Promise<boolea
 // Human-readable context per funnel for the email subject + body.
 const FUNNELS: Record<string, { label: string; offer: string }> = {
   'free-website': {
-    label: 'Free Website (spec build)',
-    offer: 'They want their new site built before paying. Build the spec, send the link.',
+    label: 'Free Website (free build, paid hosting)',
+    offer: 'They want a free website (full build + one media shoot). Build it, send the link. They only pay monthly hosting.',
   },
   'free-software': {
     label: 'Free Software Demo',
@@ -73,7 +73,7 @@ const FUNNELS: Record<string, { label: string; offer: string }> = {
   },
   'web-software': {
     label: 'Web & Software (service page)',
-    offer: 'They want a free spec website (media included). Build it, send the link.',
+    offer: 'They want a free website (full build + media shoot). Build it, send the link. They only pay monthly hosting.',
   },
   marketing: {
     label: 'Marketing (service page)',

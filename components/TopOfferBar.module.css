@@ -29,6 +29,10 @@
   --c: #4a90e2;
   --c2: #2f6fbf;
 }
+.green {
+  --c: #28c840;
+  --c2: #16a34a;
+}
 
 .bar:hover {
   filter: brightness(1.06);

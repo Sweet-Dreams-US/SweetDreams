@@ -45,6 +45,14 @@ function loadPosts(): BlogPost[] {
     // Batch 4 not yet available
   }
 
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const batch5 = require('./blog-posts-batch5');
+    posts.push(...batch5.blogPostsBatch5);
+  } catch (e) {
+    // Batch 5 not yet available
+  }
+
   return posts;
 }
 

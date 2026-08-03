@@ -242,7 +242,7 @@ export const webDevelopmentServiceSchema = {
         "itemOffered": {
           "@type": "Service",
           "name": "Custom Websites",
-          "description": "Premium hand-coded websites built with Next.js and React, professional media included"
+          "description": "Premium hand-coded websites built with Next.js and React, with a professional media shoot included. The build and media are free; clients only pay monthly hosting."
         }
       },
       {
