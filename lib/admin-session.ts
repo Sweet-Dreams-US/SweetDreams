@@ -12,11 +12,12 @@
  *   HMAC-SHA256(issuedAt, ADMIN_SESSION_SECRET).
  *
  * Required env vars:
- *   ADMIN_PASSWORD        — the password users type at /admin/login
+ *   ADMIN_PASSWORD_HASH   — scrypt hash of the admin password
+ *                           (format: scrypt:<saltHex>:<derivedKeyHex>)
  *   ADMIN_SESSION_SECRET  — 32+ char random string for signing cookies
  */
 
-import { createHmac, timingSafeEqual } from 'crypto';
+import { createHmac, timingSafeEqual, scryptSync } from 'crypto';
 
 export const ADMIN_COOKIE_NAME = 'sd_admin_session';
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
@@ -85,12 +86,22 @@ export function adminCookieOptions(): {
   };
 }
 
-/** Validate a typed password against ADMIN_PASSWORD using timing-safe compare. */
+/**
+ * Validate a typed password against ADMIN_PASSWORD_HASH.
+ * Hash format: `scrypt:<saltHex>:<derivedKeyHex>` (scrypt KDF). The comparison
+ * is constant-time; any missing or malformed input returns false.
+ */
 export function verifyAdminPassword(provided: string): boolean {
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!expected || expected.length === 0) return false;
-  const a = Buffer.from(provided, 'utf8');
-  const b = Buffer.from(expected, 'utf8');
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
+  const stored = process.env.ADMIN_PASSWORD_HASH;
+  if (!stored) return false;
+  const parts = stored.split(':');
+  if (parts.length !== 3 || parts[0] !== 'scrypt') return false;
+  const [, saltHex, keyHex] = parts;
+  try {
+    const expected = Buffer.from(keyHex, 'hex');
+    const derived = scryptSync(provided, Buffer.from(saltHex, 'hex'), expected.length);
+    return derived.length === expected.length && timingSafeEqual(derived, expected);
+  } catch {
+    return false;
+  }
 }
