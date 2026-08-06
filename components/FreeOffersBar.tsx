@@ -2,13 +2,10 @@ import Link from 'next/link';
 import styles from './FreeOffersBar.module.css';
 
 /**
- * Homepage offer bar — two bold, animated offer blocks routing to the live
- * free-funnel landing pages. Loud on purpose: a pulsing FREE badge and a
- * periodic light sweep to grab attention.
- *
- * Business operations (software) is intentionally hidden for now — the
- * /free-software page stays live but is not promoted here. To re-enable,
- * uncomment the Free Software Demo entry below (the bar auto-fits the count).
+ * Homepage offer bar — a bold, animated block routing to the live free-website
+ * funnel, full width. Loud on purpose: a pulsing FREE badge and a periodic
+ * light sweep to grab attention. The bar is a 1fr grid, so it auto-fits however
+ * many offers are listed (one = full width).
  */
 const offers = [
   {
@@ -17,18 +14,9 @@ const offers = [
     href: '/free-website',
     tone: styles.green,
   },
-  {
-    label: 'Content Plan',
-    sub: '90 days of content, you do nothing',
-    href: '/content-roadmap',
-    tone: styles.purple,
-  },
-  // {
-  //   label: 'Software Demo',
-  //   sub: 'A live demo, branded to you',
-  //   href: '/free-software',
-  //   tone: styles.green,
-  // },
+  // Content Plan (/content-roadmap) and Software Demo (/free-software) stay live
+  // on their own pages but are intentionally OFF the homepage bar — the free
+  // website offer runs full width here. Re-add an entry to bring one back.
 ];
 
 export default function FreeOffersBar() {
