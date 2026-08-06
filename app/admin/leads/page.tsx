@@ -115,6 +115,24 @@ export default async function LeadsPage({
 
   return (
     <div className={styles.page}>
+      <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap' }}>
+        <a
+          href="/admin/inquiries"
+          style={{
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: '#04160c',
+            background: '#28c840',
+            textDecoration: 'none',
+            padding: '8px 14px',
+            borderRadius: 999,
+            fontWeight: 700,
+          }}
+        >
+          → Free Website Inquiries
+        </a>
+      </div>
       <header className={styles.header}>
         <div>
           <p className={styles.kicker}>LEADPIPE PIPELINE</p>

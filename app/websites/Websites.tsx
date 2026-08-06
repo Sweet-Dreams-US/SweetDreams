@@ -159,6 +159,17 @@ export default function Websites() {
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
+
+              <a
+                href="https://www.wane.com/top-stories/local-media-company-offering-free-websites-to-50-small-businesses/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={s.featured}
+              >
+                <span className={s.featuredLabel}>As featured on</span>
+                <span className={s.featuredOutlet}>WANE 15</span>
+                <span className={s.featuredArrow} aria-hidden="true">↗</span>
+              </a>
             </div>
 
             <div className={s.heroVisual} data-reveal>

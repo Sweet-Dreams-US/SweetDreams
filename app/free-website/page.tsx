@@ -88,6 +88,17 @@ export default async function FreeWebsitePage({
           A real custom site, designed and shot for your brand.
         </p>
 
+        <a
+          href="https://www.wane.com/top-stories/local-media-company-offering-free-websites-to-50-small-businesses/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.featured}
+        >
+          <span className={styles.featuredLabel}>As featured on</span>
+          <span className={styles.featuredOutlet}>WANE 15</span>
+          <span className={styles.featuredArrow} aria-hidden="true">↗</span>
+        </a>
+
         <div className={styles.showcaseRow}>
           {showcase.map((ex) => (
             <div key={ex.videoId} className={styles.showcaseCard}>

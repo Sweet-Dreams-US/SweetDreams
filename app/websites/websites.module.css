@@ -61,6 +61,36 @@
   z-index: 2;
 }
 
+/* "As featured on" press proof (hero) */
+.featured {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0 0;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+  align-self: flex-start;
+}
+.featured:hover { border-color: var(--accent); transform: translateY(-1px); }
+.featuredLabel {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.featuredOutlet {
+  font-family: 'Anton', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.featuredArrow { color: var(--accent); font-size: 12px; }
+
 .shell {
   max-width: 1200px;
   margin: 0 auto;
