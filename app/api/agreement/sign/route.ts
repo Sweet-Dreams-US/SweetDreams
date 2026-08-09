@@ -27,7 +27,7 @@ import { sha256Hex } from '@/lib/agreements/render';
 import { SIGN_CONSENTS } from '@/lib/agreements/consents';
 import { BUSINESS_TZ } from '@/lib/agreements/service';
 import type { AgreementVariables } from '@/lib/agreements/templates';
-import { SITE_URL } from '@/lib/constants';
+import { requestBaseUrl } from '@/lib/base-url';
 import { ADMIN_EMAIL } from '@/lib/emails/resend';
 import { sendEmail } from '@/lib/emails/send';
 import AgreementSignedClient from '@/lib/emails/agreement-signed-client';
@@ -265,7 +265,7 @@ export async function POST(request: NextRequest) {
       signerName: name,
       signedAtDisplay,
       sha256: signedSha,
-      portalUrl: `${SITE_URL}/portal`,
+      portalUrl: `${requestBaseUrl(request)}/portal`,
     }),
   });
 
@@ -283,7 +283,7 @@ export async function POST(request: NextRequest) {
       signerName: name,
       signedAtDisplay,
       signerIp: clientIp ?? 'unknown',
-      adminUrl: `${SITE_URL}/admin/clients/${client.id}`,
+      adminUrl: `${requestBaseUrl(request)}/admin/clients/${client.id}`,
       accountNote: hasExistingAccount
         ? 'linked to their existing account'
         : authUserId

@@ -11,6 +11,7 @@ import { formatInTimeZone } from 'date-fns-tz';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
 import { hashToken } from '@/lib/agreements/tokens';
 import { BUSINESS_TZ } from '@/lib/agreements/service';
+import { HOSTING_TIERS, formatPriceCents } from '@/lib/clients/constants';
 import AgreementSignForm from './AgreementSignForm';
 import styles from './agreement.module.css';
 
@@ -32,11 +33,84 @@ interface TokenRow {
     rendered_text: string;
     signed_at: string | null;
     first_viewed_at: string | null;
+    sites: {
+      hosting_price_cents: number;
+      update_hours_per_quarter: number | null;
+      analytics_addon: boolean;
+    } | null;
     clients: {
       business_name: string;
       contact_name: string;
     } | null;
   } | null;
+}
+
+/**
+ * Three column plan comparison with the client's plan highlighted, so they
+ * see exactly what their plan includes next to the alternatives before
+ * they sign.
+ */
+function PlanComparison({
+  priceCents,
+  hours,
+  analyticsAddon,
+}: {
+  priceCents: number;
+  hours: number | null;
+  analyticsAddon: boolean;
+}) {
+  const matched = HOSTING_TIERS.some((t) => t.priceCents === priceCents);
+  return (
+    <div className={styles.planSection}>
+      <p className={styles.planKicker}>Your plan at a glance</p>
+      <div className={styles.planGrid}>
+        {HOSTING_TIERS.map((t) => {
+          const active = t.priceCents === priceCents;
+          return (
+            <div
+              key={t.key}
+              className={
+                active
+                  ? `${styles.planCard} ${styles.planCardActive}`
+                  : styles.planCard
+              }
+            >
+              {active && <span className={styles.planBadge}>Your plan</span>}
+              <span className={styles.planPrice}>
+                {formatPriceCents(t.priceCents)}
+                <span className={styles.planPer}>/mo</span>
+              </span>
+              <span className={styles.planName}>{t.label}</span>
+              <ul className={styles.planFeatures}>
+                <li>Free custom build + media session</li>
+                <li>{t.updateHoursPerQuarter} update hours every quarter</li>
+                <li>
+                  {t.analyticsIncluded
+                    ? 'Analytics reports included'
+                    : active && analyticsAddon
+                      ? 'Analytics reports added (+$5/mo)'
+                      : 'Analytics reports +$5/mo'}
+                </li>
+                <li>
+                  {t.allowedDbModes.includes('dedicated')
+                    ? 'Private database available'
+                    : 'Secure shared platform'}
+                </li>
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+      {!matched && (
+        <p className={styles.planCustom}>
+          Your plan is custom: {formatPriceCents(priceCents)}/mo with{' '}
+          {hours ?? 0} update hours every quarter
+          {analyticsAddon ? ' plus analytics reports (+$5/mo)' : ''}. The
+          agreement below has your exact terms.
+        </p>
+      )}
+    </div>
+  );
 }
 
 type PageState = 'valid' | 'expired' | 'invalid' | 'already_signed';
@@ -52,7 +126,7 @@ export default async function AgreementPage({
   const { data } = await supabase
     .from('agreement_tokens')
     .select(
-      'id, expires_at, used_at, revoked_at, agreements (id, status, rendered_text, signed_at, first_viewed_at, clients (business_name, contact_name))'
+      'id, expires_at, used_at, revoked_at, agreements (id, status, rendered_text, signed_at, first_viewed_at, sites (hosting_price_cents, update_hours_per_quarter, analytics_addon), clients (business_name, contact_name))'
     )
     .eq('token_hash', hashToken(token))
     .eq('purpose', 'sign')
@@ -142,6 +216,14 @@ export default async function AgreementPage({
               Please read the agreement below, then sign at the bottom. It
               takes about five minutes.
             </p>
+
+            {agreement.sites && (
+              <PlanComparison
+                priceCents={agreement.sites.hosting_price_cents}
+                hours={agreement.sites.update_hours_per_quarter}
+                analyticsAddon={agreement.sites.analytics_addon}
+              />
+            )}
 
             <div className={styles.agreementBox}>
               <pre className={styles.agreementText}>

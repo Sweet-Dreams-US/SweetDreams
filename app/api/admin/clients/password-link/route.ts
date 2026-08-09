@@ -8,7 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ADMIN_COOKIE_NAME, verifySession } from '@/lib/admin-session';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
-import { SITE_URL } from '@/lib/constants';
+import { requestBaseUrl } from '@/lib/base-url';
 import { sendEmail } from '@/lib/emails/send';
 import SetPasswordEmail from '@/lib/emails/set-password';
 
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     type: 'recovery',
     email: client.email,
     options: {
-      redirectTo: `${SITE_URL}/auth/callback?next=/portal/set-password`,
+      redirectTo: `${requestBaseUrl(request)}/auth/callback?next=/portal/set-password`,
     },
   });
   const actionLink = linkData?.properties?.action_link;

@@ -21,7 +21,6 @@ import {
   analyticsIncludedAtPrice,
   formatPriceCents,
 } from '@/lib/clients/constants';
-import { SITE_URL } from '@/lib/constants';
 import { sendEmail } from '@/lib/emails/send';
 import AgreementInvite from '@/lib/emails/agreement-invite';
 
@@ -62,7 +61,9 @@ export interface SendAgreementResult {
 
 export async function sendAgreementForSite(
   supabase: SupabaseClient,
-  siteId: string
+  siteId: string,
+  /** Origin for the signing link (from the admin's request, so links work on dev/preview/prod alike). */
+  baseUrl: string
 ): Promise<SendAgreementResult> {
   const { data, error } = await supabase
     .from('sites')
@@ -181,7 +182,7 @@ export async function sendAgreementForSite(
     };
   }
 
-  const signingUrl = `${SITE_URL}/agreement/${token.raw}`;
+  const signingUrl = `${baseUrl}/agreement/${token.raw}`;
 
   await supabase
     .from('sites')

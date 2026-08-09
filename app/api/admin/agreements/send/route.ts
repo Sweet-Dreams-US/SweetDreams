@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ADMIN_COOKIE_NAME, verifySession } from '@/lib/admin-session';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
 import { sendAgreementForSite } from '@/lib/agreements/service';
+import { requestBaseUrl } from '@/lib/base-url';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -28,7 +29,11 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = createServiceRoleClient();
-  const result = await sendAgreementForSite(supabase, body.site_id);
+  const result = await sendAgreementForSite(
+    supabase,
+    body.site_id,
+    requestBaseUrl(request)
+  );
   const { status, ...rest } = result;
   return NextResponse.json(rest, { status });
 }

@@ -12,6 +12,7 @@ import { ADMIN_COOKIE_NAME, verifySession } from '@/lib/admin-session';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
 import { DB_MODES, type DbMode } from '@/lib/clients/constants';
 import { sendAgreementForSite } from '@/lib/agreements/service';
+import { requestBaseUrl } from '@/lib/base-url';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -166,7 +167,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true, client_id: clientRow.id, site_id: siteRow.id });
   }
 
-  const sent = await sendAgreementForSite(supabase, siteRow.id);
+  const sent = await sendAgreementForSite(supabase, siteRow.id, requestBaseUrl(request));
   if (!sent.ok) {
     return NextResponse.json({
       ok: true,
