@@ -41,6 +41,7 @@ export default function InquiriesTable({ rows }: { rows: Inquiry[] }) {
             <th>Source</th>
             <th>Status</th>
             <th>Notes</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -127,6 +128,11 @@ function InquiryRow({ row }: { row: Inquiry }) {
         <span className={`${styles.saveTag} ${styles[`save_${state}`] || ''}`} aria-live="polite">
           {state === 'saving' ? 'saving…' : state === 'saved' ? 'saved ✓' : state === 'error' ? 'error' : ''}
         </span>
+      </td>
+      <td>
+        <a className={styles.convertLink} href={`/admin/clients/new?lead=${row.id}`}>
+          → Client
+        </a>
       </td>
     </tr>
   );

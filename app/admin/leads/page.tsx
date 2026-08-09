@@ -132,6 +132,22 @@ export default async function LeadsPage({
         >
           → Free Website Inquiries
         </a>
+        <a
+          href="/admin/clients"
+          style={{
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: '#04160c',
+            background: '#28c840',
+            textDecoration: 'none',
+            padding: '8px 14px',
+            borderRadius: 999,
+            fontWeight: 700,
+          }}
+        >
+          → Clients
+        </a>
       </div>
       <header className={styles.header}>
         <div>

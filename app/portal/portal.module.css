@@ -1,0 +1,390 @@
+/* Client portal — clean light theme (distinct from the dark admin). */
+
+.shell {
+  min-height: 100vh;
+  background: #f2f5f2;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 1px solid #e3e8e3;
+  padding: 16px 24px;
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  font-size: 14px;
+  color: #0e0e0e;
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.brandDot {
+  color: #28c840;
+}
+
+.brandSub {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 12px;
+  color: #7a857e;
+}
+
+.signOut {
+  background: transparent;
+  border: 1px solid #cfd8cf;
+  color: #38423c;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.signOut:hover {
+  border-color: #28c840;
+  color: #16a34a;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.footer {
+  text-align: center;
+  color: #8a948d;
+  font-size: 13px;
+  padding: 20px;
+}
+
+.footer a {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.pageTitle {
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 800;
+  color: #0e0e0e;
+  margin: 0 0 20px;
+}
+
+/* ---- dashboard ---- */
+
+.clientBlock {
+  margin-bottom: 32px;
+}
+
+.businessName {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #38423c;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.siteCard {
+  background: #ffffff;
+  border: 1px solid #e3e8e3;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 18px rgba(14, 14, 14, 0.04);
+}
+
+.siteHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.siteName {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0e0e0e;
+}
+
+.statusPill {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #eef1ee;
+  color: #55605a;
+  white-space: nowrap;
+}
+
+.st_agreement_sent { background: #fef6e0; color: #9a6b00; }
+.st_signed { background: #e6f9ea; color: #157a2b; }
+.st_building { background: #e5f0fe; color: #1d5fbf; }
+.st_client_review { background: #f1e8fd; color: #6d3bbf; }
+.st_approved { background: #dff5f2; color: #0c7d6c; }
+.st_awaiting_payment { background: #fdeede; color: #b05e12; }
+.st_live { background: #28c840; color: #0e0e0e; }
+.st_declined { background: #fdeaea; color: #b02a2a; }
+.st_paused { background: #eef1ee; color: #55605a; }
+.st_cancelled { background: #eef1ee; color: #55605a; }
+
+.statusCopy {
+  color: #55605a;
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+
+.liveLink {
+  display: inline-block;
+  margin-top: 14px;
+  background: #28c840;
+  color: #0e0e0e;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 9px;
+  text-decoration: none;
+}
+
+.liveLink:hover {
+  background: #22b338;
+}
+
+.agreementLink {
+  display: inline-block;
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-top: 4px;
+}
+
+.empty {
+  background: #ffffff;
+  border: 1px solid #e3e8e3;
+  border-radius: 14px;
+  padding: 32px;
+}
+
+.emptyText {
+  color: #55605a;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.emptyText a {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+/* ---- auth cards (login / set password) ---- */
+
+.authCard {
+  background: #ffffff;
+  border: 1px solid #e3e8e3;
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 440px;
+  margin: 24px auto 0;
+  box-shadow: 0 8px 30px rgba(14, 14, 14, 0.05);
+}
+
+.authTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0e0e0e;
+  margin: 0 0 8px;
+}
+
+.authHint {
+  color: #55605a;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #38423c;
+  margin: 14px 0 0;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #cfd8cf;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0e0e0e;
+}
+
+.input:focus {
+  outline: 2px solid #28c840;
+  outline-offset: 1px;
+  border-color: #28c840;
+}
+
+.primaryBtn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  background: #28c840;
+  color: #0e0e0e;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primaryBtn:hover {
+  background: #22b338;
+}
+
+.primaryBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.linkBtn {
+  background: none;
+  border: none;
+  color: #16a34a;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 14px;
+  padding: 0;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 14px;
+  margin: 12px 0 0;
+}
+
+.success {
+  color: #157a2b;
+  font-size: 14px;
+  margin: 12px 0 0;
+}
+
+.authFoot {
+  color: #8a948d;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 20px 0 0;
+}
+
+.authFoot a {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+/* ---- agreement view ---- */
+
+.backLink {
+  display: inline-block;
+  color: #55605a;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 14px;
+}
+
+.backLink:hover {
+  color: #16a34a;
+}
+
+.signatureRecord {
+  background: #f0fdf2;
+  border: 1px solid #bbe7c4;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+
+.recordLine {
+  color: #232925;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.recordFingerprint {
+  color: #55605a;
+  font-size: 12px;
+  word-break: break-all;
+  margin: 0;
+}
+
+.agreementBox {
+  background: #ffffff;
+  border: 1px solid #e3e8e3;
+  border-radius: 12px;
+  padding: 26px;
+}
+
+.agreementText {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #232925;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 20px 14px 36px;
+  }
+
+  .siteCard {
+    padding: 18px 16px;
+  }
+
+  .agreementBox {
+    padding: 18px 14px;
+  }
+}
+
+@media print {
+  .shell {
+    background: #ffffff;
+  }
+
+  .header,
+  .footer,
+  .backLink,
+  .signOut {
+    display: none;
+  }
+
+  .agreementBox {
+    border: none;
+  }
+}

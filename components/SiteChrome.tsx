@@ -12,7 +12,15 @@ import type { ReactNode } from 'react';
  * root layout so this client wrapper never has to import them directly
  * (Footer is a server component) — it just decides whether to include them.
  */
-const BARE_ROUTES = ['/free-website', '/free-software', '/content-roadmap'];
+const BARE_ROUTES = [
+  '/free-website',
+  '/free-software',
+  '/content-roadmap',
+  // Client-facing backend surfaces: agreement signing + portal carry their
+  // own minimal chrome; the marketing nav/footer would only distract.
+  '/agreement',
+  '/portal',
+];
 
 export default function SiteChrome({
   nav,
