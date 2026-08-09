@@ -33,6 +33,7 @@ interface CreateBody {
     build_price_cents?: number;
     billing_anchor_day?: number;
     db_mode?: string;
+    analytics_addon?: boolean;
   };
   send_agreement?: boolean;
 }
@@ -145,6 +146,7 @@ export async function POST(request: NextRequest) {
       build_price_cents: buildPriceCents,
       billing_anchor_day: anchorDay,
       db_mode: dbMode,
+      analytics_addon: site.analytics_addon === true,
     })
     .select('id')
     .single();

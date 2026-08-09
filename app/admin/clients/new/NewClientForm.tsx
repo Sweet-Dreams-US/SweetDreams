@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import {
   HOSTING_TIERS,
   DB_MODE_LABELS,
+  analyticsIncludedAtPrice,
   type DbMode,
 } from '@/lib/clients/constants';
 import styles from '../clients.module.css';
@@ -42,6 +43,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
   const [buildDollars, setBuildDollars] = useState('');
   const [anchorDay, setAnchorDay] = useState<1 | 15>(1);
   const [dbMode, setDbMode] = useState<DbMode>('shared');
+  const [analyticsAddon, setAnalyticsAddon] = useState(false);
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -106,6 +108,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
             build_price_cents: Number.isFinite(buildCents) ? buildCents : 0,
             billing_anchor_day: anchorDay,
             db_mode: dbMode,
+            analytics_addon: analyticsAddon,
           },
         }),
       });
@@ -339,6 +342,25 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
                 {dedicatedAllowed ? '' : ' (requires $85+ plan)'}
               </option>
             </select>
+          </div>
+          <div className={styles.field}>
+            <label className={styles.fieldLabel}>Analytics reports</label>
+            {analyticsIncludedAtPrice(
+              Math.round(parseFloat(priceDollars || '0') * 100)
+            ) ? (
+              <span className={styles.kvValue}>Included free with this plan</span>
+            ) : (
+              <div className={styles.radioRow}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={analyticsAddon}
+                    onChange={(e) => setAnalyticsAddon(e.target.checked)}
+                  />
+                  Add analytics reports (+$5/mo)
+                </label>
+              </div>
+            )}
           </div>
         </div>
       </div>

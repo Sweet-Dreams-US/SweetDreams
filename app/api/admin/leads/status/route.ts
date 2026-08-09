@@ -15,6 +15,7 @@ export const dynamic = 'force-dynamic';
 export const INQUIRY_STATUSES = [
   'new',
   'contacted',
+  'demo_sent',
   'building',
   'signed',
   'live',

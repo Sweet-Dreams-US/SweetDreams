@@ -33,6 +33,8 @@ export interface AgreementVariables {
   billing_anchor_day: string;
   /** e.g. "August 9, 2026" */
   effective_date: string;
+  /** Full sentence describing analytics packaging for this plan. */
+  analytics_terms: string;
 }
 
 export const LATEST_AGREEMENT_VERSION = 'v1';
@@ -59,7 +61,7 @@ const V1: AgreementTemplate = {
     {
       heading: 'Monthly Hosting and Care',
       body:
-        'Your hosting plan is {{hosting_price}} per month. It covers hosting, security, maintenance, backups, and up to {{update_hours}} hours of website updates each quarter (every 3 months). Unused update hours do not roll over. Work beyond your included hours is quoted and approved by you before we start it. Monthly hosting is required to keep your website live.',
+        'Your hosting plan is {{hosting_price}} per month. It covers hosting, security, maintenance, backups, and up to {{update_hours}} hours of website updates each quarter (every 3 months). Unused update hours do not roll over. Work beyond your included hours is quoted and approved by you before we start it. {{analytics_terms}} Monthly hosting is required to keep your website live.',
     },
     {
       heading: 'When Billing Starts',
@@ -72,14 +74,14 @@ const V1: AgreementTemplate = {
         'While your hosting is active, the website, its code, and the build remain the property of Sweet Dreams. You always own your brand: your business name, logo, and the information about your business. Photos and video we capture during your media session may be used by both you and Sweet Dreams to promote your business and our work.',
     },
     {
-      heading: 'Taking Your Website With You (Buyout)',
+      heading: 'Taking Your Website With You (Optional Buyout)',
       body:
-        'If you ever want to take the website and its code elsewhere and stop hosting with us, you may buy out the build. The buyout price is based on the Build Value of {{build_price}} and when you leave: during year 1 it is 100% of the Build Value; during year 2 it is 75%; during year 3 it is 65%; year 4 and beyond it is 50%. Once the buyout is paid, we transfer the code and the site to you and hosting ends.',
+        'If you ever want to take the website and its code elsewhere and stop hosting with us, you may buy out the build. A buyout is completely optional and never required. The buyout price is based on the Build Value of {{build_price}} and when you leave: during year 1 it is 100% of the Build Value; during year 2 it is 75%; during year 3 it is 65%; year 4 and beyond it is 50%. Once the buyout is paid, we transfer the code and the site to you and hosting ends.',
     },
     {
-      heading: 'Cancelling Hosting',
+      heading: 'Cancelling Anytime',
       body:
-        'Either of us may end this Agreement with 60 days written notice. Hosting fees continue through the notice period. If you cancel without a buyout, the website comes down at the end of the notice period and the build remains the property of Sweet Dreams. Your brand materials and any content you provided are returned to you on request.',
+        'You may cancel your hosting at any time with 60 days written notice. There is no long term commitment and no requirement to ever buy out the website. Hosting fees continue through the 60 day notice period. If you cancel without a buyout, the website simply comes down at the end of the notice period and the build remains the property of Sweet Dreams. Your brand materials and any content you provided are returned to you on request. Sweet Dreams may also end this Agreement with the same 60 days written notice.',
     },
     {
       heading: 'What We Promise and What We Do Not',

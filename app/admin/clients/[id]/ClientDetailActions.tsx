@@ -14,6 +14,7 @@ import {
   SITE_STATUSES,
   SITE_STATUS_LABELS,
   DB_MODE_LABELS,
+  analyticsIncludedAtPrice,
   formatPriceCents,
   type DbMode,
   type SiteStatus,
@@ -31,6 +32,7 @@ export interface DetailSite {
   billing_anchor_day: number;
   db_mode: DbMode;
   db_project_ref: string | null;
+  analytics_addon: boolean;
   github_repo: string | null;
   vercel_project_id: string | null;
   live_url: string | null;
@@ -298,7 +300,12 @@ function SiteCard({
           </span>
           <span className={styles.muted}>
             Build value {formatPriceCents(site.build_price_cents)} ·{' '}
-            {DB_MODE_LABELS[site.db_mode]}
+            {DB_MODE_LABELS[site.db_mode]} ·{' '}
+            {analyticsIncludedAtPrice(site.hosting_price_cents)
+              ? 'analytics included'
+              : site.analytics_addon
+                ? 'analytics +$5/mo'
+                : 'no analytics'}
           </span>
         </div>
         {registryFields.map((f) => (

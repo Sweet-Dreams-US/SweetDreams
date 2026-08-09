@@ -17,7 +17,10 @@ import {
 } from './templates';
 import { renderAgreement } from './render';
 import { mintToken, SIGN_TOKEN_TTL_MS } from './tokens';
-import { formatPriceCents } from '@/lib/clients/constants';
+import {
+  analyticsIncludedAtPrice,
+  formatPriceCents,
+} from '@/lib/clients/constants';
 import { SITE_URL } from '@/lib/constants';
 import { sendEmail } from '@/lib/emails/send';
 import AgreementInvite from '@/lib/emails/agreement-invite';
@@ -37,6 +40,7 @@ interface SiteWithClient {
   update_hours_per_quarter: number | null;
   build_price_cents: number;
   billing_anchor_day: number;
+  analytics_addon: boolean;
   clients: {
     id: string;
     business_name: string;
@@ -63,7 +67,7 @@ export async function sendAgreementForSite(
   const { data, error } = await supabase
     .from('sites')
     .select(
-      'id, name, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, clients (id, business_name, contact_name, email)'
+      'id, name, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, analytics_addon, clients (id, business_name, contact_name, email)'
     )
     .eq('id', siteId)
     .single();
@@ -129,6 +133,11 @@ export async function sendAgreementForSite(
       build_price: formatPriceCents(site.build_price_cents),
       billing_anchor_day: anchorDayDisplay(site.billing_anchor_day),
       effective_date: formatInTimeZone(new Date(), BUSINESS_TZ, 'MMMM d, yyyy'),
+      analytics_terms: analyticsIncludedAtPrice(site.hosting_price_cents)
+        ? 'Monthly analytics reports on your website are included in your plan at no extra cost.'
+        : site.analytics_addon
+          ? 'Monthly analytics reports on your website are included as a $5 per month add on you selected, billed with your hosting.'
+          : 'Monthly analytics reports on your website are available anytime as a $5 per month add on.',
     };
     const { text, sha256 } = renderAgreement(LATEST_AGREEMENT_VERSION, vars);
 

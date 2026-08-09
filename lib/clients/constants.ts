@@ -64,6 +64,8 @@ export interface HostingTier {
   label: string;
   priceCents: number;
   updateHoursPerQuarter: number;
+  /** Monthly analytics reports: free at $85+, a $5/mo add on below that. */
+  analyticsIncluded: boolean;
   /**
    * Database packaging allowed at this tier. A dedicated Supabase project
    * (~$10/mo extra infra + maintenance) requires the $85+ plans; $50 sites
@@ -78,6 +80,7 @@ export const HOSTING_TIERS: readonly HostingTier[] = [
     label: 'Starter',
     priceCents: 5000,
     updateHoursPerQuarter: 3,
+    analyticsIncluded: false,
     allowedDbModes: ['none', 'shared'],
   },
   {
@@ -85,6 +88,7 @@ export const HOSTING_TIERS: readonly HostingTier[] = [
     label: 'Growth',
     priceCents: 8500,
     updateHoursPerQuarter: 9,
+    analyticsIncluded: true,
     allowedDbModes: ['none', 'shared', 'dedicated'],
   },
   {
@@ -92,9 +96,18 @@ export const HOSTING_TIERS: readonly HostingTier[] = [
     label: 'Pro',
     priceCents: 12500,
     updateHoursPerQuarter: 16,
+    analyticsIncluded: true,
     allowedDbModes: ['none', 'shared', 'dedicated'],
   },
 ];
+
+/** Analytics reports: included at this monthly price and above. */
+export const ANALYTICS_INCLUDED_MIN_CENTS = 8500;
+export const ANALYTICS_ADDON_PRICE_CENTS = 500;
+
+export function analyticsIncludedAtPrice(hostingPriceCents: number): boolean {
+  return hostingPriceCents >= ANALYTICS_INCLUDED_MIN_CENTS;
+}
 
 export const BILLING_ANCHOR_DAYS = [1, 15] as const;
 

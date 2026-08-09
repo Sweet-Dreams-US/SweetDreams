@@ -18,7 +18,15 @@ export interface Inquiry {
   admin_notes: string | null;
 }
 
-const STATUSES = ['new', 'contacted', 'building', 'signed', 'live', 'declined'] as const;
+const STATUSES = [
+  'new',
+  'contacted',
+  'demo_sent',
+  'building',
+  'signed',
+  'live',
+  'declined',
+] as const;
 
 function fmtDate(iso: string): string {
   const d = new Date(iso);
