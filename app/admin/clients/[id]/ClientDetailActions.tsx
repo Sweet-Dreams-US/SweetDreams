@@ -25,6 +25,8 @@ export interface DetailSite {
   id: string;
   name: string;
   domain: string | null;
+  demo_url: string | null;
+  drive_url: string | null;
   status: string;
   hosting_price_cents: number;
   update_hours_per_quarter: number | null;
@@ -117,6 +119,19 @@ export default function ClientDetailActions({
     router.refresh();
   }
 
+  async function sendWelcome(siteId: string) {
+    const data = await post('/api/admin/sites/send-welcome', { site_id: siteId });
+    if (!data) return;
+    setSigningUrl((data.welcome_url as string) || '');
+    setCopied(false);
+    setNotice(
+      data.email_ok
+        ? 'Demo invite emailed. Their private welcome link is below (backup copy).'
+        : 'EMAIL FAILED. Copy the welcome link below and send it yourself.'
+    );
+    router.refresh();
+  }
+
   async function revokeAgreement(agreementId: string) {
     const data = await post('/api/admin/agreements/revoke', {
       agreement_id: agreementId,
@@ -169,6 +184,7 @@ export default function ClientDetailActions({
           agreements={agreements.filter((a) => a.site_id === site.id)}
           busy={busy}
           onSend={() => sendAgreement(site.id)}
+          onSendWelcome={() => sendWelcome(site.id)}
           onRevoke={revokeAgreement}
         />
       ))}
@@ -200,17 +216,21 @@ function SiteCard({
   agreements,
   busy,
   onSend,
+  onSendWelcome,
   onRevoke,
 }: {
   site: DetailSite;
   agreements: DetailAgreement[];
   busy: boolean;
   onSend: () => void;
+  onSendWelcome: () => void;
   onRevoke: (agreementId: string) => void;
 }) {
   const router = useRouter();
   const [status, setStatus] = useState(site.status);
   const [fields, setFields] = useState({
+    demo_url: site.demo_url ?? '',
+    drive_url: site.drive_url ?? '',
     live_url: site.live_url ?? '',
     domain: site.domain ?? '',
     github_repo: site.github_repo ?? '',
@@ -251,6 +271,8 @@ function SiteCard({
     placeholder?: string;
     type?: string;
   }> = [
+    { key: 'demo_url', label: 'Demo website URL', placeholder: 'https://...' },
+    { key: 'drive_url', label: 'Google Drive (brand files) URL', placeholder: 'https://drive.google.com/...' },
     { key: 'live_url', label: 'Live URL', placeholder: 'https://...' },
     { key: 'domain', label: 'Domain', placeholder: 'example.com' },
     { key: 'github_repo', label: 'GitHub repo', placeholder: 'owner/repo' },
@@ -344,14 +366,25 @@ function SiteCard({
       </div>
 
       <div className={styles.submitRow}>
-        {canSend && (
+        {(status === 'draft' || status === 'demo_sent') && (
           <button
             type="button"
             className={styles.primaryAction}
             disabled={busy}
+            onClick={onSendWelcome}
+            title="Needs the demo URL and build value set first"
+          >
+            {status === 'demo_sent' ? 'Resend Demo Invite (new link)' : 'Send Demo Invite'}
+          </button>
+        )}
+        {canSend && (
+          <button
+            type="button"
+            className={styles.secondaryBtn}
+            disabled={busy}
             onClick={onSend}
           >
-            {hasSent ? 'Resend Agreement (new link)' : 'Send Agreement'}
+            {hasSent ? 'Resend Agreement (new link)' : 'Send Agreement Directly'}
           </button>
         )}
       </div>

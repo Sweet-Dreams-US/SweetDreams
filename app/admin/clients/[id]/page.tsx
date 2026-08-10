@@ -47,7 +47,7 @@ export default async function ClientDetailPage({
     .from('clients')
     .select(
       `id, created_at, business_name, contact_name, email, phone, auth_user_id, source_lead_id, admin_notes,
-       sites (id, name, domain, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, db_mode, db_project_ref, analytics_addon, github_repo, vercel_project_id, live_url, go_live_date, admin_notes),
+       sites (id, name, domain, demo_url, drive_url, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, db_mode, db_project_ref, analytics_addon, github_repo, vercel_project_id, live_url, go_live_date, admin_notes),
        agreements (id, site_id, status, template_version, created_at, first_viewed_at, signed_at, signer_name, signer_ip, signed_content_sha256, revoked_at, revoke_reason)`
     )
     .eq('id', id)

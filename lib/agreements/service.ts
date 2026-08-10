@@ -62,9 +62,12 @@ export interface SendAgreementResult {
 export async function sendAgreementForSite(
   supabase: SupabaseClient,
   siteId: string,
-  /** Origin for the signing link (from the admin's request, so links work on dev/preview/prod alike). */
-  baseUrl: string
+  /** Origin for the signing link (from the request, so links work on dev/preview/prod alike). */
+  baseUrl: string,
+  /** notify: false skips the invite email (welcome flow — the client is already on the page). */
+  options: { notify?: boolean } = {}
 ): Promise<SendAgreementResult> {
+  const notify = options.notify !== false;
   const { data, error } = await supabase
     .from('sites')
     .select(
@@ -82,7 +85,7 @@ export async function sendAgreementForSite(
     return { ok: false, status: 500, error: 'site has no client' };
   }
 
-  if (site.status !== 'draft' && site.status !== 'agreement_sent') {
+  if (!['draft', 'demo_sent', 'agreement_sent'].includes(site.status)) {
     return {
       ok: false,
       status: 409,
@@ -191,28 +194,32 @@ export async function sendAgreementForSite(
       status_updated_at: new Date().toISOString(),
     })
     .eq('id', site.id)
-    .in('status', ['draft', 'agreement_sent']);
+    .in('status', ['draft', 'demo_sent', 'agreement_sent']);
 
   // Email is best effort: the signing URL is returned either way so the
   // admin can copy it manually if delivery fails.
-  const email = await sendEmail({
-    to: client.email,
-    subject: `Your Sweet Dreams website agreement for ${client.business_name}`,
-    react: AgreementInvite({
-      contactName: client.contact_name,
-      businessName: client.business_name,
-      hostingPrice: hostingPriceDisplay,
-      signingUrl,
-      expiresDisplay: formatInTimeZone(expiresAt, BUSINESS_TZ, 'MMMM d, yyyy'),
-    }),
-  });
+  let emailOk: boolean | undefined;
+  if (notify) {
+    const email = await sendEmail({
+      to: client.email,
+      subject: `Your Sweet Dreams website agreement for ${client.business_name}`,
+      react: AgreementInvite({
+        contactName: client.contact_name,
+        businessName: client.business_name,
+        hostingPrice: hostingPriceDisplay,
+        signingUrl,
+        expiresDisplay: formatInTimeZone(expiresAt, BUSINESS_TZ, 'MMMM d, yyyy'),
+      }),
+    });
+    emailOk = email.ok;
+  }
 
   return {
     ok: true,
     status: 200,
     agreement_id: agreementId,
     signing_url: signingUrl,
-    email_ok: email.ok,
+    email_ok: emailOk,
     resent,
   };
 }

@@ -16,9 +16,11 @@ const BARE_ROUTES = [
   '/free-website',
   '/free-software',
   '/content-roadmap',
-  // Client-facing backend surfaces: agreement signing + portal carry their
-  // own minimal chrome; the marketing nav/footer would only distract.
+  // Client-facing backend surfaces: agreement signing, welcome pages, and
+  // the portal carry their own minimal chrome; the marketing nav/footer
+  // would only distract.
   '/agreement',
+  '/welcome',
   '/portal',
 ];
 

@@ -16,6 +16,8 @@ interface UpdateBody {
   status?: string;
   admin_notes?: string | null;
   live_url?: string | null;
+  demo_url?: string | null;
+  drive_url?: string | null;
   domain?: string | null;
   github_repo?: string | null;
   vercel_project_id?: string | null;
@@ -59,6 +61,8 @@ export async function POST(request: NextRequest) {
   const textFields: Array<[keyof UpdateBody, string, number]> = [
     ['admin_notes', 'admin_notes', 2000],
     ['live_url', 'live_url', 500],
+    ['demo_url', 'demo_url', 500],
+    ['drive_url', 'drive_url', 500],
     ['domain', 'domain', 255],
     ['github_repo', 'github_repo', 255],
     ['vercel_project_id', 'vercel_project_id', 255],

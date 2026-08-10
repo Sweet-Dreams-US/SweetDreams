@@ -7,6 +7,7 @@
 
 export const SITE_STATUSES = [
   'draft',
+  'demo_sent',
   'agreement_sent',
   'signed',
   'building',
@@ -23,6 +24,7 @@ export type SiteStatus = (typeof SITE_STATUSES)[number];
 
 export const SITE_STATUS_LABELS: Record<SiteStatus, string> = {
   draft: 'Draft',
+  demo_sent: 'Demo Sent',
   agreement_sent: 'Agreement Sent',
   signed: 'Signed',
   building: 'Building',
@@ -38,6 +40,7 @@ export const SITE_STATUS_LABELS: Record<SiteStatus, string> = {
 /** Plain English status lines shown to clients in the portal. */
 export const SITE_STATUS_PORTAL_COPY: Record<SiteStatus, string> = {
   draft: 'We are getting things ready.',
+  demo_sent: 'Your demo website is ready to view.',
   agreement_sent: 'Your agreement is ready to sign.',
   signed: 'Agreement signed. Your build is in the queue.',
   building: 'We are building your website right now.',

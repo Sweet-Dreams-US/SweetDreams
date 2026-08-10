@@ -130,6 +130,7 @@
   white-space: nowrap;
 }
 
+.st_demo_sent { background: #dff5f2; color: #0c7d6c; }
 .st_agreement_sent { background: #fef6e0; color: #9a6b00; }
 .st_signed { background: #e6f9ea; color: #157a2b; }
 .st_building { background: #e5f0fe; color: #1d5fbf; }

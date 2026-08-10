@@ -9,6 +9,7 @@ import { createHash, randomBytes } from 'crypto';
 
 export const SIGN_TOKEN_TTL_MS = 14 * 24 * 60 * 60 * 1000; // 14 days
 export const SETUP_TOKEN_TTL_MS = 60 * 60 * 1000; // 60 minutes
+export const WELCOME_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 export function hashToken(raw: string): string {
   return createHash('sha256').update(raw, 'utf8').digest('hex');

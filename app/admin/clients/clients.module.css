@@ -138,6 +138,7 @@
   white-space: nowrap;
 }
 .pill_draft { border-color: #6b7280; color: #9aa3af; }
+.pill_demo_sent { border-color: #14b8a6; color: #5eead4; }
 .pill_agreement_sent { border-color: #f59e0b; color: #fcd34d; }
 .pill_signed { border-color: #22c55e; color: #86efac; }
 .pill_building { border-color: #3b82f6; color: #93c5fd; }
@@ -305,6 +306,7 @@
   cursor: pointer;
 }
 .st_draft { border-left-color: #6b7280; }
+.st_demo_sent { border-left-color: #14b8a6; color: #5eead4; }
 .st_agreement_sent { border-left-color: #f59e0b; color: #fcd34d; }
 .st_signed { border-left-color: #22c55e; color: #86efac; }
 .st_building { border-left-color: #3b82f6; color: #93c5fd; }
