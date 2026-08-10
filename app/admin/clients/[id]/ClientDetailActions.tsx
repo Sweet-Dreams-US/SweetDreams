@@ -15,7 +15,6 @@ import {
   SITE_STATUS_LABELS,
   DB_MODE_LABELS,
   analyticsIncludedAtPrice,
-  formatPriceCents,
   type DbMode,
   type SiteStatus,
 } from '@/lib/clients/constants';
@@ -241,6 +240,21 @@ function SiteCard({
     go_live_date: site.go_live_date ?? '',
     admin_notes: site.admin_notes ?? '',
   });
+  const [plan, setPlan] = useState({
+    price: String(site.hosting_price_cents / 100),
+    hours: String(site.update_hours_per_quarter ?? 0),
+    build: String(site.build_price_cents / 100),
+  });
+  const [anchorDay, setAnchorDay] = useState(site.billing_anchor_day);
+  const [analyticsAddon, setAnalyticsAddon] = useState(site.analytics_addon);
+
+  function savePlanNumber(key: 'price' | 'hours' | 'build') {
+    const raw = parseFloat(plan[key] || '0');
+    if (!Number.isFinite(raw) || raw < 0) return;
+    if (key === 'price') save({ hosting_price_cents: Math.round(raw * 100) });
+    if (key === 'build') save({ build_price_cents: Math.round(raw * 100) });
+    if (key === 'hours') save({ update_hours_per_quarter: Math.round(raw) });
+  }
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>(
     'idle'
   );
@@ -323,26 +337,97 @@ function SiteCard({
           </select>
         </div>
         <div className={styles.field}>
-          <label className={styles.fieldLabel}>Plan</label>
-          <span className={styles.kvValue}>
-            {formatPriceCents(site.hosting_price_cents)}/mo ·{' '}
-            {site.update_hours_per_quarter ?? 0} hrs/quarter · billed the{' '}
-            {site.billing_anchor_day === 15 ? '15th' : '1st'}
-          </span>
+          <label className={styles.fieldLabel}>Monthly hosting ($)</label>
+          <input
+            className={styles.input}
+            type="number"
+            min="0"
+            step="1"
+            value={plan.price}
+            onChange={(e) => setPlan({ ...plan, price: e.target.value })}
+            onBlur={() => savePlanNumber('price')}
+          />
           <span className={styles.muted}>
-            Build value {formatPriceCents(site.build_price_cents)} ·{' '}
-            {DB_MODE_LABELS[site.db_mode]} ·{' '}
-            {analyticsIncludedAtPrice(site.hosting_price_cents)
-              ? 'analytics included'
-              : site.analytics_addon
-                ? 'analytics +$10/mo'
-                : 'no analytics'}
+            {DB_MODE_LABELS[site.db_mode]}
+            {site.stripe_subscription_id ? ' · Stripe subscription linked' : ''}
           </span>
           {site.billing_starts_on && (
             <span className={styles.portalYes}>
-              Subscription active · first charge {site.billing_starts_on}, then
-              monthly that day
+              Subscription active · first charge {site.billing_starts_on}
             </span>
+          )}
+        </div>
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>Update hours per quarter</label>
+          <input
+            className={styles.input}
+            type="number"
+            min="0"
+            step="1"
+            value={plan.hours}
+            onChange={(e) => setPlan({ ...plan, hours: e.target.value })}
+            onBlur={() => savePlanNumber('hours')}
+          />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>Build value ($)</label>
+          <input
+            className={styles.input}
+            type="number"
+            min="0"
+            step="100"
+            value={plan.build}
+            onChange={(e) => setPlan({ ...plan, build: e.target.value })}
+            onBlur={() => savePlanNumber('build')}
+          />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>Billing day</label>
+          <div className={styles.radioRow}>
+            <label>
+              <input
+                type="radio"
+                checked={anchorDay === 1}
+                onChange={() => {
+                  setAnchorDay(1);
+                  save({ billing_anchor_day: 1 });
+                }}
+              />
+              the 1st
+            </label>
+            <label>
+              <input
+                type="radio"
+                checked={anchorDay === 15}
+                onChange={() => {
+                  setAnchorDay(15);
+                  save({ billing_anchor_day: 15 });
+                }}
+              />
+              the 15th
+            </label>
+          </div>
+        </div>
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>Analytics reports</label>
+          {analyticsIncludedAtPrice(
+            Math.round(parseFloat(plan.price || '0') * 100)
+          ) ? (
+            <span className={styles.kvValue}>Included with this plan</span>
+          ) : (
+            <div className={styles.radioRow}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={analyticsAddon}
+                  onChange={(e) => {
+                    setAnalyticsAddon(e.target.checked);
+                    save({ analytics_addon: e.target.checked });
+                  }}
+                />
+                Add on (+$10/mo)
+              </label>
+            </div>
           )}
         </div>
         {registryFields.map((f) => (

@@ -12,6 +12,7 @@ import ClientDetailActions, {
   type DetailAgreement,
   type DetailSite,
 } from './ClientDetailActions';
+import ClientContactCard from './ClientContactCard';
 import styles from '../clients.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -86,57 +87,18 @@ export default async function ClientDetailPage({
         </div>
       </header>
 
-      <div className={styles.detailGrid}>
-        <div className={styles.card}>
-          <p className={styles.cardTitle}>Contact + portal</p>
-          <div className={styles.kv}>
-            <span className={styles.kvLabel}>Email</span>
-            <span className={styles.kvValue}>
-              <a href={`mailto:${client.email}`}>{client.email}</a>
-            </span>
-          </div>
-          {client.phone && (
-            <div className={styles.kv}>
-              <span className={styles.kvLabel}>Phone</span>
-              <span className={styles.kvValue}>{client.phone}</span>
-            </div>
-          )}
-          <div className={styles.kv}>
-            <span className={styles.kvLabel}>Portal account</span>
-            <span className={styles.kvValue}>
-              {client.auth_user_id ? (
-                <span className={styles.portalYes}>linked ✓</span>
-              ) : (
-                <span className={styles.portalNo}>
-                  not yet (created when they sign)
-                </span>
-              )}
-            </span>
-          </div>
-          <div className={styles.kv}>
-            <span className={styles.kvLabel}>Payment method</span>
-            <span className={styles.kvValue}>
-              {client.payment_method_saved_at ? (
-                <span className={styles.portalYes}>
-                  on file ✓ (no charges until live)
-                </span>
-              ) : (
-                <span className={styles.portalNo}>
-                  not yet (saved after signing, from the portal)
-                </span>
-              )}
-            </span>
-          </div>
-          {client.source_lead_id && (
-            <div className={styles.kv}>
-              <span className={styles.kvLabel}>Source</span>
-              <span className={styles.kvValue}>
-                <Link href="/admin/inquiries">from a free website inquiry</Link>
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
+      <ClientContactCard
+        client={{
+          id: client.id,
+          business_name: client.business_name,
+          contact_name: client.contact_name,
+          email: client.email,
+          phone: client.phone,
+          admin_notes: client.admin_notes,
+        }}
+        authLinked={Boolean(client.auth_user_id)}
+        paymentSaved={Boolean(client.payment_method_saved_at)}
+      />
 
       <ClientDetailActions
         clientId={client.id}

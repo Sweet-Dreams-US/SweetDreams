@@ -36,6 +36,11 @@ interface UpdateBody {
   vercel_project_id?: string | null;
   db_project_ref?: string | null;
   go_live_date?: string | null;
+  hosting_price_cents?: number;
+  update_hours_per_quarter?: number | null;
+  build_price_cents?: number;
+  billing_anchor_day?: number;
+  analytics_addon?: boolean;
 }
 
 interface GoLiveSite {
@@ -115,6 +120,39 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+  }
+
+  // Pricing fields. Note: signed agreements are immutable snapshots — price
+  // edits here affect billing/records going forward, never past contracts.
+  if (body.hosting_price_cents !== undefined) {
+    if (!Number.isInteger(body.hosting_price_cents) || body.hosting_price_cents < 0) {
+      return NextResponse.json({ ok: false, error: 'invalid hosting price' }, { status: 400 });
+    }
+    update.hosting_price_cents = body.hosting_price_cents;
+  }
+  if (body.build_price_cents !== undefined) {
+    if (!Number.isInteger(body.build_price_cents) || body.build_price_cents < 0) {
+      return NextResponse.json({ ok: false, error: 'invalid build value' }, { status: 400 });
+    }
+    update.build_price_cents = body.build_price_cents;
+  }
+  if (body.update_hours_per_quarter !== undefined) {
+    if (
+      body.update_hours_per_quarter !== null &&
+      (!Number.isInteger(body.update_hours_per_quarter) || body.update_hours_per_quarter < 0)
+    ) {
+      return NextResponse.json({ ok: false, error: 'invalid update hours' }, { status: 400 });
+    }
+    update.update_hours_per_quarter = body.update_hours_per_quarter;
+  }
+  if (body.billing_anchor_day !== undefined) {
+    if (body.billing_anchor_day !== 1 && body.billing_anchor_day !== 15) {
+      return NextResponse.json({ ok: false, error: 'billing day must be 1 or 15' }, { status: 400 });
+    }
+    update.billing_anchor_day = body.billing_anchor_day;
+  }
+  if (body.analytics_addon !== undefined) {
+    update.analytics_addon = body.analytics_addon === true;
   }
 
   if (Object.keys(update).length === 0) {
