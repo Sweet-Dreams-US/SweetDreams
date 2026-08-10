@@ -15,6 +15,7 @@
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { SIGN_CONSENTS } from '@/lib/agreements/consents';
+import SignaturePad from './SignaturePad';
 import styles from './agreement.module.css';
 
 type Phase = 'sign' | 'password' | 'done_existing' | 'email_sent' | 'done_set';
@@ -32,6 +33,7 @@ export default function AgreementSignForm({
 }: Props) {
   const [phase, setPhase] = useState<Phase>('sign');
   const [name, setName] = useState(contactName);
+  const [signature, setSignature] = useState<string | null>(null);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [esignConsent, setEsignConsent] = useState(false);
   const [password, setPassword] = useState('');
@@ -47,6 +49,10 @@ export default function AgreementSignForm({
       setError('Please type your full legal name.');
       return;
     }
+    if (!signature) {
+      setError('Please draw your signature in the box.');
+      return;
+    }
     if (!agreeTerms || !esignConsent) {
       setError('Please check both boxes to sign.');
       return;
@@ -59,6 +65,7 @@ export default function AgreementSignForm({
         body: JSON.stringify({
           token,
           name: name.trim(),
+          signature_image: signature,
           consents: { agree_terms: agreeTerms, esign_consent: esignConsent },
         }),
       });
@@ -274,6 +281,11 @@ export default function AgreementSignForm({
           autoComplete="name"
         />
       </label>
+
+      <div className={styles.label}>
+        Draw your signature (use your mouse, or your finger on mobile)
+        <SignaturePad onChange={setSignature} />
+      </div>
 
       {error && <p className={styles.error}>{error}</p>}
 

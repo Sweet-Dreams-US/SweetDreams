@@ -134,16 +134,22 @@ const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
 const RATE_LIMIT_MAX = 3; // max 3 submissions per hour per IP
 
-export function checkRateLimit(ip: string): boolean {
+/**
+ * Sliding-window rate limit. `key` is usually an IP, but callers with a
+ * multi-step flow should namespace it (e.g. `sign:${ip}`) so they get their
+ * own bucket instead of colliding with the strict funnel-form bucket, and
+ * pass a `max` that fits legitimate use of that flow.
+ */
+export function checkRateLimit(key: string, max: number = RATE_LIMIT_MAX): boolean {
   const now = Date.now();
-  const entry = rateLimitStore.get(ip);
+  const entry = rateLimitStore.get(key);
 
   if (!entry || now > entry.resetAt) {
-    rateLimitStore.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    rateLimitStore.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
     return true; // allowed
   }
 
-  if (entry.count >= RATE_LIMIT_MAX) {
+  if (entry.count >= max) {
     return false; // rate limited
   }
 

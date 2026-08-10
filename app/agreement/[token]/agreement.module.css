@@ -142,6 +142,92 @@
   font-weight: 800;
 }
 
+.planFeatures li.xItem::before {
+  content: '✕';
+  color: #e5484d;
+}
+
+.changePlanRow {
+  margin: 10px 0 0;
+}
+
+.changePlanBtn {
+  background: transparent;
+  border: 1px solid #cfd8cf;
+  color: #55605a;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 10px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.changePlanBtn:hover {
+  border-color: #28c840;
+  color: #16a34a;
+}
+
+.changePlanBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---- signature pad ---- */
+
+.sigPadWrap {
+  position: relative;
+  margin-top: 6px;
+}
+
+.sigPad {
+  width: 100%;
+  display: block;
+  background: #ffffff;
+  border: 1px dashed #9fb3a4;
+  border-radius: 10px;
+  cursor: crosshair;
+}
+
+.sigHint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #b8c4bc;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: none;
+  user-select: none;
+}
+
+.sigClear {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #f2f5f2;
+  border: 1px solid #cfd8cf;
+  color: #55605a;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sigClear:hover {
+  border-color: #28c840;
+  color: #16a34a;
+}
+
+.sigImage {
+  display: block;
+  max-height: 90px;
+  max-width: 100%;
+  margin: 8px 0 4px;
+}
+
 .planCustom {
   margin: 12px 0 0;
   font-size: 13.5px;

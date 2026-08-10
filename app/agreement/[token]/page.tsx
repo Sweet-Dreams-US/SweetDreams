@@ -13,6 +13,7 @@ import { hashToken } from '@/lib/agreements/tokens';
 import { BUSINESS_TZ } from '@/lib/agreements/service';
 import { HOSTING_TIERS, formatPriceCents } from '@/lib/clients/constants';
 import AgreementSignForm from './AgreementSignForm';
+import ChangePlanButton from './ChangePlanButton';
 import styles from './agreement.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -84,12 +85,18 @@ function PlanComparison({
               <ul className={styles.planFeatures}>
                 <li>Free custom build + media session</li>
                 <li>{t.updateHoursPerQuarter} update hours every quarter</li>
-                <li>
+                <li
+                  className={
+                    !t.analyticsIncluded && !(active && analyticsAddon)
+                      ? styles.xItem
+                      : undefined
+                  }
+                >
                   {t.analyticsIncluded
                     ? 'Analytics reports included'
                     : active && analyticsAddon
                       ? 'Analytics reports added (+$10/mo)'
-                      : 'Analytics reports +$10/mo'}
+                      : 'Analytics reports not included (+$10/mo to add)'}
                 </li>
                 <li>Hosting, security, and backups included</li>
               </ul>
@@ -214,11 +221,14 @@ export default async function AgreementPage({
             </p>
 
             {agreement.sites && (
-              <PlanComparison
-                priceCents={agreement.sites.hosting_price_cents}
-                hours={agreement.sites.update_hours_per_quarter}
-                analyticsAddon={agreement.sites.analytics_addon}
-              />
+              <>
+                <PlanComparison
+                  priceCents={agreement.sites.hosting_price_cents}
+                  hours={agreement.sites.update_hours_per_quarter}
+                  analyticsAddon={agreement.sites.analytics_addon}
+                />
+                <ChangePlanButton token={token} />
+              </>
             )}
 
             <div className={styles.agreementBox}>

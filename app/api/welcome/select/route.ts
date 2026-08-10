@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     request.headers.get('cf-connecting-ip') ||
     request.headers.get('x-forwarded-for')?.split(',')[0] ||
     undefined;
-  if (clientIp && !checkRateLimit(clientIp)) {
+  if (clientIp && !checkRateLimit(`select:${clientIp}`, 20)) {
     return NextResponse.json(
       { ok: false, error: 'Too many requests. Please try again shortly.' },
       { status: 429 }

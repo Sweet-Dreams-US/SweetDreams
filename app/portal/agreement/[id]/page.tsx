@@ -17,6 +17,7 @@ interface AgreementRow {
   signed_at: string | null;
   signer_name: string | null;
   signed_content_sha256: string | null;
+  signature_image: string | null;
   clients: { business_name: string } | null;
 }
 
@@ -31,7 +32,7 @@ export default async function PortalAgreementPage({
   const { data } = await supabase
     .from('agreements')
     .select(
-      'id, rendered_text, signed_at, signer_name, signed_content_sha256, clients (business_name)'
+      'id, rendered_text, signed_at, signer_name, signed_content_sha256, signature_image, clients (business_name)'
     )
     .eq('id', id)
     .maybeSingle();
@@ -50,6 +51,14 @@ export default async function PortalAgreementPage({
       </h1>
 
       <div className={styles.signatureRecord}>
+        {agreement.signature_image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className={styles.sigImage}
+            src={agreement.signature_image}
+            alt={`Signature of ${agreement.signer_name ?? 'the signer'}`}
+          />
+        )}
         <p className={styles.recordLine}>
           Signed by {agreement.signer_name}
           {agreement.signed_at

@@ -107,10 +107,10 @@ export default function WelcomeSelect({
         <ul className={styles.planFeatures}>
           <li>Free custom build + media session</li>
           <li>{opts.hours} update hours every quarter</li>
-          <li>
+          <li className={opts.included ? undefined : styles.xItem}>
             {opts.included
               ? 'Analytics reports included'
-              : 'Analytics reports +$10/mo'}
+              : 'Analytics reports not included (+$10/mo to add)'}
           </li>
           <li>Hosting, security, and backups included</li>
         </ul>

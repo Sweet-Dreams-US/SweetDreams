@@ -55,6 +55,7 @@ export interface DetailAgreement {
   signer_name: string | null;
   signer_ip: string | null;
   signed_content_sha256: string | null;
+  signature_image: string | null;
   revoked_at: string | null;
   revoke_reason: string | null;
 }
@@ -428,6 +429,21 @@ function SiteCard({
                       signed by {a.signer_name} on {fmt(a.signed_at)}
                       {a.signer_ip ? ` from ${a.signer_ip}` : ''}
                     </div>
+                    {a.signature_image && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={a.signature_image}
+                        alt={`Signature of ${a.signer_name ?? 'signer'}`}
+                        style={{
+                          display: 'block',
+                          maxHeight: 56,
+                          margin: '6px 0',
+                          background: '#fff',
+                          borderRadius: 6,
+                          padding: '2px 8px',
+                        }}
+                      />
+                    )}
                     {a.signed_content_sha256 && (
                       <div className={styles.fingerprint}>
                         sha256 {a.signed_content_sha256}

@@ -39,7 +39,21 @@ export const dynamic = 'force-dynamic';
 interface SignBody {
   token?: string;
   name?: string;
+  signature_image?: string;
   consents?: { agree_terms?: boolean; esign_consent?: boolean };
+}
+
+const SIGNATURE_PREFIX = 'data:image/png;base64,';
+const SIGNATURE_MAX_LENGTH = 300_000; // ~220KB of PNG, far above a normal stroke drawing
+
+function validSignatureImage(value: unknown): value is string {
+  return (
+    typeof value === 'string' &&
+    value.startsWith(SIGNATURE_PREFIX) &&
+    value.length > SIGNATURE_PREFIX.length + 100 &&
+    value.length <= SIGNATURE_MAX_LENGTH &&
+    /^[A-Za-z0-9+/=]+$/.test(value.slice(SIGNATURE_PREFIX.length))
+  );
 }
 
 interface AgreementWithClient {
@@ -64,7 +78,7 @@ export async function POST(request: NextRequest) {
     request.headers.get('x-forwarded-for')?.split(',')[0] ||
     undefined;
 
-  if (clientIp && !checkRateLimit(clientIp)) {
+  if (clientIp && !checkRateLimit(`sign:${clientIp}`, 10)) {
     return NextResponse.json(
       { ok: false, error: 'Too many requests. Please try again shortly.' },
       { status: 429 }
@@ -86,6 +100,12 @@ export async function POST(request: NextRequest) {
   if (name.length < 2 || name.length > 200) {
     return NextResponse.json(
       { ok: false, error: 'Please type your full legal name.' },
+      { status: 400 }
+    );
+  }
+  if (!validSignatureImage(body.signature_image)) {
+    return NextResponse.json(
+      { ok: false, error: 'Please draw your signature in the box.' },
       { status: 400 }
     );
   }
@@ -180,6 +200,7 @@ export async function POST(request: NextRequest) {
       signer_user_agent: request.headers.get('user-agent')?.slice(0, 500) ?? null,
       consents: consentsRecord,
       signed_content_sha256: signedSha,
+      signature_image: body.signature_image,
     })
     .eq('id', agreement.id)
     .eq('status', 'sent')
