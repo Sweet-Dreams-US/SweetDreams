@@ -176,6 +176,14 @@ export default function MobileNav() {
           >
             Book a Call
           </BookCallLink>
+
+          <Link
+            href="/portal/login"
+            className={styles.navLink}
+            onClick={() => setIsOpen(false)}
+          >
+            Client Login
+          </Link>
         </nav>
 
         <div className={styles.mobileMenuFooter}>

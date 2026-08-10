@@ -40,6 +40,8 @@ export interface DetailSite {
   live_url: string | null;
   go_live_date: string | null;
   admin_notes: string | null;
+  stripe_subscription_id: string | null;
+  billing_starts_on: string | null;
 }
 
 export interface DetailAgreement {
@@ -241,24 +243,30 @@ function SiteCard({
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>(
     'idle'
   );
+  const [saveError, setSaveError] = useState('');
 
   async function save(patch: Record<string, unknown>) {
     setSaveState('saving');
+    setSaveError('');
     try {
       const res = await fetch('/api/admin/sites/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ site_id: site.id, ...patch }),
       });
-      if (res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok !== false) {
         setSaveState('saved');
         setTimeout(() => setSaveState('idle'), 1600);
         router.refresh();
       } else {
         setSaveState('error');
+        setSaveError(data.error || 'save failed');
+        if (patch.status) setStatus(site.status);
       }
     } catch {
       setSaveState('error');
+      setSaveError('network error');
     }
   }
 
@@ -329,6 +337,12 @@ function SiteCard({
                 ? 'analytics +$10/mo'
                 : 'no analytics'}
           </span>
+          {site.billing_starts_on && (
+            <span className={styles.portalYes}>
+              Subscription active · first charge {site.billing_starts_on}, then
+              monthly that day
+            </span>
+          )}
         </div>
         {registryFields.map((f) => (
           <div className={styles.field} key={f.key}>
@@ -364,6 +378,8 @@ function SiteCard({
           />
         </div>
       </div>
+
+      {saveError && <div className={styles.errorBox}>{saveError}</div>}
 
       <div className={styles.submitRow}>
         {(status === 'draft' || status === 'demo_sent') && (

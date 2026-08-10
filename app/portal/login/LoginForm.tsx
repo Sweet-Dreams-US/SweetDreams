@@ -111,6 +111,12 @@ export default function LoginForm() {
       </button>
 
       <p className={styles.authFoot}>
+        Client accounts are created when you sign your website agreement.
+        Not a client yet?{' '}
+        <a href="/free-website">Start with a free website</a> or{' '}
+        <a href="/book">book a call</a>.
+      </p>
+      <p className={styles.authFoot}>
         Music studio client? Your login lives at{' '}
         <a href="https://sweetdreamsmusic.com/login">sweetdreamsmusic.com</a>
       </p>
