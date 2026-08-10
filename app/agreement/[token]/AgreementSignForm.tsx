@@ -15,6 +15,7 @@
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { SIGN_CONSENTS } from '@/lib/agreements/consents';
+import PasswordField from '@/components/PasswordField';
 import SignaturePad from './SignaturePad';
 import styles from './agreement.module.css';
 
@@ -162,12 +163,17 @@ export default function AgreementSignForm({
   if (phase === 'done_existing') {
     return (
       <div className={styles.successBox}>
-        <h2 className={styles.successTitle}>Signed. You are all set.</h2>
+        <h2 className={styles.successTitle}>
+          Signed. You already have an account with us.
+        </h2>
         <p className={styles.successText}>
-          A copy of your agreement is on its way to your inbox. You already
-          have a Sweet Dreams account for {accountEmail || 'your email'}, so
-          log in to the portal with your existing password to follow your
-          website build.
+          A copy of your agreement is on its way to your inbox. The email{' '}
+          <strong>{accountEmail || 'you signed with'}</strong> already has a
+          Sweet Dreams login (for example from Sweet Dreams Music or an
+          earlier project), so we connected your new website to that account
+          instead of creating a second one. Log in with the password you
+          already use. Forgot it? Use Forgot Password on the login page and
+          we will email you a reset link.
         </p>
         <a className={styles.primaryBtn} href="/portal/login">
           Log In to Your Portal
@@ -205,28 +211,28 @@ export default function AgreementSignForm({
   if (phase === 'password') {
     return (
       <div className={styles.formSection}>
-        <h2 className={styles.formTitle}>Signed. Create your portal login.</h2>
+        <h2 className={styles.formTitle}>Signed. Now create your account.</h2>
         <p className={styles.formHint}>
-          Your client portal is where you follow your build, see your live
-          links, and read your agreement anytime. Set a password to finish.
+          Your account is your client portal login for{' '}
+          {accountEmail || 'your email'}. It is where you follow your build,
+          see your live links, and read your agreement anytime. Choose a
+          password to finish.
         </p>
         <label className={styles.label}>
           Password (at least 8 characters)
-          <input
+          <PasswordField
             className={styles.input}
-            type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={setPassword}
             autoComplete="new-password"
           />
         </label>
         <label className={styles.label}>
           Confirm password
-          <input
+          <PasswordField
             className={styles.input}
-            type="password"
             value={confirm}
-            onChange={(e) => setConfirm(e.target.value)}
+            onChange={setConfirm}
             autoComplete="new-password"
           />
         </label>
@@ -236,7 +242,7 @@ export default function AgreementSignForm({
           onClick={submitPassword}
           disabled={busy}
         >
-          {busy ? 'Saving...' : 'Create My Login'}
+          {busy ? 'Creating your account...' : 'Create My Account'}
         </button>
         <button
           className={styles.ghostBtn}

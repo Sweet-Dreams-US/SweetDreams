@@ -6,6 +6,7 @@
  */
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import PasswordField from '@/components/PasswordField';
 import styles from '../portal.module.css';
 
 export default function SetPasswordForm() {
@@ -51,21 +52,19 @@ export default function SetPasswordForm() {
       <form onSubmit={save}>
         <label className={styles.label}>
           New password (at least 8 characters)
-          <input
+          <PasswordField
             className={styles.input}
-            type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={setPassword}
             autoComplete="new-password"
           />
         </label>
         <label className={styles.label}>
           Confirm password
-          <input
+          <PasswordField
             className={styles.input}
-            type="password"
             value={confirm}
-            onChange={(e) => setConfirm(e.target.value)}
+            onChange={setConfirm}
             autoComplete="new-password"
           />
         </label>
