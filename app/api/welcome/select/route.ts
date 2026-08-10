@@ -13,7 +13,10 @@ import { createServiceRoleClient } from '@/utils/supabase/service-role';
 import { checkRateLimit } from '@/lib/spam-filter';
 import { hashToken } from '@/lib/agreements/tokens';
 import { sendAgreementForSite } from '@/lib/agreements/service';
-import { HOSTING_TIERS } from '@/lib/clients/constants';
+import {
+  HOSTING_TIERS,
+  analyticsIncludedAtPrice,
+} from '@/lib/clients/constants';
 import { requestBaseUrl } from '@/lib/base-url';
 
 export const runtime = 'nodejs';
@@ -39,11 +42,12 @@ export async function POST(request: NextRequest) {
   }
 
   const token = typeof body.token === 'string' ? body.token : '';
+  const isCustom = body.tier === 'custom';
   const tier = HOSTING_TIERS.find((t) => t.key === body.tier);
   if (!token || token.length > 200) {
     return NextResponse.json({ ok: false, error: 'invalid link' }, { status: 410 });
   }
-  if (!tier) {
+  if (!tier && !isCustom) {
     return NextResponse.json({ ok: false, error: 'invalid plan' }, { status: 400 });
   }
 
@@ -78,15 +82,32 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Write the chosen plan onto the site. Analytics add on only applies
-  // where analytics is not already included.
+  // Write the chosen plan onto the site. 'custom' keeps the admin's quoted
+  // price and hours untouched. Analytics add on only applies where
+  // analytics is not already included at the selected price.
+  let planUpdate: Record<string, unknown>;
+  if (isCustom) {
+    const { data: siteRow } = await supabase
+      .from('sites')
+      .select('hosting_price_cents')
+      .eq('id', siteId)
+      .single();
+    const priceCents = siteRow?.hosting_price_cents ?? 0;
+    planUpdate = {
+      analytics_addon:
+        !analyticsIncludedAtPrice(priceCents) && body.analytics_addon === true,
+    };
+  } else {
+    planUpdate = {
+      hosting_price_cents: tier!.priceCents,
+      update_hours_per_quarter: tier!.updateHoursPerQuarter,
+      analytics_addon: !tier!.analyticsIncluded && body.analytics_addon === true,
+    };
+  }
+
   const { error: planErr } = await supabase
     .from('sites')
-    .update({
-      hosting_price_cents: tier.priceCents,
-      update_hours_per_quarter: tier.updateHoursPerQuarter,
-      analytics_addon: !tier.analyticsIncluded && body.analytics_addon === true,
-    })
+    .update(planUpdate)
     .eq('id', siteId)
     .in('status', ['draft', 'demo_sent', 'agreement_sent']);
   if (planErr) {

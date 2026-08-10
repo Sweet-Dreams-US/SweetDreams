@@ -357,7 +357,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
                     checked={analyticsAddon}
                     onChange={(e) => setAnalyticsAddon(e.target.checked)}
                   />
-                  Add analytics reports (+$5/mo)
+                  Add analytics reports (+$10/mo)
                 </label>
               </div>
             )}

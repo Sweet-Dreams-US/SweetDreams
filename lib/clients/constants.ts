@@ -67,7 +67,7 @@ export interface HostingTier {
   label: string;
   priceCents: number;
   updateHoursPerQuarter: number;
-  /** Monthly analytics reports: free at $85+, a $5/mo add on below that. */
+  /** Monthly analytics reports: free at $85+, a $10/mo add on below that. */
   analyticsIncluded: boolean;
   /**
    * Database packaging allowed at this tier. A dedicated Supabase project
@@ -106,7 +106,7 @@ export const HOSTING_TIERS: readonly HostingTier[] = [
 
 /** Analytics reports: included at this monthly price and above. */
 export const ANALYTICS_INCLUDED_MIN_CENTS = 8500;
-export const ANALYTICS_ADDON_PRICE_CENTS = 500;
+export const ANALYTICS_ADDON_PRICE_CENTS = 1000;
 
 export function analyticsIncludedAtPrice(hostingPriceCents: number): boolean {
   return hostingPriceCents >= ANALYTICS_INCLUDED_MIN_CENTS;

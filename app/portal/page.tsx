@@ -11,6 +11,7 @@ import {
   SITE_STATUS_PORTAL_COPY,
   type SiteStatus,
 } from '@/lib/clients/constants';
+import PortalBillingCard from './PortalBillingCard';
 import styles from './portal.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -34,20 +35,26 @@ interface PortalClient {
   id: string;
   business_name: string;
   contact_name: string;
+  payment_method_saved_at: string | null;
   sites: PortalSite[];
   agreements: PortalAgreement[];
 }
 
-export default async function PortalPage() {
+export default async function PortalPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ billing?: string }>;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const params = await searchParams;
 
   const { data } = await supabase
     .from('clients')
     .select(
-      'id, business_name, contact_name, sites (id, name, status, live_url, domain, go_live_date), agreements (id, status, signed_at)'
+      'id, business_name, contact_name, payment_method_saved_at, sites (id, name, status, live_url, domain, go_live_date), agreements (id, status, signed_at)'
     )
     .eq('auth_user_id', user?.id ?? '')
     .is('archived_at', null)
@@ -69,11 +76,36 @@ export default async function PortalPage() {
     );
   }
 
+  const hasSigned = clients.some((c) =>
+    c.agreements.some((a) => a.status === 'signed')
+  );
+  const paymentSaved = clients.some((c) => c.payment_method_saved_at);
+
   return (
     <div>
       <h1 className={styles.pageTitle}>
         Welcome back, {clients[0].contact_name.split(' ')[0]}
       </h1>
+
+      {params.billing === 'saved' && (
+        <p className={styles.billingSaved}>
+          Payment method saved. You will not be charged until your website is
+          live.
+        </p>
+      )}
+      {params.billing === 'error' && (
+        <p className={styles.error}>
+          Something went wrong saving your payment method. Please try again or
+          email cole@sweetdreams.us.
+        </p>
+      )}
+
+      {hasSigned && !paymentSaved && <PortalBillingCard />}
+      {hasSigned && paymentSaved && params.billing !== 'saved' && (
+        <p className={styles.billingSaved}>
+          Payment method on file. No charges until your website is live.
+        </p>
+      )}
 
       {clients.map((client) => (
         <section key={client.id} className={styles.clientBlock}>

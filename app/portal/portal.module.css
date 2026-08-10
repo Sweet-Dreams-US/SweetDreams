@@ -81,6 +81,48 @@
   margin: 0 0 20px;
 }
 
+/* ---- billing ---- */
+
+.billingCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 2px solid #28c840;
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 22px rgba(40, 200, 64, 0.12);
+}
+
+.billingTitle {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0e0e0e;
+  margin: 0 0 6px;
+}
+
+.billingText {
+  color: #55605a;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 56ch;
+}
+
+.billingSaved {
+  color: #157a2b;
+  font-size: 14px;
+  font-weight: 600;
+  background: #f0fdf2;
+  border: 1px solid #bbe7c4;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 0 0 20px;
+}
+
 /* ---- dashboard ---- */
 
 .clientBlock {

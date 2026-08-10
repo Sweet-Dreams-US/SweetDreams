@@ -1,13 +1,19 @@
 'use client';
 
 /**
- * Interactive plan picker on the welcome page. The client selects a tier
- * (plus the analytics add on when it is not included), and Continue creates
- * their agreement with the chosen terms and takes them straight to signing.
+ * Interactive plan picker on the welcome page.
+ *
+ * If the admin quoted a price that matches a standard tier, that tier is
+ * preselected. If the admin set a CUSTOM quote, it appears as its own
+ * "Your Quote" card next to the standard tiers so the client sees the
+ * comparison transparently and can still switch. Continue creates the
+ * agreement with the chosen terms and goes straight to signing.
  */
 import { useState } from 'react';
 import {
+  ANALYTICS_ADDON_PRICE_CENTS,
   HOSTING_TIERS,
+  analyticsIncludedAtPrice,
   formatPriceCents,
   type HostingTier,
 } from '@/lib/clients/constants';
@@ -16,25 +22,38 @@ import styles from './welcome.module.css';
 interface Props {
   token: string;
   currentPriceCents: number;
+  currentHours: number | null;
   currentAnalyticsAddon: boolean;
 }
+
+type TierChoice = HostingTier['key'] | 'custom';
 
 export default function WelcomeSelect({
   token,
   currentPriceCents,
+  currentHours,
   currentAnalyticsAddon,
 }: Props) {
-  const preselected =
-    HOSTING_TIERS.find((t) => t.priceCents === currentPriceCents)?.key ??
-    'growth';
-  const [tierKey, setTierKey] = useState<HostingTier['key']>(preselected);
+  const matchedTier = HOSTING_TIERS.find(
+    (t) => t.priceCents === currentPriceCents
+  );
+  const hasCustomQuote = !matchedTier && currentPriceCents > 0;
+
+  const [tierKey, setTierKey] = useState<TierChoice>(
+    matchedTier?.key ?? (hasCustomQuote ? 'custom' : 'growth')
+  );
   const [analyticsAddon, setAnalyticsAddon] = useState(currentAnalyticsAddon);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
-  const tier = HOSTING_TIERS.find((t) => t.key === tierKey)!;
+  const selectedPriceCents =
+    tierKey === 'custom'
+      ? currentPriceCents
+      : HOSTING_TIERS.find((t) => t.key === tierKey)!.priceCents;
+  const analyticsIncluded = analyticsIncludedAtPrice(selectedPriceCents);
   const monthlyTotal =
-    tier.priceCents + (!tier.analyticsIncluded && analyticsAddon ? 500 : 0);
+    selectedPriceCents +
+    (!analyticsIncluded && analyticsAddon ? ANALYTICS_ADDON_PRICE_CENTS : 0);
 
   async function continueToAgreement() {
     setError('');
@@ -46,7 +65,7 @@ export default function WelcomeSelect({
         body: JSON.stringify({
           token,
           tier: tierKey,
-          analytics_addon: !tier.analyticsIncluded && analyticsAddon,
+          analytics_addon: !analyticsIncluded && analyticsAddon,
         }),
       });
       const data = await res.json();
@@ -62,6 +81,43 @@ export default function WelcomeSelect({
     }
   }
 
+  function planCard(opts: {
+    key: TierChoice;
+    priceCents: number;
+    label: string;
+    hours: number;
+    included: boolean;
+  }) {
+    const active = opts.key === tierKey;
+    return (
+      <button
+        key={opts.key}
+        type="button"
+        className={
+          active ? `${styles.planCard} ${styles.planCardActive}` : styles.planCard
+        }
+        onClick={() => setTierKey(opts.key)}
+      >
+        {active && <span className={styles.planBadge}>Selected</span>}
+        <span className={styles.planPrice}>
+          {formatPriceCents(opts.priceCents)}
+          <span className={styles.planPer}>/mo</span>
+        </span>
+        <span className={styles.planName}>{opts.label}</span>
+        <ul className={styles.planFeatures}>
+          <li>Free custom build + media session</li>
+          <li>{opts.hours} update hours every quarter</li>
+          <li>
+            {opts.included
+              ? 'Analytics reports included'
+              : 'Analytics reports +$10/mo'}
+          </li>
+          <li>Hosting, security, and backups included</li>
+        </ul>
+      </button>
+    );
+  }
+
   return (
     <div className={styles.selectSection}>
       <p className={styles.selectKicker}>Pick your hosting plan</p>
@@ -71,45 +127,26 @@ export default function WelcomeSelect({
       </p>
 
       <div className={styles.planGrid}>
-        {HOSTING_TIERS.map((t) => {
-          const active = t.key === tierKey;
-          return (
-            <button
-              key={t.key}
-              type="button"
-              className={
-                active
-                  ? `${styles.planCard} ${styles.planCardActive}`
-                  : styles.planCard
-              }
-              onClick={() => setTierKey(t.key)}
-            >
-              {active && <span className={styles.planBadge}>Selected</span>}
-              <span className={styles.planPrice}>
-                {formatPriceCents(t.priceCents)}
-                <span className={styles.planPer}>/mo</span>
-              </span>
-              <span className={styles.planName}>{t.label}</span>
-              <ul className={styles.planFeatures}>
-                <li>Free custom build + media session</li>
-                <li>{t.updateHoursPerQuarter} update hours every quarter</li>
-                <li>
-                  {t.analyticsIncluded
-                    ? 'Analytics reports included'
-                    : 'Analytics reports +$5/mo'}
-                </li>
-                <li>
-                  {t.allowedDbModes.includes('dedicated')
-                    ? 'Private database available'
-                    : 'Secure shared platform'}
-                </li>
-              </ul>
-            </button>
-          );
-        })}
+        {hasCustomQuote &&
+          planCard({
+            key: 'custom',
+            priceCents: currentPriceCents,
+            label: 'Your Quote',
+            hours: currentHours ?? 0,
+            included: analyticsIncludedAtPrice(currentPriceCents),
+          })}
+        {HOSTING_TIERS.map((t) =>
+          planCard({
+            key: t.key,
+            priceCents: t.priceCents,
+            label: t.label,
+            hours: t.updateHoursPerQuarter,
+            included: t.analyticsIncluded,
+          })
+        )}
       </div>
 
-      {!tier.analyticsIncluded && (
+      {!analyticsIncluded && (
         <label className={styles.addonRow}>
           <input
             type="checkbox"
@@ -117,8 +154,8 @@ export default function WelcomeSelect({
             onChange={(e) => setAnalyticsAddon(e.target.checked)}
           />
           <span>
-            Add monthly analytics reports for $5/mo (see how many people visit
-            your website and what they do)
+            Add monthly analytics reports for $10/mo (see how many people
+            visit your website and what they do)
           </span>
         </label>
       )}
@@ -139,8 +176,8 @@ export default function WelcomeSelect({
       </button>
       <p className={styles.finePrint}>
         Next you will see your full agreement with these exact terms. Nothing
-        is final until you sign it, and you are never charged until your
-        website goes live.
+        is final until you sign it. After signing you will add a payment
+        method, and it is not charged until your website is live.
       </p>
     </div>
   );

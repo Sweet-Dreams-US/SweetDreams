@@ -326,7 +326,7 @@ function SiteCard({
             {analyticsIncludedAtPrice(site.hosting_price_cents)
               ? 'analytics included'
               : site.analytics_addon
-                ? 'analytics +$5/mo'
+                ? 'analytics +$10/mo'
                 : 'no analytics'}
           </span>
         </div>

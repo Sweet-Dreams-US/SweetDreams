@@ -27,6 +27,8 @@ interface ClientDetailRow {
   auth_user_id: string | null;
   source_lead_id: string | null;
   admin_notes: string | null;
+  stripe_customer_id: string | null;
+  payment_method_saved_at: string | null;
   sites: DetailSite[];
   agreements: DetailAgreement[];
 }
@@ -46,7 +48,7 @@ export default async function ClientDetailPage({
   const { data } = await supabase
     .from('clients')
     .select(
-      `id, created_at, business_name, contact_name, email, phone, auth_user_id, source_lead_id, admin_notes,
+      `id, created_at, business_name, contact_name, email, phone, auth_user_id, source_lead_id, admin_notes, stripe_customer_id, payment_method_saved_at,
        sites (id, name, domain, demo_url, drive_url, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, db_mode, db_project_ref, analytics_addon, github_repo, vercel_project_id, live_url, go_live_date, admin_notes),
        agreements (id, site_id, status, template_version, created_at, first_viewed_at, signed_at, signer_name, signer_ip, signed_content_sha256, revoked_at, revoke_reason)`
     )
@@ -107,6 +109,20 @@ export default async function ClientDetailPage({
               ) : (
                 <span className={styles.portalNo}>
                   not yet (created when they sign)
+                </span>
+              )}
+            </span>
+          </div>
+          <div className={styles.kv}>
+            <span className={styles.kvLabel}>Payment method</span>
+            <span className={styles.kvValue}>
+              {client.payment_method_saved_at ? (
+                <span className={styles.portalYes}>
+                  on file ✓ (no charges until live)
+                </span>
+              ) : (
+                <span className={styles.portalNo}>
+                  not yet (saved after signing, from the portal)
                 </span>
               )}
             </span>

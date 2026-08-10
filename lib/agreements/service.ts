@@ -140,8 +140,8 @@ export async function sendAgreementForSite(
       analytics_terms: analyticsIncludedAtPrice(site.hosting_price_cents)
         ? 'Monthly analytics reports on your website are included in your plan at no extra cost.'
         : site.analytics_addon
-          ? 'Monthly analytics reports on your website are included as a $5 per month add on you selected, billed with your hosting.'
-          : 'Monthly analytics reports on your website are available anytime as a $5 per month add on.',
+          ? 'Monthly analytics reports on your website are included as a $10 per month add on you selected, billed with your hosting.'
+          : 'Monthly analytics reports on your website are available anytime as a $10 per month add on.',
     };
     const { text, sha256 } = renderAgreement(LATEST_AGREEMENT_VERSION, vars);
 

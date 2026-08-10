@@ -33,6 +33,7 @@ interface WelcomeTokenRow {
     demo_url: string | null;
     drive_url: string | null;
     hosting_price_cents: number;
+    update_hours_per_quarter: number | null;
     analytics_addon: boolean;
     clients: {
       business_name: string;
@@ -54,7 +55,7 @@ export default async function WelcomePage({
   const { data } = await supabase
     .from('site_tokens')
     .select(
-      'id, expires_at, revoked_at, sites (id, name, status, demo_url, drive_url, hosting_price_cents, analytics_addon, clients (business_name, contact_name))'
+      'id, expires_at, revoked_at, sites (id, name, status, demo_url, drive_url, hosting_price_cents, update_hours_per_quarter, analytics_addon, clients (business_name, contact_name))'
     )
     .eq('token_hash', hashToken(token))
     .eq('purpose', 'welcome')
@@ -169,6 +170,7 @@ export default async function WelcomePage({
             <WelcomeSelect
               token={token}
               currentPriceCents={site.hosting_price_cents}
+              currentHours={site.update_hours_per_quarter}
               currentAnalyticsAddon={site.analytics_addon}
             />
           </>

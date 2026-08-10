@@ -66,7 +66,7 @@ const V1: AgreementTemplate = {
     {
       heading: 'When Billing Starts',
       body:
-        'You are not charged any hosting until we both confirm your website is ready and it goes live. Once live, hosting is billed monthly on the {{billing_anchor_day}} of each month, starting with the first {{billing_anchor_day}} on or after your live date.',
+        'After signing, you will add a payment method (card or bank). It is saved, not charged. You are not charged any hosting until we both confirm your website is ready and Sweet Dreams marks it live. Once live, hosting is billed monthly on the 1st or the 15th of the month, starting with whichever comes first after your live date, and that stays your billing day.',
     },
     {
       heading: 'Who Owns What',

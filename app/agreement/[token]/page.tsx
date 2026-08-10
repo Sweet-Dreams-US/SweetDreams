@@ -88,14 +88,10 @@ function PlanComparison({
                   {t.analyticsIncluded
                     ? 'Analytics reports included'
                     : active && analyticsAddon
-                      ? 'Analytics reports added (+$5/mo)'
-                      : 'Analytics reports +$5/mo'}
+                      ? 'Analytics reports added (+$10/mo)'
+                      : 'Analytics reports +$10/mo'}
                 </li>
-                <li>
-                  {t.allowedDbModes.includes('dedicated')
-                    ? 'Private database available'
-                    : 'Secure shared platform'}
-                </li>
+                <li>Hosting, security, and backups included</li>
               </ul>
             </div>
           );
@@ -105,7 +101,7 @@ function PlanComparison({
         <p className={styles.planCustom}>
           Your plan is custom: {formatPriceCents(priceCents)}/mo with{' '}
           {hours ?? 0} update hours every quarter
-          {analyticsAddon ? ' plus analytics reports (+$5/mo)' : ''}. The
+          {analyticsAddon ? ' plus analytics reports (+$10/mo)' : ''}. The
           agreement below has your exact terms.
         </p>
       )}
