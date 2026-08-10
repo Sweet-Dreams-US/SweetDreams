@@ -303,7 +303,6 @@ export async function POST(request: NextRequest) {
       anchorDay: vars.billing_anchor_day,
       signerName: name,
       signedAtDisplay,
-      signerIp: clientIp ?? 'unknown',
       adminUrl: `${requestBaseUrl(request)}/admin/clients/${client.id}`,
       accountNote: hasExistingAccount
         ? 'linked to their existing account'

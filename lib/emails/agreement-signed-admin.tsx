@@ -22,7 +22,6 @@ interface AgreementSignedAdminProps {
   anchorDay: string;
   signerName: string;
   signedAtDisplay: string;
-  signerIp: string;
   adminUrl: string;
   accountNote: string;
 }
@@ -37,7 +36,6 @@ export const AgreementSignedAdmin = ({
   anchorDay,
   signerName,
   signedAtDisplay,
-  signerIp,
   adminUrl,
   accountNote,
 }: AgreementSignedAdminProps) => (
@@ -59,7 +57,7 @@ export const AgreementSignedAdmin = ({
           <Text style={rowTitle}>Signature record</Text>
           <Text style={row}>Signed by: {signerName}</Text>
           <Text style={row}>Signed on: {signedAtDisplay}</Text>
-          <Text style={row}>IP: {signerIp}</Text>
+          <Text style={row}>Full record (with drawn signature) is in Admin.</Text>
         </Section>
 
         <Section style={buttonWrap}>
