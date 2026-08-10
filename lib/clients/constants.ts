@@ -124,6 +124,25 @@ export const BUYOUT_SCHEDULE = [
 
 export const CANCEL_NOTICE_DAYS = 60;
 
+/** Payout model: the builder of a site receives 65% of its monthly revenue. */
+export const BUILDERS = ['jay', 'cole'] as const;
+export type Builder = (typeof BUILDERS)[number];
+export const BUILDER_LABELS: Record<Builder, string> = { jay: 'Jay', cole: 'Cole' };
+export const BUILDER_SHARE = 0.65; // business keeps the remaining 35%
+
+export const EXPENSE_CATEGORIES = [
+  'vercel',
+  'supabase',
+  'domain',
+  'media',
+  'labor',
+  'api',
+  'software',
+  'writeoff',
+  'other',
+] as const;
+export type ExpenseCategory = (typeof EXPENSE_CATEGORIES)[number];
+
 export function formatPriceCents(cents: number): string {
   const dollars = cents / 100;
   return (

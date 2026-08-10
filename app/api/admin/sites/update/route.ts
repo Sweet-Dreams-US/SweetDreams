@@ -41,6 +41,7 @@ interface UpdateBody {
   build_price_cents?: number;
   billing_anchor_day?: number;
   analytics_addon?: boolean;
+  builder?: string | null;
 }
 
 interface GoLiveSite {
@@ -153,6 +154,12 @@ export async function POST(request: NextRequest) {
   }
   if (body.analytics_addon !== undefined) {
     update.analytics_addon = body.analytics_addon === true;
+  }
+  if (body.builder !== undefined) {
+    if (body.builder !== null && body.builder !== 'jay' && body.builder !== 'cole') {
+      return NextResponse.json({ ok: false, error: 'builder must be jay or cole' }, { status: 400 });
+    }
+    update.builder = body.builder;
   }
 
   if (Object.keys(update).length === 0) {

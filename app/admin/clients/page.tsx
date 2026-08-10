@@ -129,6 +129,7 @@ export default async function ClientsPage({
     <div className={styles.page}>
       <nav className={styles.topNav}>
         <span className={`${styles.navLink} ${styles.navLinkActive}`}>Clients</span>
+        <Link href="/admin/accounting" className={styles.navLink}>Accounting</Link>
         <Link href="/admin/inquiries" className={styles.navLink}>Free Website Inquiries</Link>
         <Link href="/admin/leads" className={styles.navLink}>Leadpipe Visitors</Link>
         <a href="/api/admin/logout" className={styles.navLink}>Sign out</a>

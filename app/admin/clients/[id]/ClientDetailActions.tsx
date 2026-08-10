@@ -41,6 +41,7 @@ export interface DetailSite {
   admin_notes: string | null;
   stripe_subscription_id: string | null;
   billing_starts_on: string | null;
+  builder: string | null;
 }
 
 export interface DetailAgreement {
@@ -247,6 +248,7 @@ function SiteCard({
   });
   const [anchorDay, setAnchorDay] = useState(site.billing_anchor_day);
   const [analyticsAddon, setAnalyticsAddon] = useState(site.analytics_addon);
+  const [builder, setBuilder] = useState(site.builder ?? '');
 
   function savePlanNumber(key: 'price' | 'hours' | 'build') {
     const raw = parseFloat(plan[key] || '0');
@@ -380,6 +382,21 @@ function SiteCard({
             onChange={(e) => setPlan({ ...plan, build: e.target.value })}
             onBlur={() => savePlanNumber('build')}
           />
+        </div>
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>Builder (gets 65%)</label>
+          <select
+            className={styles.select}
+            value={builder}
+            onChange={(e) => {
+              setBuilder(e.target.value);
+              save({ builder: e.target.value || null });
+            }}
+          >
+            <option value="">Not assigned</option>
+            <option value="jay">Jay</option>
+            <option value="cole">Cole</option>
+          </select>
         </div>
         <div className={styles.field}>
           <label className={styles.fieldLabel}>Billing day</label>
