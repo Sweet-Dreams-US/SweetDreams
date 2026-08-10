@@ -96,7 +96,7 @@ const V1: AgreementTemplate = {
     {
       heading: 'Electronic Signature',
       body:
-        'You agree to do business electronically and agree that typing your name on the signing page counts as your legal signature on this Agreement, with the same force as a handwritten signature. A copy of this Agreement is emailed to you and stays available in your client portal.',
+        'You agree to do business electronically. Typing your name and drawing your signature on the signing page together count as your legal signature on this Agreement, with the same force as a handwritten signature. A copy of this Agreement is emailed to you and stays available in your client portal.',
     },
   ],
 };

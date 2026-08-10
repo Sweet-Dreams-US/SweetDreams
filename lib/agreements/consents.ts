@@ -14,7 +14,7 @@ export const SIGN_CONSENTS = [
   {
     key: 'esign_consent',
     label:
-      'I agree to do business electronically and that typing my name below counts as my legal electronic signature',
+      'I agree to do business electronically and that typing my name and drawing my signature below counts as my legal electronic signature',
   },
 ] as const;
 

@@ -148,24 +148,25 @@
 }
 
 .changePlanRow {
-  margin: 10px 0 0;
+  margin: 14px 0 26px;
 }
 
 .changePlanBtn {
-  background: transparent;
-  border: 1px solid #cfd8cf;
-  color: #55605a;
-  font-weight: 700;
-  font-size: 13.5px;
-  padding: 10px 18px;
-  border-radius: 9px;
+  display: inline-block;
+  background: #ffffff;
+  border: 2px solid #28c840;
+  color: #16a34a;
+  font-weight: 800;
+  font-size: 14.5px;
+  padding: 12px 24px;
+  border-radius: 10px;
   cursor: pointer;
   font-family: inherit;
+  transition: background 0.15s ease;
 }
 
 .changePlanBtn:hover {
-  border-color: #28c840;
-  color: #16a34a;
+  background: #f0fdf2;
 }
 
 .changePlanBtn:disabled {
@@ -183,10 +184,15 @@
 .sigPad {
   width: 100%;
   display: block;
-  background: #ffffff;
-  border: 1px dashed #9fb3a4;
+  background: #fbfdfb;
+  border: 2px solid #38423c;
   border-radius: 10px;
   cursor: crosshair;
+  box-sizing: border-box;
+}
+
+.sigPad:hover {
+  border-color: #28c840;
 }
 
 .sigHint {

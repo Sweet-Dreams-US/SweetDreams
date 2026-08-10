@@ -3,6 +3,9 @@
 /**
  * Draw-to-sign pad. Pointer events cover mouse, touch, and stylus alike;
  * touch-action none stops the page from scrolling mid stroke on mobile.
+ * The canvas continuously tracks its container width (ResizeObserver) so
+ * it always spans the full section — including layouts that settle after
+ * mount and window resizes — and existing ink is preserved on resize.
  * Emits a transparent PNG data URL after every stroke (null when cleared).
  */
 import { useEffect, useRef, useState } from 'react';
@@ -17,23 +20,45 @@ export default function SignaturePad({
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const drawing = useRef(false);
+  const lastInk = useRef<string | null>(null);
   const [hasInk, setHasInk] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    const width = canvas.offsetWidth;
-    canvas.width = width * dpr;
-    canvas.height = PAD_HEIGHT * dpr;
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      ctx.scale(dpr, dpr);
+
+    const applyPenSettings = (ctx: CanvasRenderingContext2D, dpr: number) => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.lineWidth = 2.5;
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
       ctx.strokeStyle = '#0e0e0e';
-    }
+    };
+
+    const fit = () => {
+      const width = canvas.offsetWidth;
+      if (!width) return;
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width === Math.round(width * dpr)) return;
+
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(PAD_HEIGHT * dpr);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      applyPenSettings(ctx, dpr);
+
+      // Restore any existing ink at the new size.
+      if (lastInk.current) {
+        const img = new Image();
+        img.onload = () => ctx.drawImage(img, 0, 0, width, PAD_HEIGHT);
+        img.src = lastInk.current;
+      }
+    };
+
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(canvas);
+    return () => observer.disconnect();
   }, []);
 
   function pos(e: React.PointerEvent<HTMLCanvasElement>) {
@@ -68,15 +93,23 @@ export default function SignaturePad({
     if (!drawing.current) return;
     drawing.current = false;
     const canvas = canvasRef.current;
-    if (canvas) onChange(canvas.toDataURL('image/png'));
+    if (canvas) {
+      const dataUrl = canvas.toDataURL('image/png');
+      lastInk.current = dataUrl;
+      onChange(dataUrl);
+    }
   }
 
   function clear() {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (canvas && ctx) {
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
     }
+    lastInk.current = null;
     setHasInk(false);
     onChange(null);
   }
