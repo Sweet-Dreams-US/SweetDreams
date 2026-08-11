@@ -282,10 +282,8 @@ export async function POST(request: NextRequest) {
     react: AgreementSignedClient({
       contactName: client.contact_name,
       businessName: client.business_name,
-      agreementText: agreement.rendered_text,
       signerName: name,
       signedAtDisplay,
-      sha256: signedSha,
       portalUrl: `${requestBaseUrl(request)}/portal`,
     }),
   });
