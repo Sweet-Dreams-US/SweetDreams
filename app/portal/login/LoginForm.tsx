@@ -64,19 +64,21 @@ export default function LoginForm() {
     <div className={styles.authCard}>
       <h1 className={styles.authTitle}>Log in to your portal</h1>
       <p className={styles.authHint}>
-        Follow your website build, see your live links, and read your signed
-        agreement.
+        Follow your website build, request changes, see your live links, and
+        read your signed agreement. Log in with your email address, not a
+        username.
       </p>
 
       <form onSubmit={logIn}>
         <label className={styles.label}>
-          Email
+          Email address (this is your login)
           <input
             className={styles.input}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
+            placeholder="you@yourbusiness.com"
           />
         </label>
         <label className={styles.label}>

@@ -126,7 +126,7 @@ export default function AgreementSignForm({
           password,
         });
         if (!loginErr) {
-          window.location.href = '/portal';
+          window.location.href = '/portal?welcome=1';
           return;
         }
       }
@@ -213,10 +213,11 @@ export default function AgreementSignForm({
       <div className={styles.formSection}>
         <h2 className={styles.formTitle}>Signed. Now create your account.</h2>
         <p className={styles.formHint}>
-          Your account is your client portal login for{' '}
-          {accountEmail || 'your email'}. It is where you follow your build,
-          see your live links, and read your agreement anytime. Choose a
-          password to finish.
+          You log in with your email address,{' '}
+          <strong>{accountEmail || 'the address you signed with'}</strong>.
+          There is no username to remember. Your portal is where you follow
+          your build, request changes, see your live links, and read your
+          agreement anytime. Choose a password to finish.
         </p>
         <label className={styles.label}>
           Password (at least 8 characters)

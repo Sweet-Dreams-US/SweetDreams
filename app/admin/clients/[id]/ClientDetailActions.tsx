@@ -18,6 +18,7 @@ import {
   type DbMode,
   type SiteStatus,
 } from '@/lib/clients/constants';
+import SiteRequests, { type AdminRequest, type AdminUpdate } from './SiteRequests';
 import styles from '../clients.module.css';
 
 export interface DetailSite {
@@ -25,6 +26,7 @@ export interface DetailSite {
   name: string;
   domain: string | null;
   demo_url: string | null;
+  preview_url: string | null;
   drive_url: string | null;
   status: string;
   hosting_price_cents: number;
@@ -72,11 +74,15 @@ export default function ClientDetailActions({
   hasPortalAccount,
   sites,
   agreements,
+  requests = [],
+  updates = [],
 }: {
   clientId: string;
   hasPortalAccount: boolean;
   sites: DetailSite[];
   agreements: DetailAgreement[];
+  requests?: AdminRequest[];
+  updates?: AdminUpdate[];
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -185,6 +191,8 @@ export default function ClientDetailActions({
           key={site.id}
           site={site}
           agreements={agreements.filter((a) => a.site_id === site.id)}
+          requests={requests.filter((r) => r.site_id === site.id)}
+          updates={updates.filter((u) => u.site_id === site.id)}
           busy={busy}
           onSend={() => sendAgreement(site.id)}
           onSendWelcome={() => sendWelcome(site.id)}
@@ -217,6 +225,8 @@ export default function ClientDetailActions({
 function SiteCard({
   site,
   agreements,
+  requests,
+  updates,
   busy,
   onSend,
   onSendWelcome,
@@ -224,6 +234,8 @@ function SiteCard({
 }: {
   site: DetailSite;
   agreements: DetailAgreement[];
+  requests: AdminRequest[];
+  updates: AdminUpdate[];
   busy: boolean;
   onSend: () => void;
   onSendWelcome: () => void;
@@ -233,6 +245,7 @@ function SiteCard({
   const [status, setStatus] = useState(site.status);
   const [fields, setFields] = useState({
     demo_url: site.demo_url ?? '',
+    preview_url: site.preview_url ?? '',
     drive_url: site.drive_url ?? '',
     live_url: site.live_url ?? '',
     domain: site.domain ?? '',
@@ -297,6 +310,7 @@ function SiteCard({
     type?: string;
   }> = [
     { key: 'demo_url', label: 'Demo website URL', placeholder: 'https://...' },
+    { key: 'preview_url', label: 'Preview URL (always visible to client)', placeholder: 'https://...vercel.app' },
     { key: 'drive_url', label: 'Google Drive (brand files) URL', placeholder: 'https://drive.google.com/...' },
     { key: 'live_url', label: 'Live URL', placeholder: 'https://...' },
     { key: 'domain', label: 'Domain', placeholder: 'example.com' },
@@ -576,6 +590,8 @@ function SiteCard({
           </ul>
         </div>
       )}
+
+      <SiteRequests siteId={site.id} requests={requests} updates={updates} />
     </div>
   );
 }

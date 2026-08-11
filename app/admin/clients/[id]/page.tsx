@@ -50,7 +50,7 @@ export default async function ClientDetailPage({
     .from('clients')
     .select(
       `id, created_at, business_name, contact_name, email, phone, auth_user_id, source_lead_id, admin_notes, stripe_customer_id, payment_method_saved_at,
-       sites (id, name, domain, demo_url, drive_url, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, db_mode, db_project_ref, analytics_addon, github_repo, vercel_project_id, live_url, go_live_date, admin_notes, stripe_subscription_id, billing_starts_on, builder),
+       sites (id, name, domain, demo_url, preview_url, drive_url, status, hosting_price_cents, update_hours_per_quarter, build_price_cents, billing_anchor_day, db_mode, db_project_ref, analytics_addon, github_repo, vercel_project_id, live_url, go_live_date, admin_notes, stripe_subscription_id, billing_starts_on, builder),
        agreements (id, site_id, status, template_version, created_at, first_viewed_at, signed_at, signer_name, signer_ip, signed_content_sha256, signature_image, revoked_at, revoke_reason)`
     )
     .eq('id', id)
@@ -63,6 +63,20 @@ export default async function ClientDetailPage({
   const agreements = (client.agreements ?? []).sort(
     (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
+
+  const siteIds = sites.map((s) => s.id);
+  const [{ data: requestsData }, { data: updatesData }] = await Promise.all([
+    supabase
+      .from('update_requests')
+      .select('id, site_id, created_at, title, details, status, preview_url, admin_notes')
+      .in('site_id', siteIds.length ? siteIds : ['00000000-0000-0000-0000-000000000000'])
+      .order('created_at', { ascending: false }),
+    supabase
+      .from('site_updates')
+      .select('id, site_id, created_at, title, summary, hours_used')
+      .in('site_id', siteIds.length ? siteIds : ['00000000-0000-0000-0000-000000000000'])
+      .order('created_at', { ascending: false }),
+  ]);
 
   return (
     <div className={styles.page}>
@@ -105,6 +119,8 @@ export default async function ClientDetailPage({
         hasPortalAccount={Boolean(client.auth_user_id)}
         sites={sites}
         agreements={agreements}
+        requests={(requestsData ?? []) as never}
+        updates={(updatesData ?? []) as never}
       />
 
       <footer className={styles.footer}>

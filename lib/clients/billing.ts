@@ -53,6 +53,27 @@ export function nextBillingAnchor(now: Date = new Date()): BillingAnchor {
   return { isoDate, anchorDay, trialEndUnix };
 }
 
+/**
+ * The next date the client will actually be charged.
+ * Before go live there is no charge date at all.
+ */
+export function upcomingChargeDate(
+  anchorDay: number,
+  billingStartsOn: string | null,
+  now: Date = new Date()
+): Date | null {
+  if (billingStartsOn) {
+    const start = new Date(`${billingStartsOn}T12:00:00`);
+    if (start > now) return start;
+  }
+  const day = anchorDay === 15 ? 15 : 1;
+  const y = now.getFullYear();
+  const m = now.getMonth();
+  const thisMonth = new Date(y, m, day, 12, 0, 0);
+  if (thisMonth > now) return thisMonth;
+  return new Date(y, m + 1, day, 12, 0, 0);
+}
+
 /** Hosting + selected addons, in cents. */
 export function monthlyTotalCents(site: {
   hosting_price_cents: number;
