@@ -31,11 +31,6 @@ const CLIENT_LOGOS: ClientLogo[] = [
     href: "https://primedealerfund.com",
   },
   {
-    name: "Brookfield Zoo",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png",
-    href: "https://www.brookfieldzoo.org",
-  },
-  {
     name: "Crooked Lake Music Festival",
     url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CrookedLakeLogo.png",
     href: "https://crookedlakesandbarmusicfest.com",

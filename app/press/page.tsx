@@ -109,8 +109,8 @@ export default function PressPage() {
             Sweet Dreams Solutions is a software studio and media production company based in Fort Wayne,
             Indiana, founded in 2020. The company hand-codes custom websites and produces cinematic brand
             films, commercials, social content, and aerial cinema-drone work. Its clients include the City
-            of Fort Wayne, Nissan, the Indianapolis Children&apos;s Museum, Brookfield Zoo, and Habitat
-            for Humanity.
+            of Fort Wayne, Nissan, the Indianapolis Children&apos;s Museum, Kissel Entertainment, and
+            Habitat for Humanity.
           </p>
         </div>
 

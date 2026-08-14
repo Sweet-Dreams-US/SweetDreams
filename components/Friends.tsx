@@ -2,10 +2,6 @@ import styles from "./Friends.module.css";
 
 const CLIENT_LOGOS = [
   {
-    name: "Brookfield Zoo",
-    url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png"
-  },
-  {
     name: "Crooked Lake Music Festival",
     url: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/CrookedLakeLogo.png"
   },

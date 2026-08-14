@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'snobiz-snowcone-truck-commercial',
     'vegas-dream-travel-content',
     'nissan-warsaw-dealership',
-    'brookfield-zoo-ferris-wheel',
+    'rideworx-ferris-wheel',
     'fort-wayne-hyperlapse-showcase',
     'dear-lover-music-video',
     'heaven-in-fort-wayne',

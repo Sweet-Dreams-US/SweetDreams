@@ -111,7 +111,7 @@ export default function VideoProductionFortWaynePage() {
           WHY FORT WAYNE BUSINESSES CHOOSE SWEET DREAMS
         </h2>
         <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 16, lineHeight: 1.8, color: "#333", marginBottom: 16 }}>
-          We are not a traditional agency. Sweet Dreams operates on a performance-driven model where your success is our success. Our clients include Nissan, Indianapolis Children&apos;s Museum, Brookfield Zoo, Kissel Entertainment, Aegis Dental, and dozens more businesses across Fort Wayne and Indiana.
+          We are not a traditional agency. Sweet Dreams operates on a performance-driven model where your success is our success. Our clients include Nissan, Indianapolis Children&apos;s Museum, Kissel Entertainment, RideWorx, Aegis Dental, and dozens more businesses across Fort Wayne and Indiana.
         </p>
         <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 16, lineHeight: 1.8, color: "#333", marginBottom: 48 }}>
           Based at {ADDRESS.formatted}, we are embedded in the Fort Wayne community. We understand local businesses, local audiences, and what it takes to make your brand impossible to ignore in Northeast Indiana and beyond.

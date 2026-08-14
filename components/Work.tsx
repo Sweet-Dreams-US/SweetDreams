@@ -123,10 +123,10 @@ const PROJECTS: Project[] = [
   },
   {
     id: 10,
-    title: 'BROOKFIELD ZOO FERRIS WHEEL',
-    slug: 'brookfield-zoo-ferris-wheel',
+    title: 'RIDEWORX FERRIS WHEEL',
+    slug: 'rideworx-ferris-wheel',
     thumbnail: 'https://videodelivery.net/b3b94bd1543e2452571b90aab0a38e9b/thumbnails/thumbnail.jpg?time=13s&height=600',
-    client: 'RideWorx & Brookfield Zoo',
+    client: 'RideWorx',
     category: 'Brand Film · Event',
     year: '2025',
     services: 'Scripting, Cinematography, Editing, Color Grading',

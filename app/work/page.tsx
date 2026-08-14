@@ -139,12 +139,12 @@ export default function WorkPage() {
       date: "2025-09-07T16:14:19Z",
     },
     {
-      href: "/work/brookfield-zoo-ferris-wheel",
+      href: "/work/rideworx-ferris-wheel",
       image: "https://videodelivery.net/b3b94bd1543e2452571b90aab0a38e9b/thumbnails/thumbnail.jpg?time=13s&height=600",
-      title: "BROOKFIELD ZOO FERRIS WHEEL",
-      client: "RideWorx & Brookfield Zoo",
+      title: "RIDEWORX FERRIS WHEEL",
+      client: "RideWorx",
       category: "Brand Film · Event",
-      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png",
+      logo: "https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/RideWorxLogo.png",
       tags: ["business"],
       date: "2025-09-07T14:31:12Z",
     },
@@ -731,7 +731,7 @@ export default function WorkPage() {
         variant="feature"
         accentColor="yellow"
         heading="Ready to Create Something Memorable?"
-        subtext="We handle everything from concept to final delivery. In-house team, Fort Wayne based, trusted by the City of Fort Wayne, Nissan, Brookfield Zoo, and more."
+        subtext="We handle everything from concept to final delivery. In-house team, Fort Wayne based, trusted by the City of Fort Wayne, Nissan, Kissel Entertainment, and more."
         buttonText="Book a Discovery Call"
         onClick={() => openModal(undefined, "LET'S BUILD SOMETHING GREAT")}
       />

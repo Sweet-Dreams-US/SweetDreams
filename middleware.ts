@@ -18,6 +18,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('https://sweetdreamsmusic.com'), 301);
   }
 
+  // Portfolio project renamed (credit goes to RideWorx)
+  if (pathname.startsWith('/work/brookfield-zoo-ferris-wheel')) {
+    return NextResponse.redirect(new URL('/work/rideworx-ferris-wheel', request.url), 301);
+  }
+
   // Redirect music booking success to music site
   if (pathname.startsWith('/music/booking')) {
     return NextResponse.redirect(new URL('https://sweetdreamsmusic.com'), 301);

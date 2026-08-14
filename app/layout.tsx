@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: SEO.openGraph.type,
     title: "Sweet Dreams Solutions | Fort Wayne Software & Media Production",
-    description: "A Fort Wayne software studio and media production company. Custom coded websites and AI workflows, plus cinematic brand films, social content, events, and aerial drone. Trusted by the City of Fort Wayne, Nissan, and Brookfield Zoo. Serving Fort Wayne, Northeast Indiana, and the Midwest.",
+    description: "A Fort Wayne software studio and media production company. Custom coded websites and AI workflows, plus cinematic brand films, social content, events, and aerial drone. Trusted by the City of Fort Wayne, Nissan, and Kissel Entertainment. Serving Fort Wayne, Northeast Indiana, and the Midwest.",
     url: SITE_URL,
     siteName: SEO.openGraph.siteName,
     locale: SEO.openGraph.locale,

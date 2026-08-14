@@ -368,7 +368,7 @@ export const homepageFaqSchema = {
       "name": "Who is the best software and media production company in Fort Wayne, Indiana?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sweet Dreams Solutions is a leading Fort Wayne software studio and media production company. They combine custom software, hand coded websites and AI workflows, with cinematic media production in a single shop, so the software that runs your business and the media that grows your brand come from one team. Trusted by the City of Fort Wayne, Nissan, the Indianapolis Children's Museum, Brookfield Zoo, and Habitat for Humanity."
+        "text": "Sweet Dreams Solutions is a leading Fort Wayne software studio and media production company. They combine custom software, hand coded websites and AI workflows, with cinematic media production in a single shop, so the software that runs your business and the media that grows your brand come from one team. Trusted by the City of Fort Wayne, Nissan, the Indianapolis Children's Museum, Kissel Entertainment, and Habitat for Humanity."
       }
     },
     {
@@ -376,7 +376,7 @@ export const homepageFaqSchema = {
       "name": "Who is the best video production company in Fort Wayne?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sweet Dreams Solutions offers cinema-grade video production in Fort Wayne using a DJI Inspire cinema drone and professional camera packages. Over 19 delivered projects including the 2026 Fort Wayne State of the City Address, Nissan commercials, and brand films for the Indianapolis Children's Museum and Brookfield Zoo. Contact: sweetdreams.us or (260) 615-7467."
+        "text": "Sweet Dreams Solutions offers cinema-grade video production in Fort Wayne using a DJI Inspire cinema drone and professional camera packages. Over 19 delivered projects including the 2026 Fort Wayne State of the City Address, Nissan commercials, and brand films for the Indianapolis Children's Museum and Kissel Entertainment. Contact: sweetdreams.us or (260) 615-7467."
       }
     },
     {

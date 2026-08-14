@@ -3,27 +3,27 @@ import styles from "./project.module.css";
 import VideoPlayer from "./VideoPlayer";
 import PhotoGallery from "@/components/PhotoGallery";
 
-export default function BrookfieldZooPage() {
+export default function RideWorxFerrisWheelPage() {
   const project = {
-    title: 'BROOKFIELD ZOO FERRIS WHEEL COMMERCIAL',
-    client_name: 'RideWorx & Brookfield Zoo',
-    client_logo_url: 'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/BrookfieldZooLogo.png',
+    title: 'RIDEWORX FERRIS WHEEL COMMERCIAL',
+    client_name: 'RideWorx',
+    client_logo_url: 'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/logos/RideWorxLogo.png',
     cloudflare_stream_id: 'b3b94bd1543e2452571b90aab0a38e9b',
-    description: 'Dynamic commercial highlighting the new ferris wheel attraction at Brookfield Zoo.',
+    description: 'Dynamic commercial highlighting a new ferris wheel attraction.',
     category: 'Commercial',
-    location: 'Brookfield, Illinois',
+    location: 'Illinois',
     year: 2025,
     services: ['Scripting', 'Cinematography', 'Editing', 'Color Grading'],
-    full_description: 'Partnered with RideWorx and Brookfield Zoo to create a compelling commercial that showcases their new ferris wheel attraction. The project captures the excitement of families enjoying this unique zoo experience while highlighting the beautiful park setting.',
+    full_description: 'Partnered with RideWorx to create a compelling commercial that showcases their new ferris wheel attraction. The project captures the excitement of families enjoying the ride while highlighting the beautiful park setting.',
     additional_images: [
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8300.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8303.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8322.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8364.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8396.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8429.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8445.webp',
-      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/BrookfieldZoo/_DSC8487.webp'
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8300.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8303.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8322.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8364.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8396.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8429.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8445.webp',
+      'https://fweeyjnqwxywmpmnqpts.supabase.co/storage/v1/object/public/media/projects/RideWorx/_DSC8487.webp'
     ]
   };
 
