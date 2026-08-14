@@ -25,7 +25,7 @@ export interface LeadPrefill {
   what_you_do: string;
 }
 
-type TierKey = 'starter' | 'growth' | 'pro' | 'custom';
+type TierKey = 'essential' | 'growth' | 'pro' | 'custom';
 
 export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null }) {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
   const [siteName, setSiteName] = useState('');
   const [domain, setDomain] = useState('');
 
-  const [tier, setTier] = useState<TierKey>('starter');
+  const [tier, setTier] = useState<TierKey>('essential');
   const [priceDollars, setPriceDollars] = useState('50');
   const [hours, setHours] = useState('3');
   const [buildDollars, setBuildDollars] = useState('');
@@ -55,7 +55,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
   } | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const dedicatedAllowed = tier !== 'starter';
+  const dedicatedAllowed = tier !== 'essential';
 
   function pickTier(key: TierKey) {
     setTier(key);

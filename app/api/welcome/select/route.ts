@@ -43,7 +43,10 @@ export async function POST(request: NextRequest) {
 
   const token = typeof body.token === 'string' ? body.token : '';
   const isCustom = body.tier === 'custom';
-  const tier = HOSTING_TIERS.find((t) => t.key === body.tier);
+  // 'starter' was the old key for the Essential plan; keep accepting it so a
+  // welcome page a client already had open still works after the rename.
+  const requestedTier = body.tier === 'starter' ? 'essential' : body.tier;
+  const tier = HOSTING_TIERS.find((t) => t.key === requestedTier);
   if (!token || token.length > 200) {
     return NextResponse.json({ ok: false, error: 'invalid link' }, { status: 410 });
   }

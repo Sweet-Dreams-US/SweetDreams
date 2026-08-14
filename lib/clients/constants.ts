@@ -63,7 +63,7 @@ export const DB_MODE_LABELS: Record<DbMode, string> = {
 };
 
 export interface HostingTier {
-  key: 'starter' | 'growth' | 'pro';
+  key: 'essential' | 'growth' | 'pro';
   label: string;
   priceCents: number;
   updateHoursPerQuarter: number;
@@ -79,8 +79,8 @@ export interface HostingTier {
 
 export const HOSTING_TIERS: readonly HostingTier[] = [
   {
-    key: 'starter',
-    label: 'Starter',
+    key: 'essential',
+    label: 'Essential',
     priceCents: 5000,
     updateHoursPerQuarter: 3,
     analyticsIncluded: false,
