@@ -10,7 +10,10 @@
  *   no dashes in copy.
  *
  * v1 (frozen, historical): carried a DRAFT notice and listed backups.
- * v2 (current): drafting notice removed, backups claim removed.
+ * v2 (frozen, historical): drafting notice removed, backups claim removed.
+ * v3 (current): adds instant termination by either party before the site is
+ *   officially live, and the referral reward (2 months free hosting once a
+ *   referred client's website is live).
  */
 
 export interface AgreementTemplate {
@@ -38,7 +41,7 @@ export interface AgreementVariables {
   analytics_terms: string;
 }
 
-export const LATEST_AGREEMENT_VERSION = 'v2';
+export const LATEST_AGREEMENT_VERSION = 'v3';
 
 const PARTIES = {
   heading: 'Who This Agreement Is Between',
@@ -143,7 +146,43 @@ const V2: AgreementTemplate = {
   ],
 };
 
+const CANCEL_V3 = {
+  heading: 'Cancelling Anytime',
+  body:
+    'Before your website is officially live, either of us may end this Agreement instantly with written notice. No notice period applies and you owe nothing. Once your website is live, either of us may end this Agreement with 60 days written notice. There is no long term commitment and no requirement to ever buy out the website. Hosting fees continue through the 60 day notice period. If you cancel without a buyout, the website simply comes down at the end of the notice period and the build remains the property of Sweet Dreams. Your brand materials and any content you provided are returned to you on request.',
+};
+
+const REFERRAL = {
+  heading: 'Referral Rewards',
+  body:
+    'We grow through happy clients. If you refer another business to Sweet Dreams, and they sign their own agreement and their website officially goes live, you receive 2 months of hosting free. Your free months begin with your first billing date after their website is live, one referral reward at a time.',
+};
+
+/** v3 — current. Instant pre-live termination + referral rewards. */
+const V3: AgreementTemplate = {
+  version: 'v3',
+  title: 'Website Services and Hosting Agreement',
+  sections: [
+    PARTIES,
+    BUILD,
+    {
+      heading: 'Monthly Hosting and Care',
+      body:
+        'Your hosting plan is {{hosting_price}} per month. It covers hosting, security, maintenance, and up to {{update_hours}} hours of website updates each quarter (every 3 months). Unused update hours do not roll over. Work beyond your included hours is quoted and approved by you before we start it. {{analytics_terms}} Monthly hosting is required to keep your website live.',
+    },
+    BILLING_START,
+    OWNERSHIP,
+    BUYOUT,
+    CANCEL_V3,
+    REFERRAL,
+    WARRANTIES,
+    LAW,
+    ESIGN,
+  ],
+};
+
 export const AGREEMENT_TEMPLATES: Record<string, AgreementTemplate> = {
   v1: V1,
   v2: V2,
+  v3: V3,
 };

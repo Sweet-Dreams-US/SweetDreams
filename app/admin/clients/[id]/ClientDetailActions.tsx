@@ -60,6 +60,16 @@ export interface DetailAgreement {
   signature_image: string | null;
   revoked_at: string | null;
   revoke_reason: string | null;
+  terminated_at: string | null;
+  termination_effective: string | null;
+}
+
+export interface AdminCancellation {
+  id: string;
+  site_id: string;
+  created_at: string;
+  reason: string | null;
+  status: string;
 }
 
 const TZ = 'America/Indiana/Indianapolis';
@@ -76,6 +86,7 @@ export default function ClientDetailActions({
   agreements,
   requests = [],
   updates = [],
+  cancellations = [],
 }: {
   clientId: string;
   hasPortalAccount: boolean;
@@ -83,6 +94,7 @@ export default function ClientDetailActions({
   agreements: DetailAgreement[];
   requests?: AdminRequest[];
   updates?: AdminUpdate[];
+  cancellations?: AdminCancellation[];
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -151,6 +163,23 @@ export default function ClientDetailActions({
     router.refresh();
   }
 
+  async function terminateAgreement(agreementId: string, siteIsLive: boolean) {
+    const consequence = siteIsLive
+      ? 'Site is LIVE: per the contract this starts the 60 day notice period (hosting ends in 60 days). The client is emailed.'
+      : 'Site is NOT live: per the contract this ends the agreement IMMEDIATELY. The client is emailed.';
+    if (!window.confirm(`Terminate this signed agreement?\n\n${consequence}`)) return;
+    const data = await post('/api/admin/agreements/terminate', {
+      agreement_id: agreementId,
+    });
+    if (!data) return;
+    setNotice(
+      data.instant
+        ? 'Agreement terminated, effective immediately. Client emailed.'
+        : `Agreement terminated with 60 day notice. Hosting ends ${data.termination_effective}. Client emailed.`
+    );
+    router.refresh();
+  }
+
   async function sendPasswordLink() {
     const data = await post('/api/admin/clients/password-link', {
       client_id: clientId,
@@ -193,10 +222,14 @@ export default function ClientDetailActions({
           agreements={agreements.filter((a) => a.site_id === site.id)}
           requests={requests.filter((r) => r.site_id === site.id)}
           updates={updates.filter((u) => u.site_id === site.id)}
+          pendingCancellation={cancellations.find(
+            (c) => c.site_id === site.id && c.status === 'pending'
+          )}
           busy={busy}
           onSend={() => sendAgreement(site.id)}
           onSendWelcome={() => sendWelcome(site.id)}
           onRevoke={revokeAgreement}
+          onTerminate={terminateAgreement}
         />
       ))}
 
@@ -227,19 +260,23 @@ function SiteCard({
   agreements,
   requests,
   updates,
+  pendingCancellation,
   busy,
   onSend,
   onSendWelcome,
   onRevoke,
+  onTerminate,
 }: {
   site: DetailSite;
   agreements: DetailAgreement[];
   requests: AdminRequest[];
   updates: AdminUpdate[];
+  pendingCancellation?: AdminCancellation;
   busy: boolean;
   onSend: () => void;
   onSendWelcome: () => void;
   onRevoke: (agreementId: string) => void;
+  onTerminate: (agreementId: string, siteIsLive: boolean) => void;
 }) {
   const router = useRouter();
   const [status, setStatus] = useState(site.status);
@@ -321,6 +358,15 @@ function SiteCard({
 
   return (
     <div className={styles.card}>
+      {pendingCancellation && (
+        <div className={styles.errorBox}>
+          CLIENT REQUESTED CANCELLATION on{' '}
+          {new Date(pendingCancellation.created_at).toLocaleDateString('en-US')}
+          {pendingCancellation.reason ? ` — "${pendingCancellation.reason}"` : ''}.
+          Terminating the signed agreement below confirms it
+          ({site.status === 'live' ? '60 day notice applies, site is live' : 'instant, site is not live yet'}).
+        </div>
+      )}
       <p className={styles.cardTitle}>
         Site: {site.name}
         <span className={styles.saveTag + ' ' + (styles[`save_${saveState}`] || '')}>
@@ -545,6 +591,23 @@ function SiteCard({
                       signed by {a.signer_name} on {fmt(a.signed_at)}
                       {a.signer_ip ? ` from ${a.signer_ip}` : ''}
                     </div>
+                    {a.terminated_at ? (
+                      <div style={{ color: '#fca5a5', fontWeight: 700 }}>
+                        TERMINATED {fmt(a.terminated_at)} · hosting ends{' '}
+                        {a.termination_effective}
+                      </div>
+                    ) : (
+                      <div style={{ marginTop: 6 }}>
+                        <button
+                          type="button"
+                          className={styles.dangerBtn}
+                          disabled={busy}
+                          onClick={() => onTerminate(a.id, site.status === 'live')}
+                        >
+                          Terminate agreement
+                        </button>
+                      </div>
+                    )}
                     {a.signature_image && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img

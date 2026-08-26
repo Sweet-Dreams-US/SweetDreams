@@ -95,6 +95,15 @@ export default async function PortalPage({
   }
 
   const siteIds = clients.flatMap((c) => c.sites.map((s) => s.id));
+  const safeSiteIds = siteIds.length ? siteIds : ['00000000-0000-0000-0000-000000000000'];
+  const { data: cancellationsData } = await supabase
+    .from('cancellation_requests')
+    .select('site_id, status')
+    .in('site_id', safeSiteIds)
+    .eq('status', 'pending');
+  const pendingCancellations = new Set(
+    ((cancellationsData ?? []) as { site_id: string }[]).map((c) => c.site_id)
+  );
   const [{ data: updatesData }, { data: requestsData }] = await Promise.all([
     supabase
       .from('site_updates')
@@ -201,6 +210,7 @@ export default async function PortalPage({
                 summary: u.summary,
                 hours_used: u.hours_used,
               })),
+              hasPendingCancellation: pendingCancellations.has(site.id),
               requests: allRequests
                 .filter((r) => r.site_id === site.id)
                 .map((r) => ({

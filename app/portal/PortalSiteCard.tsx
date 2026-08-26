@@ -46,6 +46,7 @@ export interface CardSite {
   analyticsIncluded: boolean;
   updates: CardUpdate[];
   requests: CardRequest[];
+  hasPendingCancellation: boolean;
 }
 
 const REQUEST_STATUS_COPY: Record<string, string> = {
@@ -81,6 +82,10 @@ export default function PortalSiteCard({ site }: { site: CardSite }) {
   const [error, setError] = useState('');
   const [sent, setSent] = useState(false);
   const [analytics, setAnalytics] = useState<AnalyticsState>({ loading: true });
+  const [cancelOpen, setCancelOpen] = useState(false);
+  const [cancelReason, setCancelReason] = useState('');
+  const [cancelError, setCancelError] = useState('');
+  const [cancelSent, setCancelSent] = useState(site.hasPendingCancellation);
 
   useEffect(() => {
     let cancelled = false;
@@ -149,6 +154,30 @@ export default function PortalSiteCard({ site }: { site: CardSite }) {
       router.refresh();
     } catch {
       setError('Network error. Please try again.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function submitCancellation() {
+    setCancelError('');
+    setBusy(true);
+    try {
+      const res = await fetch('/api/portal/cancellation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site_id: site.id, reason: cancelReason }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setCancelError(data.error || 'Could not send your request. Please try again.');
+        return;
+      }
+      setCancelSent(true);
+      setCancelOpen(false);
+      router.refresh();
+    } catch {
+      setCancelError('Network error. Please try again.');
     } finally {
       setBusy(false);
     }
@@ -353,6 +382,59 @@ export default function PortalSiteCard({ site }: { site: CardSite }) {
           </>
         )}
       </div>
+
+      {/* ---- cancellation (quiet, at the bottom) ---- */}
+      {site.agreementId && site.status !== 'cancelled' && (
+        <div className={styles.cancelRow}>
+          {cancelSent ? (
+            <p className={styles.muted}>
+              Your cancellation request is in. We will contact you to confirm
+              the details from your agreement.
+            </p>
+          ) : cancelOpen ? (
+            <div>
+              <p className={styles.muted}>
+                {site.status === 'live'
+                  ? 'Per your agreement, cancelling after your website is live starts a 60 day notice period. Hosting continues through it, and a buyout to keep the website is always an option.'
+                  : 'Your website is not live yet, so per your agreement cancelling now takes effect immediately and you owe nothing.'}
+              </p>
+              <textarea
+                className={styles.textarea}
+                rows={2}
+                value={cancelReason}
+                placeholder="Anything you would like us to know? (optional)"
+                onChange={(e) => setCancelReason(e.target.value)}
+              />
+              {cancelError && <p className={styles.error}>{cancelError}</p>}
+              <div className={styles.cancelActions}>
+                <button
+                  type="button"
+                  className={styles.cancelConfirmBtn}
+                  disabled={busy}
+                  onClick={submitCancellation}
+                >
+                  {busy ? 'Sending...' : 'Send Cancellation Request'}
+                </button>
+                <button
+                  type="button"
+                  className={styles.cancelDismissBtn}
+                  onClick={() => setCancelOpen(false)}
+                >
+                  Never mind
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className={styles.cancelLink}
+              onClick={() => setCancelOpen(true)}
+            >
+              Need to cancel? Request cancellation
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

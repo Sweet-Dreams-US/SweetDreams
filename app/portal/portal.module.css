@@ -509,6 +509,69 @@
   margin: 0 0 12px;
 }
 
+/* ---- cancellation ---- */
+
+.cancelRow {
+  border-top: 1px solid #f0f3f0;
+  margin-top: 20px;
+  padding-top: 12px;
+}
+
+.cancelLink {
+  background: none;
+  border: none;
+  color: #8a948d;
+  font-size: 12.5px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.cancelLink:hover {
+  color: #b02a2a;
+}
+
+.cancelActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.cancelConfirmBtn {
+  background: #ffffff;
+  border: 1px solid #d9a3a3;
+  color: #b02a2a;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 10px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelConfirmBtn:hover {
+  background: #fdf3f3;
+}
+
+.cancelConfirmBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.cancelDismissBtn {
+  background: none;
+  border: none;
+  color: #55605a;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: inherit;
+}
+
 .empty {
   background: #ffffff;
   border: 1px solid #e3e8e3;
