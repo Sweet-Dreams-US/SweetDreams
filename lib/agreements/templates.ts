@@ -11,9 +11,10 @@
  *
  * v1 (frozen, historical): carried a DRAFT notice and listed backups.
  * v2 (frozen, historical): drafting notice removed, backups claim removed.
- * v3 (current): adds instant termination by either party before the site is
- *   officially live, and the referral reward (2 months free hosting once a
- *   referred client's website is live).
+ * v3 (frozen, historical): added instant pre-live termination and a referral
+ *   rewards clause (2 months free hosting).
+ * v4 (current): referral clause removed — the referral program is run through
+ *   the client portal, not the contract.
  */
 
 export interface AgreementTemplate {
@@ -41,7 +42,7 @@ export interface AgreementVariables {
   analytics_terms: string;
 }
 
-export const LATEST_AGREEMENT_VERSION = 'v3';
+export const LATEST_AGREEMENT_VERSION = 'v4';
 
 const PARTIES = {
   heading: 'Who This Agreement Is Between',
@@ -158,7 +159,7 @@ const REFERRAL = {
     'We grow through happy clients. If you refer another business to Sweet Dreams, and they sign their own agreement and their website officially goes live, you receive 2 months of hosting free. Your free months begin with your first billing date after their website is live, one referral reward at a time.',
 };
 
-/** v3 — current. Instant pre-live termination + referral rewards. */
+/** v3 — frozen. Instant pre-live termination + referral rewards clause. */
 const V3: AgreementTemplate = {
   version: 'v3',
   title: 'Website Services and Hosting Agreement',
@@ -181,8 +182,35 @@ const V3: AgreementTemplate = {
   ],
 };
 
+/**
+ * v4 — current. Referral rewards clause removed: the referral program lives
+ * in the client portal as a program we run, not a contract term, so its
+ * details can change without touching signed agreements.
+ */
+const V4: AgreementTemplate = {
+  version: 'v4',
+  title: 'Website Services and Hosting Agreement',
+  sections: [
+    PARTIES,
+    BUILD,
+    {
+      heading: 'Monthly Hosting and Care',
+      body:
+        'Your hosting plan is {{hosting_price}} per month. It covers hosting, security, maintenance, and up to {{update_hours}} hours of website updates each quarter (every 3 months). Unused update hours do not roll over. Work beyond your included hours is quoted and approved by you before we start it. {{analytics_terms}} Monthly hosting is required to keep your website live.',
+    },
+    BILLING_START,
+    OWNERSHIP,
+    BUYOUT,
+    CANCEL_V3,
+    WARRANTIES,
+    LAW,
+    ESIGN,
+  ],
+};
+
 export const AGREEMENT_TEMPLATES: Record<string, AgreementTemplate> = {
   v1: V1,
   v2: V2,
   v3: V3,
+  v4: V4,
 };

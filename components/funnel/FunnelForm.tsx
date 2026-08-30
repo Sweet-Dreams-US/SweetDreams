@@ -24,6 +24,8 @@ interface FunnelFormProps {
   steps: FunnelStep[];
   successTitle: string;
   successBody: string;
+  /** Client referral code from a tracked share link (?ref=CODE). */
+  referralCode?: string;
 }
 
 const TURNSTILE_SITE_KEY = '0x4AAAAAACJodExIWnZ-7sQq';
@@ -55,6 +57,7 @@ export default function FunnelForm({
   steps,
   successTitle,
   successBody,
+  referralCode,
 }: FunnelFormProps) {
   const [stepIndex, setStepIndex] = useState(0);
   const [values, setValues] = useState<Record<string, string>>({});
@@ -239,6 +242,7 @@ export default function FunnelForm({
           honeypot,
           turnstileToken: token,
           metaEventId,
+          referralCode: referralCode || undefined,
         }),
       });
       if (res.ok) {

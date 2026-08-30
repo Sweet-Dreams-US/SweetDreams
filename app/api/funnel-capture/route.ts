@@ -19,6 +19,7 @@ import { resend, ADMIN_EMAIL, FROM_EMAIL } from '@/lib/emails/resend';
 import { checkForSpam, checkRateLimit } from '@/lib/spam-filter';
 import { sendMetaEvent } from '@/lib/meta-capi';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
+import { findClientByReferralCode } from '@/lib/referrals';
 
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
@@ -104,6 +105,7 @@ export async function POST(request: NextRequest) {
       honeypot,
       turnstileToken,
       metaEventId, // shared with the browser fbq('track','Lead') for CAPI dedup
+      referralCode, // client referral program tracked link (?ref=CODE)
       firstName = '',
       lastName = '',
       email = '',
@@ -179,6 +181,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    // 4b. Referral attribution: only codes that match a real client count.
+    //     Resolved before the email so the team sees who sent the lead.
+    let referrer: Awaited<ReturnType<typeof findClientByReferralCode>> = null;
+    if (typeof referralCode === 'string' && referralCode.trim()) {
+      try {
+        referrer = await findClientByReferralCode(
+          createServiceRoleClient(),
+          referralCode
+        );
+        if (!referrer) {
+          console.warn('[funnel-capture] Unknown referral code ignored:', referralCode);
+        }
+      } catch (refErr) {
+        console.error('[funnel-capture] Referral lookup failed (non-fatal):', refErr);
+      }
+    }
+
     // 5. Build the team notification email.
     const allFields: Record<string, string> = {
       firstName,
@@ -208,6 +227,11 @@ export async function POST(request: NextRequest) {
             ${ctx.label}
           </p>
           ${ctx.offer ? `<p style="color:#666;margin:0 0 24px;">${ctx.offer}</p>` : ''}
+          ${
+            referrer
+              ? `<p style="display:inline-block;background:#eafaf0;color:#166534;border:1px solid #bfe6c8;padding:8px 14px;border-radius:8px;font-size:13px;margin:0 0 16px;">REFERRED by client: <strong>${referrer.business_name}</strong> (${referrer.contact_name}). If this lead goes live they earn free hosting months.</p>`
+              : ''
+          }
           <div style="background:#f7f8fa;padding:22px;border-radius:10px;">
             ${rowsHtml}
           </div>
@@ -260,6 +284,9 @@ export async function POST(request: NextRequest) {
         what_you_do: (whatYouDo as string) || null,
         extra: Object.keys(extraFields).length ? extraFields : null,
         meta_event_id: typeof metaEventId === 'string' ? metaEventId : null,
+        referred_by_code: referrer
+          ? String(referralCode).trim().toUpperCase()
+          : null,
         client_ip: clientIp ?? null,
         user_agent: request.headers.get('user-agent'),
         referer: request.headers.get('referer'),

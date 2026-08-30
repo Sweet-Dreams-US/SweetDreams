@@ -18,8 +18,12 @@ import { SITE_STATUSES, formatPriceCents, type SiteStatus } from '@/lib/clients/
 import { monthlyTotalCents, nextBillingAnchor } from '@/lib/clients/billing';
 import { BUSINESS_TZ, anchorDayDisplay } from '@/lib/agreements/service';
 import { requestBaseUrl } from '@/lib/base-url';
+import { ADMIN_EMAIL } from '@/lib/emails/resend';
 import { sendEmail } from '@/lib/emails/send';
 import SiteLive from '@/lib/emails/site-live';
+import ReferralReward from '@/lib/emails/referral-reward';
+import UpdateRequestAdmin from '@/lib/emails/update-request-admin';
+import { recordReferralRewardOnGoLive } from '@/lib/referrals';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -284,6 +288,38 @@ export async function POST(request: NextRequest) {
         portalUrl: `${requestBaseUrl(request)}/portal`,
       }),
     });
+
+    // Referral: if this client came in through a tracked share link, record
+    // the referrer's reward now. Best-effort — never blocks the go-live.
+    try {
+      const referral = await recordReferralRewardOnGoLive(supabase, client.id, site.id);
+      if (referral.rewarded && referral.referrer && referral.monthsFree) {
+        await sendEmail({
+          to: referral.referrer.email,
+          subject: `Your referral is live: ${referral.monthsFree} months of hosting free`,
+          react: ReferralReward({
+            contactName: referral.referrer.contact_name,
+            referredBusinessName: client.business_name,
+            monthsFree: referral.monthsFree,
+            portalUrl: `${requestBaseUrl(request)}/portal`,
+          }),
+        });
+        await sendEmail({
+          to: ADMIN_EMAIL,
+          subject: `REFERRAL reward: ${referral.referrer.business_name} earned ${referral.monthsFree} free months`,
+          react: UpdateRequestAdmin({
+            businessName: referral.referrer.business_name,
+            siteName: site.name,
+            contactName: referral.referrer.contact_name,
+            title: `Apply ${referral.monthsFree} free hosting months in Stripe`,
+            details: `${client.business_name} came in through ${referral.referrer.business_name}'s referral link and is now live. Apply ${referral.monthsFree} free months to ${referral.referrer.business_name}'s hosting subscription (pause or trial the upcoming invoices), then mark the reward applied.`,
+            adminUrl: `${requestBaseUrl(request)}/admin/clients/${referral.referrer.id}`,
+          }),
+        });
+      }
+    } catch (referralErr) {
+      console.error('[admin/sites/update] referral reward check failed:', referralErr);
+    }
 
     return NextResponse.json({
       ok: true,

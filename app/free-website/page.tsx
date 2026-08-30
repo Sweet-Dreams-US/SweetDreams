@@ -50,9 +50,9 @@ const steps: FunnelStep[] = [
 export default async function FreeWebsitePage({
   searchParams,
 }: {
-  searchParams: Promise<{ niche?: string }>;
+  searchParams: Promise<{ niche?: string; ref?: string }>;
 }) {
-  const { niche } = await searchParams;
+  const { niche, ref } = await searchParams;
   const qualifier =
     (niche && NICHE_BY_SLUG[niche]?.w) ||
     'Built for any business ready to look the part';
@@ -116,6 +116,7 @@ export default async function FreeWebsitePage({
         <FunnelForm
           funnel="free-website"
           steps={steps}
+          referralCode={ref}
           successTitle="You're in."
           successBody="We'll reach out shortly, build your site, and send you the live link. You only pay hosting once it is live."
         />
