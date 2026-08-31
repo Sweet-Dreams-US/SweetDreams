@@ -44,6 +44,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
   const [anchorDay, setAnchorDay] = useState<1 | 15>(1);
   const [dbMode, setDbMode] = useState<DbMode>('shared');
   const [analyticsAddon, setAnalyticsAddon] = useState(false);
+  const [minPlan, setMinPlan] = useState(0);
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -81,6 +82,12 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
       setError('Enter a valid monthly hosting price.');
       return;
     }
+    if (minPlan > 0 && priceCents < minPlan) {
+      setError(
+        `The quoted price is below the minimum plan you set ($${minPlan / 100}/mo). Raise the price or lower the minimum.`
+      );
+      return;
+    }
     if (sendAgreement && (!Number.isFinite(buildCents) || buildCents <= 0)) {
       setError(
         'Enter the build value before sending. It anchors the buyout schedule in the contract.'
@@ -109,6 +116,7 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
             billing_anchor_day: anchorDay,
             db_mode: dbMode,
             analytics_addon: analyticsAddon,
+            min_hosting_price_cents: minPlan,
           },
         }),
       });
@@ -341,6 +349,20 @@ export default function NewClientForm({ prefill }: { prefill: LeadPrefill | null
                 {DB_MODE_LABELS.dedicated}
                 {dedicatedAllowed ? '' : ' (requires $85+ plan)'}
               </option>
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label className={styles.fieldLabel}>
+              Minimum plan (hides cheaper plans from their picker)
+            </label>
+            <select
+              className={styles.select}
+              value={minPlan}
+              onChange={(e) => setMinPlan(Number(e.target.value))}
+            >
+              <option value={0}>Show all plans</option>
+              <option value={8500}>$85 and up (payment processing, database)</option>
+              <option value={12500}>$125 only</option>
             </select>
           </div>
           <div className={styles.field}>

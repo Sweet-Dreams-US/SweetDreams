@@ -35,6 +35,7 @@ interface CreateBody {
     billing_anchor_day?: number;
     db_mode?: string;
     analytics_addon?: boolean;
+    min_hosting_price_cents?: number;
   };
   send_agreement?: boolean;
 }
@@ -111,6 +112,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'invalid site.db_mode' }, { status: 400 });
   }
 
+  const minPlanCents = site.min_hosting_price_cents ?? 0;
+  if (!Number.isInteger(minPlanCents) || minPlanCents < 0) {
+    return NextResponse.json(
+      { ok: false, error: 'site.min_hosting_price_cents must be a non negative integer' },
+      { status: 400 }
+    );
+  }
+
   // Bad lead ids should not sink client creation — just drop the reference.
   const sourceLeadId =
     body.source_lead_id && UUID_RE.test(body.source_lead_id) ? body.source_lead_id : null;
@@ -148,6 +157,7 @@ export async function POST(request: NextRequest) {
       billing_anchor_day: anchorDay,
       db_mode: dbMode,
       analytics_addon: site.analytics_addon === true,
+      min_hosting_price_cents: minPlanCents,
     })
     .select('id')
     .single();
