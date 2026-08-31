@@ -30,6 +30,7 @@ export interface DetailSite {
   drive_url: string | null;
   status: string;
   hosting_price_cents: number;
+  min_hosting_price_cents: number;
   update_hours_per_quarter: number | null;
   build_price_cents: number;
   billing_anchor_day: number;
@@ -298,6 +299,7 @@ function SiteCard({
   });
   const [anchorDay, setAnchorDay] = useState(site.billing_anchor_day);
   const [analyticsAddon, setAnalyticsAddon] = useState(site.analytics_addon);
+  const [minPlan, setMinPlan] = useState(site.min_hosting_price_cents);
   const [builder, setBuilder] = useState(site.builder ?? '');
 
   function savePlanNumber(key: 'price' | 'hours' | 'build') {
@@ -506,6 +508,24 @@ function SiteCard({
               </label>
             </div>
           )}
+        </div>
+        <div className={styles.field}>
+          <label className={styles.fieldLabel}>
+            Minimum plan (hides cheaper plans from their picker)
+          </label>
+          <select
+            className={styles.select}
+            value={minPlan}
+            onChange={(e) => {
+              const v = Number(e.target.value);
+              setMinPlan(v);
+              save({ min_hosting_price_cents: v });
+            }}
+          >
+            <option value={0}>Show all plans</option>
+            <option value={8500}>$85 and up (payment processing, database)</option>
+            <option value={12500}>$125 only</option>
+          </select>
         </div>
         {registryFields.map((f) => (
           <div className={styles.field} key={f.key}>

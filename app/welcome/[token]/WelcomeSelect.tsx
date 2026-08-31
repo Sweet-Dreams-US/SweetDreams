@@ -22,6 +22,8 @@ import styles from './welcome.module.css';
 interface Props {
   token: string;
   currentPriceCents: number;
+  /** Plans priced below this are hidden for this site (0 = show all). */
+  minPriceCents: number;
   currentHours: number | null;
   currentAnalyticsAddon: boolean;
 }
@@ -31,16 +33,21 @@ type TierChoice = HostingTier['key'] | 'custom';
 export default function WelcomeSelect({
   token,
   currentPriceCents,
+  minPriceCents,
   currentHours,
   currentAnalyticsAddon,
 }: Props) {
-  const matchedTier = HOSTING_TIERS.find(
-    (t) => t.priceCents === currentPriceCents
-  );
-  const hasCustomQuote = !matchedTier && currentPriceCents > 0;
+  // Some builds require a bigger plan (payment processing and the like); the
+  // admin sets a minimum on the site and lower tiers simply do not appear.
+  const shownTiers = HOSTING_TIERS.filter((t) => t.priceCents >= minPriceCents);
+  const matchedTier = shownTiers.find((t) => t.priceCents === currentPriceCents);
+  const hasCustomQuote =
+    !HOSTING_TIERS.some((t) => t.priceCents === currentPriceCents) &&
+    currentPriceCents > 0;
 
   const [tierKey, setTierKey] = useState<TierChoice>(
-    matchedTier?.key ?? (hasCustomQuote ? 'custom' : 'growth')
+    matchedTier?.key ??
+      (hasCustomQuote ? 'custom' : shownTiers[0]?.key ?? 'growth')
   );
   const [analyticsAddon, setAnalyticsAddon] = useState(currentAnalyticsAddon);
   const [busy, setBusy] = useState(false);
@@ -49,7 +56,7 @@ export default function WelcomeSelect({
   const selectedPriceCents =
     tierKey === 'custom'
       ? currentPriceCents
-      : HOSTING_TIERS.find((t) => t.key === tierKey)!.priceCents;
+      : (shownTiers.find((t) => t.key === tierKey) ?? shownTiers[0]).priceCents;
   const analyticsIncluded = analyticsIncludedAtPrice(selectedPriceCents);
   const monthlyTotal =
     selectedPriceCents +
@@ -135,7 +142,7 @@ export default function WelcomeSelect({
             hours: currentHours ?? 0,
             included: analyticsIncludedAtPrice(currentPriceCents),
           })}
-        {HOSTING_TIERS.map((t) =>
+        {shownTiers.map((t) =>
           planCard({
             key: t.key,
             priceCents: t.priceCents,

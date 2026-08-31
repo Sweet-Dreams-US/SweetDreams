@@ -41,6 +41,7 @@ interface UpdateBody {
   db_project_ref?: string | null;
   go_live_date?: string | null;
   hosting_price_cents?: number;
+  min_hosting_price_cents?: number;
   update_hours_per_quarter?: number | null;
   build_price_cents?: number;
   billing_anchor_day?: number;
@@ -134,6 +135,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, error: 'invalid hosting price' }, { status: 400 });
     }
     update.hosting_price_cents = body.hosting_price_cents;
+  }
+  if (body.min_hosting_price_cents !== undefined) {
+    if (!Number.isInteger(body.min_hosting_price_cents) || body.min_hosting_price_cents < 0) {
+      return NextResponse.json({ ok: false, error: 'invalid minimum plan' }, { status: 400 });
+    }
+    update.min_hosting_price_cents = body.min_hosting_price_cents;
   }
   if (body.build_price_cents !== undefined) {
     if (!Number.isInteger(body.build_price_cents) || body.build_price_cents < 0) {

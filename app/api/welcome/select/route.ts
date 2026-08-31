@@ -71,6 +71,19 @@ export async function POST(request: NextRequest) {
   }
   const siteId = tok.site_id as string;
 
+  const { data: siteRow } = await supabase
+    .from('sites')
+    .select('hosting_price_cents, min_hosting_price_cents')
+    .eq('id', siteId)
+    .single();
+  const minPriceCents = siteRow?.min_hosting_price_cents ?? 0;
+
+  // Server side mirror of the hidden plan cards: a tier below this site's
+  // minimum plan is never accepted, whatever the request claims.
+  if (tier && tier.priceCents < minPriceCents) {
+    return NextResponse.json({ ok: false, error: 'invalid plan' }, { status: 400 });
+  }
+
   const { data: signedAgr } = await supabase
     .from('agreements')
     .select('id')
@@ -90,11 +103,6 @@ export async function POST(request: NextRequest) {
   // analytics is not already included at the selected price.
   let planUpdate: Record<string, unknown>;
   if (isCustom) {
-    const { data: siteRow } = await supabase
-      .from('sites')
-      .select('hosting_price_cents')
-      .eq('id', siteId)
-      .single();
     const priceCents = siteRow?.hosting_price_cents ?? 0;
     planUpdate = {
       analytics_addon:

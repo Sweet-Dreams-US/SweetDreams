@@ -36,6 +36,7 @@ interface TokenRow {
     first_viewed_at: string | null;
     sites: {
       hosting_price_cents: number;
+      min_hosting_price_cents: number;
       update_hours_per_quarter: number | null;
       analytics_addon: boolean;
     } | null;
@@ -53,19 +54,23 @@ interface TokenRow {
  */
 function PlanComparison({
   priceCents,
+  minPriceCents,
   hours,
   analyticsAddon,
 }: {
   priceCents: number;
+  minPriceCents: number;
   hours: number | null;
   analyticsAddon: boolean;
 }) {
+  // Mirror of the welcome page: plans below this site's minimum are not shown.
+  const shownTiers = HOSTING_TIERS.filter((t) => t.priceCents >= minPriceCents);
   const matched = HOSTING_TIERS.some((t) => t.priceCents === priceCents);
   return (
     <div className={styles.planSection}>
       <p className={styles.planKicker}>Your plan at a glance</p>
       <div className={styles.planGrid}>
-        {HOSTING_TIERS.map((t) => {
+        {shownTiers.map((t) => {
           const active = t.priceCents === priceCents;
           return (
             <div
@@ -129,7 +134,7 @@ export default async function AgreementPage({
   const { data } = await supabase
     .from('agreement_tokens')
     .select(
-      'id, expires_at, used_at, revoked_at, agreements (id, status, rendered_text, signed_at, first_viewed_at, sites (hosting_price_cents, update_hours_per_quarter, analytics_addon), clients (business_name, contact_name))'
+      'id, expires_at, used_at, revoked_at, agreements (id, status, rendered_text, signed_at, first_viewed_at, sites (hosting_price_cents, min_hosting_price_cents, update_hours_per_quarter, analytics_addon), clients (business_name, contact_name))'
     )
     .eq('token_hash', hashToken(token))
     .eq('purpose', 'sign')
@@ -224,6 +229,7 @@ export default async function AgreementPage({
               <>
                 <PlanComparison
                   priceCents={agreement.sites.hosting_price_cents}
+                  minPriceCents={agreement.sites.min_hosting_price_cents}
                   hours={agreement.sites.update_hours_per_quarter}
                   analyticsAddon={agreement.sites.analytics_addon}
                 />
