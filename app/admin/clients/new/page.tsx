@@ -51,6 +51,7 @@ export default async function NewClientPage({
   return (
     <div className={styles.page}>
       <nav className={styles.topNav}>
+        <Link href="/admin/demos" className={styles.navLink}>Demos</Link>
         <Link href="/admin/clients" className={styles.navLink}>Clients</Link>
         <Link href="/admin/inquiries" className={styles.navLink}>Free Website Inquiries</Link>
         <a href="/api/admin/logout" className={styles.navLink}>Sign out</a>

@@ -1,0 +1,388 @@
+/* Demo approval queue — dark internal tool, same palette as /admin/clients.
+   Page chrome (nav, header, stat tiles, filter chips) is imported from
+   clients.module.css; everything from the counter banner down lives here. */
+
+/* ---- "N demos waiting on you" banner ---- */
+.counter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin: 0 0 22px;
+  padding: 18px 24px;
+  background: rgba(40, 200, 64, 0.06);
+  border: 1px solid rgba(40, 200, 64, 0.45);
+  border-left-width: 6px;
+  border-radius: 14px;
+}
+.counterText {
+  margin: 0;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(24px, 3.4vw, 38px);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #86efac;
+}
+.counterSub { margin: 0; font-size: 12px; color: #9aa3af; max-width: 56ch; }
+
+.counter_amber {
+  background: rgba(244, 196, 48, 0.07);
+  border-color: rgba(244, 196, 48, 0.65);
+}
+.counter_amber .counterText { color: #F4C430; }
+
+.counter_red {
+  background: rgba(230, 54, 54, 0.1);
+  border-color: #e63636;
+  box-shadow: 0 0 0 1px rgba(230, 54, 54, 0.35), 0 0 28px rgba(230, 54, 54, 0.3);
+}
+.counter_red .counterText { color: #ff6b6b; }
+.counter_red .counterSub { color: #fca5a5; }
+
+/* Tone applied to the Waiting stat number (extra class on statNum). */
+.tone_amber { color: #F4C430; }
+.tone_red { color: #ff6b6b; }
+
+/* ---- card grid ---- */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+@media (min-width: 1100px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Three across on very wide displays so cards stay scannable instead of
+   turning into 1200px-wide previews. */
+@media (min-width: 1700px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px 22px;
+  background: #12151a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+/* Only rows that are waiting on Cole get the aged border; the age pill
+   carries the number for every row. */
+.card_amber { border-color: rgba(244, 196, 48, 0.5); }
+.card_red {
+  border-color: rgba(230, 54, 54, 0.7);
+  box-shadow: 0 0 0 1px rgba(230, 54, 54, 0.2);
+}
+
+/* ---- card header ---- */
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px 14px;
+}
+.who { min-width: 0; }
+.biz {
+  font-family: 'Anton', sans-serif;
+  font-size: 22px;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  word-break: break-word;
+}
+a.biz:hover { color: #28c840; }
+.contact { margin-top: 5px; font-size: 12px; color: #9aa3af; word-break: break-word; }
+.contact a { color: #28c840; text-decoration: none; }
+.contact a:hover { text-decoration: underline; }
+.siteName { margin-top: 2px; font-size: 11px; color: #6b7280; }
+.badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* Status pill */
+.pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #cbd2dc;
+  white-space: nowrap;
+}
+.status_building { border-color: #4A90E2; color: #93c5fd; }
+.status_ready_for_review { border-color: #F4C430; color: #fff; background: rgba(244, 196, 48, 0.16); }
+.status_approved { background: #28c840; border-color: #28c840; color: #04160c; }
+.status_sent { border-color: #a855f7; color: #d8b4fe; }
+.status_viewed { border-color: #14b8a6; color: #5eead4; }
+.status_changes_requested { border-color: #e63636; color: #ff8a8a; }
+
+/* Age pill: the number is the signal, color just reinforces it. */
+.age {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(40, 200, 64, 0.45);
+  font-size: 14px;
+  font-weight: 700;
+  color: #86efac;
+  white-space: nowrap;
+}
+.ageBuilt {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.age_amber { border-color: #F4C430; color: #F4C430; background: rgba(244, 196, 48, 0.12); }
+.age_red { border-color: #e63636; color: #fff; background: #e63636; }
+
+/* ---- live preview ---- */
+.previewBox {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  max-height: 420px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+}
+/* Render the demo at double the box width and scale it back to 50% so the
+   preview shows the desktop layout instead of the phone one. */
+.previewFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  border: 0;
+  background: #fff;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  /* The preview is a thumbnail: wheel scrolls the queue, not the demo, and
+     Tab never walks into it. "Open full screen" is the interactive path. */
+  pointer-events: none;
+}
+.previewEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  max-height: 420px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.previewCaption { margin: 6px 0 0; font-size: 11px; color: #6b7280; }
+
+/* ---- links block ---- */
+.links { display: flex; flex-direction: column; gap: 6px; margin: 0; }
+.linkRow {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.linkRow dt {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+.linkRow dd { display: flex; align-items: center; gap: 8px; min-width: 0; margin: 0; }
+.linkRow a {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #28c840;
+  text-decoration: none;
+}
+.linkRow a:hover { text-decoration: underline; }
+.code { font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: #fff; }
+.muted { color: #8a92a0; font-size: 12px; }
+
+/* ---- notes / draft / request-changes blocks ---- */
+.blockLabel {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #28c840;
+}
+.blockHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.blockHead .blockLabel { margin: 0; }
+
+.notes {
+  padding: 12px 14px;
+  background: #0b0d10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.notesChanges {
+  border-color: #e63636;
+  box-shadow: inset 0 0 0 1px rgba(230, 54, 54, 0.25);
+}
+.notesChanges .blockLabel { color: #ff8a8a; }
+.notesText {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #cbd2dc;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #e7e9ee;
+  background: #0b0d10;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+.textarea:focus { outline: none; border-color: #28c840; }
+.textarea[readonly] { color: #cbd2dc; }
+
+.changesBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(244, 196, 48, 0.45);
+  border-radius: 10px;
+  background: rgba(244, 196, 48, 0.04);
+}
+
+/* ---- timestamps ---- */
+.stamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin: 0;
+  font-size: 11px;
+  color: #6b7280;
+}
+.stampSep { margin: 0 7px; }
+
+/* ---- actions ---- */
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.primaryBtn {
+  font-family: inherit;
+  background: #28c840;
+  color: #04160c;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+.primaryBtn:hover { background: #22b338; }
+.primaryBtn:disabled { opacity: 0.55; cursor: default; }
+
+.secondaryBtn {
+  display: inline-block;
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #cbd2dc;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.secondaryBtn:hover { border-color: #fff; color: #fff; }
+.secondaryBtn:disabled { opacity: 0.55; cursor: default; }
+
+.textBtn {
+  margin-left: auto;
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+.textBtn:hover { color: #fca5a5; text-decoration: underline; }
+.textBtn:disabled { opacity: 0.55; cursor: default; text-decoration: none; }
+
+.copyBtn {
+  flex-shrink: 0;
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid rgba(40, 200, 64, 0.45);
+  color: #86efac;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.copyBtn:hover { background: rgba(40, 200, 64, 0.1); }
+.copyBtnDone { background: #28c840; border-color: #28c840; color: #04160c; }
+
+.busyTag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #9aa3af; }
+.cardError {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #fca5a5;
+  background: rgba(230, 54, 54, 0.08);
+  border: 1px solid rgba(230, 54, 54, 0.5);
+  border-radius: 10px;
+}
+
+.empty {
+  padding: 48px 20px;
+  text-align: center;
+  color: #8a92a0;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+}
+.emptyLink { color: #28c840; text-decoration: none; }
+.emptyLink:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .primaryBtn, .secondaryBtn, .copyBtn, .textBtn {
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+}

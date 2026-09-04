@@ -128,6 +128,7 @@ export default async function ClientsPage({
   return (
     <div className={styles.page}>
       <nav className={styles.topNav}>
+        <Link href="/admin/demos" className={styles.navLink}>Demos</Link>
         <span className={`${styles.navLink} ${styles.navLinkActive}`}>Clients</span>
         <Link href="/admin/accounting" className={styles.navLink}>Accounting</Link>
         <Link href="/admin/inquiries" className={styles.navLink}>Free Website Inquiries</Link>
@@ -169,20 +170,20 @@ export default async function ClientsPage({
 
       <nav className={styles.filterBar} aria-label="Filter by site status">
         <span className={styles.filterLabel}>Site status:</span>
-        <a
+        <Link
           className={`${styles.chip} ${!activeStatus ? styles.chipActive : ''}`}
           href="/admin/clients"
         >
           All ({counts.all})
-        </a>
+        </Link>
         {SITE_STATUSES.map((s) => (
-          <a
+          <Link
             key={s}
             className={`${styles.chip} ${activeStatus === s ? styles.chipActive : ''}`}
             href={`/admin/clients?status=${s}`}
           >
             {SITE_STATUS_LABELS[s]} ({counts[s] ?? 0})
-          </a>
+          </Link>
         ))}
       </nav>
 

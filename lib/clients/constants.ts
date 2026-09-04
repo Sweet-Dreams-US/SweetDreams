@@ -153,3 +153,147 @@ export function formatPriceCents(cents: number): string {
     })
   );
 }
+
+/* ------------------------------------------------------------------------ */
+/* Demo approval queue                                                      */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * A demo is not done when it deploys. It is done when the client has opened
+ * it. Every step between those two points is its own status with its own
+ * timestamp so /admin/demos can surface anything aging past 48 hours.
+ *
+ * Ladder (who moves it):
+ *   none -> building (Claude) -> ready_for_review (Claude: deployed, SSO off,
+ *   verified loading) -> approved (COLE, in /admin/demos only) -> sent
+ *   (Claude after sending, or the send-welcome route) -> viewed (welcome
+ *   page, when the client opens it). changes_requested is Cole's "not yet"
+ *   and loops back through ready_for_review.
+ *
+ * Claude never writes 'approved'. That is the whole point of the queue.
+ */
+export const DEMO_STATUSES = [
+  'none',
+  'building',
+  'ready_for_review',
+  'approved',
+  'sent',
+  'viewed',
+  'changes_requested',
+] as const;
+
+export type DemoStatus = (typeof DEMO_STATUSES)[number];
+
+export const DEMO_STATUS_LABELS: Record<DemoStatus, string> = {
+  none: 'No demo',
+  building: 'Building',
+  ready_for_review: 'Ready for review',
+  approved: 'Approved · queued to send',
+  sent: 'Sent',
+  viewed: 'Viewed by client',
+  changes_requested: 'Changes requested',
+};
+
+/** Statuses that appear on /admin/demos. */
+export const DEMO_QUEUE_STATUSES: readonly DemoStatus[] = [
+  'building',
+  'ready_for_review',
+  'approved',
+  'sent',
+  'changes_requested',
+];
+
+/** Statuses that mean Cole still has to look; drives the "N demos waiting on you" counter. */
+export const DEMO_WAITING_STATUSES: readonly DemoStatus[] = ['ready_for_review'];
+
+/** Age thresholds in whole days since demo_built_at. Past 2 days the close rate drops hard. */
+export const DEMO_AGE_AMBER_DAYS = 2;
+export const DEMO_AGE_RED_DAYS = 3;
+
+export type DemoAgeTone = 'ok' | 'amber' | 'red';
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * Whole days since builtAt (floor); null when builtAt is null/invalid.
+ * UTC millisecond math, so the answer never depends on the server's time
+ * zone, and never negative: a build stamped slightly in the future reads
+ * as 0 days. now defaults to new Date().
+ */
+export function demoAgeDays(
+  builtAtIso: string | null | undefined,
+  now: Date = new Date()
+): number | null {
+  if (!builtAtIso) return null;
+  const builtMs = new Date(builtAtIso).getTime();
+  const nowMs = now.getTime();
+  if (Number.isNaN(builtMs) || Number.isNaN(nowMs)) return null;
+  const days = Math.floor((nowMs - builtMs) / DAY_MS);
+  return days < 0 ? 0 : days;
+}
+
+/** null (no build date) reads as ok; the age pill says "no build date" instead. */
+export function demoAgeTone(days: number | null): DemoAgeTone {
+  if (days === null) return 'ok';
+  if (days >= DEMO_AGE_RED_DAYS) return 'red';
+  if (days >= DEMO_AGE_AMBER_DAYS) return 'amber';
+  return 'ok';
+}
+
+/**
+ * The "N demos waiting on you, oldest is X days" line. Pass the ages of the
+ * rows whose demo_status is in DEMO_WAITING_STATUSES. Rows with no build
+ * date still count as waiting; they just can never be the oldest.
+ */
+export function demoQueueCounter(waitingAges: Array<number | null>): {
+  count: number;
+  oldestDays: number | null;
+  red: boolean;
+} {
+  let oldestDays: number | null = null;
+  for (const age of waitingAges) {
+    if (age === null) continue;
+    if (oldestDays === null || age > oldestDays) oldestDays = age;
+  }
+  return {
+    count: waitingAges.length,
+    oldestDays,
+    red: oldestDays !== null && oldestDays >= DEMO_AGE_RED_DAYS,
+  };
+}
+
+/**
+ * Plain-text draft of the message that goes to the client with their demo
+ * link. Shown on the /admin/demos card with a Copy button so sending is one
+ * paste into an email or a text. No markdown; under ~90 words.
+ */
+export function buildDemoSendMessage(input: {
+  contactName: string;
+  businessName: string;
+  demoUrl: string;
+  adminUrl?: string | null;
+  passcode?: string | null;
+}): string {
+  const firstName = (input.contactName ?? '').trim().split(/\s+/)[0] || 'there';
+  const adminUrl = input.adminUrl?.trim() ?? '';
+  const passcode = input.passcode?.trim() ?? '';
+
+  const paragraphs: string[] = [
+    `Hi ${firstName},`,
+    `We built a free demo website for ${input.businessName} so you can see exactly what we would make for you.`,
+    input.demoUrl,
+  ];
+
+  if (adminUrl) {
+    const adminLines = [`Your demo admin panel: ${adminUrl}`];
+    if (passcode) adminLines.push(`Passcode: ${passcode}`);
+    paragraphs.push(adminLines.join('\n'));
+  }
+
+  paragraphs.push(
+    'Reply with anything you want changed. Once it is live, hosting is the only cost.',
+    'Cole\nSweet Dreams · sweetdreams.us'
+  );
+
+  return paragraphs.join('\n\n');
+}

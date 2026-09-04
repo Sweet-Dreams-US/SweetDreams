@@ -5,6 +5,11 @@
  * page leads straight into plan selection and agreement rendering, so the
  * numbers must be ready before the client ever sees the link. Resending
  * revokes old welcome links and mints a fresh one.
+ *
+ * Also stamps the demo approval queue: a send moves the site's demo_status
+ * to 'sent' (with demo_sent_at, and demo_approved_at if it was never set —
+ * clicking Send is the approval) unless the client has already opened it
+ * ('viewed'), which is never regressed.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -23,6 +28,7 @@ interface SiteRow {
   id: string;
   status: string;
   demo_url: string | null;
+  demo_approved_at: string | null;
   drive_url: string | null;
   build_price_cents: number;
   clients: {
@@ -53,7 +59,7 @@ export async function POST(request: NextRequest) {
   const { data, error } = await supabase
     .from('sites')
     .select(
-      'id, status, demo_url, drive_url, build_price_cents, clients (id, business_name, contact_name, email)'
+      'id, status, demo_url, demo_approved_at, drive_url, build_price_cents, clients (id, business_name, contact_name, email)'
     )
     .eq('id', body.site_id)
     .single();
@@ -119,6 +125,20 @@ export async function POST(request: NextRequest) {
     .update({ status: 'demo_sent', status_updated_at: new Date().toISOString() })
     .eq('id', site.id)
     .in('status', ['draft', 'demo_sent']);
+
+  // Demo approval queue: sending the invite is the "sent" rung, and Cole
+  // clicking Send is the approval, so an unset demo_approved_at is stamped
+  // too. Never regress a demo the client has already opened.
+  const sentAt = new Date().toISOString();
+  await supabase
+    .from('sites')
+    .update({
+      demo_status: 'sent',
+      demo_sent_at: sentAt,
+      demo_approved_at: site.demo_approved_at ?? sentAt,
+    })
+    .eq('id', site.id)
+    .neq('demo_status', 'viewed');
 
   const email = await sendEmail({
     to: client.email,

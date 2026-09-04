@@ -15,6 +15,7 @@
  * data shape will translate cleanly when that lands.
  */
 
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createServiceRoleClient } from '@/utils/supabase/service-role';
@@ -116,7 +117,23 @@ export default async function LeadsPage({
   return (
     <div className={styles.page}>
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, flexWrap: 'wrap' }}>
-        <a
+        <Link
+          href="/admin/demos"
+          style={{
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: '#04160c',
+            background: '#28c840',
+            textDecoration: 'none',
+            padding: '8px 14px',
+            borderRadius: 999,
+            fontWeight: 700,
+          }}
+        >
+          → Demos
+        </Link>
+        <Link
           href="/admin/inquiries"
           style={{
             fontSize: 12,
@@ -131,8 +148,8 @@ export default async function LeadsPage({
           }}
         >
           → Free Website Inquiries
-        </a>
-        <a
+        </Link>
+        <Link
           href="/admin/clients"
           style={{
             fontSize: 12,
@@ -147,7 +164,7 @@ export default async function LeadsPage({
           }}
         >
           → Clients
-        </a>
+        </Link>
       </div>
       <header className={styles.header}>
         <div>

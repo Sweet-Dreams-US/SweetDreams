@@ -36,6 +36,8 @@ interface WelcomeTokenRow {
     min_hosting_price_cents: number;
     update_hours_per_quarter: number | null;
     analytics_addon: boolean;
+    demo_status: string;
+    demo_first_viewed_at: string | null;
     clients: {
       business_name: string;
       contact_name: string;
@@ -56,7 +58,7 @@ export default async function WelcomePage({
   const { data } = await supabase
     .from('site_tokens')
     .select(
-      'id, expires_at, revoked_at, sites (id, name, status, demo_url, drive_url, hosting_price_cents, min_hosting_price_cents, update_hours_per_quarter, analytics_addon, clients (business_name, contact_name))'
+      'id, expires_at, revoked_at, sites (id, name, status, demo_url, drive_url, hosting_price_cents, min_hosting_price_cents, update_hours_per_quarter, analytics_addon, demo_status, demo_first_viewed_at, clients (business_name, contact_name))'
     )
     .eq('token_hash', hashToken(token))
     .eq('purpose', 'welcome')
@@ -87,6 +89,27 @@ export default async function WelcomePage({
     state = 'expired';
   } else {
     state = 'valid';
+  }
+
+  // Demo approval queue: the client opening this page is the "viewed" signal.
+  // Best-effort — a failed stamp must never break the render.
+  if (
+    state === 'valid' &&
+    site &&
+    (site.demo_status === 'sent' || site.demo_status === 'approved') &&
+    !site.demo_first_viewed_at
+  ) {
+    try {
+      const { error: viewErr } = await supabase
+        .from('sites')
+        .update({ demo_status: 'viewed', demo_first_viewed_at: new Date().toISOString() })
+        .eq('id', site.id)
+        .in('demo_status', ['sent', 'approved'])
+        .is('demo_first_viewed_at', null);
+      if (viewErr) console.error('welcome: demo viewed stamp failed', viewErr.message);
+    } catch (err) {
+      console.error('welcome: demo viewed stamp failed', err);
+    }
   }
 
   const firstName = client?.contact_name?.split(' ')[0] ?? '';

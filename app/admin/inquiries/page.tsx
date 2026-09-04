@@ -91,6 +91,7 @@ export default async function InquiriesPage({
   return (
     <div className={styles.page}>
       <nav className={styles.topNav}>
+        <Link href="/admin/demos" className={styles.navLink}>Demos</Link>
         <span className={`${styles.navLink} ${styles.navLinkActive}`}>Free Website Inquiries</span>
         <Link href="/admin/clients" className={styles.navLink}>Clients</Link>
         <Link href="/admin/leads" className={styles.navLink}>Leadpipe Visitors</Link>
