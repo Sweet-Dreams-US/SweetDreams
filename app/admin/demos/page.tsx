@@ -49,6 +49,7 @@ interface SiteRow {
   demo_first_viewed_at: string | null;
   demo_notes: string | null;
   vercel_project_id: string | null;
+  github_repo: string | null;
   clients: {
     id: string;
     business_name: string;
@@ -77,7 +78,7 @@ export default async function DemosPage({
   const { data, error } = await supabase
     .from('sites')
     .select(
-      'id, name, status, demo_url, demo_status, demo_admin_url, demo_passcode, demo_built_at, demo_approved_at, demo_sent_at, demo_first_viewed_at, demo_notes, vercel_project_id, clients (id, business_name, contact_name, email, phone)'
+      'id, name, status, demo_url, demo_status, demo_admin_url, demo_passcode, demo_built_at, demo_approved_at, demo_sent_at, demo_first_viewed_at, demo_notes, vercel_project_id, github_repo, clients (id, business_name, contact_name, email, phone)'
     )
     .in('demo_status', DEMO_QUEUE_STATUSES)
     .order('demo_built_at', { ascending: false, nullsFirst: false })
@@ -105,6 +106,7 @@ export default async function DemosPage({
       firstViewedAt: r.demo_first_viewed_at,
       notes: r.demo_notes,
       vercelProjectId: r.vercel_project_id,
+      githubRepo: r.github_repo,
       clientId: client?.id ?? null,
       businessName,
       contactName,
@@ -150,7 +152,12 @@ export default async function DemosPage({
       ? (params.status as DemoStatus)
       : null;
 
-  const rows = activeStatus ? all.filter((r) => r.demoStatus === activeStatus) : all;
+  // With no filter, demos sent back to the builder get their own section at
+  // the top and the rest is the queue. With a filter, one flat list as before.
+  const changesRows = all.filter((r) => r.demoStatus === 'changes_requested');
+  const otherRows = all.filter((r) => r.demoStatus !== 'changes_requested');
+  const showChanges = !activeStatus && changesRows.length > 0;
+  const rows = activeStatus ? all.filter((r) => r.demoStatus === activeStatus) : otherRows;
 
   return (
     <div className={shared.page}>
@@ -210,6 +217,8 @@ export default async function DemosPage({
         </p>
       </section>
 
+      {/* The chips are the page's only navigation, so they stay in one place
+          under the counter and "All (N)" visibly governs both sections below. */}
       <nav className={shared.filterBar} aria-label="Filter by demo status">
         <span className={shared.filterLabel}>Demo status:</span>
         <Link
@@ -231,6 +240,33 @@ export default async function DemosPage({
 
       {error ? (
         <div className={shared.errorBox}>DB error: {error.message}</div>
+      ) : showChanges ? (
+        <>
+          <section
+            className={`${styles.section} ${styles.sectionChanges}`}
+            aria-labelledby="demos-changes-heading"
+          >
+            <h2 id="demos-changes-heading" className={styles.sectionKicker}>
+              Changes requested · waiting on the builder
+            </h2>
+            <p className={styles.sectionSub}>
+              Open the demo&rsquo;s folder, run Prompt C, redeploy, then it comes back as
+              Ready for review.
+            </p>
+            <DemoQueue rows={changesRows} />
+          </section>
+
+          <section className={styles.section} aria-labelledby="demos-queue-heading">
+            <h2 id="demos-queue-heading" className={styles.sectionKicker}>
+              Queue
+            </h2>
+            <DemoQueue
+              rows={rows}
+              activeStatus={activeStatus}
+              emptyText="Nothing else in the queue."
+            />
+          </section>
+        </>
       ) : (
         <DemoQueue rows={rows} activeStatus={activeStatus} />
       )}

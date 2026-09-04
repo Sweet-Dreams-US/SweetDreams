@@ -18,14 +18,15 @@ import {
 import { renderAgreement } from './render';
 import { mintToken, SIGN_TOKEN_TTL_MS } from './tokens';
 import {
+  BUSINESS_TZ,
   analyticsIncludedAtPrice,
   formatPriceCents,
 } from '@/lib/clients/constants';
 import { sendEmail } from '@/lib/emails/send';
 import AgreementInvite from '@/lib/emails/agreement-invite';
 
-/** Fort Wayne is Eastern time. */
-export const BUSINESS_TZ = 'America/Indiana/Indianapolis';
+/** Fort Wayne is Eastern time. Defined in lib/clients/constants; re-exported for existing callers. */
+export { BUSINESS_TZ };
 
 export function anchorDayDisplay(day: number): '1st' | '15th' {
   return day === 15 ? '15th' : '1st';

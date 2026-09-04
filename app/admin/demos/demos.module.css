@@ -246,13 +246,34 @@ a.biz:hover { color: #28c840; }
   box-shadow: inset 0 0 0 1px rgba(230, 54, 54, 0.25);
 }
 .notesChanges .blockLabel { color: #ff8a8a; }
+/* demo_notes is a running history (every request + approval, timestamped),
+   shown newest entry first so the open ask is at the top of the box. Line
+   breaks are kept and a long one scrolls instead of eating the card; the box
+   is focusable so a keyboard user can scroll it too. */
 .notesText {
   margin: 0;
+  max-height: 14rem;
+  overflow: auto;
   font-size: 12px;
   line-height: 1.55;
   color: #cbd2dc;
   white-space: pre-wrap;
   word-break: break-word;
+}
+.notesText:focus-visible { outline: 1px solid #28c840; outline-offset: 3px; border-radius: 4px; }
+.notesEntry { margin: 0 0 10px; }
+.notesEntry:last-child { margin-bottom: 0; }
+/* The open request: white text under a red "Open request" eyebrow. */
+.notesEntryOpen { color: #fff; }
+.notesEyebrow {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff8a8a;
+  white-space: normal;
 }
 
 .textarea {
@@ -386,3 +407,58 @@ a.biz:hover { color: #28c840; }
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 }
+
+/* ---- page sections: "Changes requested" on top, then "Queue" ---- */
+.section { margin: 0 0 26px; }
+/* Same block treatment as the counter banner, in red, so the "waiting on the
+   builder" zone reads as a zone and not as more cards. */
+.sectionChanges {
+  padding: 16px 18px;
+  border-left: 6px solid rgba(230, 54, 54, 0.6);
+  border-radius: 14px;
+  background: rgba(230, 54, 54, 0.04);
+}
+/* Same voice as the page kicker in clients.module.css, on an h2. */
+.sectionKicker {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #28c840;
+}
+.sectionChanges .sectionKicker { margin-bottom: 4px; color: #ff8a8a; }
+.sectionSub { margin: 0 0 14px; font-size: 12px; color: #9aa3af; max-width: 62ch; }
+
+/* "(assumed)" next to an admin link we guessed from the demo URL. */
+.assumed {
+  flex-shrink: 0;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* ---- repo row: owner/repo as plain text plus the local folder hint ---- */
+.repoRow { align-items: flex-start; }
+.repoRow dt { padding-top: 3px; }
+.linkRow .repoCell {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.repoLine { display: flex; align-items: center; gap: 8px; min-width: 0; max-width: 100%; }
+.repo {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #fff;
+}
+.hint { font-size: 11px; color: #6b7280; overflow-wrap: anywhere; }
+/* "not set · add it on the client page": a link inside muted text. */
+.linkRow .hintLink { color: #28c840; text-decoration: none; white-space: normal; }
+.linkRow .hintLink:hover { text-decoration: underline; }

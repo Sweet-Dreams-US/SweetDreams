@@ -5,6 +5,13 @@
  * Route files must only export handlers, so shared constants live here.
  */
 
+/**
+ * Fort Wayne is Eastern time. Lives here (dependency-free) so client
+ * components can import it without pulling the email send path in;
+ * lib/agreements/service re-exports it for its existing callers.
+ */
+export const BUSINESS_TZ = 'America/Indiana/Indianapolis';
+
 export const SITE_STATUSES = [
   'draft',
   'demo_sent',
@@ -193,6 +200,13 @@ export const DEMO_STATUS_LABELS: Record<DemoStatus, string> = {
   viewed: 'Viewed by client',
   changes_requested: 'Changes requested',
 };
+
+/**
+ * What the /admin/demos card can ask /api/admin/demos/update to do. The body
+ * never carries a raw demo_status; the route maps each action to one.
+ */
+export const DEMO_ACTIONS = ['approve', 'request_changes', 'dismiss'] as const;
+export type DemoAction = (typeof DEMO_ACTIONS)[number];
 
 /** Statuses that appear on /admin/demos. */
 export const DEMO_QUEUE_STATUSES: readonly DemoStatus[] = [
